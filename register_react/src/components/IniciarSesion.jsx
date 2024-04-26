@@ -4,8 +4,8 @@ const IniciarSesion = () => {
     const {} = useForm();
     return (
         <form>
-            <div className="mt-12 mb-12 lg:mb-24 lg:mt-24 h-full bg-red-100">
-                <div className="flex h-full items-center justify-center lg:p-24">
+            <div className="bg-red-100">
+                <div className="flex items-center justify-center lg:pt-6 lg:pb-12">
                     <div className="md:mb-0 md:w-8/12 lg:w-5/12 bg-white lg:p-24 m-6 p-12 rounded-lg shadow-xl">
                         <div className="mb-5">
                             <label className="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Correo eléctronico</label>
@@ -30,6 +30,9 @@ const IniciarSesion = () => {
                                 <img className="w-4 h-4 me-2" src="https://upload.wikimedia.org/wikipedia/commons/thumb/c/c1/Google_%22G%22_logo.svg/768px-Google_%22G%22_logo.svg.png"></img>
                                 Iniciar sesión con Google
                             </button>
+                        </div>
+                        <div className="mb-5 flex justify-center">
+                            <label className="block text-sm font-medium text-gray-900 dark:text-white">¿No tienes una cuenta? <a href="" className="text-gray-500 ">Regístrate</a></label>
                         </div>
                     </div>
                 </div>
