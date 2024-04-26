@@ -6,11 +6,8 @@ import Registro from './components/Registro';
 
 function App() {
   return (
-
-
-    <div className="px-24">
+    <div className="">
       <Registro />
-      <IniciarSesion />
     </div>
   );
 }
