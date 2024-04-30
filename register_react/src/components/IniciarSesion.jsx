@@ -4,8 +4,8 @@ const IniciarSesion = () => {
     const {} = useForm();
     return (
         <form>
-            <div className="bg-red-100">
-                <div className="flex items-center justify-center lg:pt-6 lg:pb-12">
+            <div className="bg-red-100 h-full">
+                <div className="flex items-center justify-center lg:pt-6 lg:pb-12 h-full">
                     <div className="md:mb-0 md:w-8/12 lg:w-5/12 bg-white lg:p-24 m-6 p-12 rounded-lg shadow-xl">
                         <div className="mb-5">
                             <label className="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Correo eléctronico</label>
