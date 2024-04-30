@@ -4,8 +4,8 @@ const IniciarSesion = () => {
     const {} = useForm();
     return (
         <form>
-            <div className="bg-red-100 h-full">
-                <div className="flex items-center justify-center lg:pt-6 lg:pb-12 h-full">
+            <div className="mt-12 lg:mt-24 bg-[#FCE6D8]">
+                <div className="flex items-center justify-center py-4 lg:pt-6 lg:pb-12">
                     <div className="md:mb-0 md:w-8/12 lg:w-5/12 bg-white lg:p-24 m-6 p-12 rounded-lg shadow-xl">
                         <div className="mb-5">
                             <label className="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Correo eléctronico</label>
@@ -26,7 +26,7 @@ const IniciarSesion = () => {
                             </p>
                         </div>
                         <div className="mb-5">
-                            <button type="button" className="flex justify-center w-full text-gray-400 bg-white border border-gray-400 hover:bg-gray-300 hover:text-gray-500 focus:ring-4 focus:outline-none focus:ring-[#4285F4]/50 font-medium rounded-lg text-sm px-5 py-2.5 inline-flex items-center dark:focus:ring-[#4285F4]/55 me-2 mb-2">
+                            <button type="button" className="flex justify-center w-full text-gray-400 bg-white border border-gray-400 hover:bg-gray-500 hover:text-gray-800 focus:ring-4 focus:outline-none focus:ring-[#4285F4]/50 font-medium rounded-lg text-sm px-5 py-2.5 inline-flex items-center dark:focus:ring-[#4285F4]/55 me-2 mb-2">
                                 <img className="w-4 h-4 me-2" src="https://upload.wikimedia.org/wikipedia/commons/thumb/c/c1/Google_%22G%22_logo.svg/768px-Google_%22G%22_logo.svg.png"></img>
                                 Iniciar sesión con Google
                             </button>

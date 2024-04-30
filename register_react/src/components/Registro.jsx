@@ -12,7 +12,7 @@ const Registro = () => {
     return (
         
     <form onSubmit={handleSubmit(onSubmit)}>
-        <div className="mt-12 lg:mt-24 bg-red-100 bg-[url('bg-20.png')]">
+        <div className="mt-12 lg:mt-24 bg-[#FCE6D8]">
             <div className="flex items-center justify-center py-4 lg:pt-6 lg:pb-12">
                 <div className="md:mb-0 md:w-8/12 lg:w-5/12 bg-white m-6 py-12 px-16 rounded-lg shadow-xl">
                     <div className="mb-8">
