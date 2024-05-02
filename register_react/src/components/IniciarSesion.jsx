@@ -1,4 +1,5 @@
-import { useForm } from "react-hook-form"
+import { useForm } from "react-hook-form";
+import logo from "../images/logo-color.png";
 
 const IniciarSesion = () => {
     const {} = useForm();
@@ -7,6 +8,9 @@ const IniciarSesion = () => {
             <div className="mt-12 lg:mt-24 bg-[#FCE6D8]">
                 <div className="flex items-center justify-center py-4 lg:pt-6 lg:pb-12">
                     <div className="md:mb-0 md:w-8/12 lg:w-5/12 bg-white lg:p-24 m-6 p-12 rounded-lg shadow-xl">
+                        <div className="flex mb-8 justify-center">
+                            <img src={logo} className="w-24" alt="Logo" />
+                        </div>
                         <div className="mb-5">
                             <label className="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Correo eléctronico</label>
                             <input type="text" className="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-yellow-600 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"/>

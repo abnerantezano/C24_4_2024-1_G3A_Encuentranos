@@ -9,6 +9,7 @@ import org.springframework.web.bind.annotation.*;
 import com.proyecto.encuentranos.modelos.ServicioPrestadorModelo;
 import com.proyecto.encuentranos.servicios.ServicioPrestadorServicio;
 
+@CrossOrigin(origins = "http://localhost:3000/")
 @RestController
 @RequestMapping("/servicio-prestador")
 public class ServicioPrestadorControlador {
