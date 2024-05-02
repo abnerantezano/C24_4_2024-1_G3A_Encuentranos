@@ -1,9 +1,11 @@
 import React, { useEffect, useState } from "react";
 import UsuarioService from "../services/UsuarioService";
 import { useNavigate } from "react-router-dom";
+import TipoUsuarioService from "../services/TipoUsuarioService";
 
 export const Crud = () => {
     const [usuarios, setUsuarios] = useState([]);
+    const [tipoUsuarios, setTipoUsuarios] = useState([]);
 
     const [correo,setCorreo] = useState('');
     const [contraseña,setContraseña] = useState('');
@@ -16,20 +18,27 @@ export const Crud = () => {
         const usuario = {idTipo,correo,contraseña};
         UsuarioService.addUser(usuario).then((response) => {
             console.log(response.data);
-            navigate('/');
+            navigate('/formulario');
         }).catch(error => {
             console.error(error);
         })
     }
 
-    const tiposDeUsuario = [
-        { id: 1, nombre: 'Cliente' },
-    ];
-
     useEffect(() => {
         UsuarioService.getAll()
             .then(response => {
                 setUsuarios(response);
+            })
+            .catch(error => {
+                console.log(error);
+            });
+    }, []); 
+
+    
+    useEffect(() => {
+        TipoUsuarioService.getAll()
+            .then(response => {
+                setTipoUsuarios(response);
             })
             .catch(error => {
                 console.log(error);
@@ -43,13 +52,15 @@ export const Crud = () => {
                     <div className="card">
                         <form action="">
                             <div>
-                                <label > Tipo de usuario (Codigo) </label>
-                                <select value={idTipo.id} onChange={(e) => setIdTipo(e.target.value )}>
+                            <label > Tipo de usuario (Codigo) </label>
+                                <select value={idTipo.id} onChange={(e) => setIdTipo({ ...idTipo, id: e.target.value })}>
                                     <option value="">Seleccionar tipo de usuario</option>
-
-                                    {tiposDeUsuario.map((tipo) => (
-                                        <option key={tipo.id} value={tipo.id}>{tipo.nombre}</option>
-                                    ))}
+                                    
+                                    {
+                                        tipoUsuarios.map(tipoUsuario => (
+                                            <option key={tipoUsuario.id} value={tipoUsuario.id}>{tipoUsuario.nombre}</option>
+                                    ))
+                                    }
 
                                 </select>
                             </div>

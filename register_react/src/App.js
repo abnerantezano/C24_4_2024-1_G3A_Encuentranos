@@ -16,13 +16,11 @@ function App() {
         <div className='container'>
           <Routes>
             <Route exact path='/' element={<Crud />} />
+            <Route exact path='/formulario' element={<Formulario />} />
           </Routes>
         </div>
         <Footer />
       </Router>
-
-      <Formulario />
-      <IniciarSesion />
 
     </div>
   );

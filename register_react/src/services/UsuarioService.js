@@ -12,6 +12,7 @@ class UsuarioService {
         return axios.post(this.baseUrl + '/agregar', nuevoUsuario)
             .then(res => res.data);
     }
+    
 }
 
 export default new UsuarioService();
