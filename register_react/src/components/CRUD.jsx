@@ -24,26 +24,40 @@ export const Crud = () => {
         })
     }
 
-    useEffect(() => {
-        UsuarioService.getAll()
-            .then(response => {
-                setUsuarios(response);
-            })
-            .catch(error => {
-                console.log(error);
-            });
-    }, []); 
+    
+    //useEffect(() => {
+        //UsuarioService.getAll()
+            //.then(response => {
+               // setUsuarios(response);
+            //})
+            //.catch(error => {
+                //console.log(error);
+            //});
+    //}, []); 
 
     
+    //useEffect(() => {
+        //TipoUsuarioService.getAll()
+            //.then(response => {
+                //setTipoUsuarios(response);
+            //})
+            //.catch(error => {
+                //console.log(error);
+            //});
+    //}, []); 
+
+    //ORDENADO
+
     useEffect(() => {
-        TipoUsuarioService.getAll()
-            .then(response => {
-                setTipoUsuarios(response);
+        Promise.all([UsuarioService.getAll(), TipoUsuarioService.getAll()])
+            .then(([usuariosResponse, tiposUsuarioResponse]) => {
+                setUsuarios(usuariosResponse);
+                setTipoUsuarios(tiposUsuarioResponse);
             })
             .catch(error => {
-                console.log(error);
+                console.error(error);
             });
-    }, []); 
+    }, []);
 
     return (
         <div className="p-5 relative overflow-x-auto">
