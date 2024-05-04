@@ -18,7 +18,7 @@ function App() {
           <div className=''>
             <Routes>
               <Route exact path='/' element={<Index />} />
-              <Route exact path='/iniciarsesion' element={<IniciarSesion />} />
+              <Route exact path='/IniciarSesion' element={<IniciarSesion />} />
               <Route exact path='/formulario' element={<Formulario />} />
             </Routes>
           </div>
