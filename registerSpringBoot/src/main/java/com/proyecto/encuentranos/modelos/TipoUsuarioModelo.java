@@ -19,7 +19,14 @@ public class TipoUsuarioModelo {
 	@NotEmpty
 	@Column(name = "nombre")
 	private String nombre;
-
+	
+    public TipoUsuarioModelo() {
+    }
+    
+    public TipoUsuarioModelo(Long id) {
+        this.id = id;
+    }
+    
 	public Long getId() {
 		return id;
 	}
@@ -34,6 +41,11 @@ public class TipoUsuarioModelo {
 
 	public void setNombre(String nombre) {
 		this.nombre = nombre;
+	}
+
+	public TipoUsuarioModelo orElse(Object object) {
+		// TODO Auto-generated method stub
+		return null;
 	}
 	
 	

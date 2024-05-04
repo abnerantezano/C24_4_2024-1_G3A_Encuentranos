@@ -1,0 +1,18 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+	<title>Spring Security - OAuth2 Login</title>
+</head>
+<body>
+<h1>Endpoints</h1>
+<h2>Private</h2>
+<ul>
+	<li><a th:href="@{/messages}">Ser cliente</a></li>
+</ul>
+
+<h2>Public</h2>
+<ul>
+	<li><a th:href="@{/messages(proveedor=true)}">Ser Proveedor</a></li>
+</ul>
+</body>
+</html>

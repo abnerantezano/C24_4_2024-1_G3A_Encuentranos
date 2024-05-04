@@ -29,15 +29,17 @@ public class ProveedorServicio {
         	proveedorExistente.setNombre(proovedorActualizado.getNombre());
         	proveedorExistente.setApellidoPaterno(proovedorActualizado.getApellidoPaterno());
         	proveedorExistente.setApellidoMaterno(proovedorActualizado.getApellidoMaterno());
+        	proveedorExistente.setFechaNacimiento(proovedorActualizado.getFechaNacimiento());
         	proveedorExistente.setDni(proovedorActualizado.getDni());
         	proveedorExistente.setCelular(proovedorActualizado.getCelular());
+        	proveedorExistente.setImagenUrl(proovedorActualizado.getImagenUrl());
         	proveedorExistente.setRegion(proovedorActualizado.getRegion());
         	proveedorExistente.setProvincia(proovedorActualizado.getProvincia());
         	proveedorExistente.setDistrito(proovedorActualizado.getDistrito());
 
             // Actualizar correo y contraseña del usuario
         	proveedorExistente.getIdUsuario().setCorreo(proovedorActualizado.getIdUsuario().getCorreo());
-        	proveedorExistente.getIdUsuario().setContraseña(proovedorActualizado.getIdUsuario().getContraseña());
+        	proveedorExistente.getIdUsuario().setContrasena(proovedorActualizado.getIdUsuario().getContrasena());
 
             // Guardar el proveedor actualizado
         	proveedorExistente = proveedorRepositorio.save(proveedorExistente);

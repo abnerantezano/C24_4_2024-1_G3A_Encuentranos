@@ -11,11 +11,12 @@ import jakarta.persistence.Table;
 import jakarta.validation.constraints.NotNull;
 
 @Entity
-@Table(name="servicio_prestador")
+@Table(name="servicio_proveedor")
 public class ServicioPrestadorModelo {
 	
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
+	@Column( name = "id_servicio_proveedor")
 	private Long id;
 	
 	@ManyToOne

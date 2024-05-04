@@ -1,5 +1,7 @@
 package com.proyecto.encuentranos.modelos;
 
+import java.time.LocalDate;
+
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
@@ -38,9 +40,16 @@ public class ProveedorModelo {
 	@Column(name = "dni")
 	private String dni;
 	
+	@Column(name= "fecha_nacimiento")
+	private LocalDate fechaNacimiento;
+	
 	@NotEmpty
 	@Column(name = "celular")
 	private String celular;
+	
+	@NotEmpty
+	@Column(name = "imagen_url")
+	private String imagenUrl;
 	
 	@NotEmpty
 	@Column(name = "region")
@@ -102,12 +111,28 @@ public class ProveedorModelo {
 		this.dni = dni;
 	}
 
+	public LocalDate getFechaNacimiento() {
+		return fechaNacimiento;
+	}
+
+	public void setFechaNacimiento(LocalDate fechaNacimiento) {
+		this.fechaNacimiento = fechaNacimiento;
+	}
+
 	public String getCelular() {
 		return celular;
 	}
 
 	public void setCelular(String celular) {
 		this.celular = celular;
+	}
+
+	public String getImagenUrl() {
+		return imagenUrl;
+	}
+
+	public void setImagenUrl(String imagenUrl) {
+		this.imagenUrl = imagenUrl;
 	}
 
 	public String getRegion() {
@@ -133,6 +158,6 @@ public class ProveedorModelo {
 	public void setDistrito(String distrito) {
 		this.distrito = distrito;
 	}
-	
+
 	
 }

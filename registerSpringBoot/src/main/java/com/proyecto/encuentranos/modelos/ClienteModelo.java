@@ -1,5 +1,7 @@
 package com.proyecto.encuentranos.modelos;
 
+import java.time.LocalDate;
+
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
@@ -35,12 +37,23 @@ public class ClienteModelo {
 	private String apellidoMaterno;
 	
 	@NotEmpty
+	@Column(name = "sexo")
+	private String sexo;
+	
+	@NotEmpty
 	@Column(name = "dni")
 	private String dni;
+	
+	@Column(name= "fecha_nacimiento")
+	private LocalDate fechaNacimiento;
 	
 	@NotEmpty
 	@Column(name = "celular")
 	private String celular;
+	
+	@NotEmpty
+	@Column(name = "imagen_url")
+	private String imagenUrl;
 	
 	@NotEmpty
 	@Column(name = "region")
@@ -94,6 +107,14 @@ public class ClienteModelo {
 		this.apellidoMaterno = apellidoMaterno;
 	}
 
+	public String getSexo() {
+		return sexo;
+	}
+
+	public void setSexo(String sexo) {
+		this.sexo = sexo;
+	}
+
 	public String getDni() {
 		return dni;
 	}
@@ -102,12 +123,28 @@ public class ClienteModelo {
 		this.dni = dni;
 	}
 
+	public LocalDate getFechaNacimiento() {
+		return fechaNacimiento;
+	}
+
+	public void setFechaNacimiento(LocalDate fechaNacimiento) {
+		this.fechaNacimiento = fechaNacimiento;
+	}
+
 	public String getCelular() {
 		return celular;
 	}
 
 	public void setCelular(String celular) {
 		this.celular = celular;
+	}
+
+	public String getImagenUrl() {
+		return imagenUrl;
+	}
+
+	public void setImagenUrl(String imagenUrl) {
+		this.imagenUrl = imagenUrl;
 	}
 
 	public String getRegion() {
@@ -133,6 +170,6 @@ public class ClienteModelo {
 	public void setDistrito(String distrito) {
 		this.distrito = distrito;
 	}
-	
+
 	
 }

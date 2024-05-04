@@ -35,15 +35,18 @@ public class ClienteServicio {
         	clienteExistente.setNombre(clienteActualizado.getNombre());
         	clienteExistente.setApellidoPaterno(clienteActualizado.getApellidoPaterno());
         	clienteExistente.setApellidoMaterno(clienteActualizado.getApellidoMaterno());
+        	clienteExistente.setFechaNacimiento(clienteActualizado.getFechaNacimiento());
         	clienteExistente.setDni(clienteActualizado.getDni());
+        	clienteExistente.setSexo(clienteActualizado.getSexo());
         	clienteExistente.setCelular(clienteActualizado.getCelular());
+        	clienteExistente.setImagenUrl(clienteActualizado.getImagenUrl());
         	clienteExistente.setRegion(clienteActualizado.getRegion());
         	clienteExistente.setProvincia(clienteActualizado.getProvincia());
         	clienteExistente.setDistrito(clienteActualizado.getDistrito());
 
             // Actualizar correo y contraseña del usuario
         	clienteExistente.getIdUsuario().setCorreo(clienteActualizado.getIdUsuario().getCorreo());
-        	clienteExistente.getIdUsuario().setContraseña(clienteActualizado.getIdUsuario().getContraseña());
+        	clienteExistente.getIdUsuario().setContrasena(clienteActualizado.getIdUsuario().getContrasena());
 
             // Guardar el cliente actualizado
             clienteExistente = clienteRepositorio.save(clienteExistente);
