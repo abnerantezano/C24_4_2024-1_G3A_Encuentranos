@@ -1,10 +1,10 @@
 <!DOCTYPE html>
 <html xmlns:th="http://www.thymeleaf.org">
 <head>
-    <title>Formulario de Registro de Usuario</title>
+    <title>Formulario de Registro de Proveedor</title>
 </head>
 <body>
-    <h1>Formulario de Registro de Usuario</h1>
+    <h1>Formulario de Registro de Proveedor</h1>
     <form th:action="@{/agregar-usuario}" method="post">
         <input type="hidden" name="tipoUsuarioId" th:value="${usuario.idTipo.id}" />
         <p>
@@ -22,49 +22,49 @@
         </p>
         <p>
             <label>Nombre: </label>
-            <input type="text" th:field="*{cliente.nombre}" required />
+            <input type="text" th:field="*{proveedor.nombre}" required />
         </p>
         <p>
             <label>Apellido Paterno: </label>
-            <input type="text" th:field="*{cliente.apellidoPaterno}" required />
+            <input type="text" th:field="*{proveedor.apellidoPaterno}" required />
         </p>
         <p>
             <label>Apellido Materno: </label>
-            <input type="text" th:field="*{cliente.apellidoMaterno}" required />
+            <input type="text" th:field="*{proveedor.apellidoMaterno}" required />
         </p>
         <p>
             <label>Sexo: </label>
-            <input type="text" th:field="*{cliente.sexo}" required />
+            <input type="text" th:field="*{proveedor.sexo}" required />
         </p>
         <p>
             <label>DNI: </label>
-            <input type="text" th:field="*{cliente.dni}" required />
+            <input type="text" th:field="*{proveedor.dni}" required />
         </p>
         <p>
             <label>Fecha de Nacimiento: </label>
-            <input type="date" th:field="*{cliente.fechaNacimiento}" required />
+            <input type="date" th:field="*{proveedor.fechaNacimiento}" required />
         </p>
         <p>
             <label>Celular: </label>
-            <input type="text" th:field="*{cliente.celular}" required />
+            <input type="text" th:field="*{proveedor.celular}" required />
         </p>
         <p>
             <label>Imagen URL: </label>
-            <input type="text" th:field="*{cliente.imagenUrl}" required />
+            <input type="text" th:field="*{proveedor.imagenUrl}" required />
         </p>
         <p>
             <label>departamento: </label>
-            <input type="text" th:field="*{cliente.departamento}" required />
+            <input type="text" th:field="*{proveedor.departamento}" required />
         </p>
         <p>
             <label>Provincia: </label>
-            <input type="text" th:field="*{cliente.provincia}" required />
+            <input type="text" th:field="*{proveedor.provincia}" required />
         </p>
         <p>
             <label>Distrito: </label>
-            <input type="text" th:field="*{cliente.distrito}" required />
+            <input type="text" th:field="*{proveedor.distrito}" required />
         </p>
-        <button type="submit">Guardar Usuario</button>
+        <button type="submit">Guardar Proveedor</button>
     </form>
 </body>
 </html>

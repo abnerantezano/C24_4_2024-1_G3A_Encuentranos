@@ -1,4 +1,4 @@
-package com.proyecto.encuentranos.auth.controllers;
+package com.proyecto.encuentranos.controladores;
 
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.GetMapping;

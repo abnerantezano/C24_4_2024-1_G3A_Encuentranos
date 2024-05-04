@@ -1,10 +1,10 @@
 <!DOCTYPE html>
 <html xmlns:th="http://www.thymeleaf.org">
 <head>
-    <title>Formulario de Registro de Usuario</title>
+    <title>Formulario de Registro de Cliente</title>
 </head>
 <body>
-    <h1>Formulario de Registro de Usuario</h1>
+    <h1>Formulario de Registro de Cliente</h1>
     <form th:action="@{/agregar-usuario}" method="post">
         <input type="hidden" name="tipoUsuarioId" th:value="${usuario.idTipo.id}" />
         <p>
@@ -64,7 +64,7 @@
             <label>Distrito: </label>
             <input type="text" th:field="*{cliente.distrito}" required />
         </p>
-        <button type="submit">Guardar Usuario</button>
+        <button type="submit">Guardar Cliente</button>
     </form>
 </body>
 </html>

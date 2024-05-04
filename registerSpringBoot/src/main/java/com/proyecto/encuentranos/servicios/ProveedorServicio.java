@@ -29,11 +29,12 @@ public class ProveedorServicio {
         	proveedorExistente.setNombre(proovedorActualizado.getNombre());
         	proveedorExistente.setApellidoPaterno(proovedorActualizado.getApellidoPaterno());
         	proveedorExistente.setApellidoMaterno(proovedorActualizado.getApellidoMaterno());
+        	proveedorExistente.setSexo(proovedorActualizado.getSexo());
         	proveedorExistente.setFechaNacimiento(proovedorActualizado.getFechaNacimiento());
         	proveedorExistente.setDni(proovedorActualizado.getDni());
         	proveedorExistente.setCelular(proovedorActualizado.getCelular());
         	proveedorExistente.setImagenUrl(proovedorActualizado.getImagenUrl());
-        	proveedorExistente.setRegion(proovedorActualizado.getRegion());
+        	proveedorExistente.setDepartamento(proovedorActualizado.getDepartamento());
         	proveedorExistente.setProvincia(proovedorActualizado.getProvincia());
         	proveedorExistente.setDistrito(proovedorActualizado.getDistrito());
 

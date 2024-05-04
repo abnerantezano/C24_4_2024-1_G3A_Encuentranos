@@ -40,7 +40,7 @@ public class ClienteServicio {
         	clienteExistente.setSexo(clienteActualizado.getSexo());
         	clienteExistente.setCelular(clienteActualizado.getCelular());
         	clienteExistente.setImagenUrl(clienteActualizado.getImagenUrl());
-        	clienteExistente.setRegion(clienteActualizado.getRegion());
+        	clienteExistente.setDepartamento(clienteActualizado.getDepartamento());
         	clienteExistente.setProvincia(clienteActualizado.getProvincia());
         	clienteExistente.setDistrito(clienteActualizado.getDistrito());
 

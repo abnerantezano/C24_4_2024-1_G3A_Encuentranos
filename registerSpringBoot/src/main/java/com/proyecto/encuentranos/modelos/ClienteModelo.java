@@ -56,8 +56,8 @@ public class ClienteModelo {
 	private String imagenUrl;
 	
 	@NotEmpty
-	@Column(name = "region")
-	private String region;
+	@Column(name = "departamento")
+	private String departamento;
 	
 	@NotEmpty
 	@Column(name = "provincia")
@@ -147,12 +147,12 @@ public class ClienteModelo {
 		this.imagenUrl = imagenUrl;
 	}
 
-	public String getRegion() {
-		return region;
+	public String getDepartamento() {
+		return departamento;
 	}
 
-	public void setRegion(String region) {
-		this.region = region;
+	public void setDepartamento(String departamento) {
+		this.departamento = departamento;
 	}
 
 	public String getProvincia() {

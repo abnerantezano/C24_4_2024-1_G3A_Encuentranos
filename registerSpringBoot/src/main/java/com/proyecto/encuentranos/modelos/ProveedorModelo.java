@@ -37,6 +37,10 @@ public class ProveedorModelo {
 	private String apellidoMaterno;
 	
 	@NotEmpty
+	@Column(name = "sexo")
+	private String sexo;
+	
+	@NotEmpty
 	@Column(name = "dni")
 	private String dni;
 	
@@ -52,8 +56,8 @@ public class ProveedorModelo {
 	private String imagenUrl;
 	
 	@NotEmpty
-	@Column(name = "region")
-	private String region;
+	@Column(name = "departamento")
+	private String departamento;
 	
 	@NotEmpty
 	@Column(name = "provincia")
@@ -103,6 +107,15 @@ public class ProveedorModelo {
 		this.apellidoMaterno = apellidoMaterno;
 	}
 
+	
+	public String getSexo() {
+		return sexo;
+	}
+
+	public void setSexo(String sexo) {
+		this.sexo = sexo;
+	}
+
 	public String getDni() {
 		return dni;
 	}
@@ -135,12 +148,12 @@ public class ProveedorModelo {
 		this.imagenUrl = imagenUrl;
 	}
 
-	public String getRegion() {
-		return region;
+	public String getDepartamento() {
+		return departamento;
 	}
 
-	public void setRegion(String region) {
-		this.region = region;
+	public void setDepartamento(String departamento) {
+		this.departamento = departamento;
 	}
 
 	public String getProvincia() {
