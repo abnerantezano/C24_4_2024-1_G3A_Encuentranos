@@ -10,7 +10,7 @@ import com.proyecto.encuentranos.modelos.UsuarioModelo;
 import com.proyecto.encuentranos.modelos.ClienteModelo;
 import com.proyecto.encuentranos.servicios.ClienteServicio;
 import com.proyecto.encuentranos.servicios.UsuarioServicio;
-
+@CrossOrigin(origins = "http://localhost:3000/")
 @Controller
 @RequestMapping("/usuario")
 public class UsuarioControlador {

@@ -5,7 +5,7 @@
 </head>
 <body>
     <h1>Formulario de Registro de Cliente</h1>
-    <form th:action="@{/agregar-usuario}" method="post">
+    <form th:action="@{/login/agregar-usuario}" method="post">
         <input type="hidden" name="tipoUsuarioId" th:value="${usuario.idTipo.id}" />
         <p>
             <label>Correo electrónico: </label>
