@@ -1,6 +1,5 @@
 import { useForm } from "react-hook-form";
 import logo from "../images/logo-color.png";
-import { useState } from "react";
 
 const Formulario = () => {
 
@@ -13,7 +12,7 @@ const Formulario = () => {
     return (
         
     <form onSubmit={handleSubmit(onSubmit)}>
-        <div className="bg-[#FCE6D8]">
+        <div className="bg-[#FFF0E7] w-full">
             <div className="flex items-center justify-center py-4 lg:pt-6 lg:pb-12">
                 <div className="md:mb-0 md:w-8/12 lg:w-5/12 bg-white m-6 py-12 px-16 rounded-lg shadow-xl">
                     <div className="flex mb-8 justify-center">
@@ -87,8 +86,8 @@ const Formulario = () => {
                         </div>
                     </div>
                     <div className="mb-5 flex justify-center my-16">
-                                <button type="submit" className="focus:outline-none w-1/2 text-white bg-[#E8A477] hover:bg-[#BC7547] focus:ring-4 focus:ring-[#BC7547] font-medium rounded-lg text-sm px-5 py-2.5 me-2 mb-2 dark:focus:ring-[#B4663F]">Siguiente</button>
-                        </div>
+                        <button type="submit" className="focus:outline-none w-1/2 text-white bg-[#E8A477] hover:bg-[#BC7547] focus:ring-4 focus:ring-[#BC7547] font-medium rounded-lg text-sm px-5 py-2.5 me-2 mb-2 dark:focus:ring-[#B4663F]">Siguiente</button>
+                    </div>
                 </div>
             </div>
         </div>
