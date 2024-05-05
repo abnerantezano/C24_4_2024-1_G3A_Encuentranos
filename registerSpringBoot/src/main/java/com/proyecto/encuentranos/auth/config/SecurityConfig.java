@@ -1,12 +1,12 @@
 package com.proyecto.encuentranos.auth.config;
 
+import java.util.Arrays;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
-import org.springframework.security.config.Customizer;
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
 import org.springframework.security.config.annotation.web.configuration.EnableWebSecurity;
 import org.springframework.security.config.annotation.web.configurers.AbstractHttpConfigurer;
@@ -16,13 +16,12 @@ import org.springframework.web.cors.CorsConfiguration;
 import org.springframework.web.cors.CorsConfigurationSource;
 import org.springframework.web.cors.UrlBasedCorsConfigurationSource;
 
-@CrossOrigin(origins = "http://localhost:3000")
+@CrossOrigin(origins = "*")
 @Configuration
 @EnableWebSecurity
 public class SecurityConfig {
 	
 	@Autowired
-	private OAuth2LoginSuccessHandler oAuth2LoginSuccessHandler;
 	
 	@Value("${frontend.url}")
 	private String frontendUrl;
@@ -33,11 +32,10 @@ public class SecurityConfig {
         		.csrf(AbstractHttpConfigurer::disable)
         		.cors(cors -> cors.configurationSource(corsConfiguration()))
         		.authorizeHttpRequests(auth -> {
-            auth.requestMatchers("/cliente/**").permitAll()
+            auth.requestMatchers("/tipo-usuario/**", "/usuario/**").permitAll()
             .anyRequest().authenticated();
         })
         .oauth2Login(oath2 -> {
-            oath2.successHandler(oAuth2LoginSuccessHandler);
         })      
         .build();
     }
@@ -45,14 +43,18 @@ public class SecurityConfig {
     @Bean
     CorsConfigurationSource corsConfiguration() {
         CorsConfiguration configuration = new CorsConfiguration();
-        configuration.setAllowedOrigins(List.of(frontendUrl));
-        configuration.addAllowedHeader("*");
-        configuration.addAllowedMethod("*");
+        configuration.setAllowedOrigins(List.of(
+            "http://localhost:3000",
+            "http://localhost", //ORIGIN
+            "https://transcendent-starburst-8b45b4.netlify.app"
+        ));
+        configuration.setAllowedMethods(Arrays.asList("GET", "POST", "PUT", "PATCH", "DELETE", "OPTIONS"));
+        configuration.setAllowedHeaders(Arrays.asList("Authorization", "Cache-Control", "Content-Type"));
         configuration.setAllowCredentials(true);
-        
-        UrlBasedCorsConfigurationSource UrlBasedCorsConfigurationSourceSource = new UrlBasedCorsConfigurationSource();
-        UrlBasedCorsConfigurationSourceSource.registerCorsConfiguration("/**", configuration);
-        
-        return UrlBasedCorsConfigurationSourceSource;
+
+        UrlBasedCorsConfigurationSource source = new UrlBasedCorsConfigurationSource();
+        source.registerCorsConfiguration("/**", configuration);
+
+        return source;
     }
 }
