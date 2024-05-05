@@ -20,9 +20,7 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.Optional;
-
-@CrossOrigin(origins = "http://localhost:3000")
-
+@CrossOrigin(origins = "http://localhost:3000/")
 @Controller
 @RequestMapping("/login")
 public class PrivateController {
@@ -46,7 +44,7 @@ public class PrivateController {
     public String privateMessages(@RequestParam(name = "tipoUsuarioId", required = false, defaultValue = "1") Long tipoUsuarioId, @AuthenticationPrincipal OAuth2User oauth2User, Model model, HttpServletRequest request) {
         String email = oauth2User.getAttribute("email");
         Optional<UsuarioModelo> usuarioOptional = usuarioRepository.findByCorreo(email);
-
+        
         // Verificar si el usuario ya tiene un tipo de usuario asignado
         Long tipoUsuarioRegistrado = (Long) request.getSession().getAttribute("tipoUsuario");
         if (tipoUsuarioRegistrado != null) {
@@ -69,7 +67,7 @@ public class PrivateController {
                 request.getSession().setAttribute("tipoUsuario", usuario.getIdTipo().getId());
             }
 
-            return "redirect:http://localhost:3000/Formulario";//Aqui esta redireccionando a el html response que he realizado para probar : templates/response
+            return "response";//Aqui esta redireccionando a el html response que he realizado para probar : templates/response
         } else {
             // Si el usuario no existe, redirigir al formulario para agregar un nuevo usuario
             model.addAttribute("correo", email);
@@ -84,7 +82,7 @@ public class PrivateController {
             if (tipoUsuarioId == 1) {
                 // Cliente
                 model.addAttribute("cliente", new ClienteModelo());
-                return "redirect:http://localhost:3000/Formulario";
+                return "agregarClienteFormulario";
             } else if (tipoUsuarioId == 2) {
                 // Proveedor
                 model.addAttribute("proveedor", new ProveedorModelo());

@@ -7,9 +7,7 @@ import org.springframework.web.bind.annotation.*;
 
 import com.proyecto.encuentranos.modelos.TipoUsuarioModelo;
 import com.proyecto.encuentranos.servicios.TipoUsuarioServicio;
-
-@CrossOrigin(origins = "http://localhost:3000")
-
+@CrossOrigin(origins = "http://localhost:3000/")
 @RestController
 @RequestMapping("/tipo-usuario")
 public class TipoUsuarioControlador {

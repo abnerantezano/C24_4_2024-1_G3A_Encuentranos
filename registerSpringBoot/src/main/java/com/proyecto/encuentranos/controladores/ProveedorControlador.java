@@ -16,10 +16,7 @@ import org.springframework.web.bind.annotation.RestController;
 
 import com.proyecto.encuentranos.modelos.ProveedorModelo;
 import com.proyecto.encuentranos.servicios.ProveedorServicio;
-
-
-@CrossOrigin(origins = "http://localhost:3000")
-
+@CrossOrigin(origins = "http://localhost:3000/")
 @RestController
 @RequestMapping("/proveedor")
 public class ProveedorControlador {

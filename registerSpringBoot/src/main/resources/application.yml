@@ -12,8 +12,8 @@ spring:
       client:
         registration:
           google:
-            clientId: 406079063544-mp76rvbd06klo0d4nqaleao4oavpfhvs.apps.googleusercontent.com
-            clientSecret: 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
+            clientId: 406079063544-eu7sfj99hl2llietrs5caih5prkicv4q.apps.googleusercontent.com
+            clientSecret: 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
             
 server:
   port: 4000
