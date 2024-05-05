@@ -20,7 +20,8 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.Optional;
-@CrossOrigin(origins = "http://localhost:3000/")
+
+@CrossOrigin(origins = "http://localhost:3000")
 @Controller
 @RequestMapping("/login")
 public class PrivateController {
@@ -67,7 +68,7 @@ public class PrivateController {
                 request.getSession().setAttribute("tipoUsuario", usuario.getIdTipo().getId());
             }
 
-            return "response";//Aqui esta redireccionando a el html response que he realizado para probar : templates/response
+            return "redirect:http://localhost:3000/Formulario";//Aqui esta redireccionando a el html response que he realizado para probar : templates/response
         } else {
             // Si el usuario no existe, redirigir al formulario para agregar un nuevo usuario
             model.addAttribute("correo", email);
@@ -82,7 +83,7 @@ public class PrivateController {
             if (tipoUsuarioId == 1) {
                 // Cliente
                 model.addAttribute("cliente", new ClienteModelo());
-                return "agregarClienteFormulario";
+                return "redirect:http://localhost:3000/Formulario";
             } else if (tipoUsuarioId == 2) {
                 // Proveedor
                 model.addAttribute("proveedor", new ProveedorModelo());

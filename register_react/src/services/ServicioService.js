@@ -1,8 +1,12 @@
 import axios from 'axios';
 
-export class ClienteService {
-    baseUrl = 'http://localhost:8080/servicio';
+class ServicioService {
+    baseUrl = 'http://localhost:4000/servicio';
+    
     getAll(){
-        return axios.get(this.baseUrl + 'add').then(res => res.data.data);
+        return axios.get(this.baseUrl + '/listar')
+        .then(res => res.data.data);
     }
 }
+
+export default new ServicioService();
