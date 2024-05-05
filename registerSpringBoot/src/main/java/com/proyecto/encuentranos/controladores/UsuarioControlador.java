@@ -10,7 +10,12 @@ import com.proyecto.encuentranos.modelos.UsuarioModelo;
 import com.proyecto.encuentranos.modelos.ClienteModelo;
 import com.proyecto.encuentranos.servicios.ClienteServicio;
 import com.proyecto.encuentranos.servicios.UsuarioServicio;
+<<<<<<< Updated upstream
 @CrossOrigin(origins = "http://localhost:3000")
+=======
+
+@CrossOrigin(origins = "http://localhost:3000/")
+>>>>>>> Stashed changes
 @Controller
 @RequestMapping("/usuario")
 public class UsuarioControlador {

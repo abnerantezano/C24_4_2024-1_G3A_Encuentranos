@@ -7,7 +7,12 @@ import org.springframework.web.bind.annotation.*;
 
 import com.proyecto.encuentranos.modelos.TipoUsuarioModelo;
 import com.proyecto.encuentranos.servicios.TipoUsuarioServicio;
+<<<<<<< Updated upstream
 @CrossOrigin(origins = "http://localhost:3000")
+=======
+
+@CrossOrigin(origins = "http://localhost:3000/")
+>>>>>>> Stashed changes
 @RestController
 @RequestMapping("/tipo-usuario")
 public class TipoUsuarioControlador {

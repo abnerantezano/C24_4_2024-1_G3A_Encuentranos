@@ -12,7 +12,6 @@ import com.proyecto.encuentranos.modelos.ClienteModelo;
 import com.proyecto.encuentranos.modelos.ProveedorModelo;
 import com.proyecto.encuentranos.servicios.ClienteServicio;
 
-@CrossOrigin(origins = "http://localhost:3000")
 @RestController
 @RequestMapping("/cliente")
 public class ClienteControlador {
