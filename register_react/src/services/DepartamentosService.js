@@ -1,11 +1,12 @@
 import axios from 'axios';
 
-const CLIENTE_BASE_REST_API_URL = 'https://young-inlet-40292-f42588231bef.herokuapp.com';
-
 class DepartamentoService {
 
-    getDepartamentos() {
-        return axios.get(CLIENTE_BASE_REST_API_URL);
+    baseUrl = 'https://young-inlet-40292-f42588231bef.herokuapp.com';
+    
+    getDepartamentos(){
+        return axios.get(this.baseUrl + '/departamentos')
+        .then(res => res.data.data);
     }
     
     getProvincias(departamento) {

@@ -1,10 +1,8 @@
 import logo from "../images/logo-color.png";
 import React, { useEffect, useState } from "react";
-import LoginService from "../services/LoginService";
-import { useNavigate } from "react-router-dom";
 import { useForm } from "react-hook-form";
 import { useNavigate } from "react-router-dom";
-import LoginService from "../services/LoginService";
+import axios from "axios"; // Importa axios para realizar solicitudes HTTP
 
 const IniciarSesion = () => {
     const { register, handleSubmit } = useForm();
@@ -12,7 +10,6 @@ const IniciarSesion = () => {
     
     const iniciarSesionConGoogle = () => {
         window.location.href = "http://localhost:4000/oauth2/authorization/google";
-        navigate('/Formulario')
     }
 
     const onSubmit = async (data) => {
@@ -27,9 +24,6 @@ const IniciarSesion = () => {
             // Maneja el error de inicio de sesión (por ejemplo, muestra un mensaje de error)
         }
     };
-
-    
-    const {} = useForm();
 
     return (
         <form onSubmit={handleSubmit(onSubmit)}>
@@ -60,11 +54,7 @@ const IniciarSesion = () => {
                             </button>
                         </div>
                         <div className="mb-5 flex justify-center">
-
                             <label className="block text-sm font-medium text-gray-900 dark:text-white">¿No tienes una cuenta? <a href="/Registro" className="text-gray-500">Regístrate</a></label>
-
-                            <label className="block text-sm font-medium text-gray-900 dark:text-white">¿No tienes una cuenta? <a href="/crud" className="text-gray-500 ">Regístrate</a></label>
-
                         </div>
                     </div>
                 </div>
