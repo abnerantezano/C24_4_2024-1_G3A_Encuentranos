@@ -17,11 +17,9 @@ import org.springframework.web.bind.annotation.RestController;
 import com.proyecto.encuentranos.modelos.ProveedorModelo;
 import com.proyecto.encuentranos.servicios.ProveedorServicio;
 
-<<<<<<< Updated upstream
+
 @CrossOrigin(origins = "http://localhost:3000")
-=======
-@CrossOrigin(origins = "http://localhost:3000/")
->>>>>>> Stashed changes
+
 @RestController
 @RequestMapping("/proveedor")
 public class ProveedorControlador {

@@ -1,9 +1,9 @@
 import logo from "../images/logo-color.png";
-<<<<<<< Updated upstream
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
+import LoginService from "../services/LoginService";
+import { useNavigate } from "react-router-dom";
 import { useForm } from "react-hook-form";
 import { useNavigate } from "react-router-dom";
-import axios from "axios";
 import LoginService from "../services/LoginService";
 
 const IniciarSesion = () => {
@@ -28,15 +28,9 @@ const IniciarSesion = () => {
         }
     };
 
-=======
-import React, { useEffect, useState } from "react";
-import LoginService from "../services/LoginService";
-import { useNavigate } from "react-router-dom";
-
-const IniciarSesion = () => {
     
     const {} = useForm();
->>>>>>> Stashed changes
+
     return (
         <form onSubmit={handleSubmit(onSubmit)}>
             <div className="bg-[#F0EEEC] w-full">
@@ -66,11 +60,11 @@ const IniciarSesion = () => {
                             </button>
                         </div>
                         <div className="mb-5 flex justify-center">
-<<<<<<< Updated upstream
+
                             <label className="block text-sm font-medium text-gray-900 dark:text-white">¿No tienes una cuenta? <a href="/Registro" className="text-gray-500">Regístrate</a></label>
-=======
+
                             <label className="block text-sm font-medium text-gray-900 dark:text-white">¿No tienes una cuenta? <a href="/crud" className="text-gray-500 ">Regístrate</a></label>
->>>>>>> Stashed changes
+
                         </div>
                     </div>
                 </div>
