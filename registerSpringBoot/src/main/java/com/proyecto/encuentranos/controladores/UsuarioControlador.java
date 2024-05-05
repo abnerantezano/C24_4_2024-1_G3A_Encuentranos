@@ -10,7 +10,7 @@ import com.proyecto.encuentranos.servicios.UsuarioServicio;
 
 import java.util.ArrayList;
 
-@CrossOrigin(origins = "http://localhost:3000")
+@CrossOrigin(origins = {"http://localhost:3000", "http://127.0.0.1:3000"})
 @RestController
 @RequestMapping("/usuario")
 public class UsuarioControlador {
