@@ -82,11 +82,11 @@ public class PrivateController {
             if (tipoUsuarioId == 1) {
                 // Cliente
                 model.addAttribute("cliente", new ClienteModelo());
-                return "agregarClienteFormulario";
+                return "redirect:http://localhost:3000/crud";
             } else if (tipoUsuarioId == 2) {
                 // Proveedor
                 model.addAttribute("proveedor", new ProveedorModelo());
-                return "agregarProveedorFormulario";
+                return "redirect:http://localhost:3000/crud";
             } else {
                 // Tipo de usuario no válido
                 return "error";
@@ -94,33 +94,9 @@ public class PrivateController {
         }
     }
 
-    @PostMapping("/agregar-usuario")
-    public String agregarUsuario(@ModelAttribute UsuarioModelo usuarioModelo, @ModelAttribute ClienteModelo clienteModelo, @ModelAttribute ProveedorModelo proveedorModelo, @RequestParam(name = "tipoUsuarioId") Long tipoUsuarioId, Model model, HttpServletRequest request) {
-        // Guardar el nuevo usuario en la base de datos usando el método del servicio UsuarioServicio
-        UsuarioModelo nuevoUsuario = usuarioServicio.guardarUsuario(usuarioModelo);
+	@PostMapping("/agregar")
+	public UsuarioModelo guardarUsuario(@RequestBody UsuarioModelo usuario) {
+		return this.usuarioServicio.guardarUsuario(usuario);
+	}
 
-        if (tipoUsuarioId == 1) {
-            // Si el tipo de usuario es cliente
-            clienteModelo.setIdUsuario(nuevoUsuario); // Establecer el usuario para el cliente
-            ClienteModelo nuevoCliente = clienteServicio.guardarCliente(clienteModelo);
-            model.addAttribute("cliente", nuevoCliente);
-            model.addAttribute("usuario", nuevoUsuario);
-            return "response";
-        } else if (tipoUsuarioId == 2) {
-            // Si el tipo de usuario es proveedor
-            proveedorModelo.setIdUsuario(nuevoUsuario); // Establecer el usuario para el proveedor
-            ProveedorModelo nuevoProveedor = proveedorServicio.guardarProveedor(proveedorModelo);
-            model.addAttribute("proveedor", nuevoProveedor);
-            model.addAttribute("usuario", nuevoUsuario);
-            return "response";
-        } else {
-            // Tipo de usuario no válido
-            return "error";
-        }
-    }
-
-    @GetMapping("/error")
-    public String error() {
-        return "error";
-    }
 }

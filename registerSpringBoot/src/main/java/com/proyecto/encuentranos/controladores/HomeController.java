@@ -10,6 +10,6 @@ public class HomeController {
 	
 	@GetMapping("/")
 	public String home () {
-		return "inicio";
+		return "redirect:http://localhost:3000/crud";
 	}
 }
