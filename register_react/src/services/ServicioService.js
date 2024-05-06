@@ -5,7 +5,7 @@ class ServicioService {
     
     getAll(){
         return axios.get(this.baseUrl + '/listar')
-        .then(res => res.data.data);
+        .then(res => res.data);
     }
 }
 
