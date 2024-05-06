@@ -27,32 +27,21 @@ public class SecurityConfig {
     private String frontendUrl;
 
     @Bean
-    SecurityFilterChain securityFilterChain(HttpSecurity http) throws Exception {
-        return http
-        		.csrf(AbstractHttpConfigurer::disable)
-        		.cors(cors -> cors.configurationSource(corsConfiguration()))
-        		.authorizeHttpRequests(auth -> {
-            auth.requestMatchers("/usuario/listar","/tipo-usuario/listar", "/usuario/agregar","/servicio/listar").permitAll()
-            .anyRequest().authenticated();
-        })
-        .oauth2Login(oath2 -> {
-        })      
+SecurityFilterChain securityFilterChain(HttpSecurity http) throws Exception {
+    return http
+        .csrf(AbstractHttpConfigurer::disable)
+        .cors(cors -> cors.configurationSource(corsConfigurationSource()))
+        .authorizeHttpRequests(auth -> auth
+            .requestMatchers("/tipo-usuario/listar", "/usuario/**","/servicio/**").permitAll()
+            .anyRequest().authenticated()
+        )
+        .oauth2Login(oauth2 -> oauth2
+            .loginPage(frontendUrl) // Personaliza la página de inicio de sesión
+            .defaultSuccessUrl(frontendUrl + "/crud", true) // URL de redirección después del inicio de sesión exitoso
+            .failureUrl(frontendUrl + "/login/failure") // URL de redirección después de un inicio de sesión fallido
+        )
         .build();
-
-                .csrf(AbstractHttpConfigurer::disable)
-                .cors(cors -> cors.configurationSource(corsConfigurationSource()))
-                .authorizeHttpRequests(auth -> auth
-                        .requestMatchers("/tipo-usuario/listar", "/usuario/**").permitAll()
-                        .anyRequest().authenticated()
-                )
-                .oauth2Login(oauth2 -> oauth2
-                        .loginPage(frontendUrl) // Personaliza la página de inicio de sesión
-                        .defaultSuccessUrl(frontendUrl + "/crud", true) // URL de redirección después del inicio de sesión exitoso
-                        .failureUrl(frontendUrl + "/login/failure") // URL de redirección después de un inicio de sesión fallido
-                )
-                .build();
-
-    }
+}
 
 
     // Configuración CORS igual que en tu clase CorsConfig
