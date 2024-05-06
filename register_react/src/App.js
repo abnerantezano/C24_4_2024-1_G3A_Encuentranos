@@ -7,6 +7,7 @@ import Index from './components/Index';
 import Registro from './components/Registro';
 import Footer from './components/Footer';
 import Crud from './components/CRUD';
+import AgregarServicio from './components/AgregarServicio';
 
 
 function App() {
@@ -20,11 +21,11 @@ function App() {
           <div className=''>
             <Routes>
               <Route exact path='/' element={<Crud />} />
-              <Route exact path='/crud' element={<Crud />} />
+              <Route exact path='/Crud' element={<Crud />} />
               <Route exact path='/IniciarSesion' element={<IniciarSesion />} />
               <Route exact path='/Registro' element={<Registro />} />
-              <Route exact path='/Crud' element={<Crud/>} />
               <Route exact path='/Formulario' element={<Formulario />} />
+              <Route exact path='/AgregarServicio' element={<AgregarServicio />} />
             </Routes>
           </div>
         <Footer />
