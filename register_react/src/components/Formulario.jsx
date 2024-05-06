@@ -13,32 +13,52 @@ const Formulario = () => {
     const [ByProvincia, setByProvincia] = useState("");
 
     const [servicios, setServicios] = useState([]);
-    
+
+    //TRAER LA LISTA DE DEPARTAMENTOS
     useEffect(() => {
         DepartamentosService.getDepartamentos()
-            .then(response => {
-                setDepartamentos(response.data);
-                console.log(response.data);
+            .then(DepartamentoResponse => {
+                setDepartamentos(DepartamentoResponse);
+            })
+            .catch(error => {
+
+            });
+    }, []); 
+
+    //TRAER LA LISTA DE PROVINCIAS
+    useEffect(() => {
+        DepartamentosService.getProvincias(ByDepartamento)
+            .then(ProvinciaResponse => {
+                setProvincias(ProvinciaResponse);
+            })
+            .catch(error => {
+
+            });
+    }, [[ByDepartamento]]); 
+
+    //TRAER LA LISTA DE DISTRITOS
+    useEffect(() => {
+        DepartamentosService.getDistritos(ByDepartamento,ByProvincia)
+            .then(DistritoResponse => {
+                setDistritos(DistritoResponse);
             })
             .catch(error => {
                 console.log(error);
             });
-    }, []); 
+    }, [[ByDepartamento],[ByProvincia]]); 
 
-    const handleDepartamentoChange = (event) => {
-        const selectedDepartamento = event.target.value;
+    const handleDepartamentoChange = (e) => {
+        const selectedDepartamento = e.target.value;
         setByDepartamento(selectedDepartamento);
         setByProvincia(""); 
-
         DepartamentosService.getProvincias(selectedDepartamento)
             .then(data => setProvincias(data))
             .catch(error => console.error(`Error al obtener provincias para ${selectedDepartamento}:`, error));
     };
 
-    const handleProvinciaChange = (event) => {
-        const selectedProvincia = event.target.value;
+    const handleProvinciaChange = (e) => {
+        const selectedProvincia = e.target.value;
         setByProvincia(selectedProvincia);
-
         DepartamentosService.getDistritos(ByDepartamento, selectedProvincia)
             .then(data => setDistritos(data))
             .catch(error => console.error(`Error al obtener distritos para ${ByDepartamento} - ${selectedProvincia}:`, error));
@@ -84,44 +104,44 @@ const Formulario = () => {
                         </div>
                         <div className="relative z-0 w-full mb-5 group mb-5">
                             <label className="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Apellido materno</label>
-                            <input type="text"{...register("apellido_m")} className="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-yellow-600 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500" required />
+                            <input type="text" className="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-yellow-600 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500" required />
                         </div>
                     </div>
                     <div className="mb-5">
                         <label className="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Celular</label>
-                        <input type="text" {...register("celular" )} className="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-yellow-600 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500" required/>
+                        <input type="text" className="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-yellow-600 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500" required/>
                     </div>
                     <div className="mb-5 grid md:grid-cols-3 md:gap-6">
                         <div className="relative z-0 w-full group">
                             <label className="block mb-2 text-sm font-medium text-gray-900 dark:text-white mb-2 mt-2">Departamento</label>
                             <select onChange={handleDepartamentoChange} value={ByDepartamento} className="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-yellow-600 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500" required>
+                                
+                                <option> </option>
+                                {departamentos.map(departamento => (
+                                    <option key={departamento.id} value={departamento.name}>{departamento.name}</option>
+                                ))}
 
-                            {departamentos.map(departamento => (
-                                <option key={departamento.id} value={departamento.id}>{departamento.name}</option>
-                            ))}
                             </select>
                         </div>
                         <div className="relative z-0 w-full group">
                             <label className="block mb-2 text-sm font-medium text-gray-900 dark:text-white mb-2 mt-2">Provincia</label>
-                            <select {...register("provincia")} className="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-yellow-600 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500" required>
+                            <select onChange={handleProvinciaChange} value={ByProvincia} className="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-yellow-600 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500" required>
+                                <option> </option>
+                                {provincias.map(provincia => (
+                                    <option key={provincia.id} value={provincia.name}>{provincia.name}</option>
+                                ))}
 
-                            {servicios.map(servicio => (
-                                <option key={servicio.id_servicio} value={servicio.id_servicio}>{servicio.name}</option>
-                            ))}
-                                <option>United States</option>
-                                <option>Canada</option>
-                                <option>France</option>
-                                <option>Germany</option>
                             </select>
                         </div>
                         <div className="relative z-0 w-full group">
                             <label className="block mb-2 text-sm font-medium text-gray-900 dark:text-white mb-2 mt-2">Distrito</label>
-                            <select {...register("distrito")} className="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-yellow-400 focus:border-yellow-600 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500" required>
+                            <select className="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-yellow-400 focus:border-yellow-600 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500" required>
+                                
+                                <option> </option>
+                                {distritos.map(distrito => (
+                                    <option key={distrito.id} value={distrito.name}>{distrito.name}</option>
+                                ))}
 
-                                <option>United States</option>
-                                <option>Canada</option>
-                                <option>France</option>
-                                <option>Germany</option>
                             </select>
                         </div>
                     </div>
@@ -129,13 +149,13 @@ const Formulario = () => {
                         <label className="block text-sm font-medium text-gray-900 dark:text-white mb-2">¿Ofreces algún servicio?</label>
                         <div className=" grid md:grid-cols-3 md:gap-6">
                             <div className="flex items-center mt-2">
-                                <input id="service-option-1" name="option-cliente" type="radio" {...register("rol")} value="prestador" className="w-4 h-4 border-gray-300 focus:ring-2 focus:ring-blue-300 dark:focus:ring-blue-600 dark:focus:bg-blue-600 dark:bg-gray-700 dark:border-gray-600"  />
+                                <input id="service-option-1" name="option-cliente" type="radio" value="prestador" className="w-4 h-4 border-gray-300 focus:ring-2 focus:ring-blue-300 dark:focus:ring-blue-600 dark:focus:bg-blue-600 dark:bg-gray-700 dark:border-gray-600"  />
                                 <label className="block ms-2  text-sm font-medium text-gray-900 dark:text-gray-300">
                                     Si
                                 </label>
                             </div>
                             <div className="flex items-center mt-2">
-                                <input id="country-option-2" name="option-cliente" type="radio" {...register("rol")} value="cliente" className="w-4 h-4 border-gray-300 focus:ring-2 focus:ring-blue-300 dark:focus:ring-blue-600 dark:focus:bg-blue-600 dark:bg-gray-700 dark:border-gray-600" defaultChecked />
+                                <input id="country-option-2" name="option-cliente" type="radio" value="cliente" className="w-4 h-4 border-gray-300 focus:ring-2 focus:ring-blue-300 dark:focus:ring-blue-600 dark:focus:bg-blue-600 dark:bg-gray-700 dark:border-gray-600" defaultChecked />
                                 <label className="block ms-2 text-sm font-medium text-gray-900 dark:text-gray-300">
                                     No
                                 </label>

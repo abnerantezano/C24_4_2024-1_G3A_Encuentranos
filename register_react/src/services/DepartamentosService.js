@@ -5,8 +5,8 @@ class DepartamentoService {
     baseUrl = 'https://young-inlet-40292-f42588231bef.herokuapp.com';
     
     getDepartamentos(){
-        return axios.get(this.baseUrl + '/departamentos')
-        .then(res => res.data.data);
+        return axios.get(`${this.baseUrl}/departamentos`)
+        .then(res => res.data); 
     }
     
     getProvincias(departamento) {
@@ -15,7 +15,7 @@ class DepartamentoService {
     }
 
     getDistritos(departamento,provincia) {
-        return axios.get(`${this.baseUrl}/distritos/${provincia}/${departamento}`)
+        return axios.get(`${this.baseUrl}/distritos/${departamento}/${provincia}`)
             .then(res => res.data);
     }
 }
