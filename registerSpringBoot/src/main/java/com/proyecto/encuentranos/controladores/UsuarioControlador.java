@@ -20,11 +20,10 @@ public class UsuarioControlador {
     
     
     @GetMapping("/listar")
-    public ResponseEntity<ArrayList<UsuarioModelo>> obtenerUsuarios(){
-    	ArrayList<UsuarioModelo> usuarios = this.usuarioServicio.obtenerUsuarios();
-        return new ResponseEntity<>(usuarios, HttpStatus.OK);
+    public ArrayList<UsuarioModelo> obtenerUsurios(){
+    	return (ArrayList<UsuarioModelo>)usuarioServicio.obtenerUsuarios();
     }
-
+    
 	@PostMapping("/agregar")
 	public UsuarioModelo guardarUsuario(@RequestBody UsuarioModelo usuario) {
 		return this.usuarioServicio.guardarUsuario(usuario);
