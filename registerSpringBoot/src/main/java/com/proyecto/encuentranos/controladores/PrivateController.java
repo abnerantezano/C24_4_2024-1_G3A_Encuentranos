@@ -82,11 +82,11 @@ public class PrivateController {
             if (tipoUsuarioId == 1) {
                 // Cliente
                 model.addAttribute("cliente", new ClienteModelo());
-                return "redirect:http://localhost:3000/crud";
+                return "redirect:http://localhost:3000/Formulario";
             } else if (tipoUsuarioId == 2) {
                 // Proveedor
                 model.addAttribute("proveedor", new ProveedorModelo());
-                return "redirect:http://localhost:3000/crud";
+                return "redirect:http://localhost:3000/Formulario";
             } else {
                 // Tipo de usuario no válido
                 return "error";
