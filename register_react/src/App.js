@@ -20,7 +20,7 @@ function App() {
         <Header />
           <div className=''>
             <Routes>
-              <Route exact path='/crud' element={<IniciarSesion />} />
+              <Route exact path='/crud' element={<Formulario />} />
               <Route exact path='/IniciarSesion' element={<IniciarSesion />} />
               <Route exact path='/Registro' element={<Registro />} />
               <Route exact path='/Crud' element={<Crud/>} />
