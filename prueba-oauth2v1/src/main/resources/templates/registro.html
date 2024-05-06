@@ -1,0 +1,16 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <title>Registro de usuario</title>
+</head>
+<body>
+<h1>Registro de usuario</h1>
+<form action="/messages/registro" method="post" th:object="${usuario}">
+    <input th:field="*{idTipo.id}" value="${idTipo.id}" readonly="readonly"/>
+    <input th:field="*{correo}" th:value="${correo}" readonly="readonly" />
+    <p>Correo: <span th:text="${correo}"></span></p>
+    <p>Contraseña: <input type="password" th:field="*{contraseña}" /></p>
+    <button type="submit">Confirmar</button>
+</form>
+</body>
+</html>
