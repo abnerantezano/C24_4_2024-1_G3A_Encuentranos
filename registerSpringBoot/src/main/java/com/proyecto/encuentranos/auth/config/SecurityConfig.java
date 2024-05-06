@@ -27,6 +27,7 @@ public class SecurityConfig {
     private String frontendUrl;
 
     @Bean
+<<<<<<< HEAD
     SecurityFilterChain securityFilterChain(HttpSecurity http) throws Exception {
         return http
                 .csrf(AbstractHttpConfigurer::disable)
@@ -42,6 +43,23 @@ public class SecurityConfig {
                 )
                 .build();
     }
+=======
+SecurityFilterChain securityFilterChain(HttpSecurity http) throws Exception {
+    return http
+        .csrf(AbstractHttpConfigurer::disable)
+        .cors(cors -> cors.configurationSource(corsConfigurationSource()))
+        .authorizeHttpRequests(auth -> auth
+            .requestMatchers("/tipo-usuario/listar", "/usuario/**","/servicio/**").permitAll()
+            .anyRequest().authenticated()
+        )
+        .oauth2Login(oauth2 -> oauth2
+            .loginPage(frontendUrl) // Personaliza la página de inicio de sesión
+            .defaultSuccessUrl(frontendUrl + "/crud", true) // URL de redirección después del inicio de sesión exitoso
+            .failureUrl(frontendUrl + "/login/failure") // URL de redirección después de un inicio de sesión fallido
+        )
+        .build();
+}
+>>>>>>> ccd22b5aa9203273bcca5c73a7cb25b49642d83f
 
 
     // Configuración CORS igual que en tu clase CorsConfig
