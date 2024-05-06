@@ -20,8 +20,8 @@ function App() {
         <Header />
           <div className=''>
             <Routes>
-              <Route exact path='/' element={<Crud />} />
-              <Route exact path='/Crud' element={<Crud />} />
+              <Route exact path='/' element={<IniciarSesion />} />
+              <Route exact path='/crud' element={<Crud />} />
               <Route exact path='/IniciarSesion' element={<IniciarSesion />} />
               <Route exact path='/Registro' element={<Registro />} />
               <Route exact path='/Formulario' element={<Formulario />} />

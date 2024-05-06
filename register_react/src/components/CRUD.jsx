@@ -8,14 +8,14 @@ export const Crud = () => {
     const [tipoUsuarios, setTipoUsuarios] = useState([]);
 
     const [correo,setCorreo] = useState('');
-    const [contraseña,setContraseña] = useState('');
+    const [contrasena,setContraseña] = useState('');
     const [idTipo,setIdTipo] = useState('');
 
     const navigate = useNavigate();
 
     const agregarUsuario = (e) => {
         e.preventDefault();
-        const usuario = {idTipo,correo,contraseña};
+        const usuario = {idTipo,correo,contrasena};
         UsuarioService.addUser(usuario).then((response) => {
             console.log(response.data);
             navigate('/formulario');
@@ -84,7 +84,7 @@ export const Crud = () => {
                             </div>
                             <div>
                                 <label> Contraseña</label>
-                                <input type="password" name="contraseña" value={contraseña} onChange={ (e) => setContraseña(e.target.value)}  />
+                                <input type="password" name="contraseña" value={contrasena} onChange={ (e) => setContraseña(e.target.value)}  />
                             </div>
                             <button onClick={(e) => agregarUsuario(e)}>Agregar</button>
                         </form>
