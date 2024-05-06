@@ -1,15 +1,12 @@
 import React, { useEffect, useState } from "react";
 import { useForm } from "react-hook-form";
 import logo from "../images/logo-color.png";
-import DepartamentosService from "../services/DepartamentosService";
+import ServicioService from "../services/ServicioService";
+
 
 const Formulario = () => {
 
-    const [departamentos, setDepartamentos] = useState([]);
-    const [provincias, setProvincias] = useState([]);
-    const [distritos, setDistritos] = useState([]);
-    const [ByDepartamento, setByDepartamento] = useState("");
-    const [ByProvincia, setByProvincia] = useState("");
+    const [servicios, setServicios] = useState([]);
 
     //TRAER LA LISTA DE DEPARTAMENTOS
     useEffect(() => {
@@ -61,6 +58,16 @@ const Formulario = () => {
             .catch(error => console.error(`Error al obtener distritos para ${ByDepartamento} - ${selectedProvincia}:`, error));
     };
 
+    useEffect(() => {
+        ServicioService.getAll()
+            .then(response => {
+                setServicios(response);
+            })
+            .catch(error => {
+                console.log(error);
+            });
+    }, []); 
+
     const { register, formState:{errors}, handleSubmit } = useForm();
 
     const onSubmit = (data) => {
@@ -78,16 +85,16 @@ const Formulario = () => {
                     </div>
                     <div className="mb-5">
                         <label className="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Contraseña</label>
-                        <input type="password" className="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-yellow-600 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500" required/>
+                        <input type="password"{...register("contraseña")} className="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-yellow-600 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500" required/>
                     </div>
                     <div className="mb-5">
                         <label className="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Nombre</label>
-                        <input type="text" className="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-yellow-600 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500" required/>
+                        <input type="text"{...register("nombre")} className="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-yellow-600 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500" required/>
                     </div>
                     <div className="grid md:grid-cols-2 md:gap-6">
                         <div className="relative z-0 w-full mb-5 group">
                             <label className="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Apellido paterno</label>
-                            <input type="text" className="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-yellow-600 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500" required />
+                            <input type="text"{...register("apellido_p")} className="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-yellow-600 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500" required />
                         </div>
                         <div className="relative z-0 w-full mb-5 group mb-5">
                             <label className="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Apellido materno</label>
