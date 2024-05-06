@@ -23,7 +23,7 @@ function App() {
               <Route exact path='/' element={<Index/>} />
               <Route exact path='/IniciarSesion' element={<IniciarSesion />} />
               <Route exact path='/Registro' element={<Registro />} />
-              <Route exact path='/Crud' element={<Formulario/>} />
+              <Route exact path='/Crud' element={<Crud/>} />
               <Route exact path='/Formulario' element={<Formulario />} />
               <Route exact path='/AgregarServicio' element={<AgregarServicio />} />
             </Routes>

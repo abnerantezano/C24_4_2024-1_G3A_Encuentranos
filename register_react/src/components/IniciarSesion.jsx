@@ -12,21 +12,8 @@ const IniciarSesion = () => {
         window.location.href = "http://localhost:4000/oauth2/authorization/google";
     }
 
-    const onSubmit = async (data) => {
-        try {
-            const response = await axios.post("http://localhost:8080/login", data);
-            // Maneja la respuesta del backend (por ejemplo, almacena el token de acceso)
-            console.log(response.data);
-            // Redirige al usuario a la página de inicio después del inicio de sesión exitoso
-            navigate("/");
-        } catch (error) {
-            console.error(error);
-            // Maneja el error de inicio de sesión (por ejemplo, muestra un mensaje de error)
-        }
-    };
-
     return (
-        <form onSubmit={handleSubmit(onSubmit)}>
+        <form>
             <div className="bg-[#F0EEEC] w-full">
                 <div className="flex items-center justify-center py-4 lg:pt-6 lg:pb-12">
                     <div className="md:mb-0 md:w-8/12 lg:w-5/12 bg-white lg:p-24 m-6 p-12 rounded-lg shadow-xl">
