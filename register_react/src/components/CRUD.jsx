@@ -67,7 +67,7 @@ export const Crud = () => {
                         <form action="">
                             <div>
                             <label > Tipo de usuario (Codigo) </label>
-                                <select value={idTipo.id} onChange={(e) => setIdTipo({ ...idTipo, id: e.target.value })}>
+                                <select value={idTipo} onChange={(e) => setIdTipo(e.target.value)}>
                                     <option value="">Seleccionar tipo de usuario</option>
                                     
                                     {

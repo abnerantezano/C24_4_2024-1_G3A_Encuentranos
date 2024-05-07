@@ -5,10 +5,14 @@ import ServicioService from "../services/ServicioService";
 import ServicioProveedor from "../services/ServicioProveedor";
 
 const AgregarServicio = () => {
+
     const [servicios, setServicios] = useState([]);
-    const [serviceData, setServiceData] = useState([{ idServicio: '', Precio: '' }]);
+
+    const [serviceData, setServiceData] = useState([{ idServicio: '', precio: '' }]);
     const [showSelect, setShowSelect] = useState(false);
     const [serviceCount, setServiceCount] = useState(1);
+
+    const [idProveedor, setIdProveedor] = useState("");
 
     useEffect(() => {
         ServicioService.getAll()
@@ -24,11 +28,19 @@ const AgregarServicio = () => {
 
     const agregarServicio = (e) => {
         e.preventDefault();
+        
+        // Filtrar los servicios con idServicio y Precio definidos
         const serviciosData = serviceData.filter(service => service.idServicio && service.Precio);
+        
+        // Mapear los servicios a un nuevo arreglo incluyendo el idProveedor
         const serviciosPrestadores = serviciosData.map(service => ({
-            servicio: service.idServicio,
-            precio: service.Precio
+            idProveedor: idProveedor, 
+            idServicio: service.idServicio,
+            precio: parseFloat(service.precio).toFixed(2)
         }));
+        console.log(serviciosPrestadores);
+    
+        // Enviar todos los servicios al servidor
         ServicioProveedor.postAddServicioProveedor(serviciosPrestadores)
             .then((response) => {
                 console.log(response.data);
@@ -47,10 +59,10 @@ const AgregarServicio = () => {
         }
     }
 
-    const handleChange = (index, e) => {
+    const handleChange = (show, e) => {
         const { name, value } = e.target;
         const newData = [...serviceData];
-        newData[index][name] = value;
+        newData[show][name] = value;
         setServiceData(newData);
     }
 
@@ -62,6 +74,10 @@ const AgregarServicio = () => {
                         <div className="flex mb-8 justify-center">
                             <img src={logo} className="w-24" alt="Logo" />
                         </div>
+                        <div className="mb-5">
+                            <label className="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Id proveedor</label>
+                            <input type="text" value={idProveedor} onChange={ (e) => setIdProveedor(parseInt(e.target.value))}  className="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-yellow-600 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500" required/>
+                        </div>
                         {serviceData.map((service, show) => (
                             <div key={show} className="grid md:grid-cols-2 md:gap-6">
                                 <div className="relative z-0 w-full group">
@@ -69,13 +85,13 @@ const AgregarServicio = () => {
                                     <select  name="idServicio"  value={service.idServicio} onChange={(e) => handleChange(show, e)} className="mb-5 bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-yellow-600 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500" required>
                                         <option value="">Seleccionar servicio</option>
                                         {servicios.map(servicio => (
-                                            <option key={servicio.id_servicio} value={servicio.id_servicio}>{servicio.nombre}</option>
+                                            <option key={servicio.id} value={servicio.id}>{servicio.nombre}</option>
                                         ))}
                                     </select>
                                 </div>
                                 <div className="relative z-0 w-full mb-5 group">
                                     <label className="block mb-2 text-sm font-medium text-gray-900 dark:text-white mb-2 mt-2">Precio</label>
-                                    <input type="text" name="Precio" value={service.Precio} onChange={(e) => handleChange(show, e)} className="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-yellow-600 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500" required
+                                    <input type="number"  name="Precio" step="0.01" min="0" value={service.precio} onChange={(e) => handleChange(show, e)} className="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-yellow-600 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500" required
                                     />
                                 </div>
                             </div>

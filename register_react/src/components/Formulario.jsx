@@ -27,8 +27,8 @@ const Formulario = () => {
     const [celular,setCel] = useState("");
     const [imagenUrl,setImagenUrl] = useState("");
 
-    const [ByDepartamento, setByDepartamento] = useState("");
-    const [ByProvincia, setByProvincia] = useState("");
+    const [departamento, setByDepartamento] = useState("");
+    const [provincia, setByProvincia] = useState("");
     const [distrito, setDistrito] = useState("");
 
     const navigate = useNavigate();
@@ -58,9 +58,9 @@ const Formulario = () => {
     const handleProvinciaChange = (e) => {
         const selectedProvincia = e.target.value;
         setByProvincia(selectedProvincia);
-        DepartamentosService.getDistritos(ByDepartamento, selectedProvincia)
+        DepartamentosService.getDistritos(departamento, selectedProvincia)
             .then(data => setDistritos(data))
-            .catch(error => console.error(`Error al obtener distritos para ${ByDepartamento} - ${selectedProvincia}:`, error));
+            .catch(error => console.error(`Error al obtener distritos para ${departamento} - ${selectedProvincia}:`, error));
     };
 
     //Función del boton para pasar al usuario segun su tipo
@@ -68,14 +68,14 @@ const Formulario = () => {
     const agregarSegunTipoUsuario = (e) => {
         e.preventDefault();
         const datos = {
-            idUsuario,idTipo, nombre, apellidoPaterno, apellidoMaterno, sexo, dni, fechaNacimiento, 
-            celular, imagenUrl, ByDepartamento, ByProvincia, distrito
+            correo,contrasena,idUsuario,idTipo, nombre, apellidoPaterno, apellidoMaterno, sexo, dni, fechaNacimiento, 
+            celular, imagenUrl, departamento, provincia, distrito
         };
         console.log(datos);
         RegistroService.postRegistrar(datos).then((response) => {
             console.log(response.data);
             if(idTipo===1){
-                navigate('/index');
+                navigate('/inicio');
             }else if (idTipo===2){
                 navigate('/agregarServicio');
             }
@@ -91,7 +91,11 @@ const Formulario = () => {
             <div className="flex items-center justify-center py-4 lg:pt-6 lg:pb-12">
                 <div className="md:mb-0 md:w-8/12 lg:w-5/12 bg-white m-6 py-12 px-16 rounded-lg shadow-xl">
                     <div className="flex mb-8 justify-center">
-                        <img src={logo} value={imagenUrl} onChange={ (e) => setImagenUrl(e.target.value)} className="w-24" alt="Logo" />
+                        <img src={logo} className="w-24" alt="Logo" />
+                    </div>
+                    <div className="mb-5">
+                        <label className="block mb-2 text-sm font-medium text-gray-900 dark:text-white">imagenurl</label>
+                        <input type="text" value={imagenUrl} onChange={ (e) => setImagenUrl(e.target.value)}  className="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-yellow-600 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500" required/>
                     </div>
                     <div className="mb-5">
                         <label className="block mb-2 text-sm font-medium text-gray-900 dark:text-white">IDUSUARIO</label>
@@ -129,7 +133,7 @@ const Formulario = () => {
                             <DatePicker
                                 selected={fechaNacimiento}
                                 onChange={date => setFechaN(date)}
-                                dateFormat="dd-MM-yyyy"
+                                dateFormat="yyyy-MM-dd"
                                 className="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5  dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
                             />
                         </div>
@@ -158,7 +162,7 @@ const Formulario = () => {
                     <div className="mb-5 grid md:grid-cols-3 md:gap-6">
                         <div className="relative z-0 w-full group">
                             <label className="block mb-2 text-sm font-medium text-gray-900 dark:text-white mb-2 mt-2">Departamento</label>
-                            <select id="custom-select" onChange={handleDepartamentoChange} value={ByDepartamento} className="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-yellow-600 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500" required>
+                            <select id="custom-select" onChange={handleDepartamentoChange} value={departamento} className="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-yellow-600 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500" required>
                                 
                                 <option> </option>
                                 {departamentos.map(departamento => (
@@ -169,7 +173,7 @@ const Formulario = () => {
                         </div>
                         <div className="relative z-0 w-full group">
                             <label className="block mb-2 text-sm font-medium text-gray-900 dark:text-white mb-2 mt-2">Provincia</label>
-                            <select onChange={handleProvinciaChange} value={ByProvincia} className="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-yellow-600 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500" required>
+                            <select onChange={handleProvinciaChange} value={provincia} className="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-yellow-600 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500" required>
                                 <option> </option>
                                 {provincias.map(provincia => (
                                     <option key={provincia.id} value={provincia.name}>{provincia.name}</option>

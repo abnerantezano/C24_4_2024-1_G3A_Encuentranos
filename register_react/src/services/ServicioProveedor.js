@@ -1,7 +1,7 @@
 import axios from 'axios';
 
 class ServicioService {
-    baseUrl = 'http://localhost:4000/servicio-proveedor';
+    baseUrl = 'http://localhost:4000/servicio-prestador';
 
     getAll(){
         return axios.get(this.baseUrl + '/listar',{withCredentials: true})
