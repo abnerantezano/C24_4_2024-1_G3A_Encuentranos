@@ -6,3 +6,5 @@ export class ClienteService {
         return axios.get(this.baseUrl + 'add').then(res => res.data.data);
     }
 }
+
+export default new ClienteService();

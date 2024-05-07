@@ -32,12 +32,12 @@ public class SecurityConfig {
             .csrf(AbstractHttpConfigurer::disable)
             .cors(cors -> cors.configurationSource(corsConfigurationSource()))
             .authorizeHttpRequests(auth -> auth
-                    .requestMatchers("").permitAll()
+                    .requestMatchers("/").permitAll()
                     .anyRequest().authenticated()
             )
                 .oauth2Login(oauth2 -> oauth2
                         .loginPage(frontendUrl) // Personaliza la página de inicio de sesión
-                        .defaultSuccessUrl(frontendUrl + "/crud", true) // URL de redirección después del inicio de sesión exitoso
+                        .defaultSuccessUrl(frontendUrl + "/formulario", true) // URL de redirección después del inicio de sesión exitoso
                         .failureUrl(frontendUrl + "/login/failure") // URL de redirección después de un inicio de sesión fallido
                 )
                 .build();

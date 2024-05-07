@@ -21,11 +21,11 @@ function App() {
           <div className=''>
             <Routes>
               <Route exact path='/' element={<Index/>} />
-              <Route exact path='/IniciarSesion' element={<IniciarSesion />} />
-              <Route exact path='/Registro' element={<Registro />} />
-              <Route exact path='/Crud' element={<Crud/>} />
-              <Route exact path='/Formulario' element={<Formulario />} />
-              <Route exact path='/AgregarServicio' element={<AgregarServicio />} />
+              <Route exact path='/iniciarSesion' element={<IniciarSesion />} />
+              <Route exact path='/registro' element={<Registro />} />
+              <Route exact path='/crud' element={<Crud/>} />
+              <Route exact path='/formulario' element={<Formulario />} />
+              <Route exact path='/agregarServicio' element={<AgregarServicio />} />
             </Routes>
           </div>
         <Footer />
