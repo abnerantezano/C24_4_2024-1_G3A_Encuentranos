@@ -1,6 +1,7 @@
 package com.proyecto.encuentranos.servicios;
 
 import java.util.ArrayList;
+import java.util.Optional;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -21,4 +22,8 @@ public class UsuarioServicio {
 	public UsuarioModelo guardarUsuario(UsuarioModelo usuario) {
 		return usuarioRepositorio.save(usuario);
 	}
+	
+    public Optional<UsuarioModelo> buscarUsuarioPorCorreo(String correo) {
+        return usuarioRepositorio.findByCorreo(correo);
+    }
 }
