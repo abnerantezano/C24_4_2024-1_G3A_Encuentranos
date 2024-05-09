@@ -16,6 +16,7 @@ export const Crud = () => {
     const agregarUsuario = (e) => {
         e.preventDefault();
         const usuario = {idTipo,correo,contrasena};
+        console.log(usuario);
         UsuarioService.addUser(usuario).then((response) => {
             console.log(response.data);
             navigate('/formulario');
