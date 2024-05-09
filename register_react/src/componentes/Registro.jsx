@@ -1,13 +1,11 @@
-import { useForm } from "react-hook-form";
-import logo from "../images/logo-color.png";
-import React, { useEffect, useState } from "react";
-import LoginService from "../services/LoginService";
-import { useNavigate } from "react-router-dom";
+import logo from "../imagenes/logo-color.png";
 
 const IniciarSesion = () => {
 
-    const navigate = useNavigate();
-    const {} = useForm();
+    const iniciarSesionConGoogle = () => {
+        window.location.href = "http://localhost:4000/oauth2/authorization/google";
+    }
+
     return (
         <form>
             <div className="bg-[#F0EEEC] w-full">
@@ -23,8 +21,8 @@ const IniciarSesion = () => {
                             <label className="mb-3 not-italic">Registrate para navegar en nuestra plataforma </label>
                         </div>
                         <div className="mb-16">
-                            <button type="button" className="flex justify-center w-full text-gray-800 bg-white border border-gray-400 focus:ring-4 focus:outline-none focus:ring-[#FCE6D8] font-medium rounded-lg text-sm px-5 py-2.5 inline-flex items-center me-2 mb-2">
-                                <img src="https://rotulosmatesanz.com/wp-content/uploads/2017/09/2000px-Google_G_Logo.svg_.png" className="w-4 h-4 me-2"/>
+                        <button type="button" onClick={iniciarSesionConGoogle} className="flex justify-center w-full text-gray-800 bg-white border border-gray-400 focus:ring-4 focus:outline-none focus:ring-[#FCE6D8] font-medium rounded-lg text-sm px-5 py-2.5 inline-flex items-center me-2 mb-2">
+                                <img src="https://rotulosmatesanz.com/wp-content/uploads/2017/09/2000px-Google_G_Logo.svg_.png" className="w-4 h-4 me-2" alt="Google Logo" />
                                 Registrarse con Google
                             </button>
                             

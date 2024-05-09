@@ -1,5 +1,5 @@
 import React from 'react'
-import logo_texto from "../images/logo-texto.png"
+import logo_texto from "../imagenes/logo-texto.png"
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import { faUser } from '@fortawesome/free-solid-svg-icons'
 

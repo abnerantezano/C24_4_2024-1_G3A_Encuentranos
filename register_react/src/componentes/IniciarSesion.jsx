@@ -1,12 +1,6 @@
-import logo from "../images/logo-color.png";
-import React, { useEffect, useState } from "react";
-import { useForm } from "react-hook-form";
-import { useNavigate } from "react-router-dom";
-import axios from "axios"; // Importa axios para realizar solicitudes HTTP
+import logo from "../imagenes/logo-color.png";
 
 const IniciarSesion = () => {
-    const { register, handleSubmit } = useForm();
-    const navigate = useNavigate();
     
     const iniciarSesionConGoogle = () => {
         window.location.href = "http://localhost:4000/oauth2/authorization/google";
@@ -22,11 +16,11 @@ const IniciarSesion = () => {
                         </div>
                         <div className="mb-5">
                             <label htmlFor="email" className="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Correo electrónico</label>
-                            <input type="email" id="email" {...register("email")} className="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-yellow-600 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500" required />
+                            <input type="email" id="email" className="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-yellow-600 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500" required />
                         </div>
                         <div className="mb-5">
                             <label htmlFor="password" className="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Contraseña</label>
-                            <input type="password" id="password" {...register("password")} className="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-yellow-600 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500" required />
+                            <input type="password" id="password" className="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-yellow-600 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500" required />
                         </div>
                         <div className="flex justify-center my-8">
                             <button type="submit" className="focus:outline-none w-full text-white bg-[#E8A477] hover:bg-[#BC7547] focus:ring-4 focus:ring-[#BC7547] font-medium rounded-lg text-sm px-5 py-2.5 me-2 mb-2 dark:focus:ring-[#B4663F]">Iniciar sesión</button>
@@ -41,7 +35,7 @@ const IniciarSesion = () => {
                             </button>
                         </div>
                         <div className="mb-5 flex justify-center">
-                            <label className="block text-sm font-medium text-gray-900 dark:text-white">¿No tienes una cuenta? <a href="/Registro" className="text-gray-500">Regístrate</a></label>
+                            <label className="block text-sm font-medium text-gray-900 dark:text-white">¿No tienes una cuenta? <a href="/registro" className="text-gray-500">Regístrate</a></label>
                         </div>
                     </div>
                 </div>

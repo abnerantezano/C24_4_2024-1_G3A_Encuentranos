@@ -1,13 +1,14 @@
 import { BrowserRouter as Router, Routes, Route } from 'react-router-dom';
 import './App.css';
-import IniciarSesion from './components/IniciarSesion';
-import Formulario from './components/Formulario';
-import Header from './components/Header';
-import Index from './components/Index';
-import Registro from './components/Registro';
-import Footer from './components/Footer';
-import Crud from './components/CRUD';
-import AgregarServicio from './components/AgregarServicio';
+import Header from './componentes/Header';
+import Index from './componentes/Index';
+import IniciarSesion from './componentes/IniciarSesion';
+import CrearUsuario from './componentes/CrearUsuario';
+import Registro from './componentes/Registro';
+import Formulario from './componentes/Formulario';
+import Footer from './componentes/Footer';
+import Crud from './componentes/CRUD';
+import AgregarServicio from './componentes/AgregarServicio';
 
 
 function App() {
@@ -22,6 +23,7 @@ function App() {
             <Routes>
               <Route exact path='/' element={<Index/>} />
               <Route exact path='/iniciarSesion' element={<IniciarSesion />} />
+              <Route exact path='/crearUsuario' element={<CrearUsuario />} />
               <Route exact path='/registro' element={<Registro />} />
               <Route exact path='/crud' element={<Crud/>} />
               <Route exact path='/formulario' element={<Formulario />} />

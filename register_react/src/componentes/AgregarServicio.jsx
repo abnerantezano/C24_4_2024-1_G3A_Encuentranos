@@ -1,8 +1,8 @@
 import React, { useEffect, useState } from "react";
-import logo from "../images/logo-color.png";
+import logo from "../imagenes/logo-color.png";
 import { useNavigate } from "react-router-dom";
-import ServicioService from "../services/ServicioService";
-import ServicioProveedor from "../services/ServicioProveedor";
+import ServicioService from "../servicios/ServicioService";
+import ServicioProveedor from "../servicios/ServicioProveedor";
 
 const AgregarServicio = () => {
     const [servicios, setServicios] = useState([]);

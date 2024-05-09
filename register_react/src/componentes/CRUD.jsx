@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from "react";
-import UsuarioService from "../services/UsuarioService";
+import UsuarioService from "../servicios/UsuarioService";
 import { useNavigate } from "react-router-dom";
-import TipoUsuarioService from "../services/TipoUsuarioService";
+import TipoUsuarioService from "../servicios/TipoUsuarioService";
 
 export const Crud = () => {
     const [usuarios, setUsuarios] = useState([]);

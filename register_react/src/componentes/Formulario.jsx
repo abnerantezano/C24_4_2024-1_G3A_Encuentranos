@@ -1,10 +1,10 @@
 import React, { useEffect, useState } from "react";
 import DatePicker from "react-datepicker";
 import "react-datepicker/dist/react-datepicker.css";
-import logo from "../images/logo-color.png";
+import logo from "../imagenes/logo-color.png";
 import { useNavigate } from "react-router-dom";
-import DepartamentosService from "../services/DepartamentosService";
-import RegistroService from "../services/RegistroService";
+import DepartamentosService from "../servicios/DepartamentosService";
+import RegistroService from "../servicios/RegistroService";
 
 const Formulario = () => {
 
