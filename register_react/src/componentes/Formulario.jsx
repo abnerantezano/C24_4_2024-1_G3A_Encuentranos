@@ -90,7 +90,7 @@ const Formulario = () => {
                             <input type="text" value={apellidoMaterno} onChange={ (e) => setApellidoMaterno(e.target.value)} className="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-yellow-600 focus:border-blue-500 block w-full p-2.5 dark:bg-[#] dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500" required />
                         </div>
                     </div>
-                    <div className="grid md:grid-cols-2 md:gap-6">
+                    <div className="grid md:grid-cols-3 md:gap-6">
                         <div className="relative z-0 w-full group mb-5">
                             <label className="block mb-2 text-sm font-medium text-gray-900 dark:text-white">DNI</label>
                             <input type="text" value={dni} onChange={ (e) => setDni(e.target.value)} className="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-yellow-600 focus:border-blue-500 block w-full p-2.5 dark:bg-[#] dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500" required />
@@ -99,12 +99,12 @@ const Formulario = () => {
                             <label className="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Fecha de nacimiento</label>
                             <DatePicker selected={fechaNacimiento} onChange={date => setFechaN(date)} dateFormat="yyyy-MM-dd" className="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-yellow-600 focus:border-blue-500 block w-full p-2.5 dark:bg-[#] dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"/>
                         </div>
+                        <div className="mb-5">
+                            <label className="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Celular</label>
+                            <input type="text" value={celular} onChange={ (e) => setCel(e.target.value)} className="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-yellow-600 block w-full p-2.5 dark:bg-[#] dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500" required/>
                     </div>
-                    <div className="mb-5">
-                        <label className="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Celular</label>
-                        <input type="text" value={celular} onChange={ (e) => setCel(e.target.value)} className="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-yellow-600 block w-full p-2.5 dark:bg-[#] dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500" required/>
                     </div>
-                    <div className="relative z-0 w-full group">
+                    <div className="relative z-0 w-full group mb-5">
                         <label className="block mb-2 text-sm font-medium text-gray-900 dark:text-white mb-2 mt-2">Distrito</label>
                         <select value={distrito} onChange={ (e) => setDistrito(e.target.value)} className="bg-gray-50 scroll-auto border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-yellow-400 focus:border-yellow-600 block w-full p-2.5 dark:bg-[#] dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500" required>
                                 
@@ -115,7 +115,6 @@ const Formulario = () => {
 
                         </select >
                     </div>
-
                     <div className="mb-5"> 
                         <label className="block text-sm font-medium text-gray-900 dark:text-white mb-2">Sexo</label>
                         <div className=" grid md:grid-cols-3 md:gap-6">
@@ -134,7 +133,7 @@ const Formulario = () => {
                         </div>
                     </div>
                     <div className="mb-5 flex justify-center my-16">
-                        <button onClick={(e) => agregarSegunTipoUsuario(e)} className="focus:outline-none w-1/2 text-white bg-[#E8A477] hover:bg-[#BC7547] focus:ring-4 focus:ring-[#BC7547] font-medium rounded-lg text-sm px-5 py-2.5 me-2 mb-2 dark:focus:ring-[#B4663F]">Siguiente</button>
+                        <button onClick={(e) => agregarSegunTipoUsuario(e)} className="focus:outline-none w-1/2 text-white bg-[#E8A477] hover:bg-[#BC7547] focus:ring-4 focus:ring-[#BC7547] font-medium rounded-lg text-sm px-5 py-2.5 me-2 mb-2 dark:focus:ring-[#B4663F]">Guardar</button>
                     </div>
                 </div>
             </div>
