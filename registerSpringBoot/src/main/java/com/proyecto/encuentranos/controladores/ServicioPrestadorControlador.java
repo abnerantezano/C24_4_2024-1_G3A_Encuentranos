@@ -4,6 +4,7 @@ import java.util.ArrayList;
 import java.util.Optional;
 
 import org.springframework.beans.factory.annotation.*;
+import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 import com.proyecto.encuentranos.modelos.ServicioPrestadorModelo;
@@ -26,10 +27,11 @@ public class ServicioPrestadorControlador {
 		return this.servicioPrestadorServicio.obtenerServicioPrestadorPorId(id);
 	}
 	
-	@PostMapping("/agregar")
-	public ServicioPrestadorModelo agregarServicioPrestador(@RequestBody ServicioPrestadorModelo servicioPrestador) {
-		return this.servicioPrestadorServicio.agregarServicioPrestador(servicioPrestador);
-	}
+    @PostMapping("/agregar")
+    public ResponseEntity<ServicioPrestadorModelo> agregarServicioPrestador(@RequestBody ServicioPrestadorModelo servicioPrestador) {
+        ServicioPrestadorModelo nuevoServicioPrestador = servicioPrestadorServicio.agregarServicioPrestador(servicioPrestador);
+        return ResponseEntity.ok(nuevoServicioPrestador);
+    }
 	
 	@PutMapping(path="/actualizar/{id}")
 	public ServicioPrestadorModelo actualizarServicioPrestador(@RequestBody ServicioPrestadorModelo servicioPrestador, @PathVariable Long id) {
