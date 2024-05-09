@@ -182,3 +182,6 @@
 2024-05-08 21:46:25,861 [Worker-1: Building] INFO  o.a.m.s.f.DefaultMavenResourcesFiltering - Copying 2 resources from src\main\resources to target\classes
 2024-05-08 21:46:25,876 [Worker-1: Building] INFO  o.a.m.s.f.DefaultMavenResourcesFiltering - Copying 0 resource from src\main\resources to target\classes
 2024-05-08 21:46:25,882 [Worker-1: Building] INFO  o.a.m.s.f.DefaultMavenResourcesFiltering - skip non existing resourceDirectory C:\Users\pinki\proyectos\C24_4_2024-1_G3A_Encuentranos\registerSpringBoot\src\test\resources
+2024-05-08 22:14:37,538 [Worker-16: Building] INFO  o.a.m.s.f.DefaultMavenResourcesFiltering - Copying 2 resources from src\main\resources to target\classes
+2024-05-08 22:14:37,558 [Worker-16: Building] INFO  o.a.m.s.f.DefaultMavenResourcesFiltering - Copying 0 resource from src\main\resources to target\classes
+2024-05-08 22:14:37,560 [Worker-16: Building] INFO  o.a.m.s.f.DefaultMavenResourcesFiltering - skip non existing resourceDirectory C:\Users\pinki\proyectos\C24_4_2024-1_G3A_Encuentranos\registerSpringBoot\src\test\resources

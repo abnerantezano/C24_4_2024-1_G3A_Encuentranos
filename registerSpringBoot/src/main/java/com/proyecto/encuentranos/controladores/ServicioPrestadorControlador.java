@@ -1,10 +1,13 @@
 package com.proyecto.encuentranos.controladores;
 
 import java.util.ArrayList;
+import java.util.List;
 import java.util.Optional;
 
 import org.springframework.beans.factory.annotation.*;
+import org.springframework.http.HttpStatus;
 import org.springframework.web.bind.annotation.*;
+import org.springframework.web.server.ResponseStatusException;
 
 import com.proyecto.encuentranos.modelos.ServicioPrestadorModelo;
 import com.proyecto.encuentranos.servicios.ServicioPrestadorServicio;
@@ -26,10 +29,18 @@ public class ServicioPrestadorControlador {
 		return this.servicioPrestadorServicio.obtenerServicioPrestadorPorId(id);
 	}
 	
-	@PostMapping("/agregar")
-	public ServicioPrestadorModelo agregarServicioPrestador(@RequestBody ServicioPrestadorModelo servicioPrestador) {
-		return this.servicioPrestadorServicio.agregarServicioPrestador(servicioPrestador);
-	}
+    @PostMapping("/agregar")
+    public List<ServicioPrestadorModelo> agregarServicioPrestador(@RequestBody List<ServicioPrestadorModelo> serviciosPrestador) {
+        List<ServicioPrestadorModelo> serviciosAgregados = new ArrayList<>();
+        for (ServicioPrestadorModelo servicioPrestador : serviciosPrestador) {
+            try {
+                serviciosAgregados.add(servicioPrestadorServicio.agregarServicioPrestador(servicioPrestador));
+            } catch (Exception e) {
+                throw new ResponseStatusException(HttpStatus.BAD_REQUEST, "Error al agregar servicio prestador: " + e.getMessage());
+            }
+        }
+        return serviciosAgregados;
+    }
 	
 	@PutMapping(path="/actualizar/{id}")
 	public ServicioPrestadorModelo actualizarServicioPrestador(@RequestBody ServicioPrestadorModelo servicioPrestador, @PathVariable Long id) {
