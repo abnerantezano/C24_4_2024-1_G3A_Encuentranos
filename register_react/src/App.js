@@ -1,24 +1,27 @@
 import { BrowserRouter as Router, Routes, Route } from 'react-router-dom';
+import React, { useState } from 'react';
 import './App.css';
 import Header from './componentes/Header';
+import HeaderAutenticado from './componentes/HeaderAutenticado';
 import Index from './componentes/Index';
 import IniciarSesion from './componentes/IniciarSesion';
 import CrearUsuario from './componentes/CrearUsuario';
 import Registro from './componentes/Registro';
 import Formulario from './componentes/Formulario';
 import Footer from './componentes/Footer';
+import FooterAutenticado from './componentes/FooterAutenticado';
 import Crud from './componentes/CRUD';
 import AgregarServicio from './componentes/AgregarServicio';
 
 
 function App() {
   
-  const isLoggedIn = false;
+  const [isLoggedIn, setIsLoggedIn] = useState(false); 
 
   return (
     <div className="">
       <Router>
-        <Header />
+        {isLoggedIn ? <HeaderAutenticado /> : <Header />}
           <div className=''>
             <Routes>
               <Route exact path='/' element={<Index/>} />
@@ -30,7 +33,7 @@ function App() {
               <Route exact path='/agregarServicio' element={<AgregarServicio />} />
             </Routes>
           </div>
-        <Footer />
+        {isLoggedIn ? <Footer /> : <FooterAutenticado />}
       </Router>
 
     </div>
