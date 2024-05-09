@@ -5,14 +5,12 @@ import ServicioService from "../services/ServicioService";
 import ServicioProveedor from "../services/ServicioProveedor";
 
 const AgregarServicio = () => {
-
     const [servicios, setServicios] = useState([]);
-
     const [serviceData, setServiceData] = useState([{ idServicio: '', precio: '' }]);
     const [showSelect, setShowSelect] = useState(false);
     const [serviceCount, setServiceCount] = useState(1);
 
-    const [idProveedor, setIdProveedor] = useState("");
+    const [idProveedor, setIdProveedor] = useState(""); 
 
     useEffect(() => {
         ServicioService.getAll()
@@ -29,18 +27,14 @@ const AgregarServicio = () => {
     const agregarServicio = (e) => {
         e.preventDefault();
         
-        // Filtrar los servicios con idServicio y Precio definidos
-        const serviciosData = serviceData.filter(service => service.idServicio && service.Precio);
+        const serviciosData = serviceData.filter(service => service.idServicio && service.precio);
         
-        // Mapear los servicios a un nuevo arreglo incluyendo el idProveedor
         const serviciosPrestadores = serviciosData.map(service => ({
             idProveedor: idProveedor, 
             idServicio: service.idServicio,
-            precio: parseFloat(service.precio).toFixed(2)
+            precio: service.precio
         }));
         console.log(serviciosPrestadores);
-    
-        // Enviar todos los servicios al servidor
         ServicioProveedor.postAddServicioProveedor(serviciosPrestadores)
             .then((response) => {
                 console.log(response.data);
@@ -55,14 +49,18 @@ const AgregarServicio = () => {
         if (serviceCount < 5) {
             setShowSelect(true);
             setServiceCount(prevCount => prevCount + 1);
-            setServiceData(prevData => [...prevData, { idServicio: '', Precio: '' }]);
+            setServiceData(prevData => [...prevData, { idServicio: '', precio: '' }]); 
         }
     }
 
     const handleChange = (show, e) => {
         const { name, value } = e.target;
         const newData = [...serviceData];
-        newData[show][name] = value;
+        if (name === "idServicio") {
+            newData[show][name] = { id: parseInt(value)}; 
+        } else {
+            newData[show][name] = parseFloat(value);
+        }
         setServiceData(newData);
     }
 
@@ -76,13 +74,13 @@ const AgregarServicio = () => {
                         </div>
                         <div className="mb-5">
                             <label className="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Id proveedor</label>
-                            <input type="text" value={idProveedor} onChange={ (e) => setIdProveedor(parseInt(e.target.value))}  className="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-yellow-600 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500" required/>
+                            <input type="text" value={idProveedor.id} onChange={(e) => setIdProveedor( {...idProveedor,id:parseInt(e.target.value)})}  className="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-yellow-600 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500" required/>
                         </div>
                         {serviceData.map((service, show) => (
                             <div key={show} className="grid md:grid-cols-2 md:gap-6">
                                 <div className="relative z-0 w-full group">
                                     <label className="block mb-2 text-sm font-medium text-gray-900 dark:text-white mb-2 mt-2">Servicio</label>
-                                    <select  name="idServicio"  value={service.idServicio} onChange={(e) => handleChange(show, e)} className="mb-5 bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-yellow-600 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500" required>
+                                    <select  name="idServicio"  value={service.idServicio.id} onChange={(e) => handleChange(show, e)} className="mb-5 bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-yellow-600 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500" required>
                                         <option value="">Seleccionar servicio</option>
                                         {servicios.map(servicio => (
                                             <option key={servicio.id} value={servicio.id}>{servicio.nombre}</option>
@@ -91,7 +89,7 @@ const AgregarServicio = () => {
                                 </div>
                                 <div className="relative z-0 w-full mb-5 group">
                                     <label className="block mb-2 text-sm font-medium text-gray-900 dark:text-white mb-2 mt-2">Precio</label>
-                                    <input type="number"  name="Precio" step="0.01" min="0" value={service.precio} onChange={(e) => handleChange(show, e)} className="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-yellow-600 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500" required
+                                    <input type="number"  name="precio" step="0.01" min="0" value={service.precio} onChange={(e) => handleChange(show, e)} className="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-yellow-600 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500" required
                                     />
                                 </div>
                             </div>
