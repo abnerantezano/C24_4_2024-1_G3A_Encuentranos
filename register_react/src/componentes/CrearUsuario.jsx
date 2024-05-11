@@ -1,13 +1,16 @@
-import React from "react";
+import React, { useState } from "react";
 import { useForm } from "react-hook-form";
 import logo from "../imagenes/logo-color.png";
 import { useNavigate } from "react-router-dom";
 import UsuarioService from "../servicios/UsuarioService";
+import IniciarSesionService from "../servicios/IniciarSesionService";
+import { useEffect } from "react";
 
 const CrearUsuario = () => {
 
     const { register, handleSubmit, watch, formState: { errors } } = useForm();
     const navigate = useNavigate();
+    const [autenticado,setAutenticado]=useState("");
 
     const onSubmit = (data) => {
 
@@ -27,6 +30,17 @@ const CrearUsuario = () => {
                 console.error(error);
             });
     };
+
+    useEffect(() => {
+        IniciarSesionService.getUsuario()
+            .then(AutenticadoResponse => {
+                setAutenticado(AutenticadoResponse);
+                console.log(AutenticadoResponse);
+            })
+            .catch(error => {
+
+            });
+    }, []); 
 
     return (
         <form onSubmit={handleSubmit(onSubmit)}>

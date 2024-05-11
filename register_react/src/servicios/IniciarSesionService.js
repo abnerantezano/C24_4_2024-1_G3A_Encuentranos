@@ -1,10 +1,10 @@
 import axios from "axios";
 
-class LoginService {
-    baseUrl = 'http://localhost:4000/login';
+class IniciarSesionService {
+    baseUrl = 'http://localhost:4000/usuario';
 
-    auth2() {
-        return axios.get(this.baseUrl + '/messages')
+    getUsuario() {
+        return axios.get(this.baseUrl + '/token')
             .then(res => res.data); 
     }
 
@@ -17,5 +17,5 @@ class LoginService {
     
 }
 
-export default new LoginService();
+export default new IniciarSesionService();
 
