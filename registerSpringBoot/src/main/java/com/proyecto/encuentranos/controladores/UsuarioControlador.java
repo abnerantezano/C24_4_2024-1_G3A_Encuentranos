@@ -9,6 +9,7 @@ import org.springframework.security.oauth2.client.OAuth2AuthorizedClientService;
 import org.springframework.security.oauth2.client.authentication.OAuth2AuthenticationToken;
 import org.springframework.security.oauth2.client.registration.ClientRegistrationRepository;
 import org.springframework.security.oauth2.core.OAuth2AccessToken;
+import org.springframework.security.oauth2.core.user.OAuth2User;
 import org.springframework.web.bind.annotation.*;
 
 import com.proyecto.encuentranos.modelos.UsuarioModelo;
@@ -47,17 +48,29 @@ public class UsuarioControlador {
 	    
 	    // Verificar si la autenticación es de tipo OAuth2
 	    if (authentication instanceof OAuth2AuthenticationToken) {
-	        // Obtener el token de acceso usando OAuth2AuthorizedClientService
+	        // Obtener el usuario autenticado
 	        OAuth2AuthenticationToken oauthToken = (OAuth2AuthenticationToken) authentication;
+	        OAuth2User oauth2User = oauthToken.getPrincipal();
+	        
+	        // Obtener los atributos del usuario
+	        Object name = oauth2User.getAttribute("name");
+	        Object email = oauth2User.getAttribute("email");
+
+	        
+	        // Loguear el nombre y el email
+	        System.out.println("Nombre del usuario: " + name);
+	        System.out.println("Correo electrónico del usuario: " + email);
+
+	        // Obtener el token de acceso usando OAuth2AuthorizedClientService
 	        OAuth2AccessToken accessToken = authorizedClientService.loadAuthorizedClient(
 	                oauthToken.getAuthorizedClientRegistrationId(),
 	                oauthToken.getName()
 	        ).getAccessToken();
+	        
 	        // Devolver el token de acceso como String
 	        return accessToken.getTokenValue();
 	    }
 	    // Devolver null si la autenticación no es de tipo OAuth2
 	    return null;
 	}
-
 }
