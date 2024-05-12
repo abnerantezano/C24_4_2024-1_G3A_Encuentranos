@@ -31,8 +31,8 @@ SESSION_ENGINE = 'django.contrib.sessions.backends.signed_cookies'
 # Application definition
 
 INSTALLED_APPS = [
-    'gestion_usuarios',
-    'gestion_servicios',
+    'servicios',
+    'usuarios',
     'rest_framework',
     'django.contrib.admin',
     'django.contrib.auth',
