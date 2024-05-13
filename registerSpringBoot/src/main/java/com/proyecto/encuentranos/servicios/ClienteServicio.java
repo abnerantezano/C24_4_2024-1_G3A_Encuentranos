@@ -39,9 +39,6 @@ public class ClienteServicio {
         	clienteExistente.setDni(clienteActualizado.getDni());
         	clienteExistente.setSexo(clienteActualizado.getSexo());
         	clienteExistente.setCelular(clienteActualizado.getCelular());
-        	clienteExistente.setImagenUrl(clienteActualizado.getImagenUrl());
-        	clienteExistente.setDepartamento(clienteActualizado.getDepartamento());
-        	clienteExistente.setProvincia(clienteActualizado.getProvincia());
         	clienteExistente.setDistrito(clienteActualizado.getDistrito());
 
             // Actualizar correo y contraseña del usuario

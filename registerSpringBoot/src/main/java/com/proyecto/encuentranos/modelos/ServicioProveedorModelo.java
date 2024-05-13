@@ -7,48 +7,61 @@ import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
 import jakarta.persistence.JoinColumn;
-import jakarta.persistence.ManyToMany;
 import jakarta.persistence.ManyToOne;
+import jakarta.persistence.MapsId;
 import jakarta.persistence.Table;
 import jakarta.validation.constraints.NotNull;
 
+@Entity
 @Table(name="servicio_proveedor")
 public class ServicioProveedorModelo {
-		
-	@ManyToOne
-	@JoinColumn(name = "id_servicio", referencedColumnName = "id_servicio")
-	private ServicioModelo idServicio;
-	
-	@ManyToOne
-	@JoinColumn(name = "id_proveedor", referencedColumnName = "id_proveedor")
-	private ProveedorModelo idProveedor;
-	
-	@NotNull
+    
+    @EmbeddedId
+    private ServicioProveedorPk id;
+        
+    @ManyToOne
+    @JoinColumn(name = "id_servicio")
+    @MapsId("idServicio")
+    private ServicioModelo idServicio;
+    
+    @ManyToOne
+    @JoinColumn(name = "id_proveedor")
+    @MapsId("idProveedor")
+    private ProveedorModelo idProveedor;
+    
+    @NotNull
     @Column(name = "precio")
     private double precio;
 
+    public ServicioProveedorPk getId() {
+        return id;
+    }
 
-	public ServicioModelo getIdServicio() {
-		return idServicio;
-	}
+    public void setId(ServicioProveedorPk id) {
+        this.id = id;
+    }
 
-	public void setIdServicio(ServicioModelo idServicio) {
-		this.idServicio = idServicio;
-	}
+    public ServicioModelo getIdServicio() {
+        return idServicio;
+    }
 
-	public ProveedorModelo getIdProveedor() {
-		return idProveedor;
-	}
+    public void setIdServicio(ServicioModelo idServicio) {
+        this.idServicio = idServicio;
+    }
 
-	public void setIdProveedor(ProveedorModelo idProveedor) {
-		this.idProveedor = idProveedor;
-	}
+    public ProveedorModelo getIdProveedor() {
+        return idProveedor;
+    }
 
-	public double getPrecio() {
-		return precio;
-	}
+    public void setIdProveedor(ProveedorModelo idProveedor) {
+        this.idProveedor = idProveedor;
+    }
 
-	public void setPrecio(double precio) {
-		this.precio = precio;
-	}	
+    public double getPrecio() {
+        return precio;
+    }
+
+    public void setPrecio(double precio) {
+        this.precio = precio;
+    }   
 }

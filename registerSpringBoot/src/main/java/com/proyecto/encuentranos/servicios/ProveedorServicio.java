@@ -33,9 +33,6 @@ public class ProveedorServicio {
         	proveedorExistente.setFechaNacimiento(proovedorActualizado.getFechaNacimiento());
         	proveedorExistente.setDni(proovedorActualizado.getDni());
         	proveedorExistente.setCelular(proovedorActualizado.getCelular());
-        	proveedorExistente.setImagenUrl(proovedorActualizado.getImagenUrl());
-        	proveedorExistente.setDepartamento(proovedorActualizado.getDepartamento());
-        	proveedorExistente.setProvincia(proovedorActualizado.getProvincia());
         	proveedorExistente.setDistrito(proovedorActualizado.getDistrito());
 
             // Actualizar correo y contraseña del usuario

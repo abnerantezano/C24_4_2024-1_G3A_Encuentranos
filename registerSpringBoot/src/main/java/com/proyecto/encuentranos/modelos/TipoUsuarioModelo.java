@@ -20,8 +20,8 @@ public class TipoUsuarioModelo {
 	@Column(name = "nombre")
 	private String nombre;
 	
-	@Column(name = "permiso")
-	private String permiso;
+	@Column(name = "permisos")
+	private String permisos;
 
 	public Integer getId() {
 		return id;
@@ -39,12 +39,12 @@ public class TipoUsuarioModelo {
 		this.nombre = nombre;
 	}
 
-	public String getPermiso() {
-		return permiso;
+	public String getPermisos() {
+		return permisos;
 	}
 
-	public void setPermiso(String permiso) {
-		this.permiso = permiso;
+	public void setPermisos(String permisos) {
+		this.permisos = permisos;
 	}
 	
 	
