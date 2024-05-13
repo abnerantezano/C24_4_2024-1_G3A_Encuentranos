@@ -18,7 +18,7 @@ public class ClienteModelo {
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	@Column( name = "id_cliente")
-	private Long id;
+	private Integer id;
 	
 	@OneToOne
 	@JoinColumn(name = "id_usuario", referencedColumnName = "id_usuario")
@@ -52,26 +52,14 @@ public class ClienteModelo {
 	private String celular;
 	
 	@NotEmpty
-	@Column(name = "imagen_url")
-	private String imagenUrl;
-	
-	@NotEmpty
-	@Column(name = "departamento")
-	private String departamento;
-	
-	@NotEmpty
-	@Column(name = "provincia")
-	private String provincia;
-	
-	@NotEmpty
 	@Column(name = "distrito")
 	private String distrito;
 
-	public Long getId() {
+	public Integer getId() {
 		return id;
 	}
 
-	public void setId(Long id) {
+	public void setId(Integer id) {
 		this.id = id;
 	}
 
@@ -139,30 +127,6 @@ public class ClienteModelo {
 		this.celular = celular;
 	}
 
-	public String getImagenUrl() {
-		return imagenUrl;
-	}
-
-	public void setImagenUrl(String imagenUrl) {
-		this.imagenUrl = imagenUrl;
-	}
-
-	public String getDepartamento() {
-		return departamento;
-	}
-
-	public void setDepartamento(String departamento) {
-		this.departamento = departamento;
-	}
-
-	public String getProvincia() {
-		return provincia;
-	}
-
-	public void setProvincia(String provincia) {
-		this.provincia = provincia;
-	}
-
 	public String getDistrito() {
 		return distrito;
 	}
@@ -170,6 +134,6 @@ public class ClienteModelo {
 	public void setDistrito(String distrito) {
 		this.distrito = distrito;
 	}
-
+	
 	
 }

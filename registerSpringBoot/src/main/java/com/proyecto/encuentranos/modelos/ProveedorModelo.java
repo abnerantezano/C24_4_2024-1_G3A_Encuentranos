@@ -11,6 +11,7 @@ import jakarta.persistence.JoinColumn;
 import jakarta.persistence.OneToOne;
 import jakarta.persistence.Table;
 import jakarta.validation.constraints.NotEmpty;
+import jakarta.validation.constraints.NotNull;
 
 @Entity
 @Table(name="proveedor")
@@ -18,7 +19,7 @@ public class ProveedorModelo {
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	@Column( name = "id_proveedor")
-	private Long id;
+	private Integer id;
 	
 	@OneToOne
 	@JoinColumn(name = "id_usuario", referencedColumnName = "id_usuario")
@@ -44,34 +45,29 @@ public class ProveedorModelo {
 	@Column(name = "dni")
 	private String dni;
 	
-	@Column(name= "fecha_nacimiento")
-	private LocalDate fechaNacimiento;
-	
 	@NotEmpty
 	@Column(name = "celular")
 	private String celular;
 	
-	@NotEmpty
-	@Column(name = "imagen_url")
-	private String imagenUrl;
-	
-	@NotEmpty
-	@Column(name = "departamento")
-	private String departamento;
-	
-	@NotEmpty
-	@Column(name = "provincia")
-	private String provincia;
+	@Column(name= "fecha_nacimiento")
+	private LocalDate fechaNacimiento;
 	
 	@NotEmpty
 	@Column(name = "distrito")
 	private String distrito;
 
-	public Long getId() {
+	@Column(name = "disponible")
+	private boolean disponible;
+	
+	@NotNull
+	@Column(name = "calificacion_promedio")
+	private double calificacionPromedio;
+
+	public Integer getId() {
 		return id;
 	}
 
-	public void setId(Long id) {
+	public void setId(Integer id) {
 		this.id = id;
 	}
 
@@ -107,7 +103,6 @@ public class ProveedorModelo {
 		this.apellidoMaterno = apellidoMaterno;
 	}
 
-	
 	public String getSexo() {
 		return sexo;
 	}
@@ -124,14 +119,6 @@ public class ProveedorModelo {
 		this.dni = dni;
 	}
 
-	public LocalDate getFechaNacimiento() {
-		return fechaNacimiento;
-	}
-
-	public void setFechaNacimiento(LocalDate fechaNacimiento) {
-		this.fechaNacimiento = fechaNacimiento;
-	}
-
 	public String getCelular() {
 		return celular;
 	}
@@ -140,28 +127,12 @@ public class ProveedorModelo {
 		this.celular = celular;
 	}
 
-	public String getImagenUrl() {
-		return imagenUrl;
+	public LocalDate getFechaNacimiento() {
+		return fechaNacimiento;
 	}
 
-	public void setImagenUrl(String imagenUrl) {
-		this.imagenUrl = imagenUrl;
-	}
-
-	public String getDepartamento() {
-		return departamento;
-	}
-
-	public void setDepartamento(String departamento) {
-		this.departamento = departamento;
-	}
-
-	public String getProvincia() {
-		return provincia;
-	}
-
-	public void setProvincia(String provincia) {
-		this.provincia = provincia;
+	public void setFechaNacimiento(LocalDate fechaNacimiento) {
+		this.fechaNacimiento = fechaNacimiento;
 	}
 
 	public String getDistrito() {
@@ -172,5 +143,22 @@ public class ProveedorModelo {
 		this.distrito = distrito;
 	}
 
+	public boolean isDisponible() {
+		return disponible;
+	}
+
+	public void setDisponible(boolean disponible) {
+		this.disponible = disponible;
+	}
+
+	public double getCalificacionPromedio() {
+		return calificacionPromedio;
+	}
+
+	public void setCalificacionPromedio(double calificacionPromedio) {
+		this.calificacionPromedio = calificacionPromedio;
+	}
+	
+	
 	
 }

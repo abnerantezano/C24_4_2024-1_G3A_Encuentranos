@@ -14,7 +14,7 @@ public class ServicioModelo {
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	@Column( name = "id_servicio")
-	private Long id;
+	private Integer id;
 	
 	@NotEmpty
 	@Column(name = "nombre")
@@ -24,11 +24,11 @@ public class ServicioModelo {
 	@Column(name = "descripcion")
 	private String descripcion;
 
-	public Long getId() {
+	public Integer getId() {
 		return id;
 	}
 
-	public void setId(Long id) {
+	public void setId(Integer id) {
 		this.id = id;
 	}
 

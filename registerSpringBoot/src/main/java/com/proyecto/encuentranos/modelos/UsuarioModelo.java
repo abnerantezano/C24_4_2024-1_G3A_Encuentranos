@@ -16,7 +16,7 @@ public class UsuarioModelo {
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	@Column( name = "id_usuario")
-	private Long id;
+	private Integer id;
 	
 	@ManyToOne
 	@JoinColumn(name = "id_tipo", referencedColumnName = "id_tipo")
@@ -30,11 +30,18 @@ public class UsuarioModelo {
 	@Column(name = "contrasena")
 	private String contrasena;
 
-	public Long getId() {
+	@Column(name = "imagen_url")
+	private String imagenUrl;
+	
+	@NotEmpty
+	@Column(name = "eliminada")
+	private boolean eliminada;
+
+	public Integer getId() {
 		return id;
 	}
 
-	public void setId(Long id) {
+	public void setId(Integer id) {
 		this.id = id;
 	}
 
@@ -60,6 +67,22 @@ public class UsuarioModelo {
 
 	public void setContrasena(String contrasena) {
 		this.contrasena = contrasena;
+	}
+
+	public String getImagenUrl() {
+		return imagenUrl;
+	}
+
+	public void setImagenUrl(String imagenUrl) {
+		this.imagenUrl = imagenUrl;
+	}
+
+	public boolean isEliminada() {
+		return eliminada;
+	}
+
+	public void setEliminada(boolean eliminada) {
+		this.eliminada = eliminada;
 	}
 	
 	
