@@ -14,24 +14,20 @@ public class TipoUsuarioModelo {
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	@Column( name = "id_tipo")
-	Long id;
+	private Integer id;
 	
 	@NotEmpty
 	@Column(name = "nombre")
 	private String nombre;
 	
-    public TipoUsuarioModelo() {
-    }
-    
-    public TipoUsuarioModelo(Long id) {
-        this.id = id;
-    }
-    
-	public Long getId() {
+	@Column(name = "permiso")
+	private String permiso;
+
+	public Integer getId() {
 		return id;
 	}
 
-	public void setId(Long id) {
+	public void setId(Integer id) {
 		this.id = id;
 	}
 
@@ -43,10 +39,14 @@ public class TipoUsuarioModelo {
 		this.nombre = nombre;
 	}
 
-	public TipoUsuarioModelo orElse(Object object) {
-		// TODO Auto-generated method stub
-		return null;
+	public String getPermiso() {
+		return permiso;
 	}
+
+	public void setPermiso(String permiso) {
+		this.permiso = permiso;
+	}
+	
 	
 	
 }

@@ -1,24 +1,20 @@
 package com.proyecto.encuentranos.modelos;
 
 import jakarta.persistence.Column;
+import jakarta.persistence.EmbeddedId;
 import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
 import jakarta.persistence.JoinColumn;
+import jakarta.persistence.ManyToMany;
 import jakarta.persistence.ManyToOne;
 import jakarta.persistence.Table;
 import jakarta.validation.constraints.NotNull;
 
-@Entity
 @Table(name="servicio_proveedor")
-public class ServicioPrestadorModelo {
-	
-	@Id
-	@GeneratedValue(strategy = GenerationType.IDENTITY)
-	@Column( name = "id_servicio_proveedor")
-	private Long id;
-	
+public class ServicioProveedorModelo {
+		
 	@ManyToOne
 	@JoinColumn(name = "id_servicio", referencedColumnName = "id_servicio")
 	private ServicioModelo idServicio;
@@ -31,13 +27,6 @@ public class ServicioPrestadorModelo {
     @Column(name = "precio")
     private double precio;
 
-	public Long getId() {
-		return id;
-	}
-
-	public void setId(Long id) {
-		this.id = id;
-	}
 
 	public ServicioModelo getIdServicio() {
 		return idServicio;
