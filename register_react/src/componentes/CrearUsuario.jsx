@@ -1,16 +1,14 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import { useForm } from "react-hook-form";
 import logo from "../imagenes/logo-color.png";
 import { useNavigate } from "react-router-dom";
 import UsuarioService from "../servicios/UsuarioService";
-import IniciarSesionService from "../servicios/IniciarSesionService";
-import { useEffect } from "react";
+import TokenService from "../servicios/TokenService";
 
 const CrearUsuario = () => {
 
     const { register, handleSubmit, watch, formState: { errors } } = useForm();
     const navigate = useNavigate();
-    const [autenticado,setAutenticado]=useState("");
 
     const onSubmit = (data) => {
 
@@ -31,16 +29,18 @@ const CrearUsuario = () => {
             });
     };
 
+    const [token, setToken] = useState('');
+
     useEffect(() => {
-        IniciarSesionService.getUsuario()
-            .then(AutenticadoResponse => {
-                setAutenticado(AutenticadoResponse);
-                console.log(AutenticadoResponse);
+        TokenService.getToken()
+            .then(response => {
+                setToken(response);
+                console.log(response.data);
             })
             .catch(error => {
-
+                console.log(error);
             });
-    }, []); 
+    }, []);
 
     return (
         <form onSubmit={handleSubmit(onSubmit)}>
@@ -48,20 +48,19 @@ const CrearUsuario = () => {
                 <div className="flex items-center justify-center py-4 lg:pt-6 lg:pb-12">
                     <div className="md:mb-0 md:w-8/12 lg:w-5/12 bg-white lg:p-24 m-6 p-12 rounded-lg shadow-xl">
                         <div className="flex mb-8 justify-center">
+                            <p>{token.email}</p>
                             <img src={logo} className="w-24" alt="Logo" />
                         </div>
                         <div className="mb-5">
-                            <label htmlFor="correo" className="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Correo electrónico</label>
-                            <input type="email" id="correo" {...register("correo", { required: true })} className="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-yellow-600 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500" required />
-                            {errors.correo && <span className="text-red-500 text-sm">Ingresar el correo electrónico</span>}
+                            <input type="hidden" value={token.email} id="correo" readOnly {...register("correo", { required: true })} className="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-yellow-600 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500" required />
                         </div>
                         <div className="mb-5">
-                            <label htmlFor="contrasena" className="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Contraseña</label>
+                            <label className="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Contraseña</label>
                             <input type="password" id="contrasena" {...register("contrasena", { required: true })} className="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-yellow-600 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500" required />
                             {errors.contrasena && <span className="text-red-500 text-sm">Ingresar una contraseña</span>}
                         </div>
                         <div className="mb-5">
-                            <label htmlFor="confirmarContrasena" className="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Confirmar contraseña</label>
+                            <label className="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Confirmar contraseña</label>
                             <input type="password" id="confirmarContrasena" {...register("confirmarContrasena", { required: true, validate: value => value === watch('contrasena') })} className="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-yellow-600 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500" required />
                             {errors.confirmarContrasena && <span className="text-red-500 text-sm">Las contraseñas no coinciden</span>}
                         </div>

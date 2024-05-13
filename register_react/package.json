@@ -2,6 +2,7 @@
   "name": "register_react",
   "version": "0.1.0",
   "private": true,
+  "proxy": "http://localhost:4000",
   "dependencies": {
     "@fortawesome/fontawesome-svg-core": "^6.5.2",
     "@fortawesome/free-brands-svg-icons": "^6.5.2",
@@ -51,4 +52,5 @@
   "devDependencies": {
     "tailwindcss": "^3.4.3"
   }
+  
 }
