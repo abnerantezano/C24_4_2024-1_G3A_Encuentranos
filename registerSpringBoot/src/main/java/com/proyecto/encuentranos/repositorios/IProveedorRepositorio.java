@@ -7,6 +7,6 @@ import org.springframework.stereotype.Repository;
 
 import com.proyecto.encuentranos.modelos.ProveedorModelo;
 @Repository
-public interface IProveedorRepositorio extends JpaRepository<ProveedorModelo, Long>{
+public interface IProveedorRepositorio extends JpaRepository<ProveedorModelo, Integer>{
     List<ProveedorModelo> findByDistrito(String distrito);
 }

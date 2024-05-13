@@ -3,22 +3,30 @@ package com.proyecto.encuentranos.modelos;
 import java.time.LocalDate;
 
 import jakarta.persistence.Column;
+import jakarta.persistence.EmbeddedId;
 import jakarta.persistence.Entity;
 import jakarta.persistence.JoinColumn;
 import jakarta.persistence.ManyToOne;
+import jakarta.persistence.MapsId;
 import jakarta.persistence.Table;
 import jakarta.validation.constraints.NotEmpty;
 import jakarta.validation.constraints.NotNull;
 
+@Entity
 @Table(name="calificacion_proveedor")
 public class CalificacionProveedorModelo {
 
+    @EmbeddedId
+    private CalificacionProveedorPk id;
+    
 	@ManyToOne
-	@JoinColumn(name = "id_proveedor", referencedColumnName = "id_proveedor")
+	@JoinColumn(name = "id_proveedor")
+	@MapsId("idProveedor")
 	private UsuarioModelo idProveedor;
 	
 	@ManyToOne
-	@JoinColumn(name = "id_cliente", referencedColumnName = "id_cliente")
+	@JoinColumn(name = "id_cliente")
+	@MapsId("idCliente")
 	private UsuarioModelo idCliente;
 	
 	@NotNull
@@ -31,6 +39,14 @@ public class CalificacionProveedorModelo {
 
 	@Column(name= "fecha_calificacion")
 	private LocalDate fechaCalificacion;
+
+	public CalificacionProveedorPk getId() {
+		return id;
+	}
+
+	public void setId(CalificacionProveedorPk id) {
+		this.id = id;
+	}
 
 	public UsuarioModelo getIdProveedor() {
 		return idProveedor;

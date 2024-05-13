@@ -33,7 +33,6 @@ public class UsuarioModelo {
 	@Column(name = "imagen_url")
 	private String imagenUrl;
 	
-	@NotEmpty
 	@Column(name = "eliminada")
 	private boolean eliminada;
 

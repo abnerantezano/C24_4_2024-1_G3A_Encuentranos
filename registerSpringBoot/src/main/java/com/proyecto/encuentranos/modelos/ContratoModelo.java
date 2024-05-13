@@ -3,24 +3,32 @@ package com.proyecto.encuentranos.modelos;
 import java.time.LocalDate;
 
 import jakarta.persistence.Column;
+import jakarta.persistence.EmbeddedId;
 import jakarta.persistence.Entity;
 import jakarta.persistence.JoinColumn;
 import jakarta.persistence.ManyToOne;
+import jakarta.persistence.MapsId;
 import jakarta.persistence.Table;
-
+@Entity
 @Table(name="contrato")
 public class ContratoModelo {
 	
+	@EmbeddedId
+    private ContratoPk id;
+	
 	@ManyToOne
-	@JoinColumn(name = "id_proveedor", referencedColumnName = "id_proveedor")
+	@JoinColumn(name = "id_proveedor")
+	@MapsId("idProveedor")
 	private ProveedorModelo idProveedor;
 	
 	@ManyToOne
-	@JoinColumn(name = "id_servicio", referencedColumnName = "id_servicio")
+	@JoinColumn(name = "id_servicio")
+	@MapsId("idServicio")
 	private ServicioModelo idServicio;
 	
 	@ManyToOne
-	@JoinColumn(name = "id_cliente", referencedColumnName = "id_cliente")
+	@JoinColumn(name = "id_cliente")
+	@MapsId("idCliente")
 	private ClienteModelo idCliente;
 	
 	@Column(name= "fecha_inicio")

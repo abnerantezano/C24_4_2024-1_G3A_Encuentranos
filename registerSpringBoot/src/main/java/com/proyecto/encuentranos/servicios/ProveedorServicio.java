@@ -22,7 +22,7 @@ public class ProveedorServicio {
 		return proveedorRepositorio.save(proveedor);
 	}
 	
-	public ProveedorModelo actualizarProveedor(Long id, ProveedorModelo proovedorActualizado) {
+	public ProveedorModelo actualizarProveedor(Integer id, ProveedorModelo proovedorActualizado) {
 		ProveedorModelo proveedorExistente = proveedorRepositorio.findById(id).orElse(null);
         if (proveedorExistente != null) {
             // Actualizar datos del usuario
@@ -45,7 +45,7 @@ public class ProveedorServicio {
         return proveedorExistente;
 	}
 	
-	public Optional<ProveedorModelo> encontrarProveedorPorId(Long id){
+	public Optional<ProveedorModelo> encontrarProveedorPorId(Integer id){
 		return proveedorRepositorio.findById(id);
 	}
 	
