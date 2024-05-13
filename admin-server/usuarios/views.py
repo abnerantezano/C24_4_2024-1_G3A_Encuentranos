@@ -23,7 +23,7 @@ class DetalleTipoUsuario(APIView):
         serTipo = TipoUsuarioSerializer(tipo_usuario)
         return Response(serTipo.data)
 
-    def pull(self, request, id_tipo):
+    def put(self, request, id_tipo):
         tipo_usuario = TipoUsuario.objects.get(pk=id_tipo)
         serTipo = TipoUsuarioSerializer(tipo_usuario, data=request.data)
         serTipo.is_valid(raise_exception=True)
@@ -56,7 +56,7 @@ class DetalleUsuario(APIView):
         serUsuario = UsuarioSerializer(usuario)
         return Response(serUsuario.data)
 
-    def pull(self, request, id_usuario):
+    def put(self, request, id_usuario):
         usuario = Usuario.objects.get(pk=id_usuario)
         serUsuario = UsuarioSerializer(usuario, data=request.data)
         serUsuario.is_valid(raise_exception=True)
@@ -89,7 +89,7 @@ class DetalleProveedor(APIView):
         serProveedor = ProveedorSerializer(proveedor)
         return Response(serProveedor.data)
 
-    def pull(self, request, id_proveedor):
+    def put(self, request, id_proveedor):
         proveedor = Proveedor.objects.get(pk=id_proveedor)
         serProveedor = ProveedorSerializer(proveedor, data=request.data)
         serProveedor.is_valid(raise_exception=True)
@@ -122,7 +122,7 @@ class DetalleCliente(APIView):
         serCliente = ClienteSerializer(cliente)
         return Response(serCliente.data)
 
-    def pull(self, request, id_cliente):
+    def put(self, request, id_cliente):
         cliente = Cliente.objects.get(pk=id_cliente)
         serCliente = ClienteSerializer(cliente, data=request.data)
         serCliente.is_valid(raise_exception=True)

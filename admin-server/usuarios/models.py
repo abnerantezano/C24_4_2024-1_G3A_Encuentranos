@@ -34,7 +34,7 @@ class Proveedor(models.Model):
         max_length=60, db_column='apellido_paterno')
     apellido_materno = models.CharField(
         max_length=60, null=True, db_column='apellido_materno')
-    genero = models.CharField(max_length=50, db_column='genero')
+    sexo = models.CharField(max_length=50, db_column='sexo')
     dni = models.CharField(max_length=8, unique=True, db_column='dni')
     celular = models.CharField(max_length=9, unique=True, db_column='celular')
     fecha_nacimiento = models.DateField(db_column='fecha_nacimiento')
@@ -56,7 +56,7 @@ class Cliente(models.Model):
         max_length=60, db_column='apellido_paterno')
     apellido_materno = models.CharField(
         max_length=60, null=True, db_column='apellido_materno')
-    genero = models.CharField(max_length=50, db_column='genero')
+    sexo = models.CharField(max_length=50, db_column='sexo')
     dni = models.CharField(max_length=8, unique=True, db_column='dni')
     celular = models.CharField(max_length=9, unique=True, db_column='celular')
     fecha_nacimiento = models.DateField(db_column='fecha_nacimiento')

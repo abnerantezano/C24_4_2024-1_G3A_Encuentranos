@@ -3,7 +3,7 @@ from usuarios.models import Proveedor
 
 
 class Servicio(models.Model):
-    id_servicio = models.AutoField(primary_key=True, db_column='id_servicio'),
+    id_servicio = models.AutoField(primary_key=True, db_column='id_servicio')
     nombre = models.CharField(max_length=60, unique=True, db_column='nombre')
     descripcion = models.TextField(db_column='descripcion')
 
