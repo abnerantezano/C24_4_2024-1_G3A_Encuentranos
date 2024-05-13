@@ -29,7 +29,7 @@ public class ProveedorControlador {
 	}
 	
 	@GetMapping("/buscar/{id}")
-	public Optional<ProveedorModelo> encontrarProveedorPorId(@PathVariable Long id) {
+	public Optional<ProveedorModelo> encontrarProveedorPorId(@PathVariable Integer id) {
 		return proveedorServicio.encontrarProveedorPorId(id);
 	}
 	
@@ -39,7 +39,7 @@ public class ProveedorControlador {
 	}
 	
 	@PutMapping(path="/actualizar/{id}")
-	public ProveedorModelo actualizarProveedor(@RequestBody ProveedorModelo request, @PathVariable("id") Long id) {
+	public ProveedorModelo actualizarProveedor(@RequestBody ProveedorModelo request, @PathVariable("id") Integer id) {
 		return this.proveedorServicio.actualizarProveedor(id, request);
 	}
 }
