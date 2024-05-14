@@ -52,9 +52,9 @@ public class ProveedorModelo {
 	@Column(name= "fecha_nacimiento")
 	private LocalDate fechaNacimiento;
 	
-	@NotEmpty
-	@Column(name = "distrito")
-	private String distrito;
+	@OneToOne
+	@JoinColumn(name = "id_distrito", referencedColumnName = "id_distrito")
+	private DistritoModelo idDistrito;
 
 	@Column(name = "disponible")
 	private boolean disponible;
@@ -135,12 +135,12 @@ public class ProveedorModelo {
 		this.fechaNacimiento = fechaNacimiento;
 	}
 
-	public String getDistrito() {
-		return distrito;
+	public DistritoModelo getIdDistrito() {
+		return idDistrito;
 	}
 
-	public void setDistrito(String distrito) {
-		this.distrito = distrito;
+	public void setIdDistrito(DistritoModelo idDistrito) {
+		this.idDistrito = idDistrito;
 	}
 
 	public boolean isDisponible() {

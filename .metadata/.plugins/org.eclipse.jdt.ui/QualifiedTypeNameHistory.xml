@@ -1,2 +1,17 @@
 <?xml version="1.0" encoding="UTF-8" standalone="no"?>
-<qualifiedTypeNameHistroy/>
+<qualifiedTypeNameHistroy>
+    <fullyQualifiedTypeName name="jakarta.validation.constraints.NotEmpty"/>
+    <fullyQualifiedTypeName name="jakarta.persistence.Column"/>
+    <fullyQualifiedTypeName name="org.springframework.stereotype.Repository"/>
+    <fullyQualifiedTypeName name="org.springframework.stereotype.Service"/>
+    <fullyQualifiedTypeName name="org.springframework.web.bind.annotation.RestController"/>
+    <fullyQualifiedTypeName name="org.springframework.beans.factory.annotation.Autowired"/>
+    <fullyQualifiedTypeName name="com.proyecto.encuentranos.servicios.DistritoServicio"/>
+    <fullyQualifiedTypeName name="java.util.ArrayList"/>
+    <fullyQualifiedTypeName name="com.proyecto.encuentranos.modelos.DistritoModelo"/>
+    <fullyQualifiedTypeName name="com.proyecto.encuentranos.modelos.ServicioModelo"/>
+    <fullyQualifiedTypeName name="com.proyecto.encuentranos.repositorios.IServicioRepositorio"/>
+    <fullyQualifiedTypeName name="com.proyecto.encuentranos.repositorios.IServicioProveedorRepositorio"/>
+    <fullyQualifiedTypeName name="com.proyecto.encuentranos.modelos.ServicioProveedorModelo"/>
+    <fullyQualifiedTypeName name="com.proyecto.encuentranos.modelos.ProveedorModelo"/>
+</qualifiedTypeNameHistroy>

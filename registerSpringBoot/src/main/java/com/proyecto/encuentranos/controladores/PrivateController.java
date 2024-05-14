@@ -6,8 +6,6 @@ import com.proyecto.encuentranos.modelos.TipoUsuarioModelo;
 import com.proyecto.encuentranos.modelos.UsuarioModelo;
 import com.proyecto.encuentranos.repositorios.ITipoUsuarioRepositorio;
 import com.proyecto.encuentranos.repositorios.IUsuarioRepositorio;
-import com.proyecto.encuentranos.servicios.ClienteServicio;
-import com.proyecto.encuentranos.servicios.ProveedorServicio;
 import com.proyecto.encuentranos.servicios.UsuarioServicio;
 
 import jakarta.servlet.http.HttpServletRequest;
@@ -33,12 +31,6 @@ public class PrivateController {
 
     @Autowired
     private UsuarioServicio usuarioServicio;
-
-    @Autowired
-    private ClienteServicio clienteServicio;
-
-    @Autowired
-    private ProveedorServicio proveedorServicio;
 
     @GetMapping("/messages")
     public String privateMessages(@RequestParam(name = "tipoUsuarioId", required = false, defaultValue = "1") Long tipoUsuarioId, @AuthenticationPrincipal OAuth2User oauth2User, Model model, HttpServletRequest request) {

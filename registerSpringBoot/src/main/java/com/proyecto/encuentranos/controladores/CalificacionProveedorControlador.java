@@ -16,7 +16,6 @@ import org.springframework.web.bind.annotation.RestController;
 
 import com.proyecto.encuentranos.modelos.CalificacionProveedorModelo;
 import com.proyecto.encuentranos.modelos.CalificacionProveedorPk;
-import com.proyecto.encuentranos.modelos.ClienteModelo;
 import com.proyecto.encuentranos.servicios.CalificacionProveedorServicio;
 
 @CrossOrigin(origins = {"http://localhost:3000", "http://127.0.0.1:3000"})

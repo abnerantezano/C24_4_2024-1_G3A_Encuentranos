@@ -32,6 +32,9 @@ public class ServicioProveedorModelo {
     @NotNull
     @Column(name = "precio")
     private double precio;
+    
+    @Column(name = "negociable")
+    private boolean negociable;
 
     public ServicioProveedorPk getId() {
         return id;
@@ -63,5 +66,20 @@ public class ServicioProveedorModelo {
 
     public void setPrecio(double precio) {
         this.precio = precio;
-    }   
+    }
+
+	public boolean isNegociable() {
+		return negociable;
+	}
+
+	public void setNegociable(boolean negociable) {
+		this.negociable = negociable;
+	}
+
+	public boolean isDisponible() {
+		// TODO Auto-generated method stub
+		return false;
+	}   
+    
+    
 }

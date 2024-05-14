@@ -6,7 +6,6 @@ import java.util.Optional;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
-import com.proyecto.encuentranos.modelos.ServicioModelo;
 import com.proyecto.encuentranos.modelos.UsuarioModelo;
 import com.proyecto.encuentranos.repositorios.IUsuarioRepositorio;
 

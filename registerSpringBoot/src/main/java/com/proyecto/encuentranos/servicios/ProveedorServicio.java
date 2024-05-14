@@ -33,8 +33,8 @@ public class ProveedorServicio {
         	proveedorExistente.setFechaNacimiento(proovedorActualizado.getFechaNacimiento());
         	proveedorExistente.setDni(proovedorActualizado.getDni());
         	proveedorExistente.setCelular(proovedorActualizado.getCelular());
-        	proveedorExistente.setDistrito(proovedorActualizado.getDistrito());
-
+        	proveedorExistente.setIdDistrito(proovedorActualizado.getIdDistrito());
+        	proveedorExistente.setDisponible(proovedorActualizado.isDisponible());
             // Actualizar correo y contraseña del usuario
         	proveedorExistente.getIdUsuario().setCorreo(proovedorActualizado.getIdUsuario().getCorreo());
         	proveedorExistente.getIdUsuario().setContrasena(proovedorActualizado.getIdUsuario().getContrasena());

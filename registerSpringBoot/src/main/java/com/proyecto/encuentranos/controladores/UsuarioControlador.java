@@ -29,9 +29,6 @@ public class UsuarioControlador {
     
     @Autowired
     private OAuth2AuthorizedClientService authorizedClientService;
-
-    @Autowired
-    private ClientRegistrationRepository clientRegistrationRepository;
     
     @GetMapping("/listar")
     public ArrayList<UsuarioModelo> obtenerUsuarios() {

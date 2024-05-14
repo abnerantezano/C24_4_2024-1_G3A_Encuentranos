@@ -51,9 +51,9 @@ public class ClienteModelo {
 	@Column(name = "celular")
 	private String celular;
 	
-	@NotEmpty
-	@Column(name = "distrito")
-	private String distrito;
+	@OneToOne
+	@JoinColumn(name = "id_distrito", referencedColumnName = "id_distrito")
+	private DistritoModelo idDistrito;
 
 	public Integer getId() {
 		return id;
@@ -127,13 +127,15 @@ public class ClienteModelo {
 		this.celular = celular;
 	}
 
-	public String getDistrito() {
-		return distrito;
+	public DistritoModelo getIdDistrito() {
+		return idDistrito;
 	}
 
-	public void setDistrito(String distrito) {
-		this.distrito = distrito;
+	public void setIdDistrito(DistritoModelo idDistrito) {
+		this.idDistrito = idDistrito;
 	}
+
+
 	
 	
 }

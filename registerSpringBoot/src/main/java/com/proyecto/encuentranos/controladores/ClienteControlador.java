@@ -10,6 +10,7 @@ import org.springframework.web.bind.annotation.*;
 
 import com.proyecto.encuentranos.modelos.ClienteModelo;
 import com.proyecto.encuentranos.modelos.ProveedorModelo;
+import com.proyecto.encuentranos.modelos.ServicioProveedorModelo;
 import com.proyecto.encuentranos.servicios.ClienteServicio;
 
 @CrossOrigin(origins = {"http://localhost:3000", "http://127.0.0.1:3000"})
@@ -42,6 +43,11 @@ public class ClienteControlador {
 	@GetMapping("/buscar-proveedores/{idCliente}")
 	public List<ProveedorModelo> buscarProveedoresPorDistrito(@PathVariable Long idCliente) {
 		return clienteServicio.encontrarPrestadoresDeMiDistrito(idCliente);
+	}
+	
+	@GetMapping("/buscar-servicios/{idCliente}")
+	public List<ServicioProveedorModelo> encontrarServiciosDeMiDistrito(@PathVariable Long idCliente) {
+		return clienteServicio.encontrarServiciosDeMiDistrito(idCliente);
 	}
 
 }

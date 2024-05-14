@@ -9,8 +9,10 @@ import org.springframework.stereotype.Service;
 
 import com.proyecto.encuentranos.modelos.ClienteModelo;
 import com.proyecto.encuentranos.modelos.ProveedorModelo;
+import com.proyecto.encuentranos.modelos.ServicioProveedorModelo;
 import com.proyecto.encuentranos.repositorios.IClienteRepositorio;
 import com.proyecto.encuentranos.repositorios.IProveedorRepositorio;
+import com.proyecto.encuentranos.repositorios.IServicioProveedorRepositorio;
 
 @Service
 public class ClienteServicio {
@@ -19,6 +21,9 @@ public class ClienteServicio {
 	
 	@Autowired
 	IProveedorRepositorio proveedorRepositorio;
+	
+	@Autowired
+	IServicioProveedorRepositorio servicioRepositorio;
 	
 	public ArrayList<ClienteModelo> obtenerClientes(){
 		return (ArrayList<ClienteModelo>)clienteRepositorio.findAll();
@@ -39,7 +44,7 @@ public class ClienteServicio {
         	clienteExistente.setDni(clienteActualizado.getDni());
         	clienteExistente.setSexo(clienteActualizado.getSexo());
         	clienteExistente.setCelular(clienteActualizado.getCelular());
-        	clienteExistente.setDistrito(clienteActualizado.getDistrito());
+        	clienteExistente.setIdDistrito(clienteActualizado.getIdDistrito());
 
             // Actualizar correo y contraseña del usuario
         	clienteExistente.getIdUsuario().setCorreo(clienteActualizado.getIdUsuario().getCorreo());
@@ -56,14 +61,40 @@ public class ClienteServicio {
 	}
 	
 	public List<ProveedorModelo> encontrarPrestadoresDeMiDistrito(Long idCliente) {
-		Optional<ClienteModelo> clienteOptional = clienteRepositorio.findById(idCliente);
-		if (clienteOptional.isPresent()) {
-			ClienteModelo cliente = clienteOptional.get();
-			String distrito = cliente.getDistrito();
-			return proveedorRepositorio.findByDistrito(distrito);
-		} else {
-			return new ArrayList<>();
-		}
+	    Optional<ClienteModelo> clienteOptional = clienteRepositorio.findById(idCliente);
+	    if (clienteOptional.isPresent()) {
+	        ClienteModelo cliente = clienteOptional.get();
+	        String distrito = cliente.getIdDistrito().getNombre();
+	        List<ProveedorModelo> proveedores = proveedorRepositorio.findByIdDistritoNombre(distrito);
+	        List<ProveedorModelo> proveedoresDisponibles = new ArrayList<>();
+	        for (ProveedorModelo proveedor : proveedores) {
+	            if (proveedor.isDisponible()) {
+	                proveedoresDisponibles.add(proveedor);
+	            }
+	        }
+	        return proveedoresDisponibles;
+	    } else {
+	        return new ArrayList<>();
+	    }
 	}
+	
+	public List<ServicioProveedorModelo> encontrarServiciosDeMiDistrito(Long idCliente) {
+	    Optional<ClienteModelo> clienteOptional = clienteRepositorio.findById(idCliente);
+	    if (clienteOptional.isPresent()) {
+	        ClienteModelo cliente = clienteOptional.get();
+	        String distrito = cliente.getIdDistrito().getNombre();
+	        List<ServicioProveedorModelo> servicios = servicioRepositorio.findByIdProveedorIdDistritoNombre(distrito);
+	        List<ServicioProveedorModelo> serviciosDisponibles = new ArrayList<>();
+	        for (ServicioProveedorModelo servicio : servicios) {
+	            if (servicio.getIdProveedor().isDisponible()) {
+	            	serviciosDisponibles.add(servicio);
+	            }
+	        }
+	        return serviciosDisponibles;
+	    } else {
+	        return new ArrayList<>();
+	    }
+	}
+
 	
 }
