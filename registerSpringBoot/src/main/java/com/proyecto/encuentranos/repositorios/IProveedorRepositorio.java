@@ -9,5 +9,5 @@ import com.proyecto.encuentranos.modelos.ProveedorModelo;
 @Repository
 public interface IProveedorRepositorio extends JpaRepository<ProveedorModelo, Integer>{
     List<ProveedorModelo> findByIdDistritoNombre(String nombreDistrito);
-    boolean existsByEmail(String email);
+    boolean existsByIdUsuarioCorreo(String correo);
 }

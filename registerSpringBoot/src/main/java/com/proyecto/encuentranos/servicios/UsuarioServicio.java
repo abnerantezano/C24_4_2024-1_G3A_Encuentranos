@@ -34,11 +34,11 @@ public class UsuarioServicio {
         return usuarioRepositorio.findByCorreo(correo);
     }
     
-    public boolean existsByEmail(String email) {
-        return usuarioRepositorio.existsByEmail(email);
+    public boolean existsByEmail(String correo) {
+        return usuarioRepositorio.existsByCorreo(correo);
     }
 
-    public boolean existsInClienteOrProveedor(String email) {
-        return clienteRepositorio.existsByEmail(email) || proveedorRepositorio.existsByEmail(email);
+    public boolean existsInClienteOrProveedor(String correo) {
+        return clienteRepositorio.existsByIdUsuarioCorreo(correo) || proveedorRepositorio.existsByIdUsuarioCorreo(correo);
     }
 }

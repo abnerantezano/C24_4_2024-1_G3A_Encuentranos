@@ -9,5 +9,5 @@ import com.proyecto.encuentranos.modelos.UsuarioModelo;
 @Repository
 public interface IUsuarioRepositorio extends JpaRepository<UsuarioModelo, Long>{
 	Optional <UsuarioModelo> findByCorreo(String correo);
-    boolean existsByEmail(String email);
+    boolean existsByCorreo(String correo);
 }
