@@ -19,12 +19,17 @@ import org.springframework.web.cors.CorsConfiguration;
 import org.springframework.web.cors.CorsConfigurationSource;
 import org.springframework.web.cors.UrlBasedCorsConfigurationSource;
 
+import com.proyecto.encuentranos.servicios.UsuarioServicio;
+
 @Configuration
 @EnableWebSecurity
 public class SecurityConfig {
 
     @Value("${frontend.url}")
     private String frontendUrl;
+
+    @Autowired
+    private UsuarioServicio usuarioService; // Debes inyectar tu servicio de usuarios
 
     @Bean
     SecurityFilterChain securityFilterChain(HttpSecurity http) throws Exception {
@@ -38,7 +43,16 @@ public class SecurityConfig {
                 .oauth2Login(oauth2 -> oauth2
                         .loginPage(frontendUrl) // Personaliza la página de inicio de sesión
                         .defaultSuccessUrl(frontendUrl + "/crearUsuario", true) // URL de redirección después del inicio de sesión exitoso
-                        .failureUrl(frontendUrl + "/login/failure") // URL de redirección después de un inicio de sesión fallido
+                        .failureHandler((request, response, exception) -> {
+                            String email = request.getParameter("email");
+                            if (usuarioService.existsByEmail(email)) { // Verifica si el correo ya existe en la tabla de usuarios
+                                response.sendRedirect(frontendUrl + "/formulario");
+                            } else if (usuarioService.existsInClienteOrProveedor(email)) { // Verifica si el correo está relacionado con un cliente o proveedor
+                                response.sendRedirect(frontendUrl + "/inicio");
+                            } else {
+                                response.sendRedirect(frontendUrl + "/login/failure"); // Si no existe, redirige a la página de inicio de sesión fallida
+                            }
+                        })
                 )
                 .build();
     }

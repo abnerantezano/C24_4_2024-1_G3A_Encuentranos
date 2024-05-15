@@ -7,6 +7,8 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import com.proyecto.encuentranos.modelos.UsuarioModelo;
+import com.proyecto.encuentranos.repositorios.IClienteRepositorio;
+import com.proyecto.encuentranos.repositorios.IProveedorRepositorio;
 import com.proyecto.encuentranos.repositorios.IUsuarioRepositorio;
 
 @Service
@@ -15,6 +17,12 @@ public class UsuarioServicio {
 	@Autowired
 	IUsuarioRepositorio usuarioRepositorio;
 	
+    @Autowired
+    private IClienteRepositorio clienteRepositorio;
+
+    @Autowired
+    private IProveedorRepositorio proveedorRepositorio;
+    
     public ArrayList<UsuarioModelo> obtenerUsuarios(){
     	return (ArrayList<UsuarioModelo>)usuarioRepositorio.findAll();
     }
@@ -24,5 +32,13 @@ public class UsuarioServicio {
 	
     public Optional<UsuarioModelo> buscarUsuarioPorCorreo(String correo) {
         return usuarioRepositorio.findByCorreo(correo);
+    }
+    
+    public boolean existsByEmail(String email) {
+        return usuarioRepositorio.existsByEmail(email);
+    }
+
+    public boolean existsInClienteOrProveedor(String email) {
+        return clienteRepositorio.existsByEmail(email) || proveedorRepositorio.existsByEmail(email);
     }
 }
