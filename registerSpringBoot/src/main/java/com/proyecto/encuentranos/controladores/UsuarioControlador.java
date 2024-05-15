@@ -7,7 +7,6 @@ import org.springframework.security.core.Authentication;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.security.oauth2.client.OAuth2AuthorizedClientService;
 import org.springframework.security.oauth2.client.authentication.OAuth2AuthenticationToken;
-import org.springframework.security.oauth2.client.registration.ClientRegistrationRepository;
 import org.springframework.security.oauth2.core.OAuth2AccessToken;
 import org.springframework.security.oauth2.core.user.OAuth2User;
 import org.springframework.web.bind.annotation.*;
@@ -18,6 +17,7 @@ import com.proyecto.encuentranos.servicios.UsuarioServicio;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.Map;
+import java.util.Optional;
 
 @CrossOrigin(origins = {"http://localhost:3000", "http://127.0.0.1:3000"})
 @RestController
@@ -73,5 +73,14 @@ public class UsuarioControlador {
 		
 		// Devolver null si la autenticación no es de tipo OAuth2
 		return ResponseEntity.status(HttpStatus.UNAUTHORIZED).build();
+	}
+	
+	@GetMapping("/verificar/{correo}")
+	public Optional<UsuarioModelo> buscarUsuarioPorCorreo(@PathVariable String correo) {
+		Optional<UsuarioModelo> usuario = usuarioServicio.buscarUsuarioPorCorreo(correo);
+		if (usuario.isEmpty()) {
+			return null;
+		}
+		return usuario;
 	}
 }
