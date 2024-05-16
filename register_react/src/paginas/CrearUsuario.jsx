@@ -8,7 +8,7 @@ import { Password } from 'primereact/password';
 //AXIOS
 import UsuarioService from "../servicios/UsuarioService";
 //COMPONENTE
-import Token from "./Token";
+import Token from "../componentes/Token";
 
 const CrearUsuario = () => {
 

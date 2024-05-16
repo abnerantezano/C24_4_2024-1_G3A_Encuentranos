@@ -4,15 +4,15 @@ import { BrowserRouter as Router, Routes, Route } from 'react-router-dom';
 import './App.css';
 import Header from './componentes/Header';
 import HeaderAutenticado from './componentes/HeaderAutenticado';
-import Index from './componentes/Index';
-import IniciarSesion from './componentes/IniciarSesion';
-import CrearUsuario from './componentes/CrearUsuario';
-import Registro from './componentes/Registro';
-import Formulario from './componentes/Formulario';
+import Index from './paginas/Index';
+import IniciarSesion from './paginas/IniciarSesion';
+import CrearUsuario from './paginas/CrearUsuario';
+import Registro from './paginas/Registro';
+import Formulario from './paginas/Formulario';
 import Footer from './componentes/Footer';
 import FooterAutenticado from './componentes/FooterAutenticado';
 import Crud from './componentes/CRUD';
-import AgregarServicio from './componentes/AgregarServicio';
+import AgregarServicio from './paginas/AgregarServicio';
 import InformacionDeUsuario from './componentes/InformacionDeUsuario';
 
 function App() {
