@@ -4,15 +4,19 @@ import logo from "../imagenes/logo-color.png";
 import { Calendar } from 'primereact/calendar';
 import { InputText } from 'primereact/inputtext';
 import { Dropdown } from 'primereact/dropdown';
+import { InputMask } from 'primereact/inputmask';
+import { addLocale } from 'primereact/api';
 
 //REACT HOOKFORM
 import { useForm,Controller} from "react-hook-form";
 import { useNavigate } from "react-router-dom";
 //AXIOS
 import DistritoService from "../servicios/DistritoService";
-import RegistroService from "../servicios/RegistroService";
+import UsuarioService from "../servicios/UsuarioService";
+import ClienteService from "../servicios/ClienteService";
+import ProveedorService from "../servicios/ProveedorService";
 //COMPONENTE
-import Token from "./Token";
+
 
 const Formulario = () => {
 
@@ -21,12 +25,35 @@ const Formulario = () => {
     //DECLARAR UNA VARIABLE PARA LA NAVEGACIÓN
     const navigate = useNavigate();
 
+    //PONER EL LOCALE ESPAÑOL
+
+    addLocale('es', {
+        firstDayOfWeek: 1,
+        dayNames: ['domingo', 'lunes', 'martes', 'miércoles', 'jueves', 'viernes', 'sábado'],
+        dayNamesShort: ['dom', 'lun', 'mar', 'mié', 'jue', 'vie', 'sáb'],
+        dayNamesMin: ['Dom', 'Lun', 'Mar', 'Mier', 'Jue', 'Vie', 'Sab'],
+        monthNames: ['Enero ', 'Febrero ', 'Marzo ', 'Abril ', 'Mayo ', 'Junio ', 'Julio ', 'Agosto ', 'Septiembre ', 'Octubre ', 'Noviembre ', 'Diciembre '],
+        monthNamesShort: ['ene', 'feb', 'mar', 'abr', 'may', 'jun', 'jul', 'ago', 'sep', 'oct', 'nov', 'dic'],
+        today: 'Hoy',
+        clear: 'Claro'
+    });
+
     //VARIABLE DONDE SE ALMACENAN LOS DISTRITOS
     const [distritos,setDistritos] = useState([])
 
     //VARIABLE DONDE SE ALMACENA EL USUARIO Y SUS DATOS
     const [usuario,setUsuario]=useState([])
-    const [distrito,setDistrito]=useState('')
+
+    //TRAER LOS DATOS DEL USUARIO QUE INICIO SESION
+    useEffect(() => {
+        UsuarioService.getUser()
+            .then(UsuarioResponse => {
+                setUsuario(UsuarioResponse);
+            })
+            .catch(error => {
+                console.log(error);
+            })
+    })
 
     //TRAER LA LISTA DE DISTRITOS
     useEffect(() => {
@@ -35,40 +62,57 @@ const Formulario = () => {
                 setDistritos(DistritoResponse);
             })
             .catch(error => {
-                console.error(error);
+                console.log(error);
             });
     }, []); 
-
-    const handleDistritoChange = (e) => {
-        setDistrito(e.target.value);
-    };
 
     //BOTON PARA ENVIAR EL FORMULARIO A SPRINGBOOT
     const onSubmit = (data) => {
 
+        const fechaNac = new Date(data.fechaNacimiento).toISOString().split('T')[0];
+
         const datos = {
-            idUsuario: parseInt(data.idUsuario),
+            idUsuario: {id:parseInt(usuario.id)},
             nombre: data.nombre,
             apellidoPaterno: data.apellidoPaterno,
             apellidoMaterno: data.apellidoMaterno,
             sexo: data.sexo,
             dni: data.dni,
-            fechaNacimiento: data.fechaNacimiento,
+            fechaNacimiento: fechaNac,
             celular: data.celular,
             idDistrito: parseInt(data.idDistrito),
         };
 
         console.log(datos);
-        RegistroService.postRegistrar(datos).then((response) => {
-            console.log(response.data);
+
+        //AGREGA SEGUN EL TIPO DE USUARIO 
+        if (usuario && usuario.idTipo) {
+            const idTipo = usuario.idTipo.id;
             if(idTipo===1){
+                //AGREGAR A CLIENTE
+                ClienteService.addCliente(datos)
+                    .then((ClienteResponse) => {
+                        console.log(ClienteResponse);
+                    })
+                    .catch((error) => {
+                        console.log(error);
+                    });
+
                 navigate('/inicio');
             }else if (idTipo===2){
+                //AGREGAR A PROVEEDOR
+                ProveedorService.addProveedor(datos)
+                    .then((ProveedorResponse) => {
+                        console.log(ProveedorResponse);
+                    })
+                    .catch((error) => {
+                        console.log(error);
+                    })
                 navigate('/agregarServicio');
             }
-        }).catch(error => {
-            console.error(error);
-        })
+            } else {
+            console.error('Error al tener el idtipo');
+        }
     };
 
     return (
@@ -79,10 +123,6 @@ const Formulario = () => {
                 <div className="md:mb-0 md:w-8/12 lg:w-5/12 bg-white m-6 py-12 px-16 rounded-lg shadow-xl">
                     <div className="flex mb-8 justify-center">
                         <img src={logo} className="w-24" alt="Logo" />
-                    </div>
-                    <div className="mb-5">
-                        <label className="block mb-2 text-sm font-medium text-gray-900 dark:text-white">IDUSUARIO</label>
-                        <InputText type="text" id="idUsuario" value="1" {...register("idUsuario", { required: true })} readOnly className="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring focus:ring-orange-200 focus:border-dark block w-full p-2.5 dark:bg-[#] dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"/>
                     </div>
                     <div className="mb-5">
                         <label className="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Nombre</label>
@@ -109,12 +149,14 @@ const Formulario = () => {
                         </div>
                         <div className=" w-full group mb-5">
                             <label className="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Fecha de nacimiento</label>
-                            <Calendar id="fechaNacimiento" {...register("fechaNacimiento", { required: true })} dateFormat="yy-dd-mm" locale="en" inputClassName="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring focus:ring-orange-200 focus:border-dark block w-full p-2.5 dark:bg-[#] dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"/>
+                            <Controller name="fechaNacimiento" {...register("fechaNacimiento", { required: true })} control={control} render={({ field }) => (
+                                <Calendar id={field.name} value={field.value} onChange={field.onChange} dateFormat="yy-mm-dd" locale="es" inputClassName="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring focus:ring-orange-200 focus:border-dark w-full p-2.5 dark:bg-[#] dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"/>
+                            )} />
                             {errors.fechaNacimiento && <span className="text-red-500 text-sm">Ingresar la fecha</span>}
                         </div>
                         <div className="mb-5">
                             <label className="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Celular</label>
-                            <InputText type="text" id="celular" {...register("celular", { required: true })} panelClassName="text-sm focus:ring focus:ring-orange-200" className="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring focus:ring-orange-200 focus:border-dark block w-full p-2.5 dark:bg-[#] dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"/>
+                            <InputMask id="celular" mask="999-999-999" {...register("celular", { required: true })} panelClassName="text-sm focus:ring focus:ring-orange-200" className="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring focus:ring-orange-200 focus:border-dark block w-full p-2.5 dark:bg-[#] dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"/>
                             {errors.celular && <span className="text-red-500 text-sm">Ingresar su celular</span>}
                         </div>
                     </div>

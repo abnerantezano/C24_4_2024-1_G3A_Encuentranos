@@ -1,7 +1,10 @@
-import React, { useState, useEffect } from "react";
-import { useForm } from "react-hook-form";
+import React from "react";
+import { useForm, Controller } from "react-hook-form";
 import { useNavigate } from "react-router-dom";
 import logo from "../imagenes/logo-color.png";
+//PRIME REACT
+import { Password } from 'primereact/password';
+
 //AXIOS
 import UsuarioService from "../servicios/UsuarioService";
 //COMPONENTE
@@ -13,7 +16,7 @@ const CrearUsuario = () => {
     const navigate = useNavigate();
 
     //
-    const { register, handleSubmit, watch, formState: { errors } } = useForm();
+    const { register, handleSubmit, watch, control, formState: { errors } } = useForm();
 
     //FUNCIÓN PARA MANDAR LOS DATOS A SPRINGBOOT
     const EnviarDatos = (data, email) => {
@@ -50,13 +53,17 @@ const CrearUsuario = () => {
                             </div>
                             <div className="mb-5">
                                 <label className="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Contraseña</label>
-                                <input type="password" id="contrasena" {...register("contrasena", { required: true })} className="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-yellow-600 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500" />
-                                {errors.contrasena && <span className="text-red-500 text-sm">Ingresar una contraseña</span>}
+                                <Controller name="contrasena" control={control} rules={{ required: 'Ingresar una contraseña' }} render={({ field }) => (
+                                    <Password id="contrasena" {...field} className="block w-full" feedback={false} toggleMask inputClassName="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring focus:ring-orange-200 focus:border-dark block w-full p-2.5 dark:bg-[#] dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"/>
+                                )}/>
+                                {errors.contrasena && <span className="text-red-500 text-sm">{errors.contrasena.message}</span>}
                             </div>
                             <div className="mb-5">
                                 <label className="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Confirmar contraseña</label>
-                                <input type="password" id="confirmarContrasena" {...register("confirmarContrasena", { required: true, validate: value => value === watch('contrasena') })} className="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-yellow-600 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500" />
-                                {errors.confirmarContrasena && <span className="text-red-500 text-sm">Las contraseñas no coinciden</span>}
+                                <Controller name="confirmarContrasena" control={control} rules={{ required: 'Confirmar la contraseña', validate: value => value === watch('contrasena') || 'Las contraseñas no coinciden'}} render={({ field }) => (
+                                        <Password id="confirmarContrasena" {...field} className="block w-full" feedback={false} toggleMask inputClassName="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring focus:ring-orange-200 focus:border-dark block w-full p-2.5 dark:bg-[#] dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"/>
+                                )}/>
+                                {errors.confirmarContrasena && <span className="text-red-500 text-sm">{errors.confirmarContrasena.message}</span>}
                             </div>
                             <div className="mb-5"> 
                                 <label className="block text-sm font-medium text-gray-900 dark:text-white mb-2">¿Ofreces algún servicio?</label>

@@ -12,6 +12,11 @@ class UsuarioService {
         return axios.post(this.baseUrl + '/agregar', nuevoUsuario, {withCredentials: true})
             .then(res => res.data);
     }
+
+    getUser(){
+        return axios.get(this.baseUrl + '/datos',{withCredentials: true})
+            .then(res => res.data); 
+    }
     
 }
 
