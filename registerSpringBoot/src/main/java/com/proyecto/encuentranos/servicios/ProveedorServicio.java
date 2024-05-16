@@ -49,5 +49,9 @@ public class ProveedorServicio {
 		return proveedorRepositorio.findById(id);
 	}
 	
+	public Optional<ProveedorModelo> buscarProveedorPorUsuarioId(Integer usuarioId) {
+	    return proveedorRepositorio.findByIdUsuarioId(usuarioId);
+	}
+	
 	
 }

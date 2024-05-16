@@ -7,7 +7,7 @@ import org.springframework.stereotype.Repository;
 
 import com.proyecto.encuentranos.modelos.UsuarioModelo;
 @Repository
-public interface IUsuarioRepositorio extends JpaRepository<UsuarioModelo, Long>{
+public interface IUsuarioRepositorio extends JpaRepository<UsuarioModelo, Integer>{
 	Optional <UsuarioModelo> findByCorreo(String correo);
     boolean existsByCorreo(String correo);
 }

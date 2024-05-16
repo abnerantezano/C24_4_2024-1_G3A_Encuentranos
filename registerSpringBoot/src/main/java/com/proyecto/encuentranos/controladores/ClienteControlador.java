@@ -26,7 +26,7 @@ public class ClienteControlador {
 	}
 	
 	@GetMapping("/buscar/{id}")
-	public Optional<ClienteModelo> encontrarClientePorId(@PathVariable Long id) {
+	public Optional<ClienteModelo> encontrarClientePorId(@PathVariable Integer id) {
 		return clienteServicio.encontrarClientePorId(id);
 	}
 	
@@ -36,17 +36,17 @@ public class ClienteControlador {
 	}
 	
 	@PutMapping(path="/actualizar/{id}")
-	public ClienteModelo actualizarCliente(@RequestBody ClienteModelo request, @PathVariable("id") Long id) {
+	public ClienteModelo actualizarCliente(@RequestBody ClienteModelo request, @PathVariable("id") Integer id) {
 		return this.clienteServicio.actualizarCliente(id, request);
 	}
 	
 	@GetMapping("/buscar-proveedores/{idCliente}")
-	public List<ProveedorModelo> buscarProveedoresPorDistrito(@PathVariable Long idCliente) {
+	public List<ProveedorModelo> buscarProveedoresPorDistrito(@PathVariable Integer idCliente) {
 		return clienteServicio.encontrarPrestadoresDeMiDistrito(idCliente);
 	}
 	
 	@GetMapping("/buscar-servicios/{idCliente}")
-	public List<ServicioProveedorModelo> encontrarServiciosDeMiDistrito(@PathVariable Long idCliente) {
+	public List<ServicioProveedorModelo> encontrarServiciosDeMiDistrito(@PathVariable Integer idCliente) {
 		return clienteServicio.encontrarServiciosDeMiDistrito(idCliente);
 	}
 

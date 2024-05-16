@@ -11,7 +11,11 @@ import org.springframework.security.oauth2.core.OAuth2AccessToken;
 import org.springframework.security.oauth2.core.user.OAuth2User;
 import org.springframework.web.bind.annotation.*;
 
+import com.proyecto.encuentranos.modelos.ClienteModelo;
+import com.proyecto.encuentranos.modelos.ProveedorModelo;
 import com.proyecto.encuentranos.modelos.UsuarioModelo;
+import com.proyecto.encuentranos.servicios.ClienteServicio;
+import com.proyecto.encuentranos.servicios.ProveedorServicio;
 import com.proyecto.encuentranos.servicios.UsuarioServicio;
 
 import java.util.ArrayList;
@@ -26,6 +30,12 @@ public class UsuarioControlador {
 
     @Autowired
     UsuarioServicio usuarioServicio;
+
+    @Autowired
+    ClienteServicio clienteServicio;
+    
+    @Autowired
+    ProveedorServicio proveedorServicio;
     
     @Autowired
     private OAuth2AuthorizedClientService authorizedClientService;
@@ -106,4 +116,45 @@ public class UsuarioControlador {
 		// Devolver null si la autenticación no es de tipo OAuth2
 		return null;
 	}
+	
+	@GetMapping("/datossi")
+	public ResponseEntity<?> listarClienteOProveedor() {
+	    // Obtener la autenticación actual
+	    Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
+	    
+	    // Verificar si la autenticación es de tipo OAuth2
+	    if (authentication instanceof OAuth2AuthenticationToken) {
+	        // Obtener el usuario autenticado
+	        OAuth2AuthenticationToken oauthToken = (OAuth2AuthenticationToken) authentication;
+	        OAuth2User oauth2User = oauthToken.getPrincipal();
+	        
+	        // Obtener el correo electrónico del usuario autenticado
+	        String email = (String) oauth2User.getAttribute("email");
+	        
+	        // Buscar al usuario por correo electrónico
+	        Optional<UsuarioModelo> usuarioOptional = usuarioServicio.buscarUsuarioPorCorreo(email);
+	        
+	        if(usuarioOptional.isPresent()) {
+	            UsuarioModelo usuario = usuarioOptional.get();
+	            
+	            // Buscar cliente asociado al usuario
+	            Optional<ClienteModelo> clienteOptional = clienteServicio.buscarClientePorUsuarioId(usuario.getId());
+	            
+	            // Buscar proveedor asociado al usuario
+	            Optional<ProveedorModelo> proveedorOptional = proveedorServicio.buscarProveedorPorUsuarioId(usuario.getId());
+	            
+	            if(clienteOptional.isPresent()) {
+	                return ResponseEntity.ok(clienteOptional.get());
+	            } else if(proveedorOptional.isPresent()) {
+	                return ResponseEntity.ok(proveedorOptional.get());
+	            } else {
+	                return ResponseEntity.notFound().build();
+	            }
+	        } else {
+	            return ResponseEntity.notFound().build();
+	        }
+	    } else {
+	        return ResponseEntity.badRequest().body("No es una autenticación OAuth2");
+	    }
+	 }
 }

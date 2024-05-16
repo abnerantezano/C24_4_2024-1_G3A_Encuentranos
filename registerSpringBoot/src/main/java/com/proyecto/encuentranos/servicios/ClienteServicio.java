@@ -33,7 +33,7 @@ public class ClienteServicio {
 		return clienteRepositorio.save(cliente);
 	}
 	
-	public ClienteModelo actualizarCliente(Long id, ClienteModelo clienteActualizado) {
+	public ClienteModelo actualizarCliente(Integer id, ClienteModelo clienteActualizado) {
 		ClienteModelo clienteExistente = clienteRepositorio.findById(id).orElse(null);
         if (clienteExistente != null) {
             // Actualizar datos del usuario
@@ -56,11 +56,11 @@ public class ClienteServicio {
         return clienteExistente;
 	}
 	
-	public Optional<ClienteModelo> encontrarClientePorId(Long id){
+	public Optional<ClienteModelo> encontrarClientePorId(Integer id){
 		return clienteRepositorio.findById(id);
 	}
 	
-	public List<ProveedorModelo> encontrarPrestadoresDeMiDistrito(Long idCliente) {
+	public List<ProveedorModelo> encontrarPrestadoresDeMiDistrito(Integer idCliente) {
 	    Optional<ClienteModelo> clienteOptional = clienteRepositorio.findById(idCliente);
 	    if (clienteOptional.isPresent()) {
 	        ClienteModelo cliente = clienteOptional.get();
@@ -78,7 +78,7 @@ public class ClienteServicio {
 	    }
 	}
 	
-	public List<ServicioProveedorModelo> encontrarServiciosDeMiDistrito(Long idCliente) {
+	public List<ServicioProveedorModelo> encontrarServiciosDeMiDistrito(Integer idCliente) {
 	    Optional<ClienteModelo> clienteOptional = clienteRepositorio.findById(idCliente);
 	    if (clienteOptional.isPresent()) {
 	        ClienteModelo cliente = clienteOptional.get();
@@ -96,5 +96,8 @@ public class ClienteServicio {
 	    }
 	}
 
+	public Optional<ClienteModelo> buscarClientePorUsuarioId(Integer usuarioId) {
+	    return clienteRepositorio.findByIdUsuarioId(usuarioId);
+	}
 	
 }
