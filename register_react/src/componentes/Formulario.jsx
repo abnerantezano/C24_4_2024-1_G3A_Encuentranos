@@ -67,7 +67,7 @@ const Formulario = () => {
     }, []); 
 
     //BOTON PARA ENVIAR EL FORMULARIO A SPRINGBOOT
-    const onSubmit = (data) => {
+    const EnviarDatos = (data) => {
 
         const fechaNac = new Date(data.fechaNacimiento).toISOString().split('T')[0];
 
@@ -80,10 +80,8 @@ const Formulario = () => {
             dni: data.dni,
             fechaNacimiento: fechaNac,
             celular: data.celular,
-            idDistrito: parseInt(data.idDistrito),
+            idDistrito: {id:parseInt(data.idDistrito)},
         };
-
-        console.log(datos);
 
         //AGREGA SEGUN EL TIPO DE USUARIO 
         if (usuario && usuario.idTipo) {
@@ -97,7 +95,6 @@ const Formulario = () => {
                     .catch((error) => {
                         console.log(error);
                     });
-
                 navigate('/inicio');
             }else if (idTipo===2){
                 //AGREGAR A PROVEEDOR
@@ -117,7 +114,7 @@ const Formulario = () => {
 
     return (
         
-    <form onSubmit={handleSubmit(onSubmit)}>
+    <form onSubmit={handleSubmit(EnviarDatos)}>
         <div className="bg-[#F0EEEC] w-full">
             <div className="flex items-center justify-center py-4 lg:pt-6 lg:pb-12">
                 <div className="md:mb-0 md:w-8/12 lg:w-5/12 bg-white m-6 py-12 px-16 rounded-lg shadow-xl">
@@ -156,7 +153,7 @@ const Formulario = () => {
                         </div>
                         <div className="mb-5">
                             <label className="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Celular</label>
-                            <InputMask id="celular" mask="999-999-999" {...register("celular", { required: true })} panelClassName="text-sm focus:ring focus:ring-orange-200" className="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring focus:ring-orange-200 focus:border-dark block w-full p-2.5 dark:bg-[#] dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"/>
+                            <InputMask id="celular" mask="999999999" {...register("celular", { required: true })} panelClassName="text-sm focus:ring focus:ring-orange-200" className="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring focus:ring-orange-200 focus:border-dark block w-full p-2.5 dark:bg-[#] dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"/>
                             {errors.celular && <span className="text-red-500 text-sm">Ingresar su celular</span>}
                         </div>
                     </div>
@@ -171,13 +168,13 @@ const Formulario = () => {
                         <label className="block text-sm font-medium text-gray-900 dark:text-white mb-2">Sexo</label>
                         <div className=" grid md:grid-cols-3 md:gap-6">
                             <div className="flex items-center mt-2">
-                                <input id="sexo-f" name="sexo" type="radio" value="Femenino" {...register("sexo", { required: true })} className="w-4 h-4 border-gray-300 focus:ring focus:ring-orange-200 dark:focus:ring-blue-600 dark:focus:bg-blue-600 dark:bg-[#] dark:border-gray-600" />
+                                <input id="sexo-f" name="sexo" type="radio" value="F" {...register("sexo", { required: true })} className="w-4 h-4 border-gray-300 focus:ring focus:ring-orange-200 dark:focus:ring-blue-600 dark:focus:bg-blue-600 dark:bg-[#] dark:border-gray-600" />
                                 <label className="block ms-2  text-sm font-medium text-gray-900 dark:text-gray-300">
                                     Femenino
                                 </label>
                             </div>
                             <div className="flex items-center mt-2">
-                                <input id="sexo-m" name="sexo" type="radio" value="Masculino" {...register("sexo", { required: true })} className="w-4 h-4 border-gray-300 focus:ring focus:ring-orange-200 dark:focus:ring-blue-600 dark:focus:bg-blue-600 dark:bg-[#] dark:border-gray-600" />
+                                <input id="sexo-m" name="sexo" type="radio" value="M" {...register("sexo", { required: true })} className="w-4 h-4 border-gray-300 focus:ring focus:ring-orange-200 dark:focus:ring-blue-600 dark:focus:bg-blue-600 dark:bg-[#] dark:border-gray-600" />
                                 <label className="block ms-2 text-sm font-medium text-gray-900 dark:text-gray-300">
                                     Masculino
                                 </label>

@@ -13,20 +13,22 @@ import Footer from './componentes/Footer';
 import FooterAutenticado from './componentes/FooterAutenticado';
 import Crud from './componentes/CRUD';
 import AgregarServicio from './componentes/AgregarServicio';
-import Token from './componentes/Token';
+import InformacionDeUsuario from './componentes/InformacionDeUsuario';
 
 function App() {
-  const [isLoggedIn, setIsLoggedIn] = useState(false); // Inicialmente no está autenticado
+
+  //SE DECLARA COMO NO INICIO SESION
+  const [isLoggedIn, setIsLoggedIn] = useState(false); 
 
   return (
     <div className="">
       <Router>
-        <Token>
-          {(token) => {
-            // Verificar si hay un token válido para determinar la autenticación
-            setIsLoggedIn(token !== '');
+        <InformacionDeUsuario>
+          {(info) => {
+            //VERIFICAR SI HAY INFORMACION DEL USUARIO
+            setIsLoggedIn(info !== '');
           }}
-        </Token>
+        </InformacionDeUsuario>
         
         <div className=''>
         {isLoggedIn ? <HeaderAutenticado /> : <Header />}

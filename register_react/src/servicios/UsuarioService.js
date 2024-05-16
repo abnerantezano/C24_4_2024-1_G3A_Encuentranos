@@ -17,6 +17,11 @@ class UsuarioService {
         return axios.get(this.baseUrl + '/datos',{withCredentials: true})
             .then(res => res.data); 
     }
+
+    getInfo(){
+        return axios.get(this.baseUrl + '/datossi',{withCredentials: true})
+            .then(res => res.data);
+    }
     
 }
 
