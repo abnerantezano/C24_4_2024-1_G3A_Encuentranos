@@ -83,4 +83,27 @@ public class UsuarioControlador {
 		}
 		return usuario;
 	}
+	
+	@GetMapping("/datos")
+	public Optional<UsuarioModelo> listarUsuarioConectado() {
+		// Obtener la autenticación actual
+		Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
+		
+		// Verificar si la autenticación es de tipo OAuth2
+		if (authentication instanceof OAuth2AuthenticationToken) {
+			// Obtener el usuario autenticado
+			OAuth2AuthenticationToken oauthToken = (OAuth2AuthenticationToken) authentication;
+			OAuth2User oauth2User = oauthToken.getPrincipal();
+			
+			// Obtener el correo electrónico del usuario autenticado
+			String email = (String) oauth2User.getAttribute("email");
+			
+			// Buscar al usuario por correo electrónico
+			Optional<UsuarioModelo> usuario = usuarioServicio.buscarUsuarioPorCorreo(email);
+			return usuario;
+		}
+		
+		// Devolver null si la autenticación no es de tipo OAuth2
+		return null;
+	}
 }
