@@ -16,6 +16,7 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
+import com.proyecto.encuentranos.modelos.ServicioModelo;
 import com.proyecto.encuentranos.modelos.ServicioProveedorModelo;
 import com.proyecto.encuentranos.modelos.ServicioProveedorPk;
 import com.proyecto.encuentranos.servicios.ServicioProveedorServicio;
@@ -67,6 +68,11 @@ public class ServicioProveedorControlador {
     @GetMapping("/filtrar/{precio}")
     public List<ServicioProveedorModelo> obtenerServicioProveedorPorPrecio(@PathVariable("precio") double precio){
     	return servicioProveedorServicio.obtenerServicioProveedorPorPrecio(precio);
+    }
+    
+    @GetMapping("/servicios/{idProveedor}")
+    public ArrayList<ServicioModelo> obtenerServiciosNoRegistrados(@PathVariable("idProveedor") Integer idProveedor){
+    	return servicioProveedorServicio.obtenerServiciosNoRegistrados(idProveedor);
     }
 
 }
