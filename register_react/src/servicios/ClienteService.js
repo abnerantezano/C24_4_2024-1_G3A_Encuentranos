@@ -7,6 +7,10 @@ export class ClienteService {
         return axios.post(this.baseUrl + '/agregar',datos,{withCredentials: true})
             .then(res => res.data); 
     }
+
+    getCliente(idcliente){
+        return axios.get(`${this.baseUrl}/buscar/${idcliente}`);
+    }
 }
 
 export default new ClienteService();

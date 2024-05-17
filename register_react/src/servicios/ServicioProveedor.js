@@ -16,6 +16,14 @@ class ServicioProveedorService {
     getBuscarServicioProveedor(idservicio,idproveedor){
         return axios.get(`${this.baseUrl}/buscar/${idservicio}/${idproveedor}`);
     }
+
+    getServicioSinRegistrar(idproveedor){
+        return axios.get(`${this.baseUrl}/servicios-no-registrados/${idproveedor}`);
+    }
+
+    getServicioRegistrados(idproveedor){
+        return axios.get(`${this.baseUrl}/servicios-registrados/${idproveedor}`);
+    }
 }
 
 export default new ServicioProveedorService();
