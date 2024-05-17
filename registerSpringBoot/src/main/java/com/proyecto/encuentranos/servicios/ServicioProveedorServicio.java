@@ -67,4 +67,19 @@ public class ServicioProveedorServicio {
 
         return new ArrayList<>(serviciosNoRegistrados);
     }
+    
+    public List<ServicioModelo> obtenerServiciosDeProveedorPorId(Integer idProveedor) {
+        // Obtener los IDs de los servicios registrados por el proveedor específico
+        List<Integer> serviciosRegistradosIds = servicioProveedorRepositorio.findAll().stream()
+                .filter(servicioProveedor -> servicioProveedor.getIdProveedor().getId().equals(idProveedor))
+                .map(servicioProveedor -> servicioProveedor.getIdServicio().getId())
+                .distinct()
+                .collect(Collectors.toList());
+
+        // Filtrar los servicios registrados por el proveedor
+        return servicioRepositorio.findAll().stream()
+                .filter(servicio -> serviciosRegistradosIds.contains(servicio.getId()))
+                .collect(Collectors.toList());
+    }
+
 }

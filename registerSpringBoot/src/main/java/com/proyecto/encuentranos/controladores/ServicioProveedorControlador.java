@@ -70,9 +70,14 @@ public class ServicioProveedorControlador {
     	return servicioProveedorServicio.obtenerServicioProveedorPorPrecio(precio);
     }
     
-    @GetMapping("/servicios/{idProveedor}")
+    @GetMapping("/servicios-no-registrados/{idProveedor}")
     public ArrayList<ServicioModelo> obtenerServiciosNoRegistrados(@PathVariable("idProveedor") Integer idProveedor){
     	return servicioProveedorServicio.obtenerServiciosNoRegistrados(idProveedor);
+    }
+    
+    @GetMapping("/servicios-por-id/{idProveedor}")
+    public List<ServicioModelo> obtenerServiciosDeProveedorPorId(@PathVariable("idProveedor") Integer idProveedor){
+    	return servicioProveedorServicio.obtenerServiciosDeProveedorPorId(idProveedor);
     }
 
 }
