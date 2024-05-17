@@ -75,7 +75,7 @@ public class ServicioProveedorControlador {
     	return servicioProveedorServicio.obtenerServiciosNoRegistrados(idProveedor);
     }
     
-    @GetMapping("/servicios-por-id/{idProveedor}")
+    @GetMapping("/servicios-registrados/{idProveedor}")
     public List<ServicioModelo> obtenerServiciosDeProveedorPorId(@PathVariable("idProveedor") Integer idProveedor){
     	return servicioProveedorServicio.obtenerServiciosDeProveedorPorId(idProveedor);
     }
