@@ -12,10 +12,13 @@ import jakarta.persistence.OneToOne;
 import jakarta.persistence.Table;
 import jakarta.validation.constraints.NotEmpty;
 import jakarta.validation.constraints.NotNull;
-
+//CREANDO EL MODELO proveedor
 @Entity
 @Table(name="proveedor")
 public class ProveedorModelo {
+	
+	//ATRIBUTOS
+	
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	@Column( name = "id_proveedor")
@@ -63,6 +66,8 @@ public class ProveedorModelo {
 	@Column(name = "calificacion_promedio")
 	private double calificacionPromedio;
 
+	//GETTERS Y SETTERS
+	
 	public Integer getId() {
 		return id;
 	}

@@ -4,8 +4,8 @@ import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.stereotype.Repository;
 
 import com.proyecto.encuentranos.modelos.TipoUsuarioModelo;
-
+//CREANDO EL REPOSITORIO PARA TipoUsuarioModelo
 @Repository
-public interface ITipoUsuarioRepositorio extends JpaRepository<TipoUsuarioModelo, Long>{
-    TipoUsuarioModelo findById(long id);
+public interface ITipoUsuarioRepositorio extends JpaRepository<TipoUsuarioModelo, Integer>{
+	
 }

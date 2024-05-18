@@ -6,9 +6,11 @@ import org.springframework.security.oauth2.client.authentication.OAuth2Authentic
 import org.springframework.security.oauth2.core.OAuth2AccessToken;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RestController;
-
+//ESTAMOS CREANDO EL CONTROLADOR PARA token
 @RestController
 public class TokenController {
+
+	//INSTANCIAR LAS CLASES QUE USAREMOS
 
     private final OAuth2AuthorizedClientService authorizedClientService;
 
@@ -16,6 +18,7 @@ public class TokenController {
         this.authorizedClientService = authorizedClientService;
     }
 
+    //OBTENER EL TOKEN 
     @GetMapping("/token")
     public String getToken(OAuth2AuthenticationToken authentication) {
         OAuth2AuthorizedClient client = authorizedClientService.loadAuthorizedClient(

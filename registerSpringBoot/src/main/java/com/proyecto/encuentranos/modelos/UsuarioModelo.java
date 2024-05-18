@@ -9,10 +9,13 @@ import jakarta.persistence.JoinColumn;
 import jakarta.persistence.ManyToOne;
 import jakarta.persistence.Table;
 import jakarta.validation.constraints.NotEmpty;
-
+//CREANDO EL MODELO usuario
 @Entity
 @Table(name="usuario")
 public class UsuarioModelo {
+	
+	//ATRIBUTOS
+	
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	@Column( name = "id_usuario")
@@ -36,6 +39,8 @@ public class UsuarioModelo {
 	@Column(name = "eliminada")
 	private boolean eliminada;
 
+	//GETTERS Y SETTERS
+	
 	public Integer getId() {
 		return id;
 	}

@@ -12,10 +12,16 @@ import jakarta.persistence.Table;
 import jakarta.validation.constraints.NotEmpty;
 import jakarta.validation.constraints.NotNull;
 
+//CREANDO EL MODELO calificacion_proveedor
 @Entity
 @Table(name="calificacion_proveedor")
 public class CalificacionProveedorModelo {
 
+	//ATRIBUTOS
+	
+	//SE ESTA USANDO COMO ID UN ID EMBEBIDO
+	//ESTE ID SE ESTA PONIENDO PORQUE NECESITAMOS QUE SEA UNA ENTIDAD LA TABLA 
+	//calificacion_proveedor
     @EmbeddedId
     private CalificacionProveedorPk id;
     
@@ -40,6 +46,7 @@ public class CalificacionProveedorModelo {
 	@Column(name= "fecha_calificacion")
 	private LocalDate fechaCalificacion;
 
+	// GETTERS Y SETTERS
 	public CalificacionProveedorPk getId() {
 		return id;
 	}

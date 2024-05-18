@@ -7,10 +7,13 @@ import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
 import jakarta.persistence.Table;
 import jakarta.validation.constraints.NotEmpty;
-
+//CREANDO EL MODELO distrito
 @Entity
 @Table(name="distrito")
 public class DistritoModelo {
+	
+	//ATRIBUTOS
+	
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	@Column( name = "id_distrito")
@@ -19,6 +22,8 @@ public class DistritoModelo {
 	@NotEmpty
 	@Column( name = "nombre")
 	private String nombre;
+	
+	//GETTERS Y SETTERS
 
 	public Integer getId() {
 		return id;
@@ -35,6 +40,5 @@ public class DistritoModelo {
 	public void setNombre(String nombre) {
 		this.nombre = nombre;
 	}
-	
 	
 }

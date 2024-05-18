@@ -12,28 +12,25 @@ import com.proyecto.encuentranos.modelos.CalificacionProveedorPk;
 import com.proyecto.encuentranos.modelos.ProveedorModelo;
 import com.proyecto.encuentranos.repositorios.ICalificacionProveedorRepositorio;
 import com.proyecto.encuentranos.repositorios.IProveedorRepositorio;
-
+//ESTAMOS CREANDO EL SERVICIO PARA CalificacionProveedor
 @Service
 public class CalificacionProveedorServicio {
 
+	//INSTANCIAR LAS CLASES QUE USAREMOS
+	
     @Autowired
     ICalificacionProveedorRepositorio calificacionProveedorRepositorio;
     
     @Autowired
     IProveedorRepositorio proveedorRepositorio;
     
-    public ArrayList<CalificacionProveedorModelo> obtenerCalificacionesProveedores(){
-        return (ArrayList<CalificacionProveedorModelo>)calificacionProveedorRepositorio.findAll();
-    }
+    //CRUD
     
-    public Optional<CalificacionProveedorModelo> obtenerCalificacionProveedorPorId(CalificacionProveedorPk id){
-        return calificacionProveedorRepositorio.findById(id);
-    }
-    
+    //CREATE
     public CalificacionProveedorModelo guardarCalificacionProveedor(CalificacionProveedorModelo calificacionProveedor) {
         calificacionProveedor = calificacionProveedorRepositorio.save(calificacionProveedor);
         
-        // Recalcular la calificación promedio del proveedor
+        // RECALCULAR LA CALIFICACION DEL PROVEEDOR
         Integer idProveedor = calificacionProveedor.getIdProveedor().getId();
         Double calificacionPromedio = calcularCalificacionPromedioProveedor(idProveedor);
         actualizarCalificacionPromedioProveedor(idProveedor, calificacionPromedio);
@@ -41,6 +38,18 @@ public class CalificacionProveedorServicio {
         return calificacionProveedor;
     }
     
+    //READ
+    public ArrayList<CalificacionProveedorModelo> obtenerCalificacionesProveedores(){
+        return (ArrayList<CalificacionProveedorModelo>)calificacionProveedorRepositorio.findAll();
+    }
+    //----------------------------------------
+    
+    //METODO PARA OBTENER LAS CALIFICACIONES DE UN PROVEEDOR POR SU ID
+    public Optional<CalificacionProveedorModelo> obtenerCalificacionProveedorPorId(CalificacionProveedorPk id){
+        return calificacionProveedorRepositorio.findById(id);
+    }
+    
+    //CALCULAR PROMEDIO DEL PROVEEDOR
     public Double calcularCalificacionPromedioProveedor(Integer idProveedor) {
         List<CalificacionProveedorModelo> calificaciones = calificacionProveedorRepositorio.obtenerCalificacionesPorIdProveedor(idProveedor);
         
@@ -56,6 +65,7 @@ public class CalificacionProveedorServicio {
         return sum / calificaciones.size();
     }
 
+    //ACTUALIZAR EL PROMEDIO 
     public void actualizarCalificacionPromedioProveedor(Integer idProveedor, Double calificacionPromedio) {
         ProveedorModelo proveedor = proveedorRepositorio.findById(idProveedor).orElse(null);
         
@@ -64,5 +74,4 @@ public class CalificacionProveedorServicio {
             proveedorRepositorio.save(proveedor);
         }
     }
-
 }

@@ -22,11 +22,13 @@ import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.Map;
 import java.util.Optional;
-
+//ESTAMOS CREANDO EL CONTROLADOR PARA Usuario
 @CrossOrigin(origins = {"http://localhost:3000", "http://127.0.0.1:3000"})
 @RestController
 @RequestMapping("/usuario")
 public class UsuarioControlador {
+
+	//INSTANCIAR LAS CLASES QUE USAREMOS
 
     @Autowired
     UsuarioServicio usuarioServicio;
@@ -40,51 +42,55 @@ public class UsuarioControlador {
     @Autowired
     private OAuth2AuthorizedClientService authorizedClientService;
     
+    //AGREGAR UN USUARIO
+	@PostMapping("/agregar")
+	public UsuarioModelo guardarUsuario(@RequestBody UsuarioModelo usuario) {
+		return this.usuarioServicio.guardarUsuario(usuario);
+	}
+	
+	//LISTAR UN USUARIO
     @GetMapping("/listar")
     public ArrayList<UsuarioModelo> obtenerUsuarios() {
     	return (ArrayList<UsuarioModelo>) usuarioServicio.obtenerUsuarios();
     }
     
-	@PostMapping("/agregar")
-	public UsuarioModelo guardarUsuario(@RequestBody UsuarioModelo usuario) {
-		return this.usuarioServicio.guardarUsuario(usuario);
-	}
-
+    //OBTENER EL TOKEN DE UN USUARIO
 	@GetMapping("/token")
 	public ResponseEntity<Map<String, String>> obtenerTokenYEmail() {
-		// Obtener la autenticación actual
+		// OBTENER LA AUTENTICACION ACTUAL
 		Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
 		
-		// Crear un mapa para almacenar el token y el email
+		// CREAR UN MAPA PARA ALMACENAR EL TOKEN Y EL EMAIL
 		Map<String, String> tokenAndEmail = new HashMap<>();
 		
-		// Verificar si la autenticación es de tipo OAuth2
+		// VERIFICAR SI LA AUTENTICACION ES DE TIPO OAUTH2
 		if (authentication instanceof OAuth2AuthenticationToken) {
-			// Obtener el usuario autenticado
+			// OBTENER EL USUARIO AUTENTICADO
 			OAuth2AuthenticationToken oauthToken = (OAuth2AuthenticationToken) authentication;
 			OAuth2User oauth2User = oauthToken.getPrincipal();
 			
-			// Obtener los atributos del usuario
+			// OBTENER LOS ATRIBUTOS DEL USUARIO
 			String email = (String) oauth2User.getAttribute("email");
 
-			// Obtener el token de acceso usando OAuth2AuthorizedClientService
+			// OBTENER EL TOKEN DE ACCESO USANDO OAuth2AuthorizedClientService
 			OAuth2AccessToken accessToken = authorizedClientService.loadAuthorizedClient(
 					oauthToken.getAuthorizedClientRegistrationId(),
 					oauthToken.getName()
 			).getAccessToken();
 			
-			// Agregar el token y el email al mapa
+			// AGREGAR EL TOKEN Y EL EMAIL
 			tokenAndEmail.put("token", accessToken.getTokenValue());
 			tokenAndEmail.put("email", email);
 
-			// Devolver el token y el email en una respuesta ResponseEntity
+			// DEVOLVER EL TOKEN Y EL EMAIL
 			return ResponseEntity.ok(tokenAndEmail);
 		}
 		
-		// Devolver null si la autenticación no es de tipo OAuth2
+		// NULO SI NO ES TIPO OAUTH2
 		return ResponseEntity.status(HttpStatus.UNAUTHORIZED).build();
 	}
 	
+	//VERIFICAR QUE EXISTE UN USUARIO POR SU CORREO
 	@GetMapping("/verificar/{correo}")
 	public Optional<UsuarioModelo> buscarUsuarioPorCorreo(@PathVariable String correo) {
 		Optional<UsuarioModelo> usuario = usuarioServicio.buscarUsuarioPorCorreo(correo);
@@ -94,53 +100,56 @@ public class UsuarioControlador {
 		return usuario;
 	}
 	
+	//OBTENER LOS DATOS DE UN USUARIO
 	@GetMapping("/datos")
 	public Optional<UsuarioModelo> listarUsuarioConectado() {
-		// Obtener la autenticación actual
+		// OBTENER LA AUTENTICACION ACTUAL
 		Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
 		
-		// Verificar si la autenticación es de tipo OAuth2
+		// VERIFICAR QUE LA AUTENTICACION SEA OAUTH2
 		if (authentication instanceof OAuth2AuthenticationToken) {
-			// Obtener el usuario autenticado
+			
+			// OBTENER EL USUARIO AUTENTICADO
 			OAuth2AuthenticationToken oauthToken = (OAuth2AuthenticationToken) authentication;
 			OAuth2User oauth2User = oauthToken.getPrincipal();
 			
-			// Obtener el correo electrónico del usuario autenticado
+			// OBTENER EL CORREO ELECTRONICO
 			String email = (String) oauth2User.getAttribute("email");
 			
-			// Buscar al usuario por correo electrónico
+			// BUSCAR EL USUARIO POR EL CORREO ELECTRONICO
 			Optional<UsuarioModelo> usuario = usuarioServicio.buscarUsuarioPorCorreo(email);
 			return usuario;
 		}
 		
-		// Devolver null si la autenticación no es de tipo OAuth2
+		// NULO SI NO ES OAUTH2
 		return null;
 	}
 	
+	//OBTENER LOS DATOS DE UN CLIENTE O PROVEEDOR
 	@GetMapping("/datossi")
 	public ResponseEntity<?> listarClienteOProveedor() {
-	    // Obtener la autenticación actual
+	    // OBTENER LA AUTENTICACION ACTUAL
 	    Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
 	    
-	    // Verificar si la autenticación es de tipo OAuth2
+	    // VERIFICAR QUE SAE TIPO OAuth2
 	    if (authentication instanceof OAuth2AuthenticationToken) {
-	        // Obtener el usuario autenticado
+	        // OBTENER EL USUARIO
 	        OAuth2AuthenticationToken oauthToken = (OAuth2AuthenticationToken) authentication;
 	        OAuth2User oauth2User = oauthToken.getPrincipal();
 	        
-	        // Obtener el correo electrónico del usuario autenticado
+	        // OBTENER EL CORREO
 	        String email = (String) oauth2User.getAttribute("email");
 	        
-	        // Buscar al usuario por correo electrónico
+	        // BUSCAR EL USUARIO POR EL CORREO ELECTRONICO
 	        Optional<UsuarioModelo> usuarioOptional = usuarioServicio.buscarUsuarioPorCorreo(email);
 	        
 	        if(usuarioOptional.isPresent()) {
 	            UsuarioModelo usuario = usuarioOptional.get();
 	            
-	            // Buscar cliente asociado al usuario
+	            // BUSCAR CLIENTE ASOCIADO AL USUARIO
 	            Optional<ClienteModelo> clienteOptional = clienteServicio.buscarClientePorUsuarioId(usuario.getId());
 	            
-	            // Buscar proveedor asociado al usuario
+	            // BUSCAR PROVEEDOR ASOCIADO AL USUARIO
 	            Optional<ProveedorModelo> proveedorOptional = proveedorServicio.buscarProveedorPorUsuarioId(usuario.getId());
 	            
 	            if(clienteOptional.isPresent()) {

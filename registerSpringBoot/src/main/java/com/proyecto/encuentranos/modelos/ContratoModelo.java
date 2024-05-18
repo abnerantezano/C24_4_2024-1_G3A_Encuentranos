@@ -9,10 +9,15 @@ import jakarta.persistence.JoinColumn;
 import jakarta.persistence.ManyToOne;
 import jakarta.persistence.MapsId;
 import jakarta.persistence.Table;
+//CREANDO EL MODELO CONTRATO PARA LA TABLA contrato
 @Entity
 @Table(name="contrato")
 public class ContratoModelo {
 	
+	//SE ESTA USANDO COMO ID UN ID EMBEBIDO
+	//ESTE ID SE ESTA PONIENDO PORQUE NECESITAMOS QUE SEA UNA ENTIDAD LA TABLA contrato
+	
+	//ATRIBUTOS
 	@EmbeddedId
     private ContratoPk id;
 	
@@ -40,6 +45,7 @@ public class ContratoModelo {
 	@Column(name = "activo")
 	private boolean activo;
 
+	//GETTERS Y SETTERS
 	public ProveedorModelo getIdProveedor() {
 		return idProveedor;
 	}
@@ -87,6 +93,5 @@ public class ContratoModelo {
 	public void setActivo(boolean activo) {
 		this.activo = activo;
 	}
-	
 	
 }

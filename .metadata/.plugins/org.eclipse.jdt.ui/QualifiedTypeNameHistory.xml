@@ -14,4 +14,6 @@
     <fullyQualifiedTypeName name="com.proyecto.encuentranos.repositorios.IServicioProveedorRepositorio"/>
     <fullyQualifiedTypeName name="com.proyecto.encuentranos.modelos.ServicioProveedorModelo"/>
     <fullyQualifiedTypeName name="com.proyecto.encuentranos.modelos.ProveedorModelo"/>
+    <fullyQualifiedTypeName name="org.springframework.web.bind.annotation.DeleteMapping"/>
+    <fullyQualifiedTypeName name="org.springframework.web.bind.annotation.PathVariable"/>
 </qualifiedTypeNameHistroy>

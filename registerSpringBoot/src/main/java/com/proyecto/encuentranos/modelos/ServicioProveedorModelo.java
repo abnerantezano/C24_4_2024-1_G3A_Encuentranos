@@ -3,19 +3,22 @@ package com.proyecto.encuentranos.modelos;
 import jakarta.persistence.Column;
 import jakarta.persistence.EmbeddedId;
 import jakarta.persistence.Entity;
-import jakarta.persistence.GeneratedValue;
-import jakarta.persistence.GenerationType;
-import jakarta.persistence.Id;
 import jakarta.persistence.JoinColumn;
 import jakarta.persistence.ManyToOne;
 import jakarta.persistence.MapsId;
 import jakarta.persistence.Table;
 import jakarta.validation.constraints.NotNull;
-
+//CREANDO EL MODELO servicio_proveedor
 @Entity
 @Table(name="servicio_proveedor")
 public class ServicioProveedorModelo {
-    
+	
+	//ATRIBUTOS
+	
+	//SE ESTA USANDO COMO ID UN ID EMBEBIDO
+	//ESTE ID SE ESTA PONIENDO PORQUE NECESITAMOS QUE SEA UNA ENTIDAD LA TABLA 
+	//servicio_proveedor
+	
     @EmbeddedId
     private ServicioProveedorPk id;
         
@@ -36,6 +39,8 @@ public class ServicioProveedorModelo {
     @Column(name = "negociable")
     private boolean negociable;
 
+    //GETTERS Y SETTERS
+    
     public ServicioProveedorPk getId() {
         return id;
     }
@@ -80,6 +85,5 @@ public class ServicioProveedorModelo {
 		// TODO Auto-generated method stub
 		return false;
 	}   
-    
     
 }

@@ -1,14 +1,20 @@
 package com.proyecto.encuentranos.modelos;
 
 import jakarta.persistence.Column;
+import jakarta.persistence.Embeddable;
 
+//ESTE ES EL ID EMBEBIDO DE CALIFICACIONPROVEEDORMODELO
+@Embeddable
 public class CalificacionProveedorPk {
 	
+	//ATRIBUTOS
     @Column(name = "id_proveedor")
     private Integer idProveedor;
     
     @Column(name = "id_cliente")
     private Integer idCliente;
+    
+    //CONSTRUCTORES, GETTERS Y SETTERS
     
     public CalificacionProveedorPk() {
     	

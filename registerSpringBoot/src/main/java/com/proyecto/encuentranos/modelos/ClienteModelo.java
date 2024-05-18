@@ -11,10 +11,13 @@ import jakarta.persistence.JoinColumn;
 import jakarta.persistence.OneToOne;
 import jakarta.persistence.Table;
 import jakarta.validation.constraints.NotEmpty;
-
+//CREANDO EL MODELO CLIENTE PARA LA TABLA cliente
 @Entity
 @Table(name="cliente")
 public class ClienteModelo {
+	
+	//ATRIBUTOS
+	
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	@Column( name = "id_cliente")
@@ -55,6 +58,7 @@ public class ClienteModelo {
 	@JoinColumn(name = "id_distrito", referencedColumnName = "id_distrito")
 	private DistritoModelo idDistrito;
 
+	//GETTERS Y SETTERS
 	public Integer getId() {
 		return id;
 	}
@@ -135,7 +139,4 @@ public class ClienteModelo {
 		this.idDistrito = idDistrito;
 	}
 
-
-	
-	
 }

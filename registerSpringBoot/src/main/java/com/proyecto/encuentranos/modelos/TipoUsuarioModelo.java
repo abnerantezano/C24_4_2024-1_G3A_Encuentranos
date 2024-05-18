@@ -7,10 +7,13 @@ import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
 import jakarta.persistence.Table;
 import jakarta.validation.constraints.NotEmpty;
-
+//CREANDO EL MODELO tipo_usuario
 @Entity
 @Table(name="tipo_usuario")
 public class TipoUsuarioModelo {
+	
+	//ATRIBUTOS
+	
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	@Column( name = "id_tipo")
@@ -22,6 +25,8 @@ public class TipoUsuarioModelo {
 	
 	@Column(name = "permisos")
 	private String permisos;
+	
+	//GETTERS Y SETTERS
 
 	public Integer getId() {
 		return id;
@@ -46,7 +51,5 @@ public class TipoUsuarioModelo {
 	public void setPermisos(String permisos) {
 		this.permisos = permisos;
 	}
-	
-	
 	
 }
