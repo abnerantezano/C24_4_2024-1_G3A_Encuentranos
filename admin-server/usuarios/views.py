@@ -47,7 +47,7 @@ class ListaUsuarios(APIView):
         serUsuario = UsuarioSerializer(data=request.data)
         serUsuario.is_valid(raise_exception=True)
         serUsuario.save()
-        return Response(serUsuario)
+        return Response(serUsuario.data)
 
 
 class DetalleUsuario(APIView):
@@ -80,7 +80,7 @@ class ListaProveedores(APIView):
         serProveedor = ProveedorSerializer(data=request.data)
         serProveedor.is_valid(raise_exception=True)
         serProveedor.save()
-        return Response(serProveedor)
+        return Response(serProveedor.data)
 
 
 class DetalleProveedor(APIView):

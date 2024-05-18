@@ -2,7 +2,7 @@ from rest_framework.views import APIView
 from rest_framework.response import Response
 from .models import Servicio
 from .serializers import ServicioSerializer
-
+from django.db import connection
 
 class ListaServicios(APIView):
     def get(self, request):
@@ -14,7 +14,7 @@ class ListaServicios(APIView):
         serServicio = ServicioSerializer(data=request.data)
         serServicio.is_valid(raise_exception=True)
         serServicio.save()
-        return Response(serServicio)
+        return Response(serServicio.data)
 
 
 class DetalleServicio(APIView):
