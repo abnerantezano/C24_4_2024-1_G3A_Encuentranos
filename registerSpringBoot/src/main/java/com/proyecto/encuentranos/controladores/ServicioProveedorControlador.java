@@ -2,6 +2,7 @@ package com.proyecto.encuentranos.controladores;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Map;
 import java.util.Optional;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -89,6 +90,13 @@ public class ServicioProveedorControlador {
     @GetMapping("/filtrar/{precio}")
     public List<ServicioProveedorModelo> obtenerServicioProveedorPorPrecio(@PathVariable("precio") double precio){
     	return servicioProveedorServicio.obtenerServicioProveedorPorPrecio(precio);
+    }
+    
+    //OBTENER LOS SERVICIOS MAS ALTOS Y MAS BAJOS QUE HAY EN EL MOMENTO
+    @GetMapping("/filtrar/extremos")
+    public ResponseEntity<Map<String, List<ServicioProveedorModelo>>> obtenerServiciosProveedorExtremos() {
+        Map<String, List<ServicioProveedorModelo>> extremos = servicioProveedorServicio.obtenerServiciosProveedorExtremos();
+        return new ResponseEntity<>(extremos, HttpStatus.OK);
     }
     
     //OBTENER LOS SERVICIOS A LOS QUE EL PROVEEDOR NO ESTA REGISTRADO

@@ -1,7 +1,9 @@
 package com.proyecto.encuentranos.servicios;
 
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 import java.util.Optional;
 import java.util.stream.Collectors;
 
@@ -64,6 +66,42 @@ public class ServicioProveedorServicio {
                 .filter(servicio -> servicio.getPrecio() <= precio)
                 .collect(Collectors.toList());
     }
+    
+    //OBTENER EL PRECIO DE MAS ALTO Y MAS BAJO DE LA TABLA SERVICIO_PROVEEDOR
+    public Map<String, List<ServicioProveedorModelo>> obtenerServiciosProveedorExtremos() {
+    	
+        List<ServicioProveedorModelo> servicios = servicioProveedorRepositorio.findAll();
+        
+        // OBTENIENDO EL PRECIO MAS ALTO
+        double maxPrecio = servicios.stream()
+                                    .mapToDouble(ServicioProveedorModelo::getPrecio)
+                                    .max()
+                                    .orElse(Double.MIN_VALUE);
+        //FILTRAMOS LOS SERVICIOS MAS ALTOS
+        List<ServicioProveedorModelo> serviciosMasCaros = servicios.stream()
+                                                                    .filter(servicio -> servicio.getPrecio() == maxPrecio)
+                                                                    .collect(Collectors.toList());
+        
+        // OBTENIENDO EL PRECIO MAS BAJO
+        double minPrecio = servicios.stream()
+                                    .mapToDouble(ServicioProveedorModelo::getPrecio)
+                                    .min()
+                                    .orElse(Double.MAX_VALUE);
+        
+        //FILTRAMOS LOS SERVICIOS MAS BAJOS
+        List<ServicioProveedorModelo> serviciosMasBaratos = servicios.stream()
+                                                                      .filter(servicio -> servicio.getPrecio() == minPrecio)
+                                                                      .collect(Collectors.toList());
+        
+        // CREAMOS UN MAP AL QUE AGREGAREMOS LA LISTA DEPENDIENDO DE QUE SEA
+        Map<String, List<ServicioProveedorModelo>> extremos = new HashMap<>();
+        extremos.put("serviciosMasCaros", serviciosMasCaros);
+        extremos.put("serviciosMasBaratos", serviciosMasBaratos);
+        
+        return extremos;
+    }
+
+
 
     //OBTENER LOS SERVICIOS QUE NO ESTAN REGISTRADOS A UN PROVEEDOR ESPECIFICO
     public ArrayList<ServicioModelo> obtenerServiciosNoRegistrados(Integer idProveedor) {
