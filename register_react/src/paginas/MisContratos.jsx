@@ -1,11 +1,11 @@
 import React from 'react'
 
-function Servicios() {
+function MisContratos() {
   return (
     <div>
-
+      
     </div>
   )
 }
 
-export default Servicios
+export default MisContratos

@@ -189,7 +189,7 @@ function Precios() {
             ))
           }
           {/*CON DATAVIEW*/}
-          <DataView value={filteredData} className='bg-transparent' filter={filterServicios} pt={{paginator:'bg-red-500', content:'bg-transparent text-sm'}} itemTemplate={listTemplate} paginator paginatorClassName='bg-transparent text-gray-500' rows={2} />
+          <DataView value={filteredData} className='bg-transparent' filter={filterServicios} pt={{paginator:'bg-red-500', content:'bg-transparent text-sm'}} itemTemplate={listTemplate} paginator paginatorClassName='bg-transparent text-gray-500' rows={6} />
         </div>
       </div>
     </div>

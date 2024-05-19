@@ -18,6 +18,9 @@ import AgregarServicio from './paginas/AgregarServicio';
 import Inicio from './paginas/Inicio';
 import Servicios from './paginas/Servicios';
 import Precios from './paginas/Precios';
+import Perfil from './paginas/Perfil';
+import MisServicios from './paginas/MisServicios';
+import MisContratos from './paginas/MisContratos';
 
 function App() {
 
@@ -46,6 +49,9 @@ function App() {
             <Route exact path='/inicio' element={<Inicio />} />
             <Route exact path='/servicios' element={<Servicios />} />
             <Route exact path='/precios' element={<Precios/>} />
+            <Route exact path='/perfil' element={<Perfil />} />
+            <Route exact path='/misServicios' element={<MisServicios />} />
+            <Route exact path='/misContratos' element={<MisContratos/>} />
           </Routes>
         </div>
         {isLoggedIn ? <FooterAutenticado /> : <Footer />}
