@@ -1,6 +1,7 @@
 package com.proyecto.encuentranos.servicios;
 
 import java.util.ArrayList;
+import java.util.Comparator;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -65,6 +66,18 @@ public class ServicioProveedorServicio {
         return servicioProveedorRepositorio.findAll().stream()
                 .filter(servicio -> servicio.getPrecio() <= precio)
                 .collect(Collectors.toList());
+    }
+    
+    //OBTENER EL PRECIO MAS ALTO DE LA TABLA SERVICIO_PROVEEDOR
+    public Optional<ServicioProveedorModelo> obtenerServicioProveedorAlto(){
+    	return servicioProveedorRepositorio.findAll().stream()
+    			.max(Comparator.comparing(ServicioProveedorModelo::getPrecio));
+    }
+    
+    //OBTENER EL PRECIO MAS BAJO DE LA TABLA SERVICIO_PROVEEDOR
+    public Optional<ServicioProveedorModelo> obtenerServicioProveedorBajo(){
+    	return servicioProveedorRepositorio.findAll().stream()
+    			.min(Comparator.comparing(ServicioProveedorModelo::getPrecio));
     }
     
     //OBTENER EL PRECIO DE MAS ALTO Y MAS BAJO DE LA TABLA SERVICIO_PROVEEDOR

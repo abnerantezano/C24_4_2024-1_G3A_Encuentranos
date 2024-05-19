@@ -9,6 +9,7 @@ import jakarta.persistence.JoinColumn;
 import jakarta.persistence.ManyToOne;
 import jakarta.persistence.MapsId;
 import jakarta.persistence.Table;
+
 //CREANDO EL MODELO CONTRATO PARA LA TABLA contrato
 @Entity
 @Table(name="contrato")
@@ -42,8 +43,11 @@ public class ContratoModelo {
 	@Column(name= "fecha_fin")
 	private LocalDate fechaFin;
 	
-	@Column(name = "activo")
-	private boolean activo;
+	@Column(name = "estado")
+	private String estado = "inactivo";
+	
+	@Column(name = "precio_final")
+	private double precioFinal;
 
 	//GETTERS Y SETTERS
 	public ProveedorModelo getIdProveedor() {
@@ -86,12 +90,27 @@ public class ContratoModelo {
 		this.fechaFin = fechaFin;
 	}
 
-	public boolean isActivo() {
-		return activo;
+	public String getEstado() {
+		return estado;
 	}
 
-	public void setActivo(boolean activo) {
-		this.activo = activo;
+	public void setEstado(String estado) {
+		this.estado = estado;
 	}
-	
+
+	public ContratoPk getId() {
+		return id;
+	}
+
+	public void setId(ContratoPk id) {
+		this.id = id;
+	}
+
+	public double getPrecioFinal() {
+		return precioFinal;
+	}
+
+	public void setPrecioFinal(double precioFinal) {
+		this.precioFinal = precioFinal;
+	}	
 }

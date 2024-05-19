@@ -92,6 +92,18 @@ public class ServicioProveedorControlador {
     	return servicioProveedorServicio.obtenerServicioProveedorPorPrecio(precio);
     }
     
+    //OBTENER EL PRECIO MAS ALTO DE LA TABLA SERVICIO_PROVEEDOR
+    @GetMapping("/filtrar/alto")
+    public Optional<ServicioProveedorModelo> obtenerServicioProveedorAlto(){
+    	return servicioProveedorServicio.obtenerServicioProveedorAlto();
+    }
+    
+    //OBTENER EL PRECIO MAS BAJO DE LA TABLA SERVICIO_PROVEEDOR
+    @GetMapping("/filtrar/bajo")
+    public Optional<ServicioProveedorModelo> obtenerServicioProveedorBajo(){
+    	return servicioProveedorServicio.obtenerServicioProveedorBajo();
+    }
+    
     //OBTENER LOS SERVICIOS MAS ALTOS Y MAS BAJOS QUE HAY EN EL MOMENTO
     @GetMapping("/filtrar/extremos")
     public ResponseEntity<Map<String, List<ServicioProveedorModelo>>> obtenerServiciosProveedorExtremos() {

@@ -2,6 +2,7 @@ package com.proyecto.encuentranos.modelos;
 
 import jakarta.persistence.Column;
 import jakarta.persistence.Embeddable;
+
 //ESTE ES EL ID EMBEBIDO DE CONTRATOMODELO
 @Embeddable
 public class ContratoPk {
