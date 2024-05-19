@@ -5,7 +5,6 @@ import org.springframework.stereotype.Service;
 import com.proyecto.encuentranos.modelos.*;
 import com.proyecto.encuentranos.repositorios.IContratoRepositorio;
 import java.util.ArrayList;
-import java.util.Optional;
 
 @Service
 public class ContratoServicio {
@@ -32,6 +31,18 @@ public class ContratoServicio {
         contratoExistente.setEstado("Aceptado");
 
         // GUARDAR EL CONTRATO ESTA VEZ ACTIVO
+        return contratoRepositorio.save(contratoExistente);
+    }
+    
+    //SE CAMBIA EL MODO DEL CONTRATO A CANCELADO
+    public ContratoModelo denegarContratoProveedor(ContratoModelo contrato) {
+        // CARGAR EL CONTRATO DESDE LA BASE DE DATOS
+        ContratoModelo contratoExistente = contratoRepositorio.findById(contrato.getId()).orElseThrow(() -> new RuntimeException("Contrato no encontrado"));
+        
+        // ACTUALIZAR EL CAMPO CANCELADO
+        contratoExistente.setEstado("Cancelado");
+
+        // GUARDAR EL CONTRATO ESTA VEZ CANCELADO
         return contratoRepositorio.save(contratoExistente);
     }
     

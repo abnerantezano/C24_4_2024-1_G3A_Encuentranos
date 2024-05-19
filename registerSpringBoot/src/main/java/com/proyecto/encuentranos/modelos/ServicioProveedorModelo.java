@@ -80,10 +80,5 @@ public class ServicioProveedorModelo {
 	public void setNegociable(boolean negociable) {
 		this.negociable = negociable;
 	}
-
-	public boolean isDisponible() {
-		// TODO Auto-generated method stub
-		return false;
-	}   
     
 }

@@ -28,5 +28,10 @@ public class ContratoControlador {
     public ContratoModelo aceptarContratoProveedor(@RequestBody ContratoModelo contrato) {
     	return contratoServicio.aceptarContratoProveedor(contrato);
     }
+    
+    @PutMapping("/denegar-proveedor")
+    public ContratoModelo denegarContratoProveedor(@RequestBody ContratoModelo contrato) {
+    	return contratoServicio.denegarContratoProveedor(contrato);
+    }
 
 }
