@@ -11,9 +11,17 @@ class ListaServicios(APIView):
         return Response(serServicio.data)
 
     def post(self, request):
-        serServicio = ServicioSerializer(data=request.data)
-        serServicio.is_valid(raise_exception=True)
-        serServicio.save()
+        nombre = request.data.get('nombre')
+        descripcion = request.data.get('descripcion', None)
+
+        with connection.cursor() as cursor:
+            if descripcion:
+                cursor.execute("CALL sp_actualiza_servicio('crear', NULL, %s, %s)", [nombre, descripcion])
+            else:
+                cursor.execute("CALL sp_actualiza_servicio('crear', NULL, %s, NULL)", [nombre])
+
+        servicios = Servicio.objects.all()
+        serServicio = ServicioSerializer(servicios, many=True)
         return Response(serServicio.data)
 
 
@@ -23,15 +31,22 @@ class DetalleServicio(APIView):
         serServicio = ServicioSerializer(servicio)
         return Response(serServicio.data)
 
-    def pull(self, request, id_servicio):
+    def put(self, request, id_servicio):
+        nombre = request.data.get('nombre')
+        descripcion = request.data.get('descripcion', None)
+
+        with connection.cursor() as cursor:
+            cursor.execute("CALL sp_actualiza_servicio('actualizar', %s, %s, %s)", [id_servicio, nombre, descripcion])
+
         servicio = Servicio.objects.get(pk=id_servicio)
-        serServicio = ServicioSerializer(servicio, data=request.data)
-        serServicio.is_valid(raise_exception=True)
-        serServicio.save()
+        serServicio = ServicioSerializer(servicio)
         return Response(serServicio.data)
 
     def delete(self, request, id_servicio):
         servicio = Servicio.objects.get(pk=id_servicio)
-        serServicio = ServicioSerializer(servicio)
-        servicio.delete()
-        return Response(serServicio.data)
+        nombre = servicio.nombre
+
+        with connection.cursor() as cursor:
+            cursor.execute("CALL sp_actualiza_servicio('eliminar', %s, NULL, NULL)", [id_servicio])
+        
+        return Response({'mensaje': 'Servicio eliminado'})
