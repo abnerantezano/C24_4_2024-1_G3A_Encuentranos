@@ -1,42 +1,41 @@
 import React, { useEffect, useState } from "react";
 import logo from "../imagenes/logo-color.png";
 import { useNavigate } from "react-router-dom";
-//FONT AWESOME
+// FONT AWESOME
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import { faMinus } from '@fortawesome/free-solid-svg-icons'
-//PRIME REACT
+// PRIME REACT
 import { Dropdown } from 'primereact/dropdown';
 import { InputNumber } from 'primereact/inputnumber';
 import { useForm, Controller } from "react-hook-form";
-//AXIOS
+// AXIOS
 import ServicioProveedorService from "../servicios/ServicioProveedor";
 import UsuarioService from "../servicios/UsuarioService";
 import InformacionDeUsuario from "../componentes/InformacionDeUsuario";
 
 const AgregarServicio = () => {
+    // PROPIEDADES DE REACT HOOK FORM
+    const { register, handleSubmit, control, setValue, watch, formState: { errors } } = useForm();
 
-    //PROPIEDADES DE REACT HOOK FORM
-    const { register, handleSubmit, control, watch, formState: { errors } } = useForm();
-
-    //VARIABLE PARA LA NAVEGACIÓN
+    // VARIABLE PARA LA NAVEGACIÓN
     const navigate = useNavigate();
 
-    //VARIABLE PARA LISTAR LOS SERVICIOS
+    // VARIABLE PARA LISTAR LOS SERVICIOS
     const [servicios, setServicios] = useState([]);
 
-    //VARIABLE PARA ALMACENAR LOS DATOS DEL USUARIO
+    // VARIABLE PARA ALMACENAR LOS DATOS DEL USUARIO
     const [usuario, setUsuario] = useState({});
 
-    //VARIABLE PARA ALMACENAR LOS SERVICIOS QUE SE AGREGARAN
+    // VARIABLE PARA ALMACENAR LOS SERVICIOS QUE SE AGREGARAN
     const [serviciosAdicionales, setServiciosAdicionales] = useState([]);
 
-    //VARIABLE PARA LISTA DE SERVICIOS DISPONIBLES 
-    const [serviciosSeleccionados, setServiciosSeleccionados] = useState([]);
-
-    //VARIABLE DEL CONTADOR
+    // VARIABLE DEL CONTADOR
     const [contador, setContador] = useState(0);
 
-    //LLAMAR LA INFORMACIÓN DEL USUARIO
+    // NUEVO ESTADO PARA SERVICIOS DISPONIBLES
+    const [serviciosDisponibles, setServiciosDisponibles] = useState([]);
+
+    // LLAMAR LA INFORMACIÓN DEL USUARIO
     useEffect(() => {
         UsuarioService.getInfo()
             .then(UsuarioResponse => {
@@ -46,13 +45,14 @@ const AgregarServicio = () => {
                 console.log(error);
             });
     }, []);
-    
-    //LLAMAR LA LISTA DE LOS SERVICIOS NO REGISTRADOS POR EL PROVEEDOR
+
+    // LLAMAR LA LISTA DE LOS SERVICIOS NO REGISTRADOS POR EL PROVEEDOR
     useEffect(() => {
         if (usuario && usuario.id) {
             ServicioProveedorService.getServicioSinRegistrar(usuario.id)
                 .then(response => {
                     setServicios(response.data);
+                    setServiciosDisponibles(response.data);
                 })
                 .catch(error => {
                     console.log(error);
@@ -60,7 +60,7 @@ const AgregarServicio = () => {
         }
     }, [usuario]);
 
-    //LLAMAR LA LISTA DE LOS SERVICIOS REGISTRADOS POR EL PROVEEDOR
+    // LLAMAR LA LISTA DE LOS SERVICIOS REGISTRADOS POR EL PROVEEDOR
     useEffect(() => {
         if (usuario && usuario.id) {
             ServicioProveedorService.getServicioRegistrados(usuario.id)
@@ -73,35 +73,49 @@ const AgregarServicio = () => {
         }
     }, [usuario]);
 
-    //AGREGAR OTRO CONTENIDO PARA SERVICIOS Y PRECIO
-    const handleAddService = () => {
-        setContador(prevContador => prevContador + 1);
-        setServiciosAdicionales([...serviciosAdicionales, { idServicio: null, precio: null }]);
+    // ACTUALIZAR SERVICIOS DISPONIBLES CUANDO SE SELECCIONA UN SERVICIO
+    const handleServiceChange = (index, field, value) => {
+        if (index === null) {
+            const nuevoServicioPrincipal = { idServicio: value, precio: watch("precio") };
+            const nuevosServiciosAdicionales = [...serviciosAdicionales, nuevoServicioPrincipal];
+            actualizarServiciosDisponibles(nuevosServiciosAdicionales);
+
+            return;
+        }
+        
+        const newServiciosAdicionales = [...serviciosAdicionales];
+        newServiciosAdicionales[index][field] = value;
+        setServiciosAdicionales(newServiciosAdicionales);
+        actualizarServiciosDisponibles(newServiciosAdicionales);
     };
 
-    //ELIMINAR UN CONTENIDO PARA SERVICIOS Y PRECIO
+    // FILTRAR SERVICIOS DISPONIBLES
+    const actualizarServiciosDisponibles = (serviciosAdicionales) => {
+        const serviciosSeleccionados = serviciosAdicionales.map(servicio => servicio.idServicio);
+        const nuevosServiciosDisponibles = servicios.filter(servicio => !serviciosSeleccionados.includes(servicio.id));
+        setServiciosDisponibles(nuevosServiciosDisponibles);
+    };
+
+    // AGREGAR OTRO CONTENIDO PARA SERVICIOS Y PRECIO
+    const handleAddService = () => {
+        setContador(prevContador => prevContador + 1);
+        const nuevosServiciosAdicionales = [...serviciosAdicionales, { idServicio: null, precio: null }];
+        setServiciosAdicionales(nuevosServiciosAdicionales);
+        actualizarServiciosDisponibles(nuevosServiciosAdicionales);
+    };
+
+    // ELIMINAR UN CONTENIDO PARA SERVICIOS Y PRECIO
     const handleRemoveService = (index) => {
         const newServiciosAdicionales = [...serviciosAdicionales];
         newServiciosAdicionales.splice(index, 1);
         setServiciosAdicionales(newServiciosAdicionales);
         setContador(prevContador => prevContador - 1);
+        actualizarServiciosDisponibles(newServiciosAdicionales);
     };
 
-    const isOptionDisabled = (option) => {
-        return serviciosSeleccionados.some(servicio => servicio.id === option.id);
-    };  
-
-    //VERIFICAR LOS SERVICIOS AGREGADOS EN EL FORMULARIO
-    const handleServiceChange = (index, field, value) => {
-        const newServiciosAdicionales = [...serviciosAdicionales];
-        newServiciosAdicionales[index][field] = value;
-        setServiciosAdicionales(newServiciosAdicionales);
-    };
-
-    //FUNCIÓN DEL BOTON PARA AGREGAR LOS SERVICIOS
+    // FUNCIÓN DEL BOTON PARA AGREGAR LOS SERVICIOS
     const agregarServicio = (data, idProveedor) => {
-
-        if (contador>5){
+        if (contador > 5) {
             alert("Cumples con el limite de servicios")
         }
         const serviciosParaAgregar = serviciosAdicionales.map(servicio => ({
@@ -142,7 +156,10 @@ const AgregarServicio = () => {
                                     <div className="relative z-0 w-full group">
                                         <label className="block mb-2 text-sm font-medium text-gray-900 dark:text-white mb-2 mt-2">Servicio</label>
                                         <Controller name="idServicio" {...register("idServicio", { required: true })} control={control} render={({ field }) => (
-                                            <Dropdown id={field.name} value={field.value} onChange={(e) => field.onChange(e.value)} options={servicios} optionDisabled = {isOptionDisabled } optionValue="id" optionLabel="nombre" placeholder="Seleccione un servicio" panelClassName="custom-panel" pt={{input:'text-sm',panel:'text-sm',root:'ring-0',select:'text-red-500'}} className="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:border-dark w-full dark:bg-[#] dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500" />
+                                            <Dropdown id={field.name} value={field.value} onChange={(e) => {
+                                                field.onChange(e.value);
+                                                handleServiceChange(null, 'idServicio', e.value);
+                                            }} options={serviciosDisponibles} optionValue="id" optionLabel="nombre" placeholder="Seleccione un servicio" panelClassName="custom-panel" pt={{ input: 'text-sm', panel: 'text-sm', root: 'ring-0' }} className="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:border-dark w-full dark:bg-[#] dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500" />
                                         )} />
                                         {errors.idServicio && <span className="text-red-500 text-sm">Agregue un servicio</span>}
                                     </div>
@@ -159,7 +176,7 @@ const AgregarServicio = () => {
                                         <div className="grid md:grid-cols-2 md:gap-6 mt-4 mb-5 w-11/12">
                                             <div className="relative z-0 w-full group">
                                                 <label className="block mb-2 text-sm font-medium text-gray-900 dark:text-white mb-2 mt-2">Servicio</label>
-                                                <Dropdown value={servicio.idServicio} onChange={(e) => handleServiceChange(index, 'idServicio', e.value)} options={servicios} optionValue="id" optionLabel="nombre" placeholder="Seleccione un servicio" panelClassName="custom-panel" pt={{input:'text-sm',panel:'text-sm',root:'ring-0'}} className="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:border-dark w-full dark:bg-[#] dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500" />
+                                                <Dropdown value={servicio.idServicio} onChange={(e) => handleServiceChange(index, 'idServicio', e.value)} options={serviciosDisponibles} optionValue="id" optionLabel="nombre" placeholder="Seleccione un servicio" panelClassName="custom-panel" pt={{ input: 'text-sm', panel: 'text-sm', root: 'ring-0' }} className="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:border-dark w-full dark:bg-[#] dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500" />
                                             </div>
                                             <div className="relative z-0 w-full group">
                                                 <label className="block mb-2 text-sm font-medium text-gray-900 dark:text-white mb-2 mt-2">Precio</label>

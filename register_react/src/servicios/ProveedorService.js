@@ -7,6 +7,11 @@ export class ProveedorService {
         return axios.post(this.baseUrl + '/agregar', datos, { withCredentials: true })
             .then(res => res.data)
     }
+
+    getListaProveedor(){
+        return axios.get(this.baseUrl + '/listar', { withCredentials: true })
+            .then(res => res.data)
+    }
 }
 
 export default new ProveedorService();

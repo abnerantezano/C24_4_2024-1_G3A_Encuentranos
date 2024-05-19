@@ -31,4 +31,5 @@ code {
 .custom-panel .p-dropdown-item.p-highlight {
   background-color: #FCE6D8;
   color: #BC7547;
+  pointer-events: none;
 }

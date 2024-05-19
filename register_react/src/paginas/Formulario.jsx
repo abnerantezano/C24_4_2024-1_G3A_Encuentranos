@@ -15,7 +15,7 @@ import DistritoService from "../servicios/DistritoService";
 import UsuarioService from "../servicios/UsuarioService";
 import ClienteService from "../servicios/ClienteService";
 import ProveedorService from "../servicios/ProveedorService";
-//COMPONENTE
+
 
 
 const Formulario = () => {
@@ -183,7 +183,7 @@ const Formulario = () => {
                         {errors.sexo && <span className="text-red-500 text-sm">Elija una opción</span>}
                     </div>
                     <div className="mb-5 flex justify-center my-16">
-                        <button type="submit" className="focus:outline-none w-1/2 text-white bg-[#E8A477] hover:bg-[#BC7547] focus:ring-4 focus:ring-[#BC7547] font-medium rounded-lg text-sm px-5 py-2.5 me-2 mb-2 dark:focus:ring-[#B4663F]">Guardar</button>
+                        <button type="submit" className="w-full focus:outline-none w-1/2 text-white bg-[#E8A477] hover:bg-[#BC7547] focus:ring-4 focus:ring-[#BC7547] font-medium rounded-lg text-sm px-5 py-2.5 me-2 mb-2 dark:focus:ring-[#B4663F]">Guardar</button>
                     </div>
                 </div>
             </div>

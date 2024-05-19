@@ -11,10 +11,13 @@ import InformacionDeUsuario from './componentes/InformacionDeUsuario';
 //PAGINAS
 import Index from './paginas/Index';
 import IniciarSesion from './paginas/IniciarSesion';
-import CrearUsuario from './paginas/CrearUsuario';
 import Registro from './paginas/Registro';
+import CrearUsuario from './paginas/CrearUsuario';
 import Formulario from './paginas/Formulario';
 import AgregarServicio from './paginas/AgregarServicio';
+import Inicio from './paginas/Inicio';
+import Servicios from './paginas/Servicios';
+import Precios from './paginas/Precios';
 
 function App() {
 
@@ -40,6 +43,9 @@ function App() {
             <Route exact path='/registro' element={<Registro />} />
             <Route exact path='/formulario' element={<Formulario />} />
             <Route exact path='/agregarServicio' element={<AgregarServicio />} />
+            <Route exact path='/inicio' element={<Inicio />} />
+            <Route exact path='/servicios' element={<Servicios />} />
+            <Route exact path='/precios' element={<Precios/>} />
           </Routes>
         </div>
         {isLoggedIn ? <FooterAutenticado /> : <Footer />}
