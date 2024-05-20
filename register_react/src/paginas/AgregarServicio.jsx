@@ -27,15 +27,6 @@ const AgregarServicio = () => {
     //VARIABLE PARA ALMACENAR LOS DATOS DEL USUARIO
     const [usuario, setUsuario] = useState({});
 
-    //VARIABLE PARA ALMACENAR LOS SERVICIOS QUE SE AGREGARAN
-    const [serviciosAdicionales, setServiciosAdicionales] = useState([]);
-
-    //VARIABLE PARA LISTA DE SERVICIOS DISPONIBLES 
-    const [serviciosSeleccionados, setServiciosSeleccionados] = useState([]);
-
-    //VARIABLE DEL CONTADOR
-    const [contador, setContador] = useState(0);
-
     //LLAMAR LA INFORMACIÓN DEL USUARIO
     useEffect(() => {
         UsuarioService.getInfo()
@@ -60,65 +51,18 @@ const AgregarServicio = () => {
         }
     }, [usuario]);
 
-    //LLAMAR LA LISTA DE LOS SERVICIOS REGISTRADOS POR EL PROVEEDOR
-    useEffect(() => {
-        if (usuario && usuario.id) {
-            ServicioProveedorService.getServicioRegistrados(usuario.id)
-                .then(response => {
-                    setContador(response.data.length);
-                })
-                .catch(error => {
-                    console.log(error);
-                });
-        }
-    }, [usuario]);
-
-    //AGREGAR OTRO CONTENIDO PARA SERVICIOS Y PRECIO
-    const handleAddService = () => {
-        setContador(prevContador => prevContador + 1);
-        setServiciosAdicionales([...serviciosAdicionales, { idServicio: null, precio: null }]);
-    };
-
-    //ELIMINAR UN CONTENIDO PARA SERVICIOS Y PRECIO
-    const handleRemoveService = (index) => {
-        const newServiciosAdicionales = [...serviciosAdicionales];
-        newServiciosAdicionales.splice(index, 1);
-        setServiciosAdicionales(newServiciosAdicionales);
-        setContador(prevContador => prevContador - 1);
-    };
-
-    const isOptionDisabled = (option) => {
-        return serviciosSeleccionados.some(servicio => servicio.id === option.id);
-    };  
-
-    //VERIFICAR LOS SERVICIOS AGREGADOS EN EL FORMULARIO
-    const handleServiceChange = (index, field, value) => {
-        const newServiciosAdicionales = [...serviciosAdicionales];
-        newServiciosAdicionales[index][field] = value;
-        setServiciosAdicionales(newServiciosAdicionales);
-    };
-
     //FUNCIÓN DEL BOTON PARA AGREGAR LOS SERVICIOS
     const agregarServicio = (data, idProveedor) => {
 
-        if (contador>5){
-            alert("Cumples con el limite de servicios")
-        }
-        const serviciosParaAgregar = serviciosAdicionales.map(servicio => ({
-            idProveedor: { id: parseInt(idProveedor) },
-            idServicio: { id: parseInt(servicio.idServicio) },
-            precio: parseFloat(servicio.precio)
-        }));
-
-        serviciosParaAgregar.push({
+        const servicioParaAgregar = {
             idProveedor: { id: parseInt(idProveedor) },
             idServicio: { id: parseInt(data.idServicio) },
             precio: parseFloat(data.precio)
-        });
+        }
 
-        console.log(serviciosParaAgregar);
+        console.log(servicioParaAgregar);
 
-        ServicioProveedorService.postAddServicioProveedor(serviciosParaAgregar)
+        ServicioProveedorService.postAddServicioProveedor(servicioParaAgregar)
             .then(response => {
                 console.log(response)
                 navigate('/inicio')
@@ -142,7 +86,7 @@ const AgregarServicio = () => {
                                     <div className="relative z-0 w-full group">
                                         <label className="block mb-2 text-sm font-medium text-gray-900 dark:text-white mb-2 mt-2">Servicio</label>
                                         <Controller name="idServicio" {...register("idServicio", { required: true })} control={control} render={({ field }) => (
-                                            <Dropdown id={field.name} value={field.value} onChange={(e) => field.onChange(e.value)} options={servicios} optionDisabled = {isOptionDisabled } optionValue="id" optionLabel="nombre" placeholder="Seleccione un servicio" panelClassName="custom-panel" pt={{input:'text-sm',panel:'text-sm',root:'ring-0',select:'text-red-500'}} className="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:border-dark w-full dark:bg-[#] dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500" />
+                                            <Dropdown id={field.name} value={field.value} onChange={(e) => field.onChange(e.value)} options={servicios} optionValue="id" optionLabel="nombre" placeholder="Seleccione un servicio" panelClassName="custom-panel" pt={{input:'text-sm',panel:'text-sm',root:'ring-0',select:'text-red-500'}} className="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:border-dark w-full dark:bg-[#] dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500" />
                                         )} />
                                         {errors.idServicio && <span className="text-red-500 text-sm">Agregue un servicio</span>}
                                     </div>
@@ -154,28 +98,6 @@ const AgregarServicio = () => {
                                         {errors.precio && <span className="text-red-500 text-sm">Ingrese el precio del servicio</span>}
                                     </div>
                                 </div>
-                                {serviciosAdicionales.map((servicio, index) => (
-                                    <div key={index} className="flex mt-4 mb-5 w-full">
-                                        <div className="grid md:grid-cols-2 md:gap-6 mt-4 mb-5 w-11/12">
-                                            <div className="relative z-0 w-full group">
-                                                <label className="block mb-2 text-sm font-medium text-gray-900 dark:text-white mb-2 mt-2">Servicio</label>
-                                                <Dropdown value={servicio.idServicio} onChange={(e) => handleServiceChange(index, 'idServicio', e.value)} options={servicios} optionValue="id" optionLabel="nombre" placeholder="Seleccione un servicio" panelClassName="custom-panel" pt={{input:'text-sm',panel:'text-sm',root:'ring-0'}} className="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:border-dark w-full dark:bg-[#] dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500" />
-                                            </div>
-                                            <div className="relative z-0 w-full group">
-                                                <label className="block mb-2 text-sm font-medium text-gray-900 dark:text-white mb-2 mt-2">Precio</label>
-                                                <InputNumber value={servicio.precio} onChange={(e) => handleServiceChange(index, 'precio', e.value)} mode="currency" currency="PEN" className="block w-full" inputClassName="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring focus:ring-orange-200 focus:border-dark block w-full p-2.5" />
-                                            </div>
-                                        </div>
-                                        <div className="relative z-0 w-1/12 group flex items-center justify-end mt-6">
-                                            <button type="button" onClick={() => handleRemoveService(index)} className="bg-red-300 p-2 rounded-lg text-white text-sm font-bold"><FontAwesomeIcon icon={faMinus} /></button>
-                                        </div>
-                                    </div>
-                                ))}
-                                {contador < 4 && (
-                                    <div>
-                                        <button className="text-[#B4663F] font-bold text-sm" type="button" onClick={handleAddService}>Agregar más servicios</button>
-                                    </div>
-                                )}
                                 <div className="mb-5 flex justify-center my-16">
                                     <button type="submit" className="w-full focus:outline-none w-1/2 text-white bg-[#E8A477] hover:bg-[#BC7547] focus:ring-4 focus:ring-[#BC7547] font-medium rounded-lg text-sm px-5 py-2.5 me-2 mb-2">Agregar servicios</button>
                                 </div>
