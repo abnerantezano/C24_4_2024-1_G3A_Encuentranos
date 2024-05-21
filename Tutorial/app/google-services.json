@@ -1,0 +1,29 @@
+{
+  "project_info": {
+    "project_number": "872337376041",
+    "project_id": "encuentranos-68084",
+    "storage_bucket": "encuentranos-68084.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:872337376041:android:adefe29e45f6c3d5236d38",
+        "android_client_info": {
+          "package_name": "com.ambrosio.josue.tutorial"
+        }
+      },
+      "oauth_client": [],
+      "api_key": [
+        {
+          "current_key": "AIzaSyA4un6N78NBpiQsb2-cQAaFt27Eeu8pN6s"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": []
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}

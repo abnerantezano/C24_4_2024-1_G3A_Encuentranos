@@ -9,7 +9,6 @@
     <fullyQualifiedTypeName name="com.proyecto.encuentranos.modelos.ServicioModelo"/>
     <fullyQualifiedTypeName name="com.proyecto.encuentranos.repositorios.IServicioRepositorio"/>
     <fullyQualifiedTypeName name="com.proyecto.encuentranos.repositorios.IServicioProveedorRepositorio"/>
-    <fullyQualifiedTypeName name="com.proyecto.encuentranos.modelos.ProveedorModelo"/>
     <fullyQualifiedTypeName name="org.springframework.web.bind.annotation.DeleteMapping"/>
     <fullyQualifiedTypeName name="org.springframework.web.bind.annotation.PathVariable"/>
     <fullyQualifiedTypeName name="org.springframework.stereotype.Repository"/>
@@ -45,4 +44,11 @@
     <fullyQualifiedTypeName name="com.fasterxml.jackson.annotation.JsonFormat"/>
     <fullyQualifiedTypeName name="java.sql.Date"/>
     <fullyQualifiedTypeName name="java.util.Date"/>
+    <fullyQualifiedTypeName name="com.proyecto.encuentranos.modelos.ContratoModelo"/>
+    <fullyQualifiedTypeName name="com.proyecto.encuentranos.servicios.UsuarioServicio"/>
+    <fullyQualifiedTypeName name="com.proyecto.encuentranos.servicios.ContratoServicio"/>
+    <fullyQualifiedTypeName name="org.assertj.core.api.Assertions"/>
+    <fullyQualifiedTypeName name="org.junit.jupiter.api.Assertions"/>
+    <fullyQualifiedTypeName name="com.proyecto.encuentranos.modelos.ContratoPk"/>
+    <fullyQualifiedTypeName name="com.proyecto.encuentranos.modelos.ProveedorModelo"/>
 </qualifiedTypeNameHistroy>
