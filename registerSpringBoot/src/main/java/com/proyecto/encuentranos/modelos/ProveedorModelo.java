@@ -53,7 +53,7 @@ public class ProveedorModelo {
 	private String celular;
 	
 	@Column(name= "fecha_nacimiento")
-	private LocalDate fechaNacimiento;
+	private String fechaNacimiento;
 	
 	@OneToOne
 	@JoinColumn(name = "id_distrito", referencedColumnName = "id_distrito")
@@ -132,11 +132,11 @@ public class ProveedorModelo {
 		this.celular = celular;
 	}
 
-	public LocalDate getFechaNacimiento() {
+	public String getFechaNacimiento() {
 		return fechaNacimiento;
 	}
 
-	public void setFechaNacimiento(LocalDate fechaNacimiento) {
+	public void setFechaNacimiento(String fechaNacimiento) {
 		this.fechaNacimiento = fechaNacimiento;
 	}
 
