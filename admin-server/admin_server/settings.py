@@ -34,6 +34,7 @@ INSTALLED_APPS = [
     'servicios',
     'usuarios',
     'rest_framework',
+    'corsheaders',
     'django.contrib.admin',
     'django.contrib.auth',
     'django.contrib.contenttypes',
@@ -50,6 +51,7 @@ MIDDLEWARE = [
     'django.contrib.auth.middleware.AuthenticationMiddleware',
     'django.contrib.messages.middleware.MessageMiddleware',
     'django.middleware.clickjacking.XFrameOptionsMiddleware',
+    'corsheaders.middleware.CorsMiddleware',
 ]
 
 ROOT_URLCONF = 'admin_server.urls'
@@ -72,6 +74,9 @@ TEMPLATES = [
 
 WSGI_APPLICATION = 'admin_server.wsgi.application'
 
+CORS_ALLOWED_ORIGINS = [
+    "http://localhost:3000",
+]
 
 # Database
 # https://docs.djangoproject.com/en/5.0/ref/settings/#databases
@@ -81,7 +86,7 @@ DATABASES = {
         'ENGINE': 'django.db.backends.mysql',
         'NAME': 'encuentranos',
         'USER': 'root',
-        'PASSWORD': '',
+        'PASSWORD': 'kakaluzu1234',
         'HOST': 'localhost',
         'PORT': '3306',
     }
