@@ -12,7 +12,6 @@
   @tailwind utilities;
 }
 
-
 body {
   margin: 0;
   font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Roboto', 'Oxygen',
@@ -33,3 +32,65 @@ code {
   color: #BC7547;
   pointer-events: none;
 }
+
+.wave-container{
+ position: relative;
+ width: 100%;
+ height: 100vh;
+ background-color: #BC7547;
+ overflow: hidden;
+}
+
+.ulClass {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+  gap: 1rem;
+}
+
+.liClass {
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+}
+
+.progress{
+  position: relative;
+}
+
+.progress::after{
+  content: " ";
+  position: absolute;
+  width: 98%;
+  top: 50%;
+  height: 4px;
+  background-color: rgb(255, 255, 255);
+  right: 55%;
+}
+.one::after{
+  width: 0;
+  height: 0;
+}
+
+@media (max-width: 980px) {
+  .ulClass{
+      flex-direction: column;
+  }
+  .ulClass .liClass{
+      flex-direction: row;
+  }
+  .ulClass .liClass .progress{
+      margin: 0 30px;
+  }
+  .progress::after{
+      width: 5px;
+      height: 55px;
+      bottom: 30px;
+      left: 50%;
+      transform: translateX(-50%);
+      z-index: -1;
+  }
+  .one::after{
+      height: 0;
+  }
+}
+

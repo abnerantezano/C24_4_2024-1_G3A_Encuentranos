@@ -66,6 +66,7 @@ const AgregarServicio = () => {
         }
     }, [usuario]);
 
+    setServiciosAdicionales([...serviciosAdicionales,{}]);
     // AGREGAR OTRO CONTENIDO PARA SERVICIOS Y PRECIO
     const handleAddService = () => {
         if (contador < 6) {
