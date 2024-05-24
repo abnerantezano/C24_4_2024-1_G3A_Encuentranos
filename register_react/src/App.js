@@ -15,6 +15,7 @@ import Registro from './paginas/Registro';
 import CrearUsuario from './paginas/CrearUsuario';
 import Formulario from './paginas/Formulario';
 import AgregarServicio from './paginas/AgregarServicio';
+import ServicioMultiple from './paginas/FuncionAgregarServicios'
 import Inicio from './paginas/Inicio';
 import Servicios from './paginas/Servicios';
 import Precios from './paginas/Precios';
@@ -52,6 +53,7 @@ function App() {
             <Route exact path='/perfil' element={<Perfil />} />
             <Route exact path='/misServicios' element={<MisServicios />} />
             <Route exact path='/misContratos' element={<MisContratos/>} />
+            <Route exact path='/servicioMultipe' element={<ServicioMultiple />} />
           </Routes>
         </div>
         {isLoggedIn ? <FooterAutenticado /> : <Footer />}

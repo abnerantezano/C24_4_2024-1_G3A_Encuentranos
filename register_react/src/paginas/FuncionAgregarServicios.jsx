@@ -66,7 +66,6 @@ const AgregarServicio = () => {
         }
     }, [usuario]);
 
-    setServiciosAdicionales([...serviciosAdicionales,{}]);
     // AGREGAR OTRO CONTENIDO PARA SERVICIOS Y PRECIO
     const handleAddService = () => {
         if (contador < 6) {
@@ -80,33 +79,36 @@ const AgregarServicio = () => {
     // ELIMINAR UN CONTENIDO PARA SERVICIOS Y PRECIO
     const handleRemoveService = (index) => {
         const newServiciosAdicionales = [...serviciosAdicionales];
+        newServiciosAdicionales[index].idServicio = null;
         newServiciosAdicionales.splice(index, 1);
         setServiciosAdicionales(newServiciosAdicionales);
         setContador(prevContador => prevContador - 1);
-    };
+      };
 
     const isOptionDisabled = (option) => {
         return serviciosAdicionales.some(servicio => servicio.idServicio === option.id);
     };
 
     // FUNCIÓN DEL BOTON PARA AGREGAR LOS SERVICIOS
-    const agregarServicio = (data,idProveedor) => {
-        
-        const serviciosParaAgregar = data.serviciosAdicionales.map(servicio => ({
-            idProveedor: { id: parseInt(idProveedor) },
-            idServicio: { id: parseInt(servicio.idServicio) },
-            precio: parseFloat(servicio.precio)
+    const agregarServicio = (data, idProveedor) => {
+        const serviciosParaAgregar = data.serviciosAdicionales.filter(servicio => {
+          return servicio.idServicio !== null && servicio.precio !== null && servicio.precio !== 0;
+        }).map(servicio => ({
+          idProveedor: { id: parseInt(idProveedor) },
+          idServicio: { id: parseInt(servicio.idServicio) },
+          precio: parseFloat(servicio.precio),
         }));
-
+      
         ServicioProveedorService.postAddServicioProveedor(serviciosParaAgregar)
             .then(response => {
-                console.log(response);
-                navigate('/inicio');
-            })
+              console.log(response);
+              navigate('/inicio');
+        })
             .catch(error => {
-                console.log(error);
+              console.log(error);
             });
-    };
+            
+      };
 
     return (
         <InformacionDeUsuario>
@@ -124,7 +126,7 @@ const AgregarServicio = () => {
                                             <div className="relative z-0 w-full group">
                                                 <label className="block mb-2 text-sm font-medium text-gray-900 dark:text-white mb-2 mt-2">Servicio</label>
                                                 <Controller name={`serviciosAdicionales[${index}].idServicio`} control={control} defaultValue={servicio.idServicio} rules={{ required: true }} render={({ field }) => (
-                                                    <Dropdown value={field.value} onChange={(e) => field.onChange(e.value)} options={servicios} optionDisabled={isOptionDisabled(field.value)} optionValue="id" optionLabel="nombre" placeholder="Seleccione un servicio" panelClassName="custom-panel" pt={{ input: 'text-sm', panel: 'text-sm', root: 'ring-0' }} className="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:border-dark w-full dark:bg-[#] dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500" />
+                                                    <Dropdown value={field.value} onChange={(e) => field.onChange(e.value)} options={servicios} optionValue="id" optionLabel="nombre" placeholder="Seleccione un servicio" panelClassName="custom-panel" pt={{ input: 'text-sm', panel: 'text-sm', root: 'ring-0' }} className="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:border-dark w-full dark:bg-[#] dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500" />
                                                 )}/>
                                                 {errors.serviciosAdicionales?.[index]?.idServicio && <span className="text-red-500 text-sm">Agregue un servicio</span>}
                                             </div>

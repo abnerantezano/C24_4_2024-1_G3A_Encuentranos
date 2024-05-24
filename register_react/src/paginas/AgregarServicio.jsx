@@ -54,11 +54,11 @@ const AgregarServicio = () => {
     //FUNCIÓN DEL BOTON PARA AGREGAR LOS SERVICIOS
     const agregarServicio = (data, idProveedor) => {
 
-        const servicioParaAgregar = {
+        const servicioParaAgregar = [{
             idProveedor: { id: parseInt(idProveedor) },
             idServicio: { id: parseInt(data.idServicio) },
             precio: parseFloat(data.precio)
-        }
+        }]
 
         console.log(servicioParaAgregar);
 
