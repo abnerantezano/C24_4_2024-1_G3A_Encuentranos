@@ -1,5 +1,7 @@
 package com.proyecto.encuentranos.modelos;
 
+import java.sql.Date;
+
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
@@ -38,6 +40,9 @@ public class UsuarioModelo {
 	
 	@Column(name = "eliminada")
 	private boolean eliminada;
+	
+	@Column(name = "fecha_creacion")
+	private Date fechaCreacion;
 
 	//GETTERS Y SETTERS
 	
@@ -88,6 +93,13 @@ public class UsuarioModelo {
 	public void setEliminada(boolean eliminada) {
 		this.eliminada = eliminada;
 	}
-	
+
+	public Date getFechaCreacion() {
+		return fechaCreacion;
+	}
+
+	public void setFechaCreacion(Date fechaCreacion) {
+		this.fechaCreacion = fechaCreacion;
+	}
 	
 }

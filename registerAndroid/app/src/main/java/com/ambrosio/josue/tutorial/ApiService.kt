@@ -20,4 +20,7 @@ interface ApiService {
 
     @POST("proveedor/agregar")
     fun agregarProveedor(@Body proveedor: Proveedor): Call<Proveedor>
+
+    @GET("servicio/listar")
+    fun listarServicios(): Call<List<Servicio>>
 }

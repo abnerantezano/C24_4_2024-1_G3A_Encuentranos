@@ -9,7 +9,7 @@
 
     <LinearLayout
         android:id="@+id/liner1"
-        android:padding="60dp"
+        android:padding="50dp"
         android:orientation="vertical"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
@@ -23,58 +23,63 @@
         android:orientation="vertical"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
+        android:layout_marginStart="30dp"
+        android:layout_marginEnd="30dp"
         app:layout_constraintTop_toBottomOf="@id/liner1">
 
         <TextView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_marginTop="50dp"
+            android:layout_marginTop="40dp"
+            android:textSize="25dp"
             android:text="Información personal"
             android:textColor="@color/skinBlack"
-            android:textSize="30dp"
             android:textStyle="bold"
             android:layout_gravity="center"/>
 
         <EditText
             android:id="@+id/edit_text_nombre_completo"
-            android:layout_width="wrap_content"
+            android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_marginTop="30dp"
+            android:paddingStart="16dp"
             android:hint="Nombre completo"
-            android:paddingHorizontal="84dp"
-            android:paddingVertical="5dp"
+            android:paddingVertical="12dp"
             android:background="@drawable/rectangle_border"
-            android:textSize="23dp"
             android:textStyle="bold"
             android:layout_gravity="center"
             android:inputType="text"/>
 
         <LinearLayout
-            android:layout_width="wrap_content"
+            android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:orientation="horizontal"
+            android:weightSum="2"
             android:layout_gravity="center"
-            android:layout_marginTop="10dp">
+            android:layout_marginTop="20dp">
             <EditText
                 android:id="@+id/edit_text_apellido_paterno"
-                android:layout_marginEnd="4dp"
-                android:layout_width="wrap_content"
+                android:layout_marginEnd="3dp"
+                android:paddingStart="15dp"
+                android:layout_width="match_parent"
                 android:layout_height="wrap_content"
+                android:layout_weight="1"
                 android:hint="Apellido Paterno"
-                android:paddingVertical="5dp"
+                android:paddingVertical="12dp"
                 android:background="@drawable/rectangle_border"
-                android:textSize="23dp"
                 android:textStyle="bold"
                 android:layout_gravity="center"
                 android:inputType="text"/>
             <EditText
                 android:id="@+id/edit_text_apellido_materno"
-                android:layout_width="wrap_content"
+                android:layout_width="match_parent"
+                android:layout_weight="1"
                 android:layout_height="wrap_content"
+                android:paddingStart="15dp"
+                android:layout_marginStart="3dp"
                 android:hint="Apellido Materno"
-                android:paddingVertical="5dp"
+                android:paddingVertical="12dp"
                 android:background="@drawable/rectangle_border"
-                android:textSize="23dp"
                 android:textStyle="bold"
                 android:layout_gravity="center"
                 android:inputType="text"/>
@@ -82,78 +87,73 @@
 
         <EditText
             android:id="@+id/edit_text_fecha_nacimiento"
-            android:layout_width="wrap_content"
+            android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_marginTop="10dp"
-            android:hint="Fecha de nacimiento (yyyy-MM-dd)"
-            android:paddingHorizontal="70dp"
-            android:paddingVertical="5dp"
+            android:layout_marginTop="20dp"
+            android:paddingStart="16dp"
+            android:hint="Fecha de nacimiento"
+            android:paddingVertical="12dp"
             android:background="@drawable/rectangle_border"
-            android:textSize="23dp"
             android:textStyle="bold"
             android:layout_gravity="center"
             android:inputType="date"/>
 
         <LinearLayout
-            android:layout_width="wrap_content"
+            android:layout_width="match_parent"
             android:layout_height="wrap_content"
+            android:weightSum="2"
             android:orientation="horizontal"
-            android:layout_gravity="center"
-            android:layout_marginTop="10dp">
+            android:layout_marginTop="20dp">
             <EditText
                 android:id="@+id/edit_text_dni"
-                android:layout_width="wrap_content"
+                android:layout_width="match_parent"
                 android:layout_height="wrap_content"
+                android:layout_weight="1"
                 android:hint="DNI"
-                android:paddingHorizontal="65dp"
-                android:layout_marginEnd="5dp"
-                android:paddingVertical="5dp"
+                android:layout_marginEnd="3dp"
+                android:paddingVertical="12dp"
+                android:paddingStart="16dp"
                 android:background="@drawable/rectangle_border"
-                android:textSize="23dp"
                 android:textStyle="bold"
-                android:layout_gravity="center"
-                android:inputType="text"/>
+                android:inputType="number"/>
             <EditText
                 android:id="@+id/edit_text_celular"
-                android:layout_width="wrap_content"
+                android:layout_width="match_parent"
                 android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:layout_marginStart="3dp"
+                android:paddingStart="16dp"
                 android:hint="Celular"
-                android:paddingHorizontal="50dp"
-                android:paddingVertical="5dp"
+                android:paddingVertical="12dp"
                 android:background="@drawable/rectangle_border"
-                android:textSize="23dp"
                 android:textStyle="bold"
-                android:layout_gravity="center"
-                android:inputType="text"/>
+                android:inputType="phone"/>
         </LinearLayout>
 
         <Spinner
             android:id="@+id/distritoSpinner"
-            android:layout_width="wrap_content"
+            android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:gravity="center"
-            android:layout_marginTop="10dp"
-            android:layout_marginStart="40dp"
+            android:layout_marginTop="20dp"
+            android:paddingVertical="12dp"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintEnd_toEndOf="parent"/>
 
         <TextView
             android:id="@+id/text_ofrece_servicio"
-            android:layout_width="wrap_content"
+            android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_marginTop="10dp"
+            android:layout_marginTop="20dp"
             android:text="Sexo"
-            android:textColor="@color/black"
-            android:textSize="17dp"
             android:textStyle="bold"
-            android:layout_marginStart="50dp"/>
+            android:layout_marginStart="5dp"/>
 
         <RadioGroup
             android:id="@+id/radio_group_servicio"
-            android:layout_width="wrap_content"
+            android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_marginStart="67dp"
             android:layout_marginTop="10dp"
+            android:weightSum="2"
             android:orientation="horizontal"
             android:gravity="center">
 
@@ -161,6 +161,7 @@
                 android:id="@+id/radio_masculino"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
+                android:layout_weight="1"
                 android:text="Masculino"
                 android:layout_marginEnd="50dp"/>
 
@@ -168,19 +169,27 @@
                 android:id="@+id/radio_femenino"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
+                android:layout_weight="1"
                 android:text="Femenino"/>
         </RadioGroup>
 
+    </LinearLayout>
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="30dp"
+        android:layout_marginEnd="30dp"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/liner2">
+
         <Button
             android:id="@+id/button_enviar"
-            android:layout_width="wrap_content"
+            android:layout_width="match_parent"
             android:layout_height="wrap_content"
+            android:layout_gravity="center"
             android:background="@drawable/button_background"
-            android:layout_marginTop="30dp"
             android:text="Enviar"
-            android:paddingHorizontal="103dp"
-            android:textSize="23dp"
-            android:textStyle="bold"
-            android:layout_gravity="center"/>
+            android:textStyle="bold" />
     </LinearLayout>
 </androidx.constraintlayout.widget.ConstraintLayout>

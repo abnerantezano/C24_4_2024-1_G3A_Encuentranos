@@ -27,6 +27,10 @@ public class ClienteModelo {
 	@JoinColumn(name = "id_usuario", referencedColumnName = "id_usuario")
 	private UsuarioModelo idUsuario;
 	
+	@OneToOne
+	@JoinColumn(name = "id_distrito", referencedColumnName = "id_distrito")
+	private DistritoModelo idDistrito;
+	
 	@NotEmpty
 	@Column(name = "nombre")
 	private String nombre;
@@ -53,10 +57,6 @@ public class ClienteModelo {
 	@NotEmpty
 	@Column(name = "celular")
 	private String celular;
-	
-	@OneToOne
-	@JoinColumn(name = "id_distrito", referencedColumnName = "id_distrito")
-	private DistritoModelo idDistrito;
 
 	//GETTERS Y SETTERS
 	public Integer getId() {

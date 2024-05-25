@@ -28,6 +28,10 @@ public class ProveedorModelo {
 	@JoinColumn(name = "id_usuario", referencedColumnName = "id_usuario")
 	private UsuarioModelo idUsuario;
 	
+	@OneToOne
+	@JoinColumn(name = "id_distrito", referencedColumnName = "id_distrito")
+	private DistritoModelo idDistrito;
+	
 	@NotEmpty
 	@Column(name = "nombre")
 	private String nombre;
@@ -54,10 +58,6 @@ public class ProveedorModelo {
 	
 	@Column(name= "fecha_nacimiento")
 	private String fechaNacimiento;
-	
-	@OneToOne
-	@JoinColumn(name = "id_distrito", referencedColumnName = "id_distrito")
-	private DistritoModelo idDistrito;
 
 	@Column(name = "disponible")
 	private boolean disponible;
