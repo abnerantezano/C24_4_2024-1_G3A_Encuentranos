@@ -16,12 +16,9 @@
         android:usesCleartextTraffic="true"
         tools:targetApi="31">
         <activity
-            android:name=".AgregarServicio"
-            android:exported="true">
-        </activity>
-        <activity
             android:name=".RegistroProveedor"
             android:exported="true">
+
         </activity>
         <activity
             android:name=".CrearCuenta"
@@ -43,7 +40,7 @@
             android:exported="false" />
         <activity
             android:name=".MainActivity"
-            android:exported="true" />
+            android:exported="true"></activity>
     </application>
 
 </manifest>

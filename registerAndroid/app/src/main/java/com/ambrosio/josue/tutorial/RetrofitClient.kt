@@ -6,7 +6,7 @@ import okhttp3.OkHttpClient
 import okhttp3.logging.HttpLoggingInterceptor
 
 object RetrofitClient {
-    private const val BASE_URL = "http://192.168.100.13:4000/" // IP y puerto correcto
+    private const val BASE_URL = "http://192.168.100.13:4000/" // IP real de tu laptop y puerto correcto
 
     private val loggingInterceptor = HttpLoggingInterceptor().apply {
         level = HttpLoggingInterceptor.Level.BODY
