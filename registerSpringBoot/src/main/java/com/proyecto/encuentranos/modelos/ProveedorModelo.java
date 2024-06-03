@@ -1,27 +1,22 @@
 package com.proyecto.encuentranos.modelos;
 
-import java.time.LocalDate;
+import java.util.Date;
 
-import jakarta.persistence.Column;
-import jakarta.persistence.Entity;
-import jakarta.persistence.GeneratedValue;
-import jakarta.persistence.GenerationType;
-import jakarta.persistence.Id;
-import jakarta.persistence.JoinColumn;
-import jakarta.persistence.OneToOne;
-import jakarta.persistence.Table;
-import jakarta.validation.constraints.NotEmpty;
-import jakarta.validation.constraints.NotNull;
-//CREANDO EL MODELO proveedor
+import jakarta.persistence.*;
+
 @Entity
-@Table(name="proveedor")
+@Table(name = "proveedor")
 public class ProveedorModelo {
-	
-	//ATRIBUTOS
-	
-	@Id
-	@GeneratedValue(strategy = GenerationType.IDENTITY)
+    @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
 	@Column( name = "id_proveedor")
+<<<<<<< HEAD
+    private int idProveedor;
+
+    @ManyToOne
+    @JoinColumn(name = "id_usuario", referencedColumnName = "id_usuario")
+    private UsuarioModelo idUsuario;
+=======
 	private Integer id;
 	
 	@OneToOne
@@ -58,22 +53,54 @@ public class ProveedorModelo {
 	@OneToOne
 	@JoinColumn(name = "id_distrito", referencedColumnName = "id_distrito")
 	private DistritoModelo idDistrito;
+>>>>>>> 93e8b4309b4c945e0945b7fdf2e64afa65e74b6c
 
-	@Column(name = "disponible")
-	private boolean disponible;
-	
-	@NotNull
-	@Column(name = "calificacion_promedio")
-	private double calificacionPromedio;
+    @ManyToOne
+    @JoinColumn(name = "id_distrito", referencedColumnName = "id_distrito")
+    private DistritoModelo idDistrito;
 
-	//GETTERS Y SETTERS
-	
-	public Integer getId() {
-		return id;
+	@Column( name = "nombre")
+    private String nombre;
+
+	@Column( name = "apellido_paterno")
+    private String apellidoPaterno;
+
+	@Column( name = "apellido_materno")
+    private String apellidoMaterno;
+
+    @Column(name = "dni", length = 8, unique = true)
+    private String dni;
+
+    @Column(name = "celular", length = 9, unique = true)
+    private String celular;
+
+	@Column( name = "sexo")
+    private String sexo;
+
+    @Temporal(TemporalType.DATE)
+	@Column( name = "fecha_nacimiento")
+    private Date fechaNacimiento;
+
+    @Lob
+	@Column( name = "descripcion")
+    private String descripcion;
+
+	@Column( name = "calificacion_promedio")
+    private double calificacionPromedio;
+
+	@Column( name = "curriculum_url")
+    private String curriculumUrl;
+
+    @Temporal(TemporalType.TIMESTAMP)
+	@Column( name = "fecha_registro")
+    private Date fechaRegistro;
+
+	public int getIdProveedor() {
+		return idProveedor;
 	}
 
-	public void setId(Integer id) {
-		this.id = id;
+	public void setIdProveedor(int idProveedor) {
+		this.idProveedor = idProveedor;
 	}
 
 	public UsuarioModelo getIdUsuario() {
@@ -82,6 +109,14 @@ public class ProveedorModelo {
 
 	public void setIdUsuario(UsuarioModelo idUsuario) {
 		this.idUsuario = idUsuario;
+	}
+
+	public DistritoModelo getIdDistrito() {
+		return idDistrito;
+	}
+
+	public void setIdDistrito(DistritoModelo idDistrito) {
+		this.idDistrito = idDistrito;
 	}
 
 	public String getNombre() {
@@ -108,14 +143,6 @@ public class ProveedorModelo {
 		this.apellidoMaterno = apellidoMaterno;
 	}
 
-	public String getSexo() {
-		return sexo;
-	}
-
-	public void setSexo(String sexo) {
-		this.sexo = sexo;
-	}
-
 	public String getDni() {
 		return dni;
 	}
@@ -132,28 +159,28 @@ public class ProveedorModelo {
 		this.celular = celular;
 	}
 
-	public String getFechaNacimiento() {
+	public String getSexo() {
+		return sexo;
+	}
+
+	public void setSexo(String sexo) {
+		this.sexo = sexo;
+	}
+
+	public Date getFechaNacimiento() {
 		return fechaNacimiento;
 	}
 
-	public void setFechaNacimiento(String fechaNacimiento) {
+	public void setFechaNacimiento(Date fechaNacimiento) {
 		this.fechaNacimiento = fechaNacimiento;
 	}
 
-	public DistritoModelo getIdDistrito() {
-		return idDistrito;
+	public String getDescripcion() {
+		return descripcion;
 	}
 
-	public void setIdDistrito(DistritoModelo idDistrito) {
-		this.idDistrito = idDistrito;
-	}
-
-	public boolean isDisponible() {
-		return disponible;
-	}
-
-	public void setDisponible(boolean disponible) {
-		this.disponible = disponible;
+	public void setDescripcion(String descripcion) {
+		this.descripcion = descripcion;
 	}
 
 	public double getCalificacionPromedio() {
@@ -163,7 +190,22 @@ public class ProveedorModelo {
 	public void setCalificacionPromedio(double calificacionPromedio) {
 		this.calificacionPromedio = calificacionPromedio;
 	}
-	
-	
+
+	public String getCurriculumUrl() {
+		return curriculumUrl;
+	}
+
+	public void setCurriculumUrl(String curriculumUrl) {
+		this.curriculumUrl = curriculumUrl;
+	}
+
+	public Date getFechaRegistro() {
+		return fechaRegistro;
+	}
+
+	public void setFechaRegistro(Date fechaRegistro) {
+		this.fechaRegistro = fechaRegistro;
+	}
+
 	
 }

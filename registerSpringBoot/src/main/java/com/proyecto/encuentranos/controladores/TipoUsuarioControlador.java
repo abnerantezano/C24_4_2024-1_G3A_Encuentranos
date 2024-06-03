@@ -1,27 +1,36 @@
 package com.proyecto.encuentranos.controladores;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 import com.proyecto.encuentranos.modelos.TipoUsuarioModelo;
 import com.proyecto.encuentranos.servicios.TipoUsuarioServicio;
 
 import java.util.ArrayList;
+import java.util.List;
+import java.util.Optional;
+
 //ESTAMOS CREANDO EL CONTROLADOR PARA TipoUsuario
 @CrossOrigin(origins = {"http://localhost:3000", "http://127.0.0.1:3000"})
 @RestController
 @RequestMapping("/tipo-usuario")
 public class TipoUsuarioControlador {
     
-	//INSTANCIAR LAS CLASES QUE USAREMOS
+    //INSTANCIAR LAS CLASES QUE USAREMOS
 
     @Autowired
     TipoUsuarioServicio tipoUsuarioServicio;
    
-    //LISTARR TIPO DE USUARIOS
+    //LISTAR TIPO DE USUARIOS
     @GetMapping("/listar")
-    public ArrayList<TipoUsuarioModelo> encontrarTipoUsuarios(){
-    	return (ArrayList<TipoUsuarioModelo>)tipoUsuarioServicio.encontrarTipoUsuarios();
+    public ResponseEntity<List<TipoUsuarioModelo>> encontrarTipoUsuarios() {
+        List<TipoUsuarioModelo> tiposUsuarios = tipoUsuarioServicio.encontrarTipoUsuarios();
+        if (!tiposUsuarios.isEmpty()) {
+            return new ResponseEntity<>(tiposUsuarios, HttpStatus.OK);
+        } else {
+            return new ResponseEntity<>(HttpStatus.NOT_FOUND);
+        }
     }
-
 }

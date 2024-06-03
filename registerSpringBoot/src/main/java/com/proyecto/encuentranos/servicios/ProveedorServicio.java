@@ -42,7 +42,6 @@ public class ProveedorServicio {
         	proveedorExistente.setDni(proovedorActualizado.getDni());
         	proveedorExistente.setCelular(proovedorActualizado.getCelular());
         	proveedorExistente.setIdDistrito(proovedorActualizado.getIdDistrito());
-        	proveedorExistente.setDisponible(proovedorActualizado.isDisponible());
             // ACTUALIZAR CORREO Y CONTRASEÑA DEL USUARIO
         	proveedorExistente.getIdUsuario().setCorreo(proovedorActualizado.getIdUsuario().getCorreo());
         	proveedorExistente.getIdUsuario().setContrasena(proovedorActualizado.getIdUsuario().getContrasena());
@@ -63,7 +62,7 @@ public class ProveedorServicio {
 	
 	//BUSCAR UN PROVEEDOR POR EL ID DEL USUARIO
 	public Optional<ProveedorModelo> buscarProveedorPorUsuarioId(Integer usuarioId) {
-	    return proveedorRepositorio.findByIdUsuarioId(usuarioId);
+	    return proveedorRepositorio.findByIdUsuarioIdUsuario(usuarioId);
 	}
 	
 	

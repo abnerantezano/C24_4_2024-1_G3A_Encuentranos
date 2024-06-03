@@ -23,7 +23,7 @@ public class ServicioServicio {
     }
     
     //BUSCAR UN SERVICIO POR ID
-    public Optional<ServicioModelo> obtenerServicioPorId(Long id){
-    	return servicioRepositorio.findById(id);
+    public Optional<ServicioModelo> obtenerServicioPorId(Integer idServicio){
+    	return servicioRepositorio.findById(idServicio);
     }
 }

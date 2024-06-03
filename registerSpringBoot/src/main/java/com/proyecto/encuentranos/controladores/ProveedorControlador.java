@@ -4,17 +4,13 @@ import java.util.ArrayList;
 import java.util.Optional;
 
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.web.bind.annotation.CrossOrigin;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.PutMapping;
-import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
+import org.springframework.web.bind.annotation.*;
 
 import com.proyecto.encuentranos.modelos.ProveedorModelo;
 import com.proyecto.encuentranos.servicios.ProveedorServicio;
+
 //ESTAMOS CREANDO EL CONTROLADOR PARA Proveedor
 @CrossOrigin(origins = {"http://localhost:3000", "http://127.0.0.1:3000"})
 @RestController
@@ -28,25 +24,33 @@ public class ProveedorControlador {
 	
 	//AGREGAR PROVEEDOR
 	@PostMapping("/agregar")
-	public ProveedorModelo guardarProveedor(@RequestBody ProveedorModelo proveedor) {
-		return this.proveedorServicio.guardarProveedor(proveedor);
+	public ResponseEntity<ProveedorModelo> guardarProveedor(@RequestBody ProveedorModelo proveedor) {
+		ProveedorModelo nuevoProveedor = this.proveedorServicio.guardarProveedor(proveedor);
+		return new ResponseEntity<>(nuevoProveedor, HttpStatus.CREATED);
 	}
 	
 	//LISTAR PROVEEDORES
 	@GetMapping("/listar")
-	public ArrayList<ProveedorModelo> obtenerProveedor(){
-		return this.proveedorServicio.obtenerProveedores();
+	public ResponseEntity<ArrayList<ProveedorModelo>> obtenerProveedor(){
+		ArrayList<ProveedorModelo> proveedores = this.proveedorServicio.obtenerProveedores();
+		return new ResponseEntity<>(proveedores, HttpStatus.OK);
 	}
 	
 	//ACTUALIZAR PROVEEDOR
 	@PutMapping(path="/actualizar/{id}")
-	public ProveedorModelo actualizarProveedor(@RequestBody ProveedorModelo request, @PathVariable("id") Integer id) {
-		return this.proveedorServicio.actualizarProveedor(id, request);
+	public ResponseEntity<ProveedorModelo> actualizarProveedor(@RequestBody ProveedorModelo request, @PathVariable("id") Integer id) {
+		ProveedorModelo proveedorActualizado = this.proveedorServicio.actualizarProveedor(id, request);
+		return new ResponseEntity<>(proveedorActualizado, HttpStatus.OK);
 	}
 	
 	//BUSCAR PROVEEDOR POR SU ID
 	@GetMapping("/buscar/{id}")
-	public Optional<ProveedorModelo> encontrarProveedorPorId(@PathVariable Integer id) {
-		return proveedorServicio.encontrarProveedorPorId(id);
+	public ResponseEntity<Optional<ProveedorModelo>> encontrarProveedorPorId(@PathVariable Integer id) {
+		Optional<ProveedorModelo> proveedorEncontrado = proveedorServicio.encontrarProveedorPorId(id);
+		if (proveedorEncontrado.isPresent()) {
+			return new ResponseEntity<>(proveedorEncontrado, HttpStatus.OK);
+		} else {
+			return new ResponseEntity<>(HttpStatus.NOT_FOUND);
+		}
 	}
 }

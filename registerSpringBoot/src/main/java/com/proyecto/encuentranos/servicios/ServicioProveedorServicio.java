@@ -13,7 +13,7 @@ import org.springframework.stereotype.Service;
 
 import com.proyecto.encuentranos.modelos.ServicioModelo;
 import com.proyecto.encuentranos.modelos.ServicioProveedorModelo;
-import com.proyecto.encuentranos.modelos.ServicioProveedorPk;
+import com.proyecto.encuentranos.modelos.ServicioProveedorModeloId;
 import com.proyecto.encuentranos.repositorios.IServicioProveedorRepositorio;
 import com.proyecto.encuentranos.repositorios.IServicioRepositorio;
 //ESTAMOS CREANDO EL SERVICIO PARA ServicioProveedor
@@ -46,7 +46,7 @@ public class ServicioProveedorServicio {
     }
     
     //DELETE
-    public boolean eliminarServicioProveedor(ServicioProveedorPk id) {
+    public boolean eliminarServicioProveedor(ServicioProveedorModeloId id) {
         try {
             servicioProveedorRepositorio.deleteById(id);
             return true;
@@ -57,7 +57,7 @@ public class ServicioProveedorServicio {
     //----------------------------------------
 
     //OBTENER EL SERVICIO_PROVEEDOR PRO EL ID
-    public Optional<ServicioProveedorModelo> obtenerServicioProveedorPorId(ServicioProveedorPk id) {
+    public Optional<ServicioProveedorModelo> obtenerServicioProveedorPorId(ServicioProveedorModeloId id) {
         return servicioProveedorRepositorio.findById(id);
     }
 
@@ -116,43 +116,44 @@ public class ServicioProveedorServicio {
 
 
 
-    //OBTENER LOS SERVICIOS QUE NO ESTAN REGISTRADOS A UN PROVEEDOR ESPECIFICO
+  //OBTENER LOS SERVICIOS QUE NO ESTAN REGISTRADOS A UN PROVEEDOR ESPECIFICO
     public ArrayList<ServicioModelo> obtenerServiciosNoRegistrados(Integer idProveedor) {
-        
+
         List<ServicioModelo> todosLosServicios = servicioRepositorio.findAll();
 
         // OBTENER LOS SERVICIOS REGISTRADOS POR EL PROVEEDOR
         List<ServicioProveedorModelo> serviciosProveedores = servicioProveedorRepositorio.findAll().stream()
-                .filter(servicioProveedor -> servicioProveedor.getIdProveedor().getId().equals(idProveedor))
+                .filter(servicioProveedor -> servicioProveedor.getIdProveedor().getIdProveedor() == idProveedor)
                 .collect(Collectors.toList());
 
         // EXTRAEMOS LOS IDS DE LOS SERVICIOS YA REGISTRADOS
         List<Integer> serviciosRegistradosIds = serviciosProveedores.stream()
-                .map(servicioProveedor -> servicioProveedor.getIdServicio().getId())
+                .map(servicioProveedor -> servicioProveedor.getIdServicio().getIdServicio())
                 .distinct()
                 .collect(Collectors.toList());
 
         // FILTRAMOS LOS SERVICIOS NO REGISTRADOS POR EL PROVEEDOR
         List<ServicioModelo> serviciosNoRegistrados = todosLosServicios.stream()
-                .filter(servicio -> !serviciosRegistradosIds.contains(servicio.getId()))
+                .filter(servicio -> !serviciosRegistradosIds.contains(servicio.getIdServicio()))
                 .collect(Collectors.toList());
 
         return new ArrayList<>(serviciosNoRegistrados);
     }
+
     
     //OBTENER LOS SERVICIOS QUE ESTAN REGISTRADOS A UN PROVEEDOR ESPECIFICO
     public List<ServicioModelo> obtenerServiciosDeProveedorPorId(Integer idProveedor) {
     	
         // OBTENER EL ID DE LOS SERVICIOS REGISTRADSO
         List<Integer> serviciosRegistradosIds = servicioProveedorRepositorio.findAll().stream()
-                .filter(servicioProveedor -> servicioProveedor.getIdProveedor().getId().equals(idProveedor))
-                .map(servicioProveedor -> servicioProveedor.getIdServicio().getId())
+                .filter(servicioProveedor -> servicioProveedor.getIdProveedor().getIdProveedor() == idProveedor)
+                .map(servicioProveedor -> servicioProveedor.getIdServicio().getIdServicio())
                 .distinct()
                 .collect(Collectors.toList());
 
         // FILTRAMOS LOS SERVICIOS REGISTRADOS POR EL PROVEEDOR
         return servicioRepositorio.findAll().stream()
-                .filter(servicio -> serviciosRegistradosIds.contains(servicio.getId()))
+                .filter(servicio -> serviciosRegistradosIds.contains(servicio.getIdServicio()))
                 .collect(Collectors.toList());
     }
 

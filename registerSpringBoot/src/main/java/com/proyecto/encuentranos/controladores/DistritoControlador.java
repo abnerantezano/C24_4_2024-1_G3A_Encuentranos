@@ -1,6 +1,8 @@
 package com.proyecto.encuentranos.controladores;
 
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
+import org.springframework.web.bind.annotation.*;
 
 import com.proyecto.encuentranos.modelos.DistritoModelo;
 import com.proyecto.encuentranos.servicios.DistritoServicio;
@@ -8,9 +10,6 @@ import com.proyecto.encuentranos.servicios.DistritoServicio;
 import java.util.ArrayList;
 
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.web.bind.annotation.CrossOrigin;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.RequestMapping;
 
 //ESTAMOS CREANDO EL CONTROLADOR PARA Distrito
 @CrossOrigin(origins = {"http://localhost:3000", "http://127.0.0.1:3000"})
@@ -25,8 +24,8 @@ public class DistritoControlador {
 	
 	//LISTAR LOS DISTRITOS
 	@GetMapping("/listar")
-	public ArrayList<DistritoModelo> obtenerDistritos() {
-		return this.distritoServicio.obtenerDistritos();
+	public ResponseEntity<ArrayList<DistritoModelo>> obtenerDistritos() {
+		ArrayList<DistritoModelo> distritos = distritoServicio.obtenerDistritos();
+		return new ResponseEntity<>(distritos, HttpStatus.OK);
 	}
-	
 }

@@ -1,92 +1,74 @@
 package com.proyecto.encuentranos.modelos;
 
-import java.time.LocalDate;
+import java.util.Date;
 
-import jakarta.persistence.Column;
-import jakarta.persistence.EmbeddedId;
-import jakarta.persistence.Entity;
-import jakarta.persistence.JoinColumn;
-import jakarta.persistence.ManyToOne;
-import jakarta.persistence.MapsId;
-import jakarta.persistence.Table;
+import jakarta.persistence.*;
 
-//CREANDO EL MODELO CONTRATO PARA LA TABLA contrato
 @Entity
-@Table(name="contrato")
+@Table(name = "contrato")
 public class ContratoModelo {
-	
-	//SE ESTA USANDO COMO ID UN ID EMBEBIDO
-	//ESTE ID SE ESTA PONIENDO PORQUE NECESITAMOS QUE SEA UNA ENTIDAD LA TABLA contrato
-	
-	//ATRIBUTOS
-	@EmbeddedId
-    private ContratoPk id;
-	
-	@ManyToOne
-	@JoinColumn(name = "id_proveedor")
-	@MapsId("idProveedor")
-	private ProveedorModelo idProveedor;
-	
-	@ManyToOne
-	@JoinColumn(name = "id_servicio")
-	@MapsId("idServicio")
-	private ServicioModelo idServicio;
-	
-	@ManyToOne
-	@JoinColumn(name = "id_cliente")
-	@MapsId("idCliente")
-	private ClienteModelo idCliente;
-	
-	@Column(name= "fecha_inicio")
-	private LocalDate fechaInicio;
-	
-	@Column(name= "fecha_fin")
-	private LocalDate fechaFin;
-	
-	@Column(name = "estado")
-	private String estado = "inactivo";
-	
-	@Column(name = "precio_final")
-	private double precioFinal;
+    @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    @Column(name = "id_contrato")
+    private int idContrato;
 
-	//GETTERS Y SETTERS
-	public ProveedorModelo getIdProveedor() {
-		return idProveedor;
+    @ManyToOne
+    @JoinColumn(name = "id_cliente", referencedColumnName = "id_cliente")
+    private ClienteModelo idCliente;
+
+    @Temporal(TemporalType.DATE)
+    @Column(name = "fecha_inicio")
+    private Date fechaInicio;
+
+    @Temporal(TemporalType.DATE)
+    @Column(name = "fecha_fin")
+    private Date fechaFin;
+
+    @Column(name = "estado")
+    private String estado;
+
+    @Column(name = "precio_final")
+    private double precioFinal;
+
+    @Temporal(TemporalType.TIMESTAMP)
+    @Column(name = "inicio_servicio")
+    private Date inicioServicio;
+
+    @Temporal(TemporalType.TIMESTAMP)
+    @Column(name = "fin_servicio")
+    private Date finServicio;
+
+    // Getters and Setters
+
+	public int getIdContrato() {
+		return idContrato;
 	}
 
-	public void setIdProveedor(ProveedorModelo idProveedor) {
-		this.idProveedor = idProveedor;
+	public void setIdContrato(int idContrato) {
+		this.idContrato = idContrato;
 	}
 
-	public ServicioModelo getIdServicio() {
-		return idServicio;
-	}
-
-	public void setIdServicio(ServicioModelo idServicio) {
-		this.idServicio = idServicio;
-	}
-
-	public ClienteModelo getIdCliente() {
+	public ClienteModelo getidCliente() {
 		return idCliente;
 	}
 
-	public void setIdCliente(ClienteModelo idCliente) {
+	public void setidCliente(ClienteModelo idCliente) {
 		this.idCliente = idCliente;
 	}
 
-	public LocalDate getFechaInicio() {
+	public Date getFechaInicio() {
 		return fechaInicio;
 	}
 
-	public void setFechaInicio(LocalDate fechaInicio) {
+	public void setFechaInicio(Date fechaInicio) {
 		this.fechaInicio = fechaInicio;
 	}
 
-	public LocalDate getFechaFin() {
+	public Date getFechaFin() {
 		return fechaFin;
 	}
 
-	public void setFechaFin(LocalDate fechaFin) {
+	public void setFechaFin(Date fechaFin) {
 		this.fechaFin = fechaFin;
 	}
 
@@ -98,19 +80,28 @@ public class ContratoModelo {
 		this.estado = estado;
 	}
 
-	public ContratoPk getId() {
-		return id;
-	}
-
-	public void setId(ContratoPk id) {
-		this.id = id;
-	}
-
 	public double getPrecioFinal() {
 		return precioFinal;
 	}
 
 	public void setPrecioFinal(double precioFinal) {
 		this.precioFinal = precioFinal;
-	}	
+	}
+
+	public Date getInicioServicio() {
+		return inicioServicio;
+	}
+
+	public void setInicioServicio(Date inicioServicio) {
+		this.inicioServicio = inicioServicio;
+	}
+
+	public Date getFinServicio() {
+		return finServicio;
+	}
+
+	public void setFinServicio(Date finServicio) {
+		this.finServicio = finServicio;
+	}
+
 }

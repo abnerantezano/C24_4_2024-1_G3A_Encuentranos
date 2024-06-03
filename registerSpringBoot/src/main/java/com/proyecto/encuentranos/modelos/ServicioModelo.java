@@ -1,40 +1,30 @@
 package com.proyecto.encuentranos.modelos;
 
-import jakarta.persistence.Column;
-import jakarta.persistence.Entity;
-import jakarta.persistence.GeneratedValue;
-import jakarta.persistence.GenerationType;
-import jakarta.persistence.Id;
-import jakarta.persistence.Table;
-import jakarta.validation.constraints.NotEmpty;
-//CREANDO EL MODELO servicio
-@Entity
-@Table(name="servicio")
-public class ServicioModelo {
-	
-	//ATRIBUTOS
-	
-	@Id
-	@GeneratedValue(strategy = GenerationType.IDENTITY)
-	@Column( name = "id_servicio")
-	private Integer id;
-	
-	@NotEmpty
-	@Column(name = "nombre")
-	private String nombre;
-	
-	@NotEmpty
-	@Column(name = "descripcion")
-	private String descripcion;
+import jakarta.persistence.*;
 
-	//GETTERS Y SETTERS
-	
-	public Integer getId() {
-		return id;
+@Entity
+@Table(name = "servicio")
+public class ServicioModelo {
+    @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
+	@Column( name = "id_servicio")
+    private int idServicio;
+
+	@Column( name = "nombre")
+    private String nombre;
+
+    @Lob
+	@Column( name = "descripcion")
+    private String descripcion;
+
+    // Getters and Setters
+
+	public int getIdServicio() {
+		return idServicio;
 	}
 
-	public void setId(Integer id) {
-		this.id = id;
+	public void setIdServicio(int idServicio) {
+		this.idServicio = idServicio;
 	}
 
 	public String getNombre() {
@@ -52,5 +42,5 @@ public class ServicioModelo {
 	public void setDescripcion(String descripcion) {
 		this.descripcion = descripcion;
 	}
-	
+
 }

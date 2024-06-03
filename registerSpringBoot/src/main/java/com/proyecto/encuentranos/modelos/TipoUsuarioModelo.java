@@ -6,34 +6,29 @@ import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
 import jakarta.persistence.Table;
-import jakarta.validation.constraints.NotEmpty;
-//CREANDO EL MODELO tipo_usuario
+
 @Entity
-@Table(name="tipo_usuario")
+@Table(name = "tipo_usuario")
 public class TipoUsuarioModelo {
 	
-	//ATRIBUTOS
+	// Atributos
 	
-	@Id
-	@GeneratedValue(strategy = GenerationType.IDENTITY)
+    @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
 	@Column( name = "id_tipo")
-	private Integer id;
-	
-	@NotEmpty
-	@Column(name = "nombre")
-	private String nombre;
-	
-	@Column(name = "permisos")
-	private String permisos;
-	
-	//GETTERS Y SETTERS
+    private int idTipo;
 
-	public Integer getId() {
-		return id;
+	@Column( name = "nombre")
+    private String nombre;
+
+    // Getters and Setters
+
+	public int getIdTipo() {
+		return idTipo;
 	}
 
-	public void setId(Integer id) {
-		this.id = id;
+	public void setIdTipo(int idTipo) {
+		this.idTipo = idTipo;
 	}
 
 	public String getNombre() {
@@ -42,14 +37,6 @@ public class TipoUsuarioModelo {
 
 	public void setNombre(String nombre) {
 		this.nombre = nombre;
-	}
-
-	public String getPermisos() {
-		return permisos;
-	}
-
-	public void setPermisos(String permisos) {
-		this.permisos = permisos;
 	}
 	
 }

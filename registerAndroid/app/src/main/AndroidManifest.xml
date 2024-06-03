@@ -16,10 +16,48 @@
         android:usesCleartextTraffic="true"
         tools:targetApi="31">
         <activity
+<<<<<<< HEAD
+            android:name=".BuscarProveedores"
+            android:exported="false" />
+        <activity
+            android:name=".ServiciosDisponibles"
+            android:exported="false" />
+        <activity
+            android:name=".HeaderRegresar"
+            android:exported="false" />
+        <activity
+            android:name=".InicioSesion"
+            android:exported="true">
+            <intent-filter>
+                <action android:name="android.intent.action.MAIN" />
+
+                <category android:name="android.intent.category.LAUNCHER" />
+            </intent-filter>
+        </activity>
+        <activity
+            android:name=".ActualizarContrasena"
+            android:exported="false" />
+        <activity
+            android:name=".ActualizarInformacion"
+            android:exported="false" />
+        <activity
+            android:name=".Descripcion"
+            android:exported="false" />
+        <activity
+            android:name=".OpcionesUsuario"
+            android:exported="false" />
+        <activity
+            android:name=".AgregarServicio"
+            android:exported="true" />
+        <activity
+            android:name=".RegistroProveedor"
+            android:exported="true" />
+=======
             android:name=".RegistroProveedor"
             android:exported="true">
 
         </activity>
+>>>>>>> 93e8b4309b4c945e0945b7fdf2e64afa65e74b6c
         <activity
             android:name=".CrearCuenta"
             android:exported="false" />
@@ -28,13 +66,7 @@
             android:exported="false" />
         <activity
             android:name=".Login"
-            android:exported="true">
-            <intent-filter>
-                <action android:name="android.intent.action.MAIN" />
-
-                <category android:name="android.intent.category.LAUNCHER" />
-            </intent-filter>
-        </activity>
+            android:exported="true" />
         <activity
             android:name=".Hello"
             android:exported="false" />

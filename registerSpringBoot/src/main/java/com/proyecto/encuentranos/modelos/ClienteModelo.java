@@ -1,26 +1,22 @@
 package com.proyecto.encuentranos.modelos;
 
-import java.time.LocalDate;
+import java.util.Date;
 
-import jakarta.persistence.Column;
-import jakarta.persistence.Entity;
-import jakarta.persistence.GeneratedValue;
-import jakarta.persistence.GenerationType;
-import jakarta.persistence.Id;
-import jakarta.persistence.JoinColumn;
-import jakarta.persistence.OneToOne;
-import jakarta.persistence.Table;
-import jakarta.validation.constraints.NotEmpty;
-//CREANDO EL MODELO CLIENTE PARA LA TABLA cliente
+import jakarta.persistence.*;
+
 @Entity
-@Table(name="cliente")
+@Table(name = "cliente")
 public class ClienteModelo {
-	
-	//ATRIBUTOS
-	
-	@Id
-	@GeneratedValue(strategy = GenerationType.IDENTITY)
+    @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
 	@Column( name = "id_cliente")
+<<<<<<< HEAD
+    private int idCliente;
+
+    @ManyToOne
+    @JoinColumn(name = "id_usuario", referencedColumnName = "id_usuario")
+    private UsuarioModelo idUsuario;
+=======
 	private Integer id;
 	
 	@OneToOne
@@ -57,14 +53,48 @@ public class ClienteModelo {
 	@OneToOne
 	@JoinColumn(name = "id_distrito", referencedColumnName = "id_distrito")
 	private DistritoModelo idDistrito;
+>>>>>>> 93e8b4309b4c945e0945b7fdf2e64afa65e74b6c
 
-	//GETTERS Y SETTERS
-	public Integer getId() {
-		return id;
+    @ManyToOne
+    @JoinColumn(name = "id_distrito", referencedColumnName = "id_distrito")
+    private DistritoModelo idDistrito;
+
+	@Column( name = "nombre")
+    private String nombre;
+
+	@Column( name = "apellido_paterno")
+    private String apellidoPaterno;
+
+	@Column( name = "apellido_materno")
+    private String apellidoMaterno;
+
+	@Column( name = "sexo")
+    private String sexo;
+
+    @Column(name = "dni", length = 8, unique = true)
+    private String dni;
+
+    @Column(name = "celular", length = 9, unique = true)
+    private String celular;
+
+    @Temporal(TemporalType.DATE)
+	@Column( name = "fecha_nacimiento")
+    private Date fechaNacimiento;
+
+    @Lob
+	@Column( name = "descripcion")
+    private String descripcion;
+
+    @Temporal(TemporalType.DATE)
+	@Column( name = "fecha_registro")
+    private Date fechaRegistro;
+
+	public int getIdCliente() {
+		return idCliente;
 	}
 
-	public void setId(Integer id) {
-		this.id = id;
+	public void setIdCliente(int idCliente) {
+		this.idCliente = idCliente;
 	}
 
 	public UsuarioModelo getIdUsuario() {
@@ -73,6 +103,14 @@ public class ClienteModelo {
 
 	public void setIdUsuario(UsuarioModelo idUsuario) {
 		this.idUsuario = idUsuario;
+	}
+
+	public DistritoModelo getIdDistrito() {
+		return idDistrito;
+	}
+
+	public void setIdDistrito(DistritoModelo idDistrito) {
+		this.idDistrito = idDistrito;
 	}
 
 	public String getNombre() {
@@ -115,14 +153,6 @@ public class ClienteModelo {
 		this.dni = dni;
 	}
 
-	public LocalDate getFechaNacimiento() {
-		return fechaNacimiento;
-	}
-
-	public void setFechaNacimiento(LocalDate fechaNacimiento) {
-		this.fechaNacimiento = fechaNacimiento;
-	}
-
 	public String getCelular() {
 		return celular;
 	}
@@ -131,12 +161,28 @@ public class ClienteModelo {
 		this.celular = celular;
 	}
 
-	public DistritoModelo getIdDistrito() {
-		return idDistrito;
+	public Date getFechaNacimiento() {
+		return fechaNacimiento;
 	}
 
-	public void setIdDistrito(DistritoModelo idDistrito) {
-		this.idDistrito = idDistrito;
+	public void setFechaNacimiento(Date fechaNacimiento) {
+		this.fechaNacimiento = fechaNacimiento;
+	}
+
+	public String getDescripcion() {
+		return descripcion;
+	}
+
+	public void setDescripcion(String descripcion) {
+		this.descripcion = descripcion;
+	}
+
+	public Date getFechaRegistro() {
+		return fechaRegistro;
+	}
+
+	public void setFechaRegistro(Date fechaRegistro) {
+		this.fechaRegistro = fechaRegistro;
 	}
 
 }

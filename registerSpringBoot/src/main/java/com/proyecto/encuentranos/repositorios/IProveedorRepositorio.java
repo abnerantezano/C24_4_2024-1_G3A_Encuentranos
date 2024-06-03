@@ -20,6 +20,6 @@ public interface IProveedorRepositorio extends JpaRepository<ProveedorModelo, In
     boolean existsByIdUsuarioCorreo(String correo);
     
     //ESTAMOS CREANDO UNA OPCION DE BUSCAR EL ID DE UN USUARIO DESDE DEL PROVEEDOR
-    Optional<ProveedorModelo> findByIdUsuarioId(Integer usuarioId);
+    Optional<ProveedorModelo> findByIdUsuarioIdUsuario(Integer usuarioId);
 
 }

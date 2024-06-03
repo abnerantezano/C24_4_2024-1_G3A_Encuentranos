@@ -87,7 +87,7 @@ public class ClienteServicio {
 	        
 	        //AGERGAR LOS PROVEEDORES QUE ESTEN EN EL MISMO DISTRITO
 	        for (ProveedorModelo proveedor : proveedores) {
-	            if (proveedor.isDisponible()) {
+	            if (proveedor.getIdUsuario().isActivo()) {
 	                proveedoresDisponibles.add(proveedor);
 	            }
 	        }
@@ -110,7 +110,7 @@ public class ClienteServicio {
 	        
 	        //AGERGAR LOS SERVICIOS QUE ESTEN EN EL MISMO DISTRITO
 	        for (ServicioProveedorModelo servicio : servicios) {
-	            if (servicio.getIdProveedor().isDisponible()) {
+	            if (servicio.getIdProveedor().getIdUsuario().isActivo()) {
 	            	serviciosDisponibles.add(servicio);
 	            }
 	        }
@@ -122,7 +122,7 @@ public class ClienteServicio {
 
 	//BUSCAR UN CLIENTE POR EL ID DEL USUARIO
 	public Optional<ClienteModelo> buscarClientePorUsuarioId(Integer usuarioId) {
-	    return clienteRepositorio.findByIdUsuarioId(usuarioId);
+	    return clienteRepositorio.findByIdUsuarioIdUsuario(usuarioId);
 	}
 	
 }
