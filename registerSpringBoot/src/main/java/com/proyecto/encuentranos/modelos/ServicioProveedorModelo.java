@@ -4,16 +4,17 @@ import jakarta.persistence.*;
 
 @Entity
 @Table(name = "servicio_proveedor")
-@IdClass(ServicioProveedorModeloId.class)
 public class ServicioProveedorModelo {
-    @Id
+
+    @EmbeddedId
+    private ServicioProveedorModeloId id;
+    
     @ManyToOne
-    @JoinColumn(name = "id_servicio", referencedColumnName = "id_servicio")
+    @JoinColumn(name = "id_servicio", referencedColumnName = "id_servicio", insertable = false, updatable = false)
     private ServicioModelo idServicio;
 
-    @Id
     @ManyToOne
-    @JoinColumn(name = "id_proveedor", referencedColumnName = "id_proveedor")
+    @JoinColumn(name = "id_proveedor", referencedColumnName = "id_proveedor", insertable = false, updatable = false)
     private ProveedorModelo idProveedor;
 
     @Column(name = "precio")
@@ -22,45 +23,46 @@ public class ServicioProveedorModelo {
     @Column(name = "negociable")
     private boolean negociable;
 
-	public ServicioModelo getIdServicio() {
-		return idServicio;
-	}
+    // Constructor sin argumentos
+    public ServicioProveedorModelo() {}
 
-	public void setIdServicio(ServicioModelo idServicio) {
-		this.idServicio = idServicio;
-	}
-
-	public ProveedorModelo getIdProveedor() {
-		return idProveedor;
-	}
-
-	public void setIdProveedor(ProveedorModelo idProveedor) {
-		this.idProveedor = idProveedor;
-	}
-
-	public double getPrecio() {
-		return precio;
-	}
-
-	public void setPrecio(double precio) {
-		this.precio = precio;
-	}
-
-	public boolean isNegociable() {
-		return negociable;
-	}
-
-	public void setNegociable(boolean negociable) {
-		this.negociable = negociable;
-	}
+    public ServicioProveedorModeloId getId() {
+        return id;
+    }
 
     public void setId(ServicioProveedorModeloId id) {
-        this.idServicio = new ServicioModelo();
-        this.idServicio.setIdServicio(id.getIdServicio());
-        this.idProveedor = new ProveedorModelo();
-        this.idProveedor.setIdProveedor(id.getIdProveedor());
+        this.id = id;
     }
-	
-	
 
+    public ServicioModelo getIdServicio() {
+        return idServicio;
+    }
+
+    public void setIdServicio(ServicioModelo idServicio) {
+        this.idServicio = idServicio;
+    }
+
+    public ProveedorModelo getIdProveedor() {
+        return idProveedor;
+    }
+
+    public void setIdProveedor(ProveedorModelo idProveedor) {
+        this.idProveedor = idProveedor;
+    }
+
+    public double getPrecio() {
+        return precio;
+    }
+
+    public void setPrecio(double precio) {
+        this.precio = precio;
+    }
+
+    public boolean isNegociable() {
+        return negociable;
+    }
+
+    public void setNegociable(boolean negociable) {
+        this.negociable = negociable;
+    }
 }

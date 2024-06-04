@@ -1,11 +1,14 @@
 package com.proyecto.encuentranos.controladores;
 
 import java.util.ArrayList;
+import java.util.List;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 import com.proyecto.encuentranos.modelos.ContratoModelo;
+import com.proyecto.encuentranos.modelos.DetalleContratoModelo;
 import com.proyecto.encuentranos.servicios.ContratoServicio;
 
 @RestController
@@ -26,6 +29,20 @@ public class ContratoControlador {
     @GetMapping("/listar")
     public ResponseEntity<ArrayList<ContratoModelo>> obtenerContratos() {
         ArrayList<ContratoModelo> contratos = contratoServicio.obtenerContratos();
+        return new ResponseEntity<>(contratos, HttpStatus.OK);
+    }
+    
+    // Listar contratos por ID de cliente
+    @GetMapping("/listar/cliente/{idCliente}")
+    public ResponseEntity<List<ContratoModelo>> obtenerContratosPorCliente(@PathVariable Integer idCliente) {
+        List<ContratoModelo> contratos = contratoServicio.obtenerContratoPorIdCliente(idCliente);
+        return new ResponseEntity<>(contratos, HttpStatus.OK);
+    }
+    
+    // Listar contratos por ID de cliente
+    @GetMapping("/listar/proveedor/{idProveedor}")
+    public ResponseEntity<List<DetalleContratoModelo>> obtenerContratoPorIdProveedor(@PathVariable Integer idProveedor) {
+        List<DetalleContratoModelo> contratos = contratoServicio.obtenerContratoPorIdProveedor(idProveedor);
         return new ResponseEntity<>(contratos, HttpStatus.OK);
     }
     

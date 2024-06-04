@@ -1,85 +1,93 @@
 package com.proyecto.encuentranos.modelos;
 
-import java.util.Date;
-
 import jakarta.persistence.*;
+import java.util.Date;
+import java.sql.Time;
 
 @Entity
 @Table(name = "mensaje")
 public class MensajeModelo {
+
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    @Column(name = "id_mensaje")
     private int idMensaje;
 
     @ManyToOne
-    @JoinColumn(name = "id_usuario", referencedColumnName = "id_usuario")
-    private UsuarioModelo idUsuario;
+    @JoinColumn(name = "id_emisor", nullable = false)
+    private UsuarioModelo idEmisor;
 
     @ManyToOne
-    @JoinColumn(name = "id_chat", referencedColumnName = "id_chat")
+    @JoinColumn(name = "id_receptor", nullable = false)
+    private UsuarioModelo idReceptor;
+
+    @ManyToOne
+    @JoinColumn(name = "id_chat", nullable = false)
     private ChatModelo idChat;
 
-    @Lob
-    @Column(name = "mensaje")
+    @Column(nullable = false)
     private String mensaje;
 
-    @Temporal(TemporalType.DATE)
-    @Column(name = "fecha_envio")
+    @Column(name = "fecha_envio", nullable = false)
     private Date fechaEnvio;
 
-    @Temporal(TemporalType.TIME)
-    @Column(name = "hora_envio")
-    private Date horaEnvio;
+    @Column(name = "hora_envio", nullable = false)
+    private Time horaEnvio;
 
-	public int getIdMensaje() {
-		return idMensaje;
-	}
+    // Getters and Setters
 
-	public void setIdMensaje(int idMensaje) {
-		this.idMensaje = idMensaje;
-	}
+    public int getIdMensaje() {
+        return idMensaje;
+    }
 
-	public UsuarioModelo getIdUsuario() {
-		return idUsuario;
-	}
+    public void setIdMensaje(int idMensaje) {
+        this.idMensaje = idMensaje;
+    }
 
-	public void setIdUsuario(UsuarioModelo idUsuario) {
-		this.idUsuario = idUsuario;
-	}
+    public UsuarioModelo getIdEmisor() {
+        return idEmisor;
+    }
 
-	public ChatModelo getIdChat() {
-		return idChat;
-	}
+    public void setIdEmisor(UsuarioModelo idEmisor) {
+        this.idEmisor = idEmisor;
+    }
 
-	public void setIdChat(ChatModelo idChat) {
-		this.idChat = idChat;
-	}
+    public UsuarioModelo getIdReceptor() {
+        return idReceptor;
+    }
 
-	public String getMensaje() {
-		return mensaje;
-	}
+    public void setIdReceptor(UsuarioModelo idReceptor) {
+        this.idReceptor = idReceptor;
+    }
 
-	public void setMensaje(String mensaje) {
-		this.mensaje = mensaje;
-	}
+    public ChatModelo getIdChat() {
+        return idChat;
+    }
 
-	public Date getFechaEnvio() {
-		return fechaEnvio;
-	}
+    public void setIdChat(ChatModelo idChat) {
+        this.idChat = idChat;
+    }
 
-	public void setFechaEnvio(Date fechaEnvio) {
-		this.fechaEnvio = fechaEnvio;
-	}
+    public String getMensaje() {
+        return mensaje;
+    }
 
-	public Date getHoraEnvio() {
-		return horaEnvio;
-	}
+    public void setMensaje(String mensaje) {
+        this.mensaje = mensaje;
+    }
 
-	public void setHoraEnvio(Date horaEnvio) {
-		this.horaEnvio = horaEnvio;
-	}
-    
+    public Date getFechaEnvio() {
+        return fechaEnvio;
+    }
 
+    public void setFechaEnvio(Date fechaEnvio) {
+        this.fechaEnvio = fechaEnvio;
+    }
+
+    public Time getHoraEnvio() {
+        return horaEnvio;
+    }
+
+    public void setHoraEnvio(Time horaEnvio) {
+        this.horaEnvio = horaEnvio;
+    }
 }
-

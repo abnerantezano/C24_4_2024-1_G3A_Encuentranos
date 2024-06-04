@@ -15,7 +15,7 @@ import com.proyecto.encuentranos.servicios.DetalleCalificacionServicio;
 // ESTAMOS CREANDO EL CONTROLADOR PARA CalificacionProveedor
 @CrossOrigin(origins = {"http://localhost:3000", "http://127.0.0.1:3000"})
 @RestController
-@RequestMapping("/calificacion-proveedor")
+@RequestMapping("/detalle-calificacion")
 public class DetalleCalificacionControlador {
 
     // INSTANCIAR LAS CLASES QUE USAREMOS

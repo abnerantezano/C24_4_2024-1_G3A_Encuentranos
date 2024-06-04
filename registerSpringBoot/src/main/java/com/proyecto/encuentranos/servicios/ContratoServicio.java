@@ -4,9 +4,11 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import com.proyecto.encuentranos.modelos.*;
 import com.proyecto.encuentranos.repositorios.IContratoRepositorio;
+import com.proyecto.encuentranos.repositorios.IDetalleContratoRepositorio;
 
 import java.util.ArrayList;
 import java.util.Date;
+import java.util.List;
 
 @Service
 public class ContratoServicio {
@@ -14,6 +16,9 @@ public class ContratoServicio {
     @Autowired
     private IContratoRepositorio contratoRepositorio;
 
+    @Autowired
+    private IDetalleContratoRepositorio detalleContratoRepositorio;
+    
     //SE CREAR LA PRIMERA PARTE DEL CONTRATO DONDE EL CLIENTE ENVIA SU SOLICITUD
     public ContratoModelo crearContrato(ContratoModelo contrato) {
         return contratoRepositorio.save(contrato);
@@ -24,6 +29,33 @@ public class ContratoServicio {
         return (ArrayList<ContratoModelo>) contratoRepositorio.findAll();
     }
     
+    //OBTENER CONTRATO POR EL ID DEL CLIENTE
+    public List<ContratoModelo> obtenerContratoPorIdCliente(Integer idCliente) {
+        // Buscar el contrato en el repositorio por el ID del cliente
+        List<ContratoModelo> contrato = contratoRepositorio.findByIdClienteIdCliente(idCliente);
+
+        // Si el contrato no se encuentra, arrojar una excepción
+        if (contrato == null) {
+            throw new RuntimeException("Contrato no encontrado para el cliente con ID: " + idCliente);
+        }
+
+        // Devolver el contrato encontrado
+        return contrato;
+    }
+    
+  //OBTENER CONTRATO POR EL ID DEL PROVEEDOR
+    public List<DetalleContratoModelo> obtenerContratoPorIdProveedor(Integer idProveedor) {
+        // Buscar el contrato en el repositorio por el ID del proveedor
+        List<DetalleContratoModelo> contrato = detalleContratoRepositorio.findByIdProveedorIdProveedor(idProveedor);
+
+        // Si el contrato no se encuentra, arrojar una excepción
+        if (contrato == null) {
+            throw new RuntimeException("Contrato no encontrado para el cliente con ID: " + idProveedor);
+        }
+
+        // Devolver el contrato encontrado
+        return contrato;
+    }
     //SE CAMBIA EL MODO DEL CONTRATO A ACTIVO
     public ContratoModelo aceptarContratoProveedor(ContratoModelo contrato) {
         // CARGAR EL CONTRATO DESDE LA BASE DE DATOS

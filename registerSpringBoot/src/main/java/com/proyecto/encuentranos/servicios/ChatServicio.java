@@ -1,11 +1,14 @@
 package com.proyecto.encuentranos.servicios;
 
+import java.util.List;
+import java.util.Optional;
+
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.data.crossstore.ChangeSetPersister.NotFoundException;
 import org.springframework.stereotype.Service;
 
-import com.proyecto.encuentranos.modelos.*;
-import com.proyecto.encuentranos.repositorios.*;
+import com.proyecto.encuentranos.modelos.ChatModelo;
+import com.proyecto.encuentranos.repositorios.IChatRepositorio;
+
 
 @Service
 public class ChatServicio {
@@ -13,12 +16,15 @@ public class ChatServicio {
     @Autowired
     private IChatRepositorio chatRepositorio;
 
-    @Autowired
-    private IChatUsuarioRepositorio chatUsuarioRepositorio;
+    public List<ChatModelo> getAllChats() {
+        return chatRepositorio.findAll();
+    }
 
-    public ChatModelo crearChat() {
-        ChatModelo chat = new ChatModelo();
+    public Optional<ChatModelo> getChatById(Integer id) {
+        return chatRepositorio.findById(id);
+    }
+
+    public ChatModelo saveChat(ChatModelo chat) {
         return chatRepositorio.save(chat);
     }
-    
 }

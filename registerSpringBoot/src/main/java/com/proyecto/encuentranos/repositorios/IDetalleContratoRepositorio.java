@@ -12,4 +12,5 @@ import com.proyecto.encuentranos.modelos.*;
 public interface IDetalleContratoRepositorio extends JpaRepository<DetalleContratoModelo, DetalleContratoModeloId> {
 	List<DetalleContratoModelo> findByIdProveedor(ProveedorModelo proveedor);
     List<DetalleContratoModelo> findByIdContratoIdCliente(ContratoModelo clienteId);
+	List<DetalleContratoModelo> findByIdProveedorIdProveedor(Integer idProveedor);
 }

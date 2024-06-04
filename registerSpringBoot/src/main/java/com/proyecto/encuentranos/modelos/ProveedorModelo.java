@@ -10,50 +10,11 @@ public class ProveedorModelo {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
 	@Column( name = "id_proveedor")
-<<<<<<< HEAD
     private int idProveedor;
 
     @ManyToOne
     @JoinColumn(name = "id_usuario", referencedColumnName = "id_usuario")
     private UsuarioModelo idUsuario;
-=======
-	private Integer id;
-	
-	@OneToOne
-	@JoinColumn(name = "id_usuario", referencedColumnName = "id_usuario")
-	private UsuarioModelo idUsuario;
-	
-	@NotEmpty
-	@Column(name = "nombre")
-	private String nombre;
-	
-	@NotEmpty
-	@Column(name = "apellido_paterno")
-	private String apellidoPaterno;
-
-	@NotEmpty
-	@Column(name = "apellido_materno")
-	private String apellidoMaterno;
-	
-	@NotEmpty
-	@Column(name = "sexo")
-	private String sexo;
-	
-	@NotEmpty
-	@Column(name = "dni")
-	private String dni;
-	
-	@NotEmpty
-	@Column(name = "celular")
-	private String celular;
-	
-	@Column(name= "fecha_nacimiento")
-	private String fechaNacimiento;
-	
-	@OneToOne
-	@JoinColumn(name = "id_distrito", referencedColumnName = "id_distrito")
-	private DistritoModelo idDistrito;
->>>>>>> 93e8b4309b4c945e0945b7fdf2e64afa65e74b6c
 
     @ManyToOne
     @JoinColumn(name = "id_distrito", referencedColumnName = "id_distrito")
@@ -91,7 +52,7 @@ public class ProveedorModelo {
 	@Column( name = "curriculum_url")
     private String curriculumUrl;
 
-    @Temporal(TemporalType.TIMESTAMP)
+    @Temporal(TemporalType.DATE)
 	@Column( name = "fecha_registro")
     private Date fechaRegistro;
 
@@ -207,5 +168,4 @@ public class ProveedorModelo {
 		this.fechaRegistro = fechaRegistro;
 	}
 
-	
 }
