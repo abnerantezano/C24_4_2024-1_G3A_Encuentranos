@@ -123,30 +123,32 @@
                 android:text="Mis contratos"/>
         </LinearLayout>
     </LinearLayout>
+
     <LinearLayout
         android:id="@+id/cerrarSesion"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        app:layout_constraintStart_toStartOf="@id/opciones"
-        app:layout_constraintTop_toBottomOf="@id/opciones"
+        android:orientation="horizontal"
         app:layout_constraintBottom_toTopOf="@id/footer"
-        android:orientation="horizontal">
+        app:layout_constraintStart_toStartOf="@id/opciones"
+        app:layout_constraintTop_toBottomOf="@id/opciones">
 
         <ImageView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:src="@drawable/ic_logout" />
+
         <TextView
             android:layout_width="match_parent"
             android:layout_height="match_parent"
-            android:gravity="top|bottom"
             android:layout_marginStart="15dp"
-            android:text="Cerrar sesión"/>
+            android:gravity="top|bottom"
+            android:text="Cerrar sesión" />
     </LinearLayout>
 
-    <include
-        android:id="@+id/footer"
-        layout="@layout/footer"/>
+        <include
+            android:id="@+id/footer"
+            layout="@layout/footer" />
 
 
 </androidx.constraintlayout.widget.ConstraintLayout>

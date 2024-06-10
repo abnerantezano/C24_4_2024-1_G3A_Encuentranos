@@ -1,20 +1,20 @@
 package com.ambrosio.josue.tutorial
 
 import android.os.Bundle
-import androidx.activity.enableEdgeToEdge
 import androidx.appcompat.app.AppCompatActivity
-import androidx.core.view.ViewCompat
-import androidx.core.view.WindowInsetsCompat
+import com.ambrosio.josue.tutorial.databinding.ActivityInicioSesionBinding
+import com.ambrosio.josue.tutorial.generals.FooterInclude
 
-class InicioSesion : AppCompatActivity() {
+class InicioSesion : FooterInclude() {
+    private lateinit var binding: ActivityInicioSesionBinding
+
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        enableEdgeToEdge()
-        setContentView(R.layout.activity_inicio_sesion)
-        ViewCompat.setOnApplyWindowInsetsListener(findViewById(R.id.main)) { v, insets ->
-            val systemBars = insets.getInsets(WindowInsetsCompat.Type.systemBars())
-            v.setPadding(systemBars.left, systemBars.top, systemBars.right, systemBars.bottom)
-            insets
-        }
+        binding = ActivityInicioSesionBinding.inflate(layoutInflater)
+        setContentView(binding.root)
+
+        val nombreUsuario = intent.getStringExtra("nombreUsuario")
+        binding.tvNombreUsuario.text = "¡Bienvenido, $nombreUsuario!"
+        setupFooter()
     }
 }

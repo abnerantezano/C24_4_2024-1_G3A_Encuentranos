@@ -4,14 +4,14 @@ import android.app.Activity
 import android.content.Intent
 import android.os.Bundle
 import android.util.Log
-import android.widget.TextView
+import android.widget.Toast
 import androidx.activity.result.ActivityResultLauncher
 import androidx.activity.result.contract.ActivityResultContracts
 import androidx.appcompat.app.AppCompatActivity
+import com.ambrosio.josue.tutorial.databinding.ActivityLoginBinding
 import com.google.android.gms.auth.api.signin.GoogleSignIn
 import com.google.android.gms.auth.api.signin.GoogleSignInClient
 import com.google.android.gms.auth.api.signin.GoogleSignInOptions
-import com.google.android.gms.common.SignInButton
 import com.google.android.gms.common.api.ApiException
 import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.auth.FirebaseUser
@@ -19,13 +19,15 @@ import com.google.firebase.auth.GoogleAuthProvider
 
 class Login : AppCompatActivity() {
 
+    private lateinit var binding: ActivityLoginBinding
     private lateinit var auth: FirebaseAuth
     private lateinit var googleSignInClient: GoogleSignInClient
     private lateinit var resultLauncher: ActivityResultLauncher<Intent>
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        setContentView(R.layout.activity_login)
+        binding = ActivityLoginBinding.inflate(layoutInflater)
+        setContentView(binding.root)
 
         // Configure Google Sign In
         val gso = GoogleSignInOptions.Builder(GoogleSignInOptions.DEFAULT_SIGN_IN)
@@ -51,17 +53,18 @@ class Login : AppCompatActivity() {
                     firebaseAuthWithGoogle(account.idToken!!)
                 } catch (e: ApiException) {
                     Log.w(TAG, "Google sign in failed", e)
+                    Toast.makeText(this, "Google sign in failed", Toast.LENGTH_SHORT).show()
                 }
             }
         }
 
         // Set onClickListener for the SignInButton
-        findViewById<SignInButton>(R.id.sign_in_button).setOnClickListener {
+        binding.signInButton.setOnClickListener {
             signIn()
         }
 
         // Set onClickListener for the register text
-        findViewById<TextView>(R.id.register_text).setOnClickListener {
+        binding.registerText.setOnClickListener {
             val intent = Intent(this, register::class.java)
             startActivity(intent)
         }
@@ -83,6 +86,7 @@ class Login : AppCompatActivity() {
                     updateUI(user)
                 } else {
                     Log.w(TAG, "signInWithCredential:failure", task.exception)
+                    Toast.makeText(this, "Authentication Failed.", Toast.LENGTH_SHORT).show()
                     updateUI(null)
                 }
             }

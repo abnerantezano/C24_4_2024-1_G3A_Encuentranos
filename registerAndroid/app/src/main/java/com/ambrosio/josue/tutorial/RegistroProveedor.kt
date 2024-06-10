@@ -1,13 +1,17 @@
 package com.ambrosio.josue.tutorial
 
+import android.content.Intent
 import android.os.Bundle
 import android.widget.ArrayAdapter
 import android.widget.Button
 import android.widget.EditText
-import android.widget.RadioGroup
 import android.widget.Spinner
 import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
+import com.ambrosio.josue.tutorial.models.DistritoModel
+import com.ambrosio.josue.tutorial.models.ProveedorModel
+import com.ambrosio.josue.tutorial.models.TipoUsuarioModel
+import com.ambrosio.josue.tutorial.models.UsuarioModel
 import retrofit2.Call
 import retrofit2.Callback
 import retrofit2.Response
@@ -32,12 +36,11 @@ class RegistroProveedor : AppCompatActivity() {
         val dniEditText: EditText = findViewById(R.id.edit_text_dni)
         val celularEditText: EditText = findViewById(R.id.edit_text_celular)
         val distritoSpinner: Spinner = findViewById(R.id.distritoSpinner)
-        val sexoRadioGroup: RadioGroup = findViewById(R.id.radio_group_servicio)
         val enviarButton: Button = findViewById(R.id.button_enviar)
 
         // Obtener la lista de distritos
-        apiService.listarDistritos().enqueue(object : Callback<List<Distrito>> {
-            override fun onResponse(call: Call<List<Distrito>>, response: Response<List<Distrito>>) {
+        apiService.listarDistritos().enqueue(object : Callback<List<DistritoModel>> {
+            override fun onResponse(call: Call<List<DistritoModel>>, response: Response<List<DistritoModel>>) {
                 if (response.isSuccessful) {
                     val distritos = response.body()
                     if (distritos != null) {
@@ -55,7 +58,7 @@ class RegistroProveedor : AppCompatActivity() {
                 }
             }
 
-            override fun onFailure(call: Call<List<Distrito>>, t: Throwable) {
+            override fun onFailure(call: Call<List<DistritoModel>>, t: Throwable) {
                 Toast.makeText(this@RegistroProveedor, "Error de red: ${t.message}", Toast.LENGTH_SHORT).show()
             }
         })
@@ -64,62 +67,55 @@ class RegistroProveedor : AppCompatActivity() {
             val nombre = nombreEditText.text.toString()
             val apellidoPaterno = apellidoPaternoEditText.text.toString()
             val apellidoMaterno = apellidoMaternoEditText.text.toString()
+            val fechaNacimientoStr = fechaNacimientoEditText.text.toString()
+            val dni = dniEditText.text.toString()
+            val celular = celularEditText.text.toString()
+            val idDistrito = distritoSpinner.selectedItemPosition + 1
 
-            val fechaNacimientoStr = fechaNacimientoEditText.text.toString() // Obtiene la fecha de nacimiento del EditText
-
+            // Verificar si la fecha de nacimiento es válida
             val fechaNacimiento: Date? = try {
                 SimpleDateFormat("yyyy-MM-dd", Locale.getDefault()).parse(fechaNacimientoStr)
             } catch (e: Exception) {
                 null
             }
 
-            // Verifica si la fecha de nacimiento es null
             if (fechaNacimiento == null) {
                 Toast.makeText(this, "Por favor, introduce una fecha válida en el formato yyyy-MM-dd", Toast.LENGTH_SHORT).show()
                 return@setOnClickListener
             }
 
-            // Formatea la fecha de nacimiento en el formato requerido por el servidor
-            val fechaNacimientoFormatted = SimpleDateFormat("yyyy-MM-dd", Locale.getDefault()).format(fechaNacimiento)
-
-            val dni = dniEditText.text.toString()
-            val celular = celularEditText.text.toString()
-            val idDistrito = distritoSpinner.selectedItemPosition + 1 // Obtén el ID del distrito seleccionado del Spinner
-            val sexo = if (sexoRadioGroup.checkedRadioButtonId == R.id.radio_masculino) {
-                "Masculino"
-            } else {
-                "Femenino"
-            }
-
-            val tipoUsuario = TipoUsuario(1, "Proveedor", "") // Proporciona una instancia válida de TipoUsuario
-
-            val nuevoProveedor = Proveedor(
-                id = 0,
-                idUsuario = Usuario(userId, tipoUsuario, email, "", null, false), // Usuario previamente creado
+            val tipoUsuario = TipoUsuarioModel(1, "Proveedor")
+            val nuevoProveedor = ProveedorModel(
+                idProveedor = 0,
+                idUsuario = UsuarioModel(userId, tipoUsuario, email, "", null, true, SimpleDateFormat("yyyy-MM-dd", Locale.getDefault()).format(Date())),
+                idDistrito = DistritoModel(idDistrito, ""),
                 nombre = nombre,
                 apellidoPaterno = apellidoPaterno,
                 apellidoMaterno = apellidoMaterno,
-                sexo = sexo,
+                sexo = "", // Añade la opción para el sexo
                 dni = dni,
                 celular = celular,
                 fechaNacimiento = fechaNacimientoStr,
-                idDistrito = Distrito(idDistrito, ""), // Obtén el distrito adecuado
-                disponible = true, // Disponible por defecto
-                calificacionPromedio = 0.0 // Calificación inicial
+                calificacionPromedio = 0.0,
+                curriculumUrl = "", // Agrega el campo para la URL del curriculum
+                fechaRegistro = SimpleDateFormat("yyyy-MM-dd", Locale.getDefault()).format(Date()) // Agrega la fecha de registro actual
             )
 
-            val apiService = RetrofitClient.apiService
-            apiService.agregarProveedor(nuevoProveedor).enqueue(object : Callback<Proveedor> {
-                override fun onResponse(call: Call<Proveedor>, response: Response<Proveedor>) {
+            // Lógica para enviar la solicitud al servidor
+            apiService.agregarProveedor(nuevoProveedor).enqueue(object : Callback<ProveedorModel> {
+                override fun onResponse(call: Call<ProveedorModel>, response: Response<ProveedorModel>) {
                     if (response.isSuccessful) {
                         Toast.makeText(this@RegistroProveedor, "Proveedor registrado exitosamente", Toast.LENGTH_SHORT).show()
-                        // Aquí puedes redirigir a otra actividad si es necesario
+
+                        // Redireccionar a AgregarServicio
+                        val intent = Intent(this@RegistroProveedor, AgregarServicio::class.java)
+                        startActivity(intent)
                     } else {
                         Toast.makeText(this@RegistroProveedor, "Error al registrar proveedor", Toast.LENGTH_SHORT).show()
                     }
                 }
 
-                override fun onFailure(call: Call<Proveedor>, t: Throwable) {
+                override fun onFailure(call: Call<ProveedorModel>, t: Throwable) {
                     Toast.makeText(this@RegistroProveedor, "Error de red: ${t.message}", Toast.LENGTH_SHORT).show()
                 }
             })

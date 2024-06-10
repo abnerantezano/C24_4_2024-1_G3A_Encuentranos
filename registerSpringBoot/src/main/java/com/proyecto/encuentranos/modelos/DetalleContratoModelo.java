@@ -4,26 +4,37 @@ import jakarta.persistence.*;
 
 @Entity
 @Table(name = "detalle_contrato")
-@IdClass(DetalleContratoModeloId.class)
 public class DetalleContratoModelo {
-    @Id
+	
+    @EmbeddedId
+    private DetalleContratoModeloId id;
+    
     @ManyToOne
-    @JoinColumn(name = "id_proveedor", referencedColumnName = "id_proveedor")
+    @JoinColumn(name = "id_proveedor", referencedColumnName = "id_proveedor", insertable = false, updatable = false)
     private ProveedorModelo idProveedor;
 
-    @Id
     @ManyToOne
-    @JoinColumn(name = "id_servicio", referencedColumnName = "id_servicio")
+    @JoinColumn(name = "id_servicio", referencedColumnName = "id_servicio", insertable = false, updatable = false)
     private ServicioModelo idServicio;
 
-    @Id
     @ManyToOne
-    @JoinColumn(name = "id_contrato", referencedColumnName = "id_contrato")
+    @JoinColumn(name = "id_contrato", referencedColumnName = "id_contrato", insertable = false, updatable = false)
     private ContratoModelo idContrato;
 
     @Column(name = "precio_actual")
     private double precioActual;
     
+    //CONSTRUCTOR SIN PARAMETROS
+	public DetalleContratoModelo() {}
+
+	public DetalleContratoModeloId getId() {
+		return id;
+	}
+
+	public void setId(DetalleContratoModeloId id) {
+		this.id = id;
+	}
+
 	public ProveedorModelo getIdProveedor() {
 		return idProveedor;
 	}

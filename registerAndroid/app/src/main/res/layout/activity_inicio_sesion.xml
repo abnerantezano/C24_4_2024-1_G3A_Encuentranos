@@ -5,7 +5,7 @@
     android:id="@+id/main"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".InicioSesion">
+    tools:context=".activities.InicioSesionActivity">
     <include
         android:id="@+id/header"
         layout="@layout/header"/>
@@ -13,7 +13,8 @@
     <ScrollView
         android:layout_width="match_parent"
         android:layout_height="0dp"
-        app:layout_constraintBottom_toTopOf="@id/footer"
+        app:layout_constraintBottom_toBottomOf="parent"
+        android:layout_marginBottom="70dp"
         app:layout_constraintTop_toBottomOf="@id/header"
         app:layout_constraintVertical_bias="0.035"
         tools:layout_editor_absoluteX="0dp">
@@ -54,10 +55,10 @@
                 android:weightSum="2">
 
                 <ImageView
-                    android:layout_width="match_parent"
+                    android:layout_width="wrap_content"
                     android:layout_height="match_parent"
                     android:layout_weight="1"
-                    android:src="@drawable/ic_contrasena" />
+                    android:src="@drawable/ic_bienvenida" />
 
                 <LinearLayout
                     android:layout_width="match_parent"
@@ -379,6 +380,5 @@
     </ScrollView>
 
     <include
-        android:id="@+id/footer"
         layout="@layout/footer"/>
 </androidx.constraintlayout.widget.ConstraintLayout>

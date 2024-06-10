@@ -16,6 +16,14 @@ public class DetalleContratoControlador {
     @Autowired
     private DetalleContratoServicio detalleContratoServicio;
     
+    //ENDOPOINT PARA OBTENER TODOS LOS DETALLES (SIRVE PARA PROBAR VISTAS)
+    @GetMapping("/listar")
+    public ResponseEntity<List<DetalleContratoModelo>> obtenerDetalleContratos() {
+        List<DetalleContratoModelo> detalles = detalleContratoServicio.obtenerDetalleContratos();
+        return ResponseEntity.ok(detalles);
+    }
+    
+    
     // ENDPOINT PARA OBTENER DETALLES DE CONTRATO POR PROVEEDOR
     @GetMapping("/proveedor/{proveedorId}")
     public ResponseEntity<List<DetalleContratoModelo>> obtenerDetalleContratoPorProveedor(@PathVariable Integer proveedorId) {
