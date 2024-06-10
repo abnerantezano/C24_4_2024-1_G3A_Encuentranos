@@ -1,13 +1,8 @@
 package com.ambrosio.josue.tutorial.activities
 
 import android.os.Bundle
-import androidx.activity.enableEdgeToEdge
-import androidx.appcompat.app.AppCompatActivity
-import androidx.core.view.ViewCompat
-import androidx.core.view.WindowInsetsCompat
 import androidx.lifecycle.Observer
-import com.ambrosio.josue.tutorial.R
-import com.ambrosio.josue.tutorial.ServicioProveedorAdapter
+import com.ambrosio.josue.tutorial.adapters.ServicioProveedorAdapter
 import com.ambrosio.josue.tutorial.databinding.ActivityServicioProveedorBinding
 import com.ambrosio.josue.tutorial.generals.FooterInclude
 import com.ambrosio.josue.tutorial.viewModels.ServicioProveedorViewModel

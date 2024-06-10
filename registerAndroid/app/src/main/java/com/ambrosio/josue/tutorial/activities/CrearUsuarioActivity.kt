@@ -6,16 +6,9 @@ import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
 import com.ambrosio.josue.tutorial.MainActivity
 import com.ambrosio.josue.tutorial.R
-import com.ambrosio.josue.tutorial.RegistroProveedor
-import com.ambrosio.josue.tutorial.RetrofitClient
+import com.ambrosio.josue.tutorial.servicios.RetrofitClient
 import com.ambrosio.josue.tutorial.databinding.ActivityCrearUsuarioBinding
-import com.ambrosio.josue.tutorial.models.TipoUsuarioModel
-import com.ambrosio.josue.tutorial.models.UsuarioModel
 import com.ambrosio.josue.tutorial.viewModels.UsuarioViewModel
-import com.google.firebase.auth.FirebaseAuth
-import retrofit2.Call
-import retrofit2.Callback
-import retrofit2.Response
 
 class CrearUsuarioActivity : AppCompatActivity() {
 
@@ -27,8 +20,8 @@ class CrearUsuarioActivity : AppCompatActivity() {
         binding = ActivityCrearUsuarioBinding.inflate(layoutInflater)
         setContentView(binding.root)
 
-        val apiService = RetrofitClient.apiService
-        viewModel = UsuarioViewModel(apiService)
+        val usuarioApi = RetrofitClient.usuarioApi
+        viewModel = UsuarioViewModel(usuarioApi)
 
         val email = intent.getStringExtra("email") ?: ""
 
@@ -50,7 +43,7 @@ class CrearUsuarioActivity : AppCompatActivity() {
 
                 viewModel.crearUsuario(email, contrasena, tipoUsuarioId,
                     onSuccess = { usuarioAgregado ->
-                        val intent = Intent(this@CrearUsuarioActivity, if (tipoUsuarioId == 2) RegistroProveedor::class.java else MainActivity::class.java).apply {
+                        val intent = Intent(this@CrearUsuarioActivity, if (tipoUsuarioId == 2) RegistroProveedorActivity::class.java else MainActivity::class.java).apply {
                             putExtra("user_id", usuarioAgregado.idUsuario)
                             putExtra("email", usuarioAgregado.correo)
                         }

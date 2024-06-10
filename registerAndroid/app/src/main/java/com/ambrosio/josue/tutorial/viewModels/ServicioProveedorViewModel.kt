@@ -3,7 +3,7 @@ package com.ambrosio.josue.tutorial.viewModels
 import android.content.Context
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
-import com.ambrosio.josue.tutorial.RetrofitClient
+import com.ambrosio.josue.tutorial.servicios.RetrofitClient
 import com.ambrosio.josue.tutorial.models.ServicioProveedorModel
 import retrofit2.Call
 import retrofit2.Callback
@@ -12,12 +12,12 @@ import retrofit2.Response
 class ServicioProveedorViewModel(
     var context: Context
 ): ViewModel() {
-    val apiService = RetrofitClient.apiService
+    val servicioProveedorApi = RetrofitClient.servicioProveedorApi
     private lateinit var servicioProveedorModel: ServicioProveedorModel
     val listaServiciosProveedores = MutableLiveData<List<ServicioProveedorModel>>()
 
     fun obtenerServiciosProveedor() {
-        apiService.listarServiciosProveedores().enqueue(object : Callback<List<ServicioProveedorModel>> {
+        servicioProveedorApi.listarServiciosProveedores().enqueue(object : Callback<List<ServicioProveedorModel>> {
             override fun onResponse(call: Call<List<ServicioProveedorModel>>, response: Response<List<ServicioProveedorModel>>) {
                 if (response.isSuccessful) {
                     listaServiciosProveedores.postValue(response.body())

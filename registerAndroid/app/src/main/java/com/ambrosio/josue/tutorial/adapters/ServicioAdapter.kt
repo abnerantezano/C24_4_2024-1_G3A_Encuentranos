@@ -1,10 +1,11 @@
-package com.ambrosio.josue.tutorial
+package com.ambrosio.josue.tutorial.adapters
 
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.TextView
 import androidx.recyclerview.widget.RecyclerView
+import com.ambrosio.josue.tutorial.R
 import com.ambrosio.josue.tutorial.models.ServicioModel
 
 class ServicioAdapter : RecyclerView.Adapter<ServicioAdapter.ServicioViewHolder>() {

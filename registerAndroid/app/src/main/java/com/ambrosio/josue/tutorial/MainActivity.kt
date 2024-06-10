@@ -89,7 +89,6 @@ class MainActivity : AppCompatActivity() {
     private fun updateUI(user: FirebaseUser?) {
         if (user != null) {
             // If the user is signed in, start the HelloActivity
-            val intent = Intent(this, Hello::class.java)
             startActivity(intent)
             finish()
         }

@@ -1,0 +1,43 @@
+package com.ambrosio.josue.tutorial.servicios
+
+import retrofit2.Retrofit
+import retrofit2.converter.gson.GsonConverterFactory
+import okhttp3.OkHttpClient
+import okhttp3.logging.HttpLoggingInterceptor
+
+object RetrofitClient {
+    private const val BASE_URL = "http://192.168.100.13:4000/" // IP real de tu laptop y puerto correcto
+
+    private val loggingInterceptor = HttpLoggingInterceptor().apply {
+        level = HttpLoggingInterceptor.Level.BODY
+    }
+
+    private val httpClient = OkHttpClient.Builder().apply {
+        addInterceptor(loggingInterceptor)
+    }.build()
+
+    val retrofit: Retrofit = Retrofit.Builder()
+        .baseUrl(BASE_URL)
+        .addConverterFactory(GsonConverterFactory.create())
+        .client(httpClient)
+        .build()
+
+    val distritoApi: DistritoApi by lazy {
+        retrofit.create(DistritoApi::class.java)
+    }
+    val usuarioApi: UsuarioApi by lazy {
+        retrofit.create(UsuarioApi::class.java)
+    }
+    val proveedorApi: ProveedorApi by lazy {
+        retrofit.create(ProveedorApi::class.java)
+    }
+    val servicioApi: ServicioApi by lazy {
+        retrofit.create(ServicioApi::class.java)
+    }
+    val servicioProveedorApi: ServicioProveedorApi by lazy {
+        retrofit.create(ServicioProveedorApi::class.java)
+    }
+    val detalleContratoAPi: DetalleContratoApi by lazy {
+        retrofit.create(DetalleContratoApi::class.java)
+    }
+}

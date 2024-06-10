@@ -11,8 +11,6 @@ import androidx.core.view.ViewCompat
 import androidx.core.view.WindowInsetsCompat
 import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProvider
-import com.ambrosio.josue.tutorial.CrearCuenta
-import com.ambrosio.josue.tutorial.R
 import com.ambrosio.josue.tutorial.databinding.ActivityLoginBinding
 import com.ambrosio.josue.tutorial.viewModels.LoginViewModel
 import com.google.firebase.auth.FirebaseUser

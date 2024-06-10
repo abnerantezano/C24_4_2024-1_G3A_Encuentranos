@@ -2,6 +2,7 @@ package com.ambrosio.josue.tutorial.activities
 
 import android.os.Bundle
 import androidx.lifecycle.Observer
+import com.ambrosio.josue.tutorial.adapters.DetalleContratoAdapater
 import com.ambrosio.josue.tutorial.databinding.ActivityMyContractsBinding
 import com.ambrosio.josue.tutorial.generals.FooterInclude
 import com.ambrosio.josue.tutorial.viewModels.ContratoViewModel

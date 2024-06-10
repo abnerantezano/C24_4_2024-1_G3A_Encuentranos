@@ -4,10 +4,10 @@ import android.content.Intent
 import android.os.Bundle
 import android.widget.LinearLayout
 import androidx.appcompat.app.AppCompatActivity
-import com.ambrosio.josue.tutorial.InicioSesion
-import com.ambrosio.josue.tutorial.OpcionesUsuario
 import com.ambrosio.josue.tutorial.R
+import com.ambrosio.josue.tutorial.activities.InicioSesionActivity
 import com.ambrosio.josue.tutorial.activities.MensajeActivity
+import com.ambrosio.josue.tutorial.activities.OpcionesUsuarioActivity
 import com.ambrosio.josue.tutorial.activities.ServicioProveedorActivity
 import com.ambrosio.josue.tutorial.activities.ServiciosListActivity
 import com.ambrosio.josue.tutorial.databinding.FooterBinding
@@ -25,7 +25,7 @@ abstract class FooterInclude : AppCompatActivity() {
             binding = FooterBinding.bind(footerView)
             // Configurar clics para los iconos usando los ids
             binding?.iconHome?.setOnClickListener {
-                val intent = Intent(this, InicioSesion::class.java)
+                val intent = Intent(this, InicioSesionActivity::class.java)
                 intent.putExtra("nombreUsuario", "Usuario")
                 startActivity(intent)
             }
@@ -45,7 +45,7 @@ abstract class FooterInclude : AppCompatActivity() {
                 startActivity(intent)
             }
             binding?.iconUsuario?.setOnClickListener {
-                val intent = Intent(this, OpcionesUsuario::class.java)
+                val intent = Intent(this, OpcionesUsuarioActivity::class.java)
                 startActivity(intent)
             }
         } else {

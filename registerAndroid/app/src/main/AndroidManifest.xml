@@ -16,13 +16,11 @@
         android:usesCleartextTraffic="true"
         tools:targetApi="31">
         <activity
+            android:name=".activities.OpcionesUsuarioActivity"
+            android:exported="false" />
+        <activity
             android:name=".activities.MyContractsActivity"
             android:exported="true">
-            <intent-filter>
-                <action android:name="android.intent.action.MAIN" />
-
-                <category android:name="android.intent.category.LAUNCHER" />
-            </intent-filter>
         </activity>
         <activity
             android:name=".activities.ChangePasswordsActivity"
@@ -43,11 +41,6 @@
             android:name=".activities.InicioSesionActivity"
             android:exported="true" />
         <activity
-            android:name=".OpcionesUsuario"
-            android:exported="true">
-
-        </activity>
-        <activity
             android:name=".activities.ServiciosListActivity"
             android:exported="true" />
         <activity
@@ -58,46 +51,17 @@
             android:exported="false" />
         <activity
             android:name=".activities.LoginActivity"
+            android:exported="true">
+
+            <intent-filter>
+                <action android:name="android.intent.action.MAIN" />
+
+                <category android:name="android.intent.category.LAUNCHER" />
+            </intent-filter>
+        </activity>
+        <activity
+            android:name=".activities.RegistroProveedorActivity"
             android:exported="true" />
-        <activity
-            android:name=".AgregarServicio"
-            android:exported="false" />
-        <activity
-            android:name=".BuscarProveedores"
-            android:exported="false" />
-        <activity
-            android:name=".ServiciosDisponibles"
-            android:exported="true" />
-        <activity
-            android:name=".HeaderRegresar"
-            android:exported="false" />
-        <activity
-            android:name=".InicioSesion"
-            android:exported="true" />
-        <activity
-            android:name=".ActualizarContrasena"
-            android:exported="false" />
-        <activity
-            android:name=".ActualizarInformacion"
-            android:exported="false" />
-        <activity
-            android:name=".Descripcion"
-            android:exported="false" />
-        <activity
-            android:name=".RegistroProveedor"
-            android:exported="true" />
-        <activity
-            android:name=".CrearCuenta"
-            android:exported="false" />
-        <activity
-            android:name=".register"
-            android:exported="true" />
-        <activity
-            android:name=".Login"
-            android:exported="true" />
-        <activity
-            android:name=".Hello"
-            android:exported="false" />
         <activity
             android:name=".MainActivity"
             android:exported="true" />
