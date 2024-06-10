@@ -4,6 +4,10 @@ import index1 from '../imagenes/index/index1.png'
 import index2 from '../imagenes/index/index2.png'
 import index3 from '../imagenes/index/index3.png'
 import index4 from '../imagenes/index/index4.png'
+// FONT AWESOME
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
+import { faRankingStar, faUserShield, faUsersLine, faHandshake} from '@fortawesome/free-solid-svg-icons'
+
 //WAVES
 import waves1 from '../imagenes/waves/waves1.png'
 
@@ -73,7 +77,7 @@ export default function Index() {
           </div>
         </div>
         <div className='bg-white '>
-          <h1 className='font-bold text-[#E8A477] xl:text-2xl text-center xl:pt-24'>BENEFICIOS</h1>
+          <h1 className='font-bold text-[#E8A477] xl:text-2xl text-center xl:pt-24 pt-12'>BENEFICIOS</h1>
           <div className='flex justify-center items-center'>
             <hr className="w-11/12 my-6 border-1 border-[#E8A477]" />
           </div>
@@ -105,19 +109,31 @@ export default function Index() {
           </div>
         </div>
         <div className='bg-[#FFF4ED]'>
-          <h1 className='font-bold text-[#E8A477] xl:text-2xl text-center xl:pt-24'>NOSOTROS</h1>
+          <h1 className='font-bold text-[#E8A477] xl:text-2xl text-center xl:pt-24 pt-12'>¿POR QUÉ ELEGIRNOS?</h1>
           <div className='flex justify-center items-center'>
             <hr className="w-11/12 my-6 border-1 border-[#E8A477]" />
           </div>
           <div className='w-full py-16 p-4 flex flex-col items-center'>
-            <div className='flex items-center px-28'>
-              <img className='w-1/2 p-16' src={index4}/>
-              <div className='w-1/2 p-16'>
-                <p className='text-[#7D7D7D] mb-6 text-lg p-16'>
-                En nuestra plataforma, creemos que cada hogar merece lo mejor. 
-                Nuestra misión es facilitar la vida de nuestros usuarios al proporcionar un acceso fácil y seguro a una variedad diversa de servicios domésticos. 
-                Con un equipo dedicado y una pasión por la excelencia, 
-                estamos aquí para hacer que tu experiencia sea lo más placentera posible.</p>
+            <div className='grid lg:grid-cols-4 grid-cols-1 gap-4 px-16 pb-8'>
+              <div className='flex flex-col items-center text-center'>
+                <FontAwesomeIcon icon={faRankingStar} className='text-[#BC7547] text-4xl py-2' />
+                <h4 className='text-[#BC7547] text-base font-bold py-2'>Variedad y calidad</h4>
+                <p className='text-sm text-[#787171] text-center'>Accede a una extensa lista de proveedores.</p>
+              </div>
+              <div className='flex flex-col items-center'>
+                <FontAwesomeIcon icon={faUserShield} className='text-[#BC7547] text-4xl py-2' />
+                <h4 className='text-[#BC7547] text-base font-bold py-2'>Seguridad</h4>
+                <p className='text-sm text-[#787171] text-center'>Contratos seguros y protección de datos.</p>
+              </div>
+              <div className='flex flex-col items-center'>
+                <FontAwesomeIcon icon={faUsersLine} className='text-[#BC7547] text-4xl py-2' />
+                <h4 className='text-[#BC7547] text-base font-bold py-2'>Comodidad</h4>
+                <p className='text-sm text-[#787171] text-center'>Comunicación directa y fácil manejo desde una única plataforma.</p>
+              </div>
+              <div className='flex flex-col items-center'>
+                <FontAwesomeIcon icon={faHandshake} className='text-[#BC7547] text-4xl py-2' />
+                <h4 className='text-[#BC7547] text-base font-bold py-2'>Confianza</h4>
+                <p className='text-sm text-[#787171] text-center'>Reseñas y calificaciones de otros usuarios.</p>
               </div>
             </div>
           </div>

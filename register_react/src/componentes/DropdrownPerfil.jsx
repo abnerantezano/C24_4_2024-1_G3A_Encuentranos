@@ -1,5 +1,6 @@
 import React from 'react';
 import InformacionDeUsuario from './InformacionDeUsuario';
+import { Link } from 'react-router-dom';
 
 const DropDownPerfil = () => (
     <InformacionDeUsuario>
@@ -25,13 +26,16 @@ const DropDownPerfil = () => (
                         <hr />
                         <ul className="py-2">
                             <li>
-                                <a href="/perfil" className="block px-4 py-2 text-sm text-gray-800 hover:bg-gray-100 dark:hover:bg-gray-600 dark:text-gray-200 dark:hover:text-white">Perfil</a>
+                                <Link to="/perfil" className="block px-4 py-2 text-sm text-gray-800 hover:bg-gray-100 dark:hover:bg-gray-600 dark:text-gray-200 dark:hover:text-white">Perfil</Link>
                             </li>
                             <li>
-                                <a href="/misServicios" className="block px-4 py-2 text-sm text-gray-800 hover:bg-gray-100 dark:hover:bg-gray-600 dark:text-gray-200 dark:hover:text-white">Mis servicios</a>
+                                <Link to="/miInformacionPersonal" className="block px-4 py-2 text-sm text-gray-800 hover:bg-gray-100 dark:hover:bg-gray-600 dark:text-gray-200 dark:hover:text-white">Información personal</Link>
                             </li>
                             <li>
-                                <a href="/misContratos" className="block px-4 py-2 text-sm text-gray-800 hover:bg-gray-100 dark:hover:bg-gray-600 dark:text-gray-200 dark:hover:text-white">Mis contratos</a>
+                                <Link to="/misServicios" className="block px-4 py-2 text-sm text-gray-800 hover:bg-gray-100 dark:hover:bg-gray-600 dark:text-gray-200 dark:hover:text-white">Mis servicios</Link>
+                            </li>
+                            <li>
+                                <Link to="/misContratos" className="block px-4 py-2 text-sm text-gray-800 hover:bg-gray-100 dark:hover:bg-gray-600 dark:text-gray-200 dark:hover:text-white">Mis contratos</Link>
                             </li>
                         </ul>
                         <hr />

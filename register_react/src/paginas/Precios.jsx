@@ -1,4 +1,6 @@
 import React, { useEffect, useState } from 'react';
+//REACT ROUTER DOM
+import { Link } from 'react-router-dom';
 // PRIME REACT
 import { InputText } from 'primereact/inputtext';
 import { Slider } from 'primereact/slider';
@@ -131,19 +133,19 @@ function Precios() {
         <p className='text-base text-gray-500 font-medium mb-1'> S/ {parseFloat(Sproveedor.precio).toFixed(2)} </p>
         </div>
         <div className='xl:w-2/12'>
-          <a href='#' className='bg-[#E8A477]  font-bold text-white text-center text-sm p-3 rounded-lg'>Ver perfil</a>
+          <Link to="" className='bg-[#E8A477]  font-bold text-white text-center text-sm p-3 rounded-lg'>Ver perfil</Link>
         </div>
     </div>
   );
 
   return (
     <div>
-      <div className='bg-[#E8A477] w-full p-6 text-center text-white'>
+      <div className='bg-gradient-to-r from-[#F3C7AC] to-[#E8A477] w-full p-6 text-center text-white'>
         <h1 className='font-bold'>Realiza la búsqueda de tu servicio</h1>
       </div>
       <div className='flex items-center justify-center p-6'>
         <form onSubmit={handleSubmit(busquedaServicios)}>
-          <div className="my-4">
+          <div className="my-4 mx-auto">
             <div className="p-inputgroup shadow-lg">
               <span className="p-inputgroup-addon bg-white pe-6">
                 <FontAwesomeIcon icon={faMagnifyingGlass} className='px-4' /> Nombre del servicio
@@ -155,7 +157,7 @@ function Precios() {
           </div>
         </form>
       </div>
-      <div className='flex justify-center p-6 xl:px-36'>
+      <div className='flex justify-center p-6 xl:px-36 mx-auto'>
         <div className='w-2/12 py-12'>
           <h5 className='text-gray-500 font-bold my-2'>FILTRO DE PRECIO</h5>
           <div className='px-2'>
@@ -165,7 +167,7 @@ function Precios() {
         </div>
         <div className='px-4 py-12 w-10/12'>
           {/*SINDATAVIEW*/}
-          {
+          {/*
             filterServicios(listaFiltrada).map((Sproveedor, index) => (
               <div key={index} className='flex items-center bg-white shadow-lg py-1 rounded-lg mb-6'>
                 <div className='xl:w-2/12'>
@@ -187,7 +189,7 @@ function Precios() {
                 </div>
               </div>
             ))
-          }
+          */}
           {/*CON DATAVIEW*/}
           <DataView value={filteredData} className='bg-transparent' filter={filterServicios} pt={{paginator:'bg-red-500', content:'bg-transparent text-sm'}} itemTemplate={listTemplate} paginator paginatorClassName='bg-transparent text-gray-500' rows={6} />
         </div>

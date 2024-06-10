@@ -1,9 +1,6 @@
 import React, { useEffect, useState } from "react";
 import logo from "../imagenes/logo-color.png";
 import { useNavigate } from "react-router-dom";
-//FONT AWESOME
-import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
-import { faMinus } from '@fortawesome/free-solid-svg-icons'
 //PRIME REACT
 import { Dropdown } from 'primereact/dropdown';
 import { InputNumber } from 'primereact/inputnumber';
@@ -16,7 +13,7 @@ import InformacionDeUsuario from "../componentes/InformacionDeUsuario";
 const AgregarServicio = () => {
 
     //PROPIEDADES DE REACT HOOK FORM
-    const { register, handleSubmit, control, watch, formState: { errors } } = useForm();
+    const { register, handleSubmit, control, formState: { errors } } = useForm();
 
     //VARIABLE PARA LA NAVEGACIÓN
     const navigate = useNavigate();
@@ -37,11 +34,10 @@ const AgregarServicio = () => {
                 console.log(error);
             });
     }, []);
-    
     //LLAMAR LA LISTA DE LOS SERVICIOS NO REGISTRADOS POR EL PROVEEDOR
     useEffect(() => {
-        if (usuario && usuario.id) {
-            ServicioProveedorService.getServicioSinRegistrar(usuario.id)
+        if (usuario && usuario.idProveedor) {
+            ServicioProveedorService.getServicioSinRegistrar(usuario.idProveedor)
                 .then(response => {
                     setServicios(response.data);
                 })
@@ -55,8 +51,8 @@ const AgregarServicio = () => {
     const agregarServicio = (data, idProveedor) => {
 
         const servicioParaAgregar = [{
-            idProveedor: { id: parseInt(idProveedor) },
-            idServicio: { id: parseInt(data.idServicio) },
+            idProveedor: { idProveedor: parseInt(idProveedor) },
+            idServicio: { idServicio: parseInt(data.idServicio) },
             precio: parseFloat(data.precio)
         }]
 
@@ -75,7 +71,7 @@ const AgregarServicio = () => {
     return (
         <InformacionDeUsuario>
             {(info) => (
-                <form autoComplete="off" onSubmit={handleSubmit((data) => agregarServicio(data, info.id))}>
+                <form autoComplete="off" onSubmit={handleSubmit((data) => agregarServicio(data, info.idProveedor))}>
                     <div className="bg-[#F0EEEC] w-full">
                         <div className="flex items-center justify-center py-4 lg:pt-6 lg:pb-12">
                             <div className="md:mb-0 md:w-8/12 lg:w-5/12 bg-white m-6 py-12 px-16 rounded-lg shadow-xl">
@@ -86,7 +82,7 @@ const AgregarServicio = () => {
                                     <div className="relative z-0 w-full group">
                                         <label className="block mb-2 text-sm font-medium text-gray-900 dark:text-white mb-2 mt-2">Servicio</label>
                                         <Controller name="idServicio" {...register("idServicio", { required: true })} control={control} render={({ field }) => (
-                                            <Dropdown id={field.name} value={field.value} onChange={(e) => field.onChange(e.value)} options={servicios} optionValue="id" optionLabel="nombre" placeholder="Seleccione un servicio" panelClassName="custom-panel" pt={{input:'text-sm',panel:'text-sm',root:'ring-0',select:'text-red-500'}} className="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:border-dark w-full dark:bg-[#] dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500" />
+                                            <Dropdown id={field.name} value={field.value} onChange={(e) => field.onChange(e.value)} options={servicios} optionValue="idServicio" optionLabel="nombre" placeholder="Seleccione un servicio" panelClassName="custom-panel" pt={{input:'text-sm',panel:'text-sm',root:'ring-0',select:'text-red-500'}} className="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:border-dark w-full dark:bg-[#] dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500" />
                                         )} />
                                         {errors.idServicio && <span className="text-red-500 text-sm">Agregue un servicio</span>}
                                     </div>

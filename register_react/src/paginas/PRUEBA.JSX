@@ -14,6 +14,7 @@ import UsuarioService from "../servicios/UsuarioService";
 import InformacionDeUsuario from "../componentes/InformacionDeUsuario";
 
 const AgregarServicio = () => {
+    
     // PROPIEDADES DE REACT HOOK FORM
     const { register, handleSubmit, control, setValue, watch, formState: { errors } } = useForm();
 

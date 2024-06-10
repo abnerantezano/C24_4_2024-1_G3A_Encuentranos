@@ -65,14 +65,14 @@ const Formulario = () => {
                 console.log(error);
             });
     }, []); 
-
+    
     //BOTON PARA ENVIAR EL FORMULARIO A SPRINGBOOT
     const EnviarDatos = (data) => {
 
         const fechaNac = new Date(data.fechaNacimiento).toISOString().split('T')[0];
 
         const datos = {
-            idUsuario: {id:parseInt(usuario.id)},
+            idUsuario: {idUsuario:parseInt(usuario.idUsuario)},
             nombre: data.nombre,
             apellidoPaterno: data.apellidoPaterno,
             apellidoMaterno: data.apellidoMaterno,
@@ -80,12 +80,12 @@ const Formulario = () => {
             dni: data.dni,
             fechaNacimiento: fechaNac,
             celular: data.celular,
-            idDistrito: {id:parseInt(data.idDistrito)},
+            idDistrito: {idDistrito:parseInt(data.idDistrito)},
         };
-
+        console.log(datos);
         //AGREGA SEGUN EL TIPO DE USUARIO 
         if (usuario && usuario.idTipo) {
-            const idTipo = usuario.idTipo.id;
+            const idTipo = usuario.idTipo.idTipo;
             if(idTipo===1){
                 //AGREGAR A CLIENTE
                 ClienteService.addCliente(datos)
@@ -160,7 +160,7 @@ const Formulario = () => {
                     <div className="relative z-0 w-full group mb-5 text-sm">
                         <label className="block mb-2 text-sm font-medium text-gray-900 dark:text-white mb-2 mt-2">Distrito</label>
                         <Controller name="idDistrito" {...register("idDistrito", { required: true })} control={control} render={({ field }) => (
-                            <Dropdown id={field.name} value={field.value} onChange={(e) => field.onChange(e.value)} options={distritos} optionValue="id" optionLabel="nombre" placeholder="Seleccione un distrito" panelClassName="custom-panel" pt={{input:'text-sm',panel:'text-sm',root:'ring-0'}} className="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:border-dark w-full dark:bg-[#] dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"/>
+                            <Dropdown id={field.name} value={field.value} onChange={(e) => field.onChange(e.value)} options={distritos} optionValue="idDistrito" optionLabel="nombre" placeholder="Seleccione un distrito" panelClassName="custom-panel" pt={{input:'text-sm',panel:'text-sm',root:'ring-0'}} className="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:border-dark w-full dark:bg-[#] dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"/>
                         )} />
                         {errors.idDistrito && <span className="text-red-500 text-sm">Ingresar su distrito</span>}
                     </div>

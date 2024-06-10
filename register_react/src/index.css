@@ -60,11 +60,11 @@ code {
 .progress::after{
   content: " ";
   position: absolute;
-  width: 98%;
+  width: 100%;
   top: 50%;
   height: 4px;
   background-color: rgb(255, 255, 255);
-  right: 55%;
+  right:50%;
 }
 .one::after{
   width: 0;
