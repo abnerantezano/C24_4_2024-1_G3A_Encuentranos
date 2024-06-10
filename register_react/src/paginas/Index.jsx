@@ -3,7 +3,6 @@ import React from 'react'
 import index1 from '../imagenes/index/index1.png'
 import index2 from '../imagenes/index/index2.png'
 import index3 from '../imagenes/index/index3.png'
-import index4 from '../imagenes/index/index4.png'
 // FONT AWESOME
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import { faRankingStar, faUserShield, faUsersLine, faHandshake} from '@fortawesome/free-solid-svg-icons'
