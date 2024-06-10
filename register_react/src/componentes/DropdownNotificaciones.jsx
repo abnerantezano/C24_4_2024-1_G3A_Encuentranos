@@ -1,18 +1,38 @@
-import React from 'react'
+import React, { useEffect, useRef } from 'react';
+import InformacionDeUsuario from './InformacionDeUsuario';
+import { Link } from 'react-router-dom';
 
-function DropdownNotificaciones() {
-    return (
-                <div className="fixed flex items-center w-full max-w-xs p-4 space-x-4 text-gray-500 bg-white divide-x rtl:divide-x-reverse divide-gray-200 rounded-lg shadow top-5 left-5 dark:text-gray-400 dark:divide-gray-700 space-x dark:bg-gray-800">
-                    <div>
-                        <hr/>
-                            <div>
-                                <p className='my-2 mx-4'>notificacion dasdasdaaaaaaaazxcxzzzzzzzzzzzzzzzzzzzaaaaaaaaaaaaaaaass</p>
-                            </div>
-                        <hr />
-                    </div>
-                </div>
+const DropDownPerfil = ({ onClose }) => {
+  const dropdownRef = useRef(null);
 
-    )
-}
+  const handleClickOutside = (event) => {
+    if (dropdownRef.current && !dropdownRef.current.contains(event.target)) {
+      onClose();
+    }
+  };
 
-export default DropdownNotificaciones
+  useEffect(() => {
+    document.addEventListener('mousedown', handleClickOutside);
+    return () => {
+      document.removeEventListener('mousedown', handleClickOutside);
+    };
+  }, []);
+
+  return (
+    <InformacionDeUsuario>
+      {(info) => {
+        
+
+        return (
+          <div ref={dropdownRef} className="bg-white flex flex-wrap justify-end text-sm list-none rounded-lg shadow-lg p-4 mt-4 z-10 absolute right-16 md:right-4 lg:right-4 xl:right-40">
+            <div>
+              <p>dsaaaaaaaaaaaaa</p>
+            </div>
+          </div>
+        );
+      }}
+    </InformacionDeUsuario>
+  );
+};
+
+export default DropDownPerfil;

@@ -5,9 +5,7 @@ import imagen1 from '../imagenes/inicio/imagen1.png'
 import imagen2 from '../imagenes/inicio/imagen2.png'
 //WAVES
 import waves from '../imagenes/waves/waves.png'
-import waves2 from '../imagenes/waves/waves2.png'
-import waves3 from '../imagenes/waves/waves3.png'
-import waves4 from '../imagenes/waves/waves4.png'
+
 // FONT AWESOME
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import { faCogs, faFileContract, faCalendarTimes} from '@fortawesome/free-solid-svg-icons'
@@ -41,11 +39,9 @@ function Inicio() {
           </div>
           <div className=''>
             <div className='m-auto'>
-              <img className="w-full " src={waves2}/>
-              <img className="w-full " src={waves3}/>
-              <img className="w-full " src={waves4}/>
+              <img className="w-full " src={waves}/>
             </div>
-            <div className='bg-[#F3C7AC] m-auto'>
+            <div className='bg-[#FFC8AC] m-auto'>
               <h1 className='font-bold text-white xl:text-2xl text-center pt-12 '>NOSOTROS</h1>
               <div className='flex justify-center items-center'>
                 <hr className="w-11/12 my-6 border-1 border-white" />
