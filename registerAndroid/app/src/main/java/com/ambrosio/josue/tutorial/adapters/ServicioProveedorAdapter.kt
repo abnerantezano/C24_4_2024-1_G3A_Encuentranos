@@ -32,7 +32,7 @@ class ServicioProveedorAdapter : RecyclerView.Adapter<ServicioProveedorAdapter.S
 
     inner class ServicioProveedorViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView) {
         private val nombreTextView: TextView = itemView.findViewById(R.id.tvNombreProveedor)
-        private val descripcionTextView: TextView = itemView.findViewById(R.id.tvDescripcionProveedor)
+        private val descripcionTextView: TextView = itemView.findViewById(R.id.tvServicio)
 
         fun bind(servicio: ServicioProveedorModel) {
             nombreTextView.text = servicio.idProveedor.nombre

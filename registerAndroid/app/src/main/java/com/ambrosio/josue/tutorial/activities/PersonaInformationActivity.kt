@@ -11,7 +11,6 @@ import com.ambrosio.josue.tutorial.generals.FooterInclude
 class PersonaInformationActivity : FooterInclude() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        enableEdgeToEdge()
         setContentView(R.layout.activity_persona_information)
         setupFooter()
     }

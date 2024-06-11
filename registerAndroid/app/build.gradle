@@ -75,4 +75,7 @@ dependencies {
 
     // AnimationX
     implementation 'com.github.rommansabbir:AnimationX:2.0'
+
+    //material
+    implementation 'com.google.android.material:material:1.4.0'
 }

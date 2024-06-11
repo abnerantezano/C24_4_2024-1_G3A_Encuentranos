@@ -10,20 +10,20 @@
 
     <include
         android:id="@+id/header"
-        layout="@layout/header"/>
+        layout="@layout/header_volver"/>
 
     <TextView
         android:id="@+id/tvServiciosDisponibles"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         app:layout_constraintTop_toBottomOf="@id/header"
-        android:padding="20dp"
+        android:padding="25dp"
         android:text="Servicios Disponibles"
         android:gravity="center"
         android:textColor="@color/white"
         android:textStyle="bold"
         android:textSize="17dp"
-        android:background="@color/skin"/>
+        android:background="@drawable/round_textview"/>
 
     <androidx.recyclerview.widget.RecyclerView
         android:id="@+id/recyclerViewServicios"

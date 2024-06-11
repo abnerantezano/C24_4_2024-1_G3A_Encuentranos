@@ -10,13 +10,12 @@
 
     <include
         android:id="@+id/Header"
-        layout="@layout/header"/>
+        layout="@layout/header_volver"/>
 
     <LinearLayout
         android:id="@+id/informacion"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginTop="15dp"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         android:orientation="horizontal"
@@ -47,31 +46,38 @@
         </LinearLayout>
 
     </LinearLayout>
+
     <LinearLayout
         android:id="@+id/opciones"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
         android:orientation="vertical"
-        app:layout_constraintTop_toBottomOf="@id/informacion"
-        app:layout_constraintBottom_toTopOf="@id/cerrarSesion">
+        app:layout_constraintBottom_toTopOf="@id/cerrarSesion"
+        app:layout_constraintEnd_toEndOf="@+id/informacion"
+        app:layout_constraintStart_toStartOf="@+id/informacion"
+        app:layout_constraintTop_toBottomOf="@id/informacion">
+
         <LinearLayout
+            android:id="@+id/tvPerfil"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:orientation="horizontal">
+
             <ImageView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:src="@drawable/ic_menu" />
+
             <TextView
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
-                android:gravity="top|bottom"
                 android:layout_marginStart="15dp"
-                android:text="Mi Perfil"/>
+                android:gravity="top|bottom"
+                android:text="Mi Perfil" />
         </LinearLayout>
+
         <LinearLayout
+            android:id="@+id/tvVerInformacion"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_marginTop="10dp"
@@ -81,14 +87,17 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:src="@drawable/ic_perfil" />
+
             <TextView
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
-                android:gravity="top|bottom"
                 android:layout_marginStart="15dp"
-                android:text="Información personal"/>
+                android:gravity="top|bottom"
+                android:text="Información personal" />
         </LinearLayout>
+
         <LinearLayout
+            android:id="@+id/tvCambiarContrasena"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_marginTop="10dp"
@@ -98,14 +107,17 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:src="@drawable/ic_contrasena" />
+
             <TextView
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
-                android:gravity="top|bottom"
                 android:layout_marginStart="15dp"
-                android:text="Cambiar mi contraseña"/>
+                android:gravity="top|bottom"
+                android:text="Cambiar mi contraseña" />
         </LinearLayout>
+
         <LinearLayout
+            android:id="@+id/tvContratos"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_marginTop="10dp"
@@ -115,12 +127,33 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:src="@drawable/ic_contrato" />
+
             <TextView
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
-                android:gravity="top|bottom"
                 android:layout_marginStart="15dp"
-                android:text="Mis contratos"/>
+                android:gravity="top|bottom"
+                android:text="Mis contratos" />
+        </LinearLayout>
+
+        <LinearLayout
+            android:id="@+id/tvMisServicios"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="10dp"
+            android:orientation="horizontal">
+
+            <ImageView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:src="@drawable/ic_servicemano" />
+
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:layout_marginStart="15dp"
+                android:gravity="top|bottom"
+                android:text="Mis Servicios" />
         </LinearLayout>
     </LinearLayout>
 
@@ -139,6 +172,7 @@
             android:src="@drawable/ic_logout" />
 
         <TextView
+            android:id="@+id/tvCerrarSesion"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
             android:layout_marginStart="15dp"

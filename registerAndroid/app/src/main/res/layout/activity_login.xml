@@ -6,26 +6,11 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     tools:context=".activities.LoginActivity">
-    <LinearLayout
-        android:id="@+id/header"
-        android:padding="40dp"
-        android:orientation="vertical"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:background="@color/skin"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent">
-        <TextView
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:fontFamily=""
-            android:text="Encuéntranos"
-            android:textColor="@color/white"
-            android:textSize="45dp"
-            android:textStyle="bold"
-            android:layout_gravity="center"/>
 
-    </LinearLayout>
+    <include
+        android:id="@+id/header"
+        layout="@layout/header_inicial"
+        />
     <LinearLayout
         android:id="@+id/body"
         android:orientation="vertical"

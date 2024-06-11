@@ -7,33 +7,18 @@
     android:layout_height="match_parent"
     tools:context=".activities.CrearUsuarioActivity">
 
-    <LinearLayout
+    <include
         android:id="@+id/header"
-        android:padding="40dp"
-        android:orientation="vertical"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:background="@color/skin"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent">
-        <TextView
-            android:id="@+id/text_encuentranos"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="Encuéntranos"
-            android:textColor="@color/white"
-            android:textSize="45dp"
-            android:textStyle="bold"
-            android:layout_gravity="center"/>
-    </LinearLayout>
+        layout="@layout/header_inicial"
+        />
 
     <LinearLayout
         android:id="@+id/body"
         android:orientation="vertical"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_marginStart="30dp"
-        android:layout_marginEnd="30dp"
+        android:layout_marginStart="40dp"
+        android:layout_marginEnd="40dp"
         app:layout_constraintTop_toBottomOf="@id/header">
 
         <TextView
@@ -100,39 +85,43 @@
                 android:id="@+id/radio_no"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
+                android:layout_marginStart="30dp"
                 android:text="No" />
 
         </RadioGroup>
 
     </LinearLayout>
+
     <LinearLayout
-        android:layout_width="match_parent"
+        android:layout_width="0dp"
         android:layout_height="wrap_content"
         android:orientation="vertical"
-        android:layout_marginStart="30dp"
-        android:layout_marginEnd="30dp"
-        app:layout_constraintTop_toBottomOf="@id/body"
-        app:layout_constraintBottom_toBottomOf="parent">
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="@+id/body"
+        app:layout_constraintStart_toStartOf="@+id/body"
+        app:layout_constraintTop_toBottomOf="@id/body">
+
         <Button
             android:id="@+id/btnEnviar"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:background="@drawable/button_background"
+            android:layout_gravity="center"
             android:layout_marginTop="30dp"
-            android:text="Enviar"
+            android:background="@drawable/button_background"
             android:paddingHorizontal="103dp"
+            android:text="Enviar"
             android:textSize="23dp"
-            android:textStyle="bold"
-            android:layout_gravity="center"/>
+            android:textStyle="bold" />
+
         <TextView
             android:id="@+id/text_regresar"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
+            android:layout_gravity="center"
             android:layout_marginTop="20dp"
             android:text="Regresar"
-            android:textColor="@color/black"
+            android:textColor="@color/gray"
             android:textSize="18dp"
-            android:textStyle="bold"
-            android:layout_gravity="center"/>
+            android:textStyle="bold" />
     </LinearLayout>
 </androidx.constraintlayout.widget.ConstraintLayout>

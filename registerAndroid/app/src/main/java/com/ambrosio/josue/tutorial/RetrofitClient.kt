@@ -1,5 +1,11 @@
-package com.ambrosio.josue.tutorial.servicios
+package com.ambrosio.josue.tutorial
 
+import com.ambrosio.josue.tutorial.servicios.DetalleContratoApi
+import com.ambrosio.josue.tutorial.servicios.DistritoApi
+import com.ambrosio.josue.tutorial.servicios.ProveedorApi
+import com.ambrosio.josue.tutorial.servicios.ServicioApi
+import com.ambrosio.josue.tutorial.servicios.ServicioProveedorApi
+import com.ambrosio.josue.tutorial.servicios.UsuarioApi
 import retrofit2.Retrofit
 import retrofit2.converter.gson.GsonConverterFactory
 import okhttp3.OkHttpClient

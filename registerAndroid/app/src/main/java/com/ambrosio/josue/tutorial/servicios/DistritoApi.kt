@@ -9,7 +9,4 @@ import retrofit2.http.POST
 interface DistritoApi {
     @GET("distrito/listar")
     fun listarDistritos(): Call<List<DistritoModel>>
-
-    @POST("distrito/agregar")
-    fun agregarDistrito(@Body distrito: DistritoModel): Call<DistritoModel>
 }

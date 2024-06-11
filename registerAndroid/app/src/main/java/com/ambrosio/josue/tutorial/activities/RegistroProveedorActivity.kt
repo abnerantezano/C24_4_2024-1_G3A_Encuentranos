@@ -6,12 +6,13 @@ import android.widget.ArrayAdapter
 import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
 import androidx.lifecycle.Observer
+import com.ambrosio.josue.tutorial.R
 import com.ambrosio.josue.tutorial.databinding.ActivityRegistroProveedorBinding
 import com.ambrosio.josue.tutorial.models.DistritoModel
 import com.ambrosio.josue.tutorial.models.ProveedorModel
 import com.ambrosio.josue.tutorial.models.TipoUsuarioModel
 import com.ambrosio.josue.tutorial.models.UsuarioModel
-import com.ambrosio.josue.tutorial.servicios.RetrofitClient
+import com.ambrosio.josue.tutorial.RetrofitClient
 import com.ambrosio.josue.tutorial.viewModels.RegistroProveedorViewModel
 import java.text.SimpleDateFormat
 import java.util.Date
@@ -21,20 +22,35 @@ class RegistroProveedorActivity : AppCompatActivity() {
 
     private lateinit var binding: ActivityRegistroProveedorBinding
     private lateinit var viewModel: RegistroProveedorViewModel
+    private var userId: Int = -1
+    private var email: String = ""
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         binding = ActivityRegistroProveedorBinding.inflate(layoutInflater)
         setContentView(binding.root)
 
+        initializeViewModel()
+        retrieveIntentData()
+        setupObservers()
+        setupListeners()
+
+        // Obtener la lista de distritos
+        viewModel.listarDistritos()
+    }
+
+    private fun initializeViewModel() {
         val proveedorApi = RetrofitClient.proveedorApi
         val distritoApi = RetrofitClient.distritoApi
         viewModel = RegistroProveedorViewModel(proveedorApi, distritoApi)
+    }
 
-        val userId = intent.getIntExtra("user_id", -1)
-        val email = intent.getStringExtra("email") ?: ""
+    private fun retrieveIntentData() {
+        userId = intent.getIntExtra("user_id", -1)
+        email = intent.getStringExtra("email") ?: ""
+    }
 
-        // Observadores para LiveData
+    private fun setupObservers() {
         viewModel.distritos.observe(this, Observer { distritos ->
             if (distritos.isNotEmpty()) {
                 val adapter = ArrayAdapter(this, android.R.layout.simple_spinner_item, distritos.map { it.nombre })
@@ -48,56 +64,66 @@ class RegistroProveedorActivity : AppCompatActivity() {
         viewModel.registroProveedorResult.observe(this, Observer { isSuccessful ->
             if (isSuccessful) {
                 Toast.makeText(this, "Proveedor registrado exitosamente", Toast.LENGTH_SHORT).show()
-                val intent = Intent(this, InicioSesionActivity::class.java)
-                startActivity(intent)
+                navigateToInicioSesion()
             } else {
                 Toast.makeText(this, "Error al registrar proveedor", Toast.LENGTH_SHORT).show()
             }
         })
+    }
 
-        // Obtener la lista de distritos
-        viewModel.listarDistritos()
+    private fun setupListeners() {
+        binding.btnEnviar.setOnClickListener { handleRegisterProveedor() }
+    }
 
-        binding.buttonEnviar.setOnClickListener {
-            val nombre = binding.editTextNombreCompleto.text.toString()
-            val apellidoPaterno = binding.editTextApellidoPaterno.text.toString()
-            val apellidoMaterno = binding.editTextApellidoMaterno.text.toString()
-            val fechaNacimientoStr = binding.editTextFechaNacimiento.text.toString()
-            val dni = binding.editTextDni.text.toString()
-            val celular = binding.editTextCelular.text.toString()
-            val idDistrito = binding.distritoSpinner.selectedItemPosition + 1
-
-            // Verificar si la fecha de nacimiento es válida
-            val fechaNacimiento: Date? = try {
-                SimpleDateFormat("yyyy-MM-dd", Locale.getDefault()).parse(fechaNacimientoStr)
-            } catch (e: Exception) {
-                null
-            }
-
-            if (fechaNacimiento == null) {
-                Toast.makeText(this, "Por favor, introduce una fecha válida en el formato yyyy-MM-dd", Toast.LENGTH_SHORT).show()
-                return@setOnClickListener
-            }
-
-            val tipoUsuario = TipoUsuarioModel(1, "Proveedor")
-            val nuevoProveedor = ProveedorModel(
-                idProveedor = 0,
-                idUsuario = UsuarioModel(userId, tipoUsuario, email, "", null, true, SimpleDateFormat("yyyy-MM-dd", Locale.getDefault()).format(Date())),
-                idDistrito = DistritoModel(idDistrito, ""),
-                nombre = nombre,
-                apellidoPaterno = apellidoPaterno,
-                apellidoMaterno = apellidoMaterno,
-                sexo = "", // Añade la opción para el sexo
-                dni = dni,
-                celular = celular,
-                fechaNacimiento = fechaNacimientoStr,
-                calificacionPromedio = 0.0,
-                curriculumUrl = "", // Agrega el campo para la URL del curriculum
-                fechaRegistro = SimpleDateFormat("yyyy-MM-dd", Locale.getDefault()).format(Date()) // Agrega la fecha de registro actual
-            )
-
-            // Registrar el proveedor
-            viewModel.registrarProveedor(nuevoProveedor)
+    private fun handleRegisterProveedor() {
+        val nombre = binding.editTextNombreCompleto.text.toString()
+        val apellidoPaterno = binding.editTextApellidoPaterno.text.toString()
+        val apellidoMaterno = binding.editTextApellidoMaterno.text.toString()
+        val fechaNacimientoStr = binding.editTextFechaNacimiento.text.toString()
+        val sexo = when (binding.radioSexo.checkedRadioButtonId) {
+            R.id.radio_masculino -> "Masculino"
+            R.id.radio_femenino -> "Femenino"
+            else -> ""
         }
+        val dni = binding.editTextDni.text.toString()
+        val celular = binding.editTextCelular.text.toString()
+        val idDistrito = binding.distritoSpinner.selectedItemPosition + 1
+
+        // Verificar si la fecha de nacimiento es válida
+        val fechaNacimiento: Date? = try {
+            SimpleDateFormat("yyyy-MM-dd", Locale.getDefault()).parse(fechaNacimientoStr)
+        } catch (e: Exception) {
+            null
+        }
+
+        if (fechaNacimiento == null) {
+            Toast.makeText(this, "Por favor, introduce una fecha válida en el formato yyyy-MM-dd", Toast.LENGTH_SHORT).show()
+            return
+        }
+
+        val tipoUsuario = TipoUsuarioModel(1, "Proveedor")
+        val nuevoProveedor = ProveedorModel(
+            idProveedor = 0,
+            idUsuario = UsuarioModel(userId, tipoUsuario, email, "", null, true, SimpleDateFormat("yyyy-MM-dd", Locale.getDefault()).format(Date())),
+            idDistrito = DistritoModel(idDistrito, ""),
+            nombre = nombre,
+            apellidoPaterno = apellidoPaterno,
+            apellidoMaterno = apellidoMaterno,
+            sexo = sexo,
+            dni = dni,
+            celular = celular,
+            fechaNacimiento = fechaNacimientoStr,
+            calificacionPromedio = 0.0,
+            curriculumUrl = "",
+            fechaRegistro = SimpleDateFormat("yyyy-MM-dd", Locale.getDefault()).format(Date()) // Agrega la fecha de registro actual
+        )
+
+        // Registrar el proveedor
+        viewModel.registrarProveedor(nuevoProveedor)
+    }
+
+    private fun navigateToInicioSesion() {
+        val intent = Intent(this, InicioSesionActivity::class.java)
+        startActivity(intent)
     }
 }

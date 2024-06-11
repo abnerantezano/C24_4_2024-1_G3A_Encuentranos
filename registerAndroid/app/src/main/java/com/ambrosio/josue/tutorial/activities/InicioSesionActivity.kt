@@ -13,7 +13,11 @@ class InicioSesionActivity: FooterInclude() {
         setContentView(binding.root)
 
         val nombreUsuario = intent.getStringExtra("nombreUsuario")
-        binding.tvNombreUsuario.text = "¡Bienvenido, $nombreUsuario!"
+        if (!nombreUsuario.isNullOrEmpty()) {
+            binding.tvNombreUsuario.text = "¡Bienvenido, $nombreUsuario!"
+        } else {
+            binding.tvNombreUsuario.text = "¡Bienvenido!"
+        }
         setupFooter()
     }
 }

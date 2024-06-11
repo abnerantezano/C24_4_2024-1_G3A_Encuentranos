@@ -3,7 +3,7 @@ package com.ambrosio.josue.tutorial.viewModels
 import android.content.Context
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
-import com.ambrosio.josue.tutorial.servicios.RetrofitClient
+import com.ambrosio.josue.tutorial.RetrofitClient
 import com.proyecto.encuentranos.models.DetalleContratoModel
 import retrofit2.Call
 import retrofit2.Callback
