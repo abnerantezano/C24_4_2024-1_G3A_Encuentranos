@@ -1,0 +1,57 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:id="@+id/footer"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:background="@color/white"
+    android:orientation="horizontal"
+    android:padding="15dp"
+    app:layout_constraintBottom_toBottomOf="parent"
+    android:weightSum="7">
+
+    <Space
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_weight="1" />
+
+    <ImageView
+        android:id="@+id/iconHome"
+        android:layout_width="35dp"
+        android:layout_height="35dp"
+        android:layout_weight="1"
+        android:src="@drawable/ic_house" />
+
+    <ImageView
+        android:id="@+id/iconLimpieza"
+        android:layout_width="35dp"
+        android:layout_height="35dp"
+        android:layout_weight="1"
+        android:src="@drawable/ic_services" />
+
+    <ImageView
+        android:id="@+id/iconTarjeta"
+        android:layout_width="35dp"
+        android:layout_height="35dp"
+        android:layout_weight="1"
+        android:src="@drawable/ic_propuestas" />
+
+    <ImageView
+        android:id="@+id/iconChat"
+        android:layout_width="35dp"
+        android:layout_height="35dp"
+        android:layout_weight="1"
+        android:src="@drawable/ic_msg" />
+
+    <ImageView
+        android:id="@+id/iconUsuario"
+        android:layout_width="35dp"
+        android:layout_height="35dp"
+        android:layout_weight="1"
+        android:src="@drawable/ic_usuario" />
+
+    <Space
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_weight="1" />
+</LinearLayout>
