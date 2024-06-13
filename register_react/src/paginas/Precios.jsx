@@ -5,13 +5,12 @@ import { Link } from 'react-router-dom';
 import { InputText } from 'primereact/inputtext';
 import { Slider } from 'primereact/slider';
 import { Rating } from 'primereact/rating';
-import { DataView, DataViewLayoutOptions } from 'primereact/dataview';
+import { DataView } from 'primereact/dataview';
 // FONT AWESOME
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import { faMagnifyingGlass } from '@fortawesome/free-solid-svg-icons'
 // AXIOS
 import ServicioProveedorService from '../servicios/ServicioProveedor';
-import ProveedorService from '../servicios/ProveedorService';
 //REACT HOOK FORM
 import { useForm} from "react-hook-form";
 
@@ -22,7 +21,6 @@ function Precios() {
   // VARIABLES
   const [listaServicioProveedor, setListaServicioProveedor] = useState([]);
   const [listaFiltrada, setListaFiltrada] = useState([]);
-  const [proveedor, setProveedor] = useState([]);
 
   // RANGO DE PRECIOS
   const [mayor, setMayor] = useState(0);
@@ -61,18 +59,7 @@ function Precios() {
     ServicioProveedorService.getAll()
       .then(ServicioProveedorResponse => {
         setListaServicioProveedor(ServicioProveedorResponse);
-        setListaFiltrada(ServicioProveedorResponse); // Inicializar la lista filtrada
-      })
-      .catch(error => {
-        console.log(error);
-      });
-  }, []);
-
-  // TRAER LA LISTA DE PROVEEDORES
-  useEffect(() => {
-    ProveedorService.getListaProveedor()
-      .then(ProveedorResponse => {
-        setProveedor(ProveedorResponse);
+        setListaFiltrada(ServicioProveedorResponse);
       })
       .catch(error => {
         console.log(error);
@@ -100,8 +87,8 @@ function Precios() {
   //SI HAY CAMBIOS SE GENERA LA LISTA PRINCIPAL 
   useEffect(() => {
     setListaFiltrada(listaServicioProveedor);
-  }, [busqueda, precioFiltro]);
-
+  }, [busqueda, precioFiltro, listaServicioProveedor]);
+  
   //FILTRAR SIN EL BOTON POR EL PRECIO
   const filterServicios = (servicios) => {
     return servicios.filter((servicioProveedor) => {
@@ -114,12 +101,11 @@ function Precios() {
 
   //VALOR PARA EL DATAVIEW CON EL FILTRO DEL PRECIO SIN BOTON
   const filteredData = filterServicios(listaFiltrada);
-
   //TEMPLATE PARA EL DATAVIEW
   const listTemplate = (Sproveedor, index) => (
     <div key={index} className='flex items-center bg-white shadow-lg py-1 rounded-lg mb-6'>
       <div className='xl:w-2/12'>
-        <img className='w-auto h-24 rounded-full mx-8' src='https://images.unsplash.com/photo-1633332755192-727a05c4013d?q=80&w=1000&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxzZWFyY2h8Mnx8dXNlcnxlbnwwfHwwfHx8MA%3D%3D' alt="profile" />
+        <img className='w-auto h-24 rounded-full mx-8 object-cover' src={Sproveedor.idProveedor.idUsuario.imagenUrl} alt="Foto del proveedor" />
       </div>
       <div className='p-4 xl:w-8/12'>
         <h4 className='text-[#B4663F] font-bold text-base mb-1'>{Sproveedor.idProveedor.nombre} {Sproveedor.idProveedor.apellidoPaterno} {Sproveedor.idProveedor.apellidoMaterno} </h4>
