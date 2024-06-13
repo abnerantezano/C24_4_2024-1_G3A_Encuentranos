@@ -28,7 +28,7 @@ public class ContratoModelo {
     private String estado;
 
     @Column(name = "precio_final")
-    private double precioFinal;
+    private Double precioFinal;  // Cambiado a Double
 
     @Temporal(TemporalType.TIMESTAMP)
     @Column(name = "inicio_servicio")
@@ -40,68 +40,67 @@ public class ContratoModelo {
 
     // Getters and Setters
 
-	public int getIdContrato() {
-		return idContrato;
-	}
+    public int getIdContrato() {
+        return idContrato;
+    }
 
-	public void setIdContrato(int idContrato) {
-		this.idContrato = idContrato;
-	}
+    public void setIdContrato(int idContrato) {
+        this.idContrato = idContrato;
+    }
 
-	public ClienteModelo getidCliente() {
-		return idCliente;
-	}
+    public ClienteModelo getIdCliente() {
+        return idCliente;
+    }
 
-	public void setidCliente(ClienteModelo idCliente) {
-		this.idCliente = idCliente;
-	}
+    public void setIdCliente(ClienteModelo idCliente) {
+        this.idCliente = idCliente;
+    }
 
-	public Date getFechaInicio() {
-		return fechaInicio;
-	}
+    public Date getFechaInicio() {
+        return fechaInicio;
+    }
 
-	public void setFechaInicio(Date fechaInicio) {
-		this.fechaInicio = fechaInicio;
-	}
+    public void setFechaInicio(Date fechaInicio) {
+        this.fechaInicio = fechaInicio;
+    }
 
-	public Date getFechaFin() {
-		return fechaFin;
-	}
+    public Date getFechaFin() {
+        return fechaFin;
+    }
 
-	public void setFechaFin(Date fechaFin) {
-		this.fechaFin = fechaFin;
-	}
+    public void setFechaFin(Date fechaFin) {
+        this.fechaFin = fechaFin;
+    }
 
-	public String getEstado() {
-		return estado;
-	}
+    public String getEstado() {
+        return estado;
+    }
 
-	public void setEstado(String estado) {
-		this.estado = estado;
-	}
+    public void setEstado(String estado) {
+        this.estado = estado;
+    }
 
-	public double getPrecioFinal() {
-		return precioFinal;
-	}
+    public Double getPrecioFinal() {
+        return precioFinal;
+    }
 
-	public void setPrecioFinal(double precioFinal) {
-		this.precioFinal = precioFinal;
-	}
+    public void setPrecioFinal(Double precioFinal) {
+        this.precioFinal = precioFinal;
+    }
 
-	public Date getInicioServicio() {
-		return inicioServicio;
-	}
+    public Date getInicioServicio() {
+        return inicioServicio;
+    }
 
-	public void setInicioServicio(Date inicioServicio) {
-		this.inicioServicio = inicioServicio;
-	}
+    public void setInicioServicio(Date inicioServicio) {
+        this.inicioServicio = inicioServicio;
+    }
 
-	public Date getFinServicio() {
-		return finServicio;
-	}
+    public Date getFinServicio() {
+        return finServicio;
+    }
 
-	public void setFinServicio(Date finServicio) {
-		this.finServicio = finServicio;
-	}
-
+    public void setFinServicio(Date finServicio) {
+        this.finServicio = finServicio;
+    }
 }

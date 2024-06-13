@@ -16,7 +16,7 @@ import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.auth.FirebaseUser
 import com.google.firebase.auth.GoogleAuthProvider
 
-class RegisterViewModel(val context: Context) : ViewModel() {
+class RegistroViewModel(val context: Context) : ViewModel() {
     private val auth: FirebaseAuth = FirebaseAuth.getInstance()
     private val googleSignInClient: GoogleSignInClient
     private val _userLiveData = MutableLiveData<FirebaseUser?>()
@@ -77,9 +77,9 @@ class RegisterViewModel(val context: Context) : ViewModel() {
 
     class Factory(private val context: Context) : ViewModelProvider.Factory {
         override fun <T : ViewModel> create(modelClass: Class<T>): T {
-            if (modelClass.isAssignableFrom(RegisterViewModel::class.java)) {
+            if (modelClass.isAssignableFrom(RegistroViewModel::class.java)) {
                 @Suppress("UNCHECKED_CAST")
-                return RegisterViewModel(context) as T
+                return RegistroViewModel(context) as T
             }
             throw IllegalArgumentException("Unknown ViewModel class")
         }

@@ -12,8 +12,12 @@ import com.proyecto.encuentranos.repositorios.IMensajeRepositorio;
 @Service
 public class MensajeServicio {
 
+    private final IMensajeRepositorio mensajeRepositorio;
+
     @Autowired
-    private IMensajeRepositorio mensajeRepositorio;
+    public MensajeServicio(IMensajeRepositorio mensajeRepositorio) {
+        this.mensajeRepositorio = mensajeRepositorio;
+    }
 
     public List<MensajeModelo> getAllMensajes() {
         return mensajeRepositorio.findAll();

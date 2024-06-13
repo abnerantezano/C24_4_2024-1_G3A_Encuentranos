@@ -9,7 +9,6 @@ import androidx.activity.result.contract.ActivityResultContracts
 import androidx.appcompat.app.AppCompatActivity
 import androidx.core.view.ViewCompat
 import androidx.core.view.WindowInsetsCompat
-import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProvider
 import com.ambrosio.josue.tutorial.databinding.ActivityLoginBinding
 import com.ambrosio.josue.tutorial.viewModels.LoginViewModel
@@ -27,10 +26,10 @@ class LoginActivity : AppCompatActivity() {
         binding = ActivityLoginBinding.inflate(layoutInflater)
         setContentView(binding.root)
 
-        // Initialize the LoginViewModel with Factory
+        // Inicializar el LoginViewModel con Factory
         loginViewModel = ViewModelProvider(this, LoginViewModel.Factory(applicationContext)).get(LoginViewModel::class.java)
 
-        // Initialize the ActivityResultLauncher
+        // Inicializar el ActivityResultLauncher
         resultLauncher = registerForActivityResult(
             ActivityResultContracts.StartActivityForResult()
         ) { result ->
@@ -40,15 +39,15 @@ class LoginActivity : AppCompatActivity() {
             }
         }
 
-        // Set onClickListener for the SignInButton
+        // Set onClickListener para el botón de inicio de sesión
         binding.signInButton.setOnClickListener {
             val signInIntent = loginViewModel.signIn()
             resultLauncher.launch(signInIntent)
         }
 
-        // Set onClickListener for the register text
+        // Set onClickListener para el texto de registro
         binding.registerText.setOnClickListener {
-            val intent = Intent(this, RegisterActivity::class.java)
+            val intent = Intent(this, RegistroActivity::class.java)
             startActivity(intent)
         }
 
@@ -69,33 +68,26 @@ class LoginActivity : AppCompatActivity() {
             Toast.makeText(this, "Error usuario o contraseña incorrectos", Toast.LENGTH_SHORT).show()
         }
         loginViewModel.loginSuccess.observe(this) {
-            startActivity(Intent(this, CrearUsuarioActivity::class.java))
+            startActivity(Intent(this, InicioSesionActivity::class.java))
             finish()
         }
 
         // Observar cambios en userLiveData
-        loginViewModel.userLiveData.observe(this, Observer { user ->
+        loginViewModel.userLiveData.observe(this) { user ->
             updateUI(user)
-        })
+        }
+
+        // Observar respuesta del backend
+        loginViewModel.backendResponse.observe(this) { response ->
+            Toast.makeText(this, response, Toast.LENGTH_SHORT).show()
+        }
     }
 
     private fun updateUI(user: FirebaseUser?) {
         if (user != null) {
-            val intent = Intent(this, CrearUsuarioActivity::class.java).apply {
-                putExtra("email", user.email)
-            }
-            startActivity(intent)
+            // El usuario está autenticado, continuar con la siguiente actividad
+            startActivity(Intent(this, InicioSesionActivity::class.java))
             finish()
         }
-    }
-
-    override fun onStart() {
-        super.onStart()
-        val currentUser = loginViewModel.userLiveData.value
-        updateUI(currentUser)
-    }
-
-    companion object {
-        private const val TAG = "LoginActivity"
     }
 }

@@ -13,8 +13,12 @@ import java.util.Optional;
 @RequestMapping("/mensaje")
 public class MensajeControlador {
 
+    private final MensajeServicio mensajeServicio;
+
     @Autowired
-    private MensajeServicio mensajeServicio;
+    public MensajeControlador(MensajeServicio mensajeServicio) {
+        this.mensajeServicio = mensajeServicio;
+    }
 
     @GetMapping("/listar")
     public List<MensajeModelo> getAllMensajes() {

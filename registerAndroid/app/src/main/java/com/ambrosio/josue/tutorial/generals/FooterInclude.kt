@@ -11,6 +11,11 @@ import com.ambrosio.josue.tutorial.activities.OpcionesUsuarioActivity
 import com.ambrosio.josue.tutorial.activities.ServicioProveedorActivity
 import com.ambrosio.josue.tutorial.activities.ServiciosListActivity
 import com.ambrosio.josue.tutorial.databinding.FooterBinding
+import com.ambrosio.josue.tutorial.fragments.CuartoFragment
+import com.ambrosio.josue.tutorial.fragments.InicioFragment
+import com.ambrosio.josue.tutorial.fragments.PerfilFragment
+import com.ambrosio.josue.tutorial.fragments.ServicioProveedorFragment
+import com.ambrosio.josue.tutorial.fragments.ServiciosFragment
 
 abstract class FooterInclude : AppCompatActivity() {
     private var binding: FooterBinding? = null
@@ -25,27 +30,27 @@ abstract class FooterInclude : AppCompatActivity() {
             binding = FooterBinding.bind(footerView)
             // Configurar clics para los iconos usando los ids
             binding?.iconHome?.setOnClickListener {
-                val intent = Intent(this, InicioSesionActivity::class.java)
+                val intent = Intent(this, InicioFragment::class.java)
                 intent.putExtra("nombreUsuario", "Usuario")
                 startActivity(intent)
             }
 
             binding?.iconLimpieza?.setOnClickListener {
-                val intent = Intent(this, ServiciosListActivity::class.java)
+                val intent = Intent(this, ServiciosFragment::class.java)
                 startActivity(intent)
             }
 
             binding?.iconTarjetra?.setOnClickListener{
-                val intent = Intent(this, ServicioProveedorActivity::class.java)
+                val intent = Intent(this, ServicioProveedorFragment::class.java)
                 startActivity(intent)
             }
 
             binding?.iconChat?.setOnClickListener{
-                val intent = Intent(this, MensajeActivity::class.java)
+                val intent = Intent(this, CuartoFragment::class.java)
                 startActivity(intent)
             }
             binding?.iconUsuario?.setOnClickListener {
-                val intent = Intent(this, OpcionesUsuarioActivity::class.java)
+                val intent = Intent(this, PerfilFragment::class.java)
                 startActivity(intent)
             }
         } else {

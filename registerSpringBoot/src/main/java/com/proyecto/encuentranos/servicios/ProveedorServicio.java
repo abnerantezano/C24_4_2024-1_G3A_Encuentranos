@@ -1,6 +1,6 @@
 package com.proyecto.encuentranos.servicios;
 
-import java.util.ArrayList;
+import java.util.List;
 import java.util.Optional;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -14,10 +14,14 @@ public class ProveedorServicio {
 	
 	//INSTANCIAR LAS CLASES QUE USAREMOS
 
+	private final IProveedorRepositorio proveedorRepositorio;
+
 	@Autowired
-	IProveedorRepositorio proveedorRepositorio;
-	
-    //CRUD
+	public ProveedorServicio(IProveedorRepositorio proveedorRepositorio) {
+		this.proveedorRepositorio = proveedorRepositorio;
+	}
+
+	//CRUD
     
     //CREATE
 	public ProveedorModelo guardarProveedor(ProveedorModelo proveedor) {
@@ -25,8 +29,8 @@ public class ProveedorServicio {
 	}
 	
 	//READ
-	public ArrayList<ProveedorModelo> obtenerProveedores(){
-		return (ArrayList<ProveedorModelo>)proveedorRepositorio.findAll();
+	public List<ProveedorModelo> obtenerProveedores(){
+		return proveedorRepositorio.findAll();
 	}
 	
 	//UPDATE

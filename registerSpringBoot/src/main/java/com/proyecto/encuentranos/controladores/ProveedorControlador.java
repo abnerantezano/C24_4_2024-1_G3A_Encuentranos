@@ -1,6 +1,6 @@
 package com.proyecto.encuentranos.controladores;
 
-import java.util.ArrayList;
+import java.util.List;
 import java.util.Optional;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -18,10 +18,13 @@ import com.proyecto.encuentranos.servicios.ProveedorServicio;
 public class ProveedorControlador {
 	
 	//INSTANCIAR LAS CLASES QUE USAREMOS
+	private final ProveedorServicio proveedorServicio;
 
 	@Autowired
-	private ProveedorServicio proveedorServicio;
-	
+	public ProveedorControlador(ProveedorServicio proveedorServicio) {
+		this.proveedorServicio = proveedorServicio;
+	}
+
 	//AGREGAR PROVEEDOR
 	@PostMapping("/agregar")
 	public ResponseEntity<ProveedorModelo> guardarProveedor(@RequestBody ProveedorModelo proveedor) {
@@ -31,8 +34,8 @@ public class ProveedorControlador {
 	
 	//LISTAR PROVEEDORES
 	@GetMapping("/listar")
-	public ResponseEntity<ArrayList<ProveedorModelo>> obtenerProveedor(){
-		ArrayList<ProveedorModelo> proveedores = this.proveedorServicio.obtenerProveedores();
+	public ResponseEntity<List<ProveedorModelo>> obtenerProveedor(){
+		List<ProveedorModelo> proveedores = this.proveedorServicio.obtenerProveedores();
 		return new ResponseEntity<>(proveedores, HttpStatus.OK);
 	}
 	

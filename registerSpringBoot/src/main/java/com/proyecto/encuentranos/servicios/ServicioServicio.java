@@ -1,6 +1,6 @@
 package com.proyecto.encuentranos.servicios;
 
-import java.util.ArrayList;
+import java.util.List;
 import java.util.Optional;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -13,13 +13,16 @@ import com.proyecto.encuentranos.repositorios.IServicioRepositorio;
 public class ServicioServicio {
 	
 	//INSTANCIAR LAS CLASES QUE USAREMOS
+    private final IServicioRepositorio servicioRepositorio;
 
     @Autowired
-    IServicioRepositorio servicioRepositorio;
-    
+    public ServicioServicio(IServicioRepositorio servicioRepositorio) {
+        this.servicioRepositorio = servicioRepositorio;
+    }
+
     //OBTENER TODOS LOS SERVICIOS
-    public ArrayList<ServicioModelo> obtenerServicios(){
-    	return (ArrayList<ServicioModelo>)servicioRepositorio.findAll();
+    public List<ServicioModelo> obtenerServicios(){
+    	return servicioRepositorio.findAll();
     }
     
     //BUSCAR UN SERVICIO POR ID

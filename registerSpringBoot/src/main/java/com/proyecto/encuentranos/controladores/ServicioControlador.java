@@ -1,6 +1,6 @@
 package com.proyecto.encuentranos.controladores;
 
-import java.util.ArrayList;
+import java.util.List;
 import java.util.Optional;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -18,14 +18,17 @@ import com.proyecto.encuentranos.servicios.ServicioServicio;
 public class ServicioControlador {
 	
 	//INSTANCIAR LAS CLASES QUE USAREMOS
+	private final ServicioServicio servicioServicio;
 
 	@Autowired
-	private ServicioServicio servicioServicio;
-	
+	public ServicioControlador(ServicioServicio servicioServicio) {
+		this.servicioServicio = servicioServicio;
+	}
+
 	//LISTAR SERVICIOS
 	@GetMapping("/listar")
-	public ResponseEntity<ArrayList<ServicioModelo>> obtenerServicios(){
-		ArrayList<ServicioModelo> servicios = this.servicioServicio.obtenerServicios();
+	public ResponseEntity<List<ServicioModelo>> obtenerServicios(){
+		List<ServicioModelo> servicios = this.servicioServicio.obtenerServicios();
 		return new ResponseEntity<>(servicios, HttpStatus.OK);
 	}
 	

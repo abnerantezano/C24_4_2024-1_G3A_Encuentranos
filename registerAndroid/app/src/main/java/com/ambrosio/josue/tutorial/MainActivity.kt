@@ -1,14 +1,11 @@
 package com.ambrosio.josue.tutorial
+
 import android.os.Bundle
 import androidx.appcompat.app.AppCompatActivity
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.commit
 import com.ambrosio.josue.tutorial.databinding.ActivityMainBinding
-import com.ambrosio.josue.tutorial.fragments.CuartoFragment
-import com.ambrosio.josue.tutorial.fragments.InicioFragment
-import com.ambrosio.josue.tutorial.fragments.PerfilFragment
-import com.ambrosio.josue.tutorial.fragments.ServiciosFragment
-import com.ambrosio.josue.tutorial.fragments.TerceroFragment
+import com.ambrosio.josue.tutorial.fragments.*
 
 class MainActivity : AppCompatActivity() {
     private lateinit var binding: ActivityMainBinding
@@ -25,7 +22,7 @@ class MainActivity : AppCompatActivity() {
             showFragment(ServiciosFragment())
         }
         binding.iconTarjeta.setOnClickListener {
-            showFragment(TerceroFragment())
+            showFragment(ServicioProveedorFragment())
         }
         binding.iconChat.setOnClickListener {
             showFragment(CuartoFragment())

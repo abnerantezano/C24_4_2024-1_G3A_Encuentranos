@@ -15,10 +15,19 @@ import com.google.android.gms.common.api.ApiException
 import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.auth.FirebaseUser
 import com.google.firebase.auth.GoogleAuthProvider
+import kotlinx.coroutines.Dispatchers
+import kotlinx.coroutines.withContext
+import okhttp3.Call
+import okhttp3.Callback
+import okhttp3.OkHttpClient
+import okhttp3.Request
+import okhttp3.Response
+import org.json.JSONObject
+import java.io.IOException
 
-class LoginViewModel (
-    val context: Context
-): ViewModel(){
+class LoginViewModel(
+    private val context: Context
+) : ViewModel() {
     private val auth: FirebaseAuth = FirebaseAuth.getInstance()
     private val googleSignInClient: GoogleSignInClient
     private val _userLiveData = MutableLiveData<FirebaseUser?>()
@@ -33,8 +42,11 @@ class LoginViewModel (
     private val _loginSuccess = MutableLiveData<Boolean>()
     val loginSuccess: LiveData<Boolean> get() = _loginSuccess
 
+    private val _backendResponse = MutableLiveData<String>()
+    val backendResponse: LiveData<String> get() = _backendResponse
+
     init {
-        // Configure Google Sign In
+        // Configurar Google Sign In
         val gso = GoogleSignInOptions.Builder(GoogleSignInOptions.DEFAULT_SIGN_IN)
             .requestIdToken(context.getString(R.string.default_web_client_id))
             .requestEmail()
@@ -66,12 +78,48 @@ class LoginViewModel (
                     Log.d(TAG, "signInWithCredential:success")
                     _userLiveData.postValue(auth.currentUser)
                     _loginSuccess.postValue(true)
+                    auth.currentUser?.getIdToken(true)?.addOnCompleteListener { tokenTask ->
+                        if (tokenTask.isSuccessful) {
+                            val idToken = tokenTask.result?.token
+                            idToken?.let { fetchBackendData(it) }
+                        }
+                    }
                 } else {
                     Log.w(TAG, "signInWithCredential:failure", task.exception)
                     _authError.postValue(true)
                 }
             }
     }
+
+    private fun fetchBackendData(accessToken: String) {
+        val client = OkHttpClient()
+        val request = Request.Builder()
+            .url("http://192.168.100.13:4000/usuario/token")
+            .addHeader("Authorization", "Bearer $accessToken")
+            .build()
+
+        client.newCall(request).enqueue(object : Callback {
+            override fun onFailure(call: Call, e: IOException) {
+                Log.e("Auth", "Error fetching token and email", e)
+            }
+
+            override fun onResponse(call: Call, response: Response) {
+                if (response.isSuccessful) {
+                    response.body?.let {
+                        val responseBody = it.string()
+                        val json = JSONObject(responseBody)
+                        val token = json.getString("token")
+                        val email = json.getString("email")
+                        Log.d("Auth", "Token: $token, Email: $email")
+                    }
+                } else {
+                    Log.e("Auth", "Error response code: ${response.code}")
+                }
+            }
+        })
+
+    }
+
 
     companion object {
         private const val TAG = "LoginViewModel"

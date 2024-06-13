@@ -7,23 +7,23 @@ import androidx.activity.result.ActivityResultLauncher
 import androidx.activity.result.contract.ActivityResultContracts
 import androidx.appcompat.app.AppCompatActivity
 import androidx.lifecycle.ViewModelProvider
-import com.ambrosio.josue.tutorial.databinding.ActivityRegisterBinding
-import com.ambrosio.josue.tutorial.viewModels.RegisterViewModel
+import com.ambrosio.josue.tutorial.databinding.ActivityRegistroBinding
+import com.ambrosio.josue.tutorial.viewModels.RegistroViewModel
 import com.google.firebase.auth.FirebaseUser
 
-class RegisterActivity : AppCompatActivity() {
+class RegistroActivity : AppCompatActivity() {
 
-    private lateinit var binding: ActivityRegisterBinding
-    private lateinit var registerViewModel: RegisterViewModel
+    private lateinit var binding: ActivityRegistroBinding
+    private lateinit var registroViewModel: RegistroViewModel
     private lateinit var resultLauncher: ActivityResultLauncher<Intent>
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        binding = ActivityRegisterBinding.inflate(layoutInflater)
+        binding = ActivityRegistroBinding.inflate(layoutInflater)
         setContentView(binding.root)
 
         // Initialize the RegisterViewModel with Factory
-        registerViewModel = ViewModelProvider(this, RegisterViewModel.Factory(applicationContext)).get(RegisterViewModel::class.java)
+        registroViewModel = ViewModelProvider(this, RegistroViewModel.Factory(applicationContext)).get(RegistroViewModel::class.java)
 
         // Initialize the ActivityResultLauncher
         resultLauncher = registerForActivityResult(
@@ -31,7 +31,7 @@ class RegisterActivity : AppCompatActivity() {
         ) { result ->
             if (result.resultCode == RESULT_OK) {
                 val intent = result.data
-                registerViewModel.handleSignInResult(intent)
+                registroViewModel.handleSignInResult(intent)
             }
         }
 
@@ -44,7 +44,7 @@ class RegisterActivity : AppCompatActivity() {
 
         // Set onClickListener for the Google Sign-In button
         binding.signInButton.setOnClickListener {
-            val signInIntent = registerViewModel.signIn()
+            val signInIntent = registroViewModel.signIn()
             resultLauncher.launch(signInIntent)
         }
 
@@ -52,14 +52,14 @@ class RegisterActivity : AppCompatActivity() {
     }
 
     private fun observeViewModel() {
-        registerViewModel.inputsError.observe(this) {
+        registroViewModel.inputsError.observe(this) {
             Toast.makeText(this, "Ingrese los datos completos", Toast.LENGTH_SHORT).show()
         }
-        registerViewModel.authError.observe(this) {
+        registroViewModel.authError.observe(this) {
             Toast.makeText(this, "Error de autenticación", Toast.LENGTH_SHORT).show()
         }
-        registerViewModel.registerSuccess.observe(this) {
-            val user = registerViewModel.userLiveData.value
+        registroViewModel.registerSuccess.observe(this) {
+            val user = registroViewModel.userLiveData.value
             updateUI(user)
         }
     }

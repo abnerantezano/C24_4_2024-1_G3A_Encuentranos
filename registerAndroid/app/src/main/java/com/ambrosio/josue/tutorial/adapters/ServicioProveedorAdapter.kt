@@ -33,10 +33,15 @@ class ServicioProveedorAdapter : RecyclerView.Adapter<ServicioProveedorAdapter.S
     inner class ServicioProveedorViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView) {
         private val nombreTextView: TextView = itemView.findViewById(R.id.tvNombreProveedor)
         private val descripcionTextView: TextView = itemView.findViewById(R.id.tvServicio)
+        private val isNegociableTextView: TextView = itemView.findViewById(R.id.tvIsNegociable)
+        private val PrecioTextView: TextView = itemView.findViewById(R.id.tvPrecioActual)
 
         fun bind(servicio: ServicioProveedorModel) {
             nombreTextView.text = servicio.idProveedor.nombre
             descripcionTextView.text = servicio.idServicio.nombre
+            isNegociableTextView.text = if (servicio.negociable) "Sí es negociable" else "No es negociable"
+            PrecioTextView.text = servicio.precio.toString()
+
         }
     }
 }

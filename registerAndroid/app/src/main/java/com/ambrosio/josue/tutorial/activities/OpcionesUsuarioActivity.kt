@@ -2,11 +2,6 @@ package com.ambrosio.josue.tutorial.activities
 
 import android.content.Intent
 import android.os.Bundle
-import androidx.activity.enableEdgeToEdge
-import androidx.appcompat.app.AppCompatActivity
-import androidx.core.view.ViewCompat
-import androidx.core.view.WindowInsetsCompat
-import com.ambrosio.josue.tutorial.R
 import com.ambrosio.josue.tutorial.databinding.ActivityOpcionesUsuarioBinding
 import com.ambrosio.josue.tutorial.generals.FooterInclude
 import com.google.android.gms.auth.api.signin.GoogleSignIn
@@ -38,22 +33,22 @@ class OpcionesUsuarioActivity : FooterInclude() {
 
     private fun setupClickListeners() {
         binding.tvPerfil.setOnClickListener {
-            val intent = Intent(this, ProfilelActivity::class.java)
+            val intent = Intent(this, PerfilActivity::class.java)
             startActivity(intent)
         }
 
         binding.tvVerInformacion.setOnClickListener {
-            val intent = Intent(this, PersonaInformationActivity::class.java)
+            val intent = Intent(this, InformacionPersonalActivity::class.java)
             startActivity(intent)
         }
 
         binding.tvCambiarContrasena.setOnClickListener {
-            val intent = Intent(this, ChangePasswordsActivity::class.java)
+            val intent = Intent(this, CambiarContrasenaActivity::class.java)
             startActivity(intent)
         }
 
         binding.tvContratos.setOnClickListener {
-            val intent = Intent(this, MyContractsActivity::class.java)
+            val intent = Intent(this, MiContratoActivity::class.java)
             startActivity(intent)
         }
         binding.tvCerrarSesion.setOnClickListener {

@@ -18,16 +18,17 @@ import com.proyecto.encuentranos.repositorios.IServicioProveedorRepositorio;
 public class ClienteServicio {
 	
 	//INSTANCIAR LAS CLASES QUE USAREMOS
-	
+	private final IClienteRepositorio clienteRepositorio;
+	private final IProveedorRepositorio proveedorRepositorio;
+	private final IServicioProveedorRepositorio servicioRepositorio;
+
 	@Autowired
-	IClienteRepositorio clienteRepositorio;
-	
-	@Autowired
-	IProveedorRepositorio proveedorRepositorio;
-	
-	@Autowired
-	IServicioProveedorRepositorio servicioRepositorio;
-	
+	public ClienteServicio(IClienteRepositorio clienteRepositorio, IProveedorRepositorio proveedorRepositorio, IServicioProveedorRepositorio servicioRepositorio) {
+		this.clienteRepositorio = clienteRepositorio;
+		this.proveedorRepositorio = proveedorRepositorio;
+		this.servicioRepositorio = servicioRepositorio;
+	}
+
 	//CRUD
 	
 	//CREATE
@@ -36,8 +37,8 @@ public class ClienteServicio {
 	}
 	
 	//READ
-	public ArrayList<ClienteModelo> obtenerClientes(){
-		return (ArrayList<ClienteModelo>)clienteRepositorio.findAll();
+	public List<ClienteModelo> obtenerClientes(){
+		return clienteRepositorio.findAll();
 	}
 	
 	//UPDATE

@@ -14,8 +14,12 @@ import java.util.Optional;
 @RequestMapping("/api/calificaciones")
 public class CalificacionControlador {
 
+    private final CalificacionServicio calificacionServicio;
+
     @Autowired
-    private CalificacionServicio calificacionServicio;
+    public CalificacionControlador(CalificacionServicio calificacionServicio) {
+        this.calificacionServicio = calificacionServicio;
+    }
 
     @GetMapping
     public ResponseEntity<List<CalificacionModelo>> obtenerTodasCalificaciones() {

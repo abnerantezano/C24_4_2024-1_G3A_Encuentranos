@@ -1,6 +1,6 @@
 package com.proyecto.encuentranos.servicios;
 
-import java.util.ArrayList;
+import java.util.List;
 import java.util.Optional;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -15,16 +15,19 @@ import com.proyecto.encuentranos.repositorios.IUsuarioRepositorio;
 public class UsuarioServicio {
 
 	//INSTANCIAR LAS CLASES QUE USAREMOS
-
-	@Autowired
-	IUsuarioRepositorio usuarioRepositorio;
+	private final IUsuarioRepositorio usuarioRepositorio;
 	
-    @Autowired
-    private IClienteRepositorio clienteRepositorio;
+    private final IClienteRepositorio clienteRepositorio;
+
+    private final IProveedorRepositorio proveedorRepositorio;
 
     @Autowired
-    private IProveedorRepositorio proveedorRepositorio;
-    
+    public UsuarioServicio(IUsuarioRepositorio usuarioRepositorio, IClienteRepositorio clienteRepositorio, IProveedorRepositorio proveedorRepositorio) {
+        this.usuarioRepositorio = usuarioRepositorio;
+        this.clienteRepositorio = clienteRepositorio;
+        this.proveedorRepositorio = proveedorRepositorio;
+    }
+
     //CRUD
     
     //CREATE
@@ -33,8 +36,8 @@ public class UsuarioServicio {
 	}
 	
     //READ
-    public ArrayList<UsuarioModelo> obtenerUsuarios(){
-    	return (ArrayList<UsuarioModelo>)usuarioRepositorio.findAll();
+    public List<UsuarioModelo> obtenerUsuarios(){
+    	return usuarioRepositorio.findAll();
     }
     
     //UPDATE

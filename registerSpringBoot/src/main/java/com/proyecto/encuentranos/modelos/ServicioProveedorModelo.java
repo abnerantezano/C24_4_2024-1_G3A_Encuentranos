@@ -23,9 +23,6 @@ public class ServicioProveedorModelo {
     @Column(name = "negociable")
     private boolean negociable;
 
-    // Constructor sin argumentos
-    public ServicioProveedorModelo() {}
-
     public ServicioProveedorModeloId getId() {
         return id;
     }

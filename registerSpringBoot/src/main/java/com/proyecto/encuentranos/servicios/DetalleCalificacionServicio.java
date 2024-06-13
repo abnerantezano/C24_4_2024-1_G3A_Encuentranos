@@ -1,6 +1,5 @@
 package com.proyecto.encuentranos.servicios;
 
-import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
 
@@ -16,14 +15,16 @@ import com.proyecto.encuentranos.repositorios.IProveedorRepositorio;
 @Service
 public class DetalleCalificacionServicio {
 
-	//INSTANCIAR LAS CLASES QUE USAREMOS
-	
+    //INSTANCIAR LAS CLASES QUE USAREMOS
+    private final IDetalleCalificacionRepositorio detalleCalificacionRepositorio;
+    private final IProveedorRepositorio proveedorRepositorio;
+
     @Autowired
-    IDetalleCalificacionRepositorio detalleCalificacionRepositorio;
-    
-    @Autowired
-    IProveedorRepositorio proveedorRepositorio;
-    
+    public DetalleCalificacionServicio(IDetalleCalificacionRepositorio detalleCalificacionRepositorio, IProveedorRepositorio proveedorRepositorio) {
+        this.detalleCalificacionRepositorio = detalleCalificacionRepositorio;
+        this.proveedorRepositorio = proveedorRepositorio;
+    }
+
     //CRUD
     
     //CREATE
@@ -39,8 +40,8 @@ public class DetalleCalificacionServicio {
     }
     
     //READ
-    public ArrayList<DetalleCalificacionModelo> obtenerCalificacionesProveedores(){
-        return (ArrayList<DetalleCalificacionModelo>)detalleCalificacionRepositorio.findAll();
+    public List<DetalleCalificacionModelo> obtenerCalificacionesProveedores(){
+        return detalleCalificacionRepositorio.findAll();
     }
     //----------------------------------------
     

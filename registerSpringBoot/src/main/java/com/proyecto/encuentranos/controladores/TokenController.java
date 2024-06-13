@@ -1,5 +1,6 @@
 package com.proyecto.encuentranos.controladores;
 
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.oauth2.client.OAuth2AuthorizedClient;
 import org.springframework.security.oauth2.client.OAuth2AuthorizedClientService;
 import org.springframework.security.oauth2.client.authentication.OAuth2AuthenticationToken;
@@ -14,6 +15,7 @@ public class TokenController {
 
     private final OAuth2AuthorizedClientService authorizedClientService;
 
+    @Autowired
     public TokenController(OAuth2AuthorizedClientService authorizedClientService) {
         this.authorizedClientService = authorizedClientService;
     }

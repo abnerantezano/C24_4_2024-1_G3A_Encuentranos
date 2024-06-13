@@ -5,11 +5,11 @@
     android:id="@+id/main"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".activities.ProfilelActivity">
+    tools:context=".activities.PerfilActivity">
 
     <include
         android:id="@+id/header"
-        layout="@layout/header"/>
+        layout="@layout/header_volver"/>
 
     <ImageView
         android:id="@+id/imgFoto"
@@ -75,17 +75,9 @@
         android:layout_height="wrap_content"
         android:text="Guardar"
         android:background="@drawable/button_background"
-        app:layout_constraintBottom_toTopOf="@id/footer"
+        app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="@+id/linearDescripcion"
         app:layout_constraintStart_toStartOf="@+id/linearDescripcion"
         app:layout_constraintTop_toBottomOf="@id/linearCurriculum" />
 
-    <LinearLayout
-        android:id="@+id/footer"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        app:layout_constraintBottom_toBottomOf="parent">
-        <include
-            layout="@layout/footer"/>
-    </LinearLayout>
 </androidx.constraintlayout.widget.ConstraintLayout>

@@ -5,11 +5,11 @@
     android:id="@+id/main"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".activities.ChangePasswordsActivity">
+    tools:context=".activities.CambiarContrasenaActivity">
 
     <include
         android:id="@+id/header"
-        layout="@layout/header"/>
+        layout="@layout/header_volver"/>
 
     <LinearLayout
         android:id="@+id/body"
@@ -70,18 +70,10 @@
         android:background="@drawable/button_background"
         android:text="Actualizar"
         android:textStyle="bold"
-        app:layout_constraintBottom_toTopOf="@+id/footer"
+        app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="@+id/body"
         app:layout_constraintStart_toStartOf="@+id/body"
         app:layout_constraintTop_toBottomOf="@id/body" />
 
-    <LinearLayout
-        android:id="@+id/footer"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        app:layout_constraintBottom_toBottomOf="parent">
-        <include
-            layout="@layout/footer"/>
-    </LinearLayout>
 
 </androidx.constraintlayout.widget.ConstraintLayout>

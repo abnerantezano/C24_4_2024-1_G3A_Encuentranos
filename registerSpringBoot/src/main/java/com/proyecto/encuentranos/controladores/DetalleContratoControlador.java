@@ -2,7 +2,7 @@ package com.proyecto.encuentranos.controladores;
 
 import java.util.List;
 
-import org.springframework.beans.factory.annotation.*;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
@@ -13,9 +13,13 @@ import com.proyecto.encuentranos.servicios.DetalleContratoServicio;
 @RequestMapping("/detalle-contrato")
 public class DetalleContratoControlador {
     
+    private final DetalleContratoServicio detalleContratoServicio;
+
     @Autowired
-    private DetalleContratoServicio detalleContratoServicio;
-    
+    public DetalleContratoControlador(DetalleContratoServicio detalleContratoServicio) {
+        this.detalleContratoServicio = detalleContratoServicio;
+    }
+
     //ENDOPOINT PARA OBTENER TODOS LOS DETALLES (SIRVE PARA PROBAR VISTAS)
     @GetMapping("/listar")
     public ResponseEntity<List<DetalleContratoModelo>> obtenerDetalleContratos() {

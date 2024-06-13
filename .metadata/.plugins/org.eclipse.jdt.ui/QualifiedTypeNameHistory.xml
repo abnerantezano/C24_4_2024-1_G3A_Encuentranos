@@ -51,4 +51,5 @@
     <fullyQualifiedTypeName name="org.junit.jupiter.api.Assertions"/>
     <fullyQualifiedTypeName name="com.proyecto.encuentranos.modelos.ContratoPk"/>
     <fullyQualifiedTypeName name="com.proyecto.encuentranos.modelos.ProveedorModelo"/>
+    <fullyQualifiedTypeName name="java.lang.Double"/>
 </qualifiedTypeNameHistroy>

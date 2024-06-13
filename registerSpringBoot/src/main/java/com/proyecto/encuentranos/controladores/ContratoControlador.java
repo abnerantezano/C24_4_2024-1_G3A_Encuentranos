@@ -1,6 +1,5 @@
 package com.proyecto.encuentranos.controladores;
 
-import java.util.ArrayList;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -15,8 +14,12 @@ import com.proyecto.encuentranos.servicios.ContratoServicio;
 @RequestMapping("/contrato")
 public class ContratoControlador {
 
+    private final ContratoServicio contratoServicio;
+
     @Autowired
-    private ContratoServicio contratoServicio;
+    public ContratoControlador(ContratoServicio contratoServicio) {
+        this.contratoServicio = contratoServicio;
+    }
 
     // Crear un nuevo contrato
     @PostMapping("/crear")
@@ -27,8 +30,8 @@ public class ContratoControlador {
     
     // Listar todos los contratos
     @GetMapping("/listar")
-    public ResponseEntity<ArrayList<ContratoModelo>> obtenerContratos() {
-        ArrayList<ContratoModelo> contratos = contratoServicio.obtenerContratos();
+    public ResponseEntity<List<ContratoModelo>> obtenerContratos() {
+        List<ContratoModelo> contratos = contratoServicio.obtenerContratos();
         return new ResponseEntity<>(contratos, HttpStatus.OK);
     }
     

@@ -10,7 +10,7 @@
 
     <include
         android:id="@+id/header"
-        layout="@layout/header_volver"/>
+        layout="@layout/header"/>
 
     <TextView
         android:id="@+id/tvServiciosDisponibles"
@@ -30,12 +30,10 @@
         android:layout_width="0dp"
         android:layout_height="0dp"
         app:layout_constraintTop_toBottomOf="@id/tvServiciosDisponibles"
-        app:layout_constraintBottom_toTopOf="@id/footer"
+        app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
         tools:listitem="@layout/item_servicio" />
 
-    <include
-        layout="@layout/footer"/>
 </androidx.constraintlayout.widget.ConstraintLayout>

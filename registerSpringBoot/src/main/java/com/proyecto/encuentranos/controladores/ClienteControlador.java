@@ -1,6 +1,5 @@
 package com.proyecto.encuentranos.controladores;
 
-import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
 
@@ -21,9 +20,13 @@ import com.proyecto.encuentranos.servicios.ClienteServicio;
 public class ClienteControlador {
     
     //INSTANCIAR LAS CLASES QUE USAREMOS
+    private final ClienteServicio clienteServicio;
+
     @Autowired
-    private ClienteServicio clienteServicio;
-    
+    public ClienteControlador(ClienteServicio clienteServicio) {
+        this.clienteServicio = clienteServicio;
+    }
+
     //AGREGAR UN CLIENTE
     @PostMapping("/agregar")
     public ResponseEntity<ClienteModelo> guardarCliente(@RequestBody ClienteModelo cliente) {
@@ -33,8 +36,8 @@ public class ClienteControlador {
     
     //LISTAR TODOS LOS CLIENTES
     @GetMapping("/listar")
-    public ResponseEntity<ArrayList<ClienteModelo>> obtenerClientes() {
-        ArrayList<ClienteModelo> clientes = clienteServicio.obtenerClientes();
+    public ResponseEntity<List<ClienteModelo>> obtenerClientes() {
+        List<ClienteModelo> clientes = clienteServicio.obtenerClientes();
         return new ResponseEntity<>(clientes, HttpStatus.OK);
     }
     

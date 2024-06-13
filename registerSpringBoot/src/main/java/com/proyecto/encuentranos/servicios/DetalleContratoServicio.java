@@ -1,6 +1,5 @@
 package com.proyecto.encuentranos.servicios;
 
-import java.util.ArrayList;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -12,12 +11,16 @@ import com.proyecto.encuentranos.repositorios.IDetalleContratoRepositorio;
 @Service
 public class DetalleContratoServicio {
     
+    private final IDetalleContratoRepositorio detalleContratoRepositorio;
+
     @Autowired
-    private IDetalleContratoRepositorio detalleContratoRepositorio;
-    
+    public DetalleContratoServicio(IDetalleContratoRepositorio detalleContratoRepositorio) {
+        this.detalleContratoRepositorio = detalleContratoRepositorio;
+    }
+
     //OBTENER TODOS LOS DETALLES CONTRATOS QUE HAY
-    public ArrayList<DetalleContratoModelo> obtenerDetalleContratos(){
-        return (ArrayList<DetalleContratoModelo>) detalleContratoRepositorio.findAll();
+    public List<DetalleContratoModelo> obtenerDetalleContratos(){
+        return detalleContratoRepositorio.findAll();
     }
     
     // OBTENER DETALLES CONTRATOS POR PROVEEDOR

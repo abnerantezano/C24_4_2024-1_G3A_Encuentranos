@@ -1,6 +1,6 @@
 package com.proyecto.encuentranos.servicios;
 
-import java.util.ArrayList;
+import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -12,12 +12,15 @@ import com.proyecto.encuentranos.repositorios.ITipoUsuarioRepositorio;
 public class TipoUsuarioServicio {
 
 	//INSTANCIAR LAS CLASES QUE USAREMOS
+    private final ITipoUsuarioRepositorio tipoUsuarioRepositorio;
 
     @Autowired
-    ITipoUsuarioRepositorio tipoUsuarioRepositorio;
-    
+    public TipoUsuarioServicio(ITipoUsuarioRepositorio tipoUsuarioRepositorio) {
+        this.tipoUsuarioRepositorio = tipoUsuarioRepositorio;
+    }
+
     //LISTAR
-    public ArrayList<TipoUsuarioModelo> encontrarTipoUsuarios(){
-    	return (ArrayList<TipoUsuarioModelo>)tipoUsuarioRepositorio.findAll();
+    public List<TipoUsuarioModelo> encontrarTipoUsuarios(){
+    	return tipoUsuarioRepositorio.findAll();
     }
 }

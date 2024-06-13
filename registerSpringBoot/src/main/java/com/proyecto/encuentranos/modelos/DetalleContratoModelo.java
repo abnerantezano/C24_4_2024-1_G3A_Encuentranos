@@ -23,9 +23,6 @@ public class DetalleContratoModelo {
 
     @Column(name = "precio_actual")
     private double precioActual;
-    
-    //CONSTRUCTOR SIN PARAMETROS
-	public DetalleContratoModelo() {}
 
 	public DetalleContratoModeloId getId() {
 		return id;

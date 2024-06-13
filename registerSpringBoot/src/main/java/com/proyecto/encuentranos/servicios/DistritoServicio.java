@@ -1,6 +1,6 @@
 package com.proyecto.encuentranos.servicios;
 
-import java.util.ArrayList;
+import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -12,12 +12,15 @@ import com.proyecto.encuentranos.repositorios.IDistritoRepositorio;
 public class DistritoServicio {
 	
 	//INSTANCIAR LAS CLASES QUE USAREMOS
-	
+	private final IDistritoRepositorio distritoRepositorio;
+
 	@Autowired
-	IDistritoRepositorio distritoRepositorio;
+	public DistritoServicio(IDistritoRepositorio distritoRepositorio){
+		this.distritoRepositorio = distritoRepositorio;
+	}
 	
 	//LISTAR DISTRITOS
-	public ArrayList<DistritoModelo> obtenerDistritos(){
-		return (ArrayList<DistritoModelo>)distritoRepositorio.findAll();
+	public List<DistritoModelo> obtenerDistritos(){
+		return distritoRepositorio.findAll();
 	}
 }

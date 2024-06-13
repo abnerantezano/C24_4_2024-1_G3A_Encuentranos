@@ -13,8 +13,12 @@ import java.util.Optional;
 @RequestMapping("/chat")
 public class ChatControlador {
 
+    private final ChatServicio chatServicio;
+
     @Autowired
-    private ChatServicio chatServicio;
+    public ChatControlador(ChatServicio chatServicio) {
+        this.chatServicio = chatServicio;
+    }
 
     @GetMapping("/listar")
     public List<ChatModelo> getAllChats() {

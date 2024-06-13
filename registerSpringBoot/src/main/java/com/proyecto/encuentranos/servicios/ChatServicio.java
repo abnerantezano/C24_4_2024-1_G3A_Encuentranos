@@ -13,8 +13,12 @@ import com.proyecto.encuentranos.repositorios.IChatRepositorio;
 @Service
 public class ChatServicio {
 
+    private final IChatRepositorio chatRepositorio;
+
     @Autowired
-    private IChatRepositorio chatRepositorio;
+    public ChatServicio(IChatRepositorio chatRepositorio) {
+        this.chatRepositorio = chatRepositorio;
+    }
 
     public List<ChatModelo> getAllChats() {
         return chatRepositorio.findAll();

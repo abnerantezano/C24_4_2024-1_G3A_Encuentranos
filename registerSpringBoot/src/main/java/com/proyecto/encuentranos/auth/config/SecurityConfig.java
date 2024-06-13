@@ -13,9 +13,6 @@ import org.springframework.security.config.annotation.web.configurers.AbstractHt
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.AuthenticationException;
 import org.springframework.security.oauth2.client.authentication.OAuth2AuthenticationToken;
-import org.springframework.security.oauth2.client.registration.ClientRegistrationRepository;
-import org.springframework.security.oauth2.client.web.OAuth2AuthorizationRequestRedirectFilter;
-import org.springframework.security.oauth2.client.web.OAuth2LoginAuthenticationFilter;
 import org.springframework.security.oauth2.core.user.OAuth2User;
 import org.springframework.security.web.SecurityFilterChain;
 import org.springframework.security.web.authentication.AuthenticationFailureHandler;
@@ -34,8 +31,13 @@ import jakarta.servlet.http.HttpServletResponse;
 @EnableWebSecurity
 public class SecurityConfig {
 
+
+    private final UsuarioServicio usuarioService;
+
     @Autowired
-    private UsuarioServicio usuarioService;
+    public SecurityConfig(UsuarioServicio usuarioService) {
+        this.usuarioService = usuarioService;
+    }
 
     @Bean
     SecurityFilterChain securityFilterChain(HttpSecurity http, @Value("${frontend.url}") String frontendUrl) throws Exception {
@@ -43,7 +45,7 @@ public class SecurityConfig {
             .csrf(AbstractHttpConfigurer::disable)
             .cors(cors -> cors.configurationSource(corsConfigurationSource()))
             .authorizeHttpRequests(auth -> auth
-                    .requestMatchers("/**","/login/**").permitAll()
+                    .requestMatchers("/login/**").permitAll()
                     .anyRequest().authenticated()
             )
                 .oauth2Login(oauth2 -> oauth2
@@ -64,7 +66,6 @@ public class SecurityConfig {
     			
     			// Obtener los atributos del usuario
     			String email = (String) oauth2User.getAttribute("email");
-                System.out.println("Holas " + email);
                 if (usuarioService.existsByEmail(email)) {
                     if (usuarioService.existsInClienteOrProveedor(email)) {
                         response.sendRedirect(frontendUrl + "/inicio");
@@ -82,8 +83,6 @@ public class SecurityConfig {
         return new AuthenticationFailureHandler() {
             @Override
             public void onAuthenticationFailure(HttpServletRequest request, HttpServletResponse response, AuthenticationException exception) throws IOException, ServletException {
-                String email = request.getParameter("correo");
-                System.out.println("Hola " + email);
                 response.sendRedirect(frontendUrl + "/crearUsuario");
             }
         };
@@ -91,7 +90,11 @@ public class SecurityConfig {
 
     private CorsConfigurationSource corsConfigurationSource() {
         CorsConfiguration configuration = new CorsConfiguration();
-        configuration.setAllowedOrigins(Arrays.asList("http://localhost:3000", "https://transcendent-starburst-8b45b4.netlify.app"));
+        configuration.setAllowedOrigins(Arrays.asList("http://localhost:3000", 
+        		"https://transcendent-starburst-8b45b4.netlify.app", 
+        		"http://10.0.2.2",
+                "http://localhost"));
+        
         configuration.setAllowedMethods(Arrays.asList("GET", "POST", "PUT", "DELETE"));
         configuration.setAllowedHeaders(Arrays.asList("X-Requested-With", "Origin", "Content-Type", "Accept", "Authorization"));
         configuration.setAllowCredentials(true);

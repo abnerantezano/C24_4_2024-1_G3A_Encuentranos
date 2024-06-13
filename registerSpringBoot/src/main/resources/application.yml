@@ -13,8 +13,7 @@ spring:
         registration:
           google:
             clientId: 406079063544-eu7sfj99hl2llietrs5caih5prkicv4q.apps.googleusercontent.com
-            clientSecret: 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
-            
+            clientSecret: ${GOOGLE_CLIENT_SECRET}
 server:
   port: 4000
   

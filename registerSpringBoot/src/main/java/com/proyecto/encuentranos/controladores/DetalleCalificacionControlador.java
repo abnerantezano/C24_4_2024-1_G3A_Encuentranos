@@ -1,6 +1,6 @@
 package com.proyecto.encuentranos.controladores;
 
-import java.util.ArrayList;
+import java.util.List;
 import java.util.Optional;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -19,12 +19,16 @@ import com.proyecto.encuentranos.servicios.DetalleCalificacionServicio;
 public class DetalleCalificacionControlador {
 
     // INSTANCIAR LAS CLASES QUE USAREMOS
+    private final DetalleCalificacionServicio calificacionProveedorServicio;
+
     @Autowired
-    DetalleCalificacionServicio calificacionProveedorServicio;
+    public DetalleCalificacionControlador(DetalleCalificacionServicio calificacionProveedorServicio) {
+        this.calificacionProveedorServicio = calificacionProveedorServicio;
+    }
 
     // AGREGAR LA CALIFICACION DE UN PROVEEDOR
     @PostMapping("/agregar")
-    public ResponseEntity<?> guardarCalificacionProveedor(@RequestBody DetalleCalificacionModelo calificacionProveedor) {
+    public ResponseEntity<DetalleCalificacionModelo> guardarCalificacionProveedor(@RequestBody DetalleCalificacionModelo calificacionProveedor) {
         try {
             calificacionProveedor.setId(new DetalleCalificacionModeloId(
                 calificacionProveedor.getIdProveedor().getIdProveedor(),
@@ -40,14 +44,14 @@ public class DetalleCalificacionControlador {
 
             return new ResponseEntity<>(calificacionProveedor, HttpStatus.CREATED);
         } catch (Exception e) {
-            return new ResponseEntity<>("No se pudo agregar la calificación del proveedor", HttpStatus.INTERNAL_SERVER_ERROR);
+            return new ResponseEntity<>(HttpStatus.INTERNAL_SERVER_ERROR);
         }
     }
 
     // LISTADO LA TABLA CALIFICACION PROVEEDOR
     @GetMapping("/listar")
-    public ResponseEntity<ArrayList<DetalleCalificacionModelo>> obtenerCalificacionesProveedores() {
-        ArrayList<DetalleCalificacionModelo> calificacionesProveedores = calificacionProveedorServicio.obtenerCalificacionesProveedores();
+    public ResponseEntity<List<DetalleCalificacionModelo>> obtenerCalificacionesProveedores() {
+        List<DetalleCalificacionModelo> calificacionesProveedores = calificacionProveedorServicio.obtenerCalificacionesProveedores();
         return new ResponseEntity<>(calificacionesProveedores, HttpStatus.OK);
     }
 

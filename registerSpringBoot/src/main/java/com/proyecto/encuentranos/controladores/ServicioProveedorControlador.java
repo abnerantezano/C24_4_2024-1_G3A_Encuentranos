@@ -1,6 +1,5 @@
 package com.proyecto.encuentranos.controladores;
 
-import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
 import java.util.Optional;
@@ -22,15 +21,19 @@ import com.proyecto.encuentranos.servicios.ServicioProveedorServicio;
 public class ServicioProveedorControlador {
 
     // INSTANCIAR LAS CLASES QUE USAREMOS
+    private final ServicioProveedorServicio servicioProveedorServicio;
+
     @Autowired
-    ServicioProveedorServicio servicioProveedorServicio;
+    public ServicioProveedorControlador(ServicioProveedorServicio servicioProveedorServicio) {
+        this.servicioProveedorServicio = servicioProveedorServicio;
+    }
 
     // AGREGAR A LA TABLA SERVICIO_PROVEEDOR
     @PostMapping("/agregar")
-    public ResponseEntity<?> agregarServicioProveedor(@RequestBody List<ServicioProveedorModelo> serviciosProveedor) {
+    public ResponseEntity<ServicioProveedorModelo> agregarServicioProveedor(@RequestBody List<ServicioProveedorModelo> serviciosProveedor) {
         try {
             if (serviciosProveedor.size() > 5) {
-                return new ResponseEntity<>("Solo se pueden agregar como máximo 5 servicios proveedores a la vez", HttpStatus.BAD_REQUEST);
+                return new ResponseEntity<>(HttpStatus.BAD_REQUEST);
             }
 
             for (ServicioProveedorModelo servicioProveedor : serviciosProveedor) {
@@ -39,17 +42,16 @@ public class ServicioProveedorControlador {
                 servicioProveedorServicio.agregarServicioProveedor(servicioProveedor);
             }
 
-            ArrayList<ServicioProveedorModelo> serviciosProveedorActualizados = servicioProveedorServicio.obtenerServiciosProveedores();
-            return new ResponseEntity<>(serviciosProveedorActualizados, HttpStatus.CREATED);
+            return new ResponseEntity<>(HttpStatus.CREATED);
         } catch (Exception e) {
-            return new ResponseEntity<>("No se pudo agregar el servicio proveedor", HttpStatus.INTERNAL_SERVER_ERROR);
+            return new ResponseEntity<>(HttpStatus.INTERNAL_SERVER_ERROR);
         }
     }
 
     // LISTAR LOS SERVICIOS PROVEEDORES
     @GetMapping("/listar")
-    public ResponseEntity<ArrayList<ServicioProveedorModelo>> obtenerServiciosProveedores() {
-        ArrayList<ServicioProveedorModelo> servicios = servicioProveedorServicio.obtenerServiciosProveedores();
+    public ResponseEntity<List<ServicioProveedorModelo>> obtenerServiciosProveedores() {
+        List<ServicioProveedorModelo> servicios = servicioProveedorServicio.obtenerServiciosProveedores();
         return new ResponseEntity<>(servicios, HttpStatus.OK);
     }
 
@@ -122,8 +124,8 @@ public class ServicioProveedorControlador {
 
     // OBTENER LOS SERVICIOS A LOS QUE EL PROVEEDOR NO ESTA REGISTRADO
     @GetMapping("/servicios-no-registrados/{idProveedor}")
-    public ResponseEntity<ArrayList<ServicioModelo>> obtenerServiciosNoRegistrados(@PathVariable("idProveedor") Integer idProveedor) {
-        ArrayList<ServicioModelo> serviciosNoRegistrados = servicioProveedorServicio.obtenerServiciosNoRegistrados(idProveedor);
+    public ResponseEntity<List<ServicioModelo>> obtenerServiciosNoRegistrados(@PathVariable("idProveedor") Integer idProveedor) {
+        List<ServicioModelo> serviciosNoRegistrados = servicioProveedorServicio.obtenerServiciosNoRegistrados(idProveedor);
         return new ResponseEntity<>(serviciosNoRegistrados, HttpStatus.OK);
     }
 
