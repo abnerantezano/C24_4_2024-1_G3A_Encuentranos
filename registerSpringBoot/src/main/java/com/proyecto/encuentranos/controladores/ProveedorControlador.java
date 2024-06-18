@@ -56,4 +56,15 @@ public class ProveedorControlador {
 			return new ResponseEntity<>(HttpStatus.NOT_FOUND);
 		}
 	}
+	
+	//BUSCAR PROVEEDOR POR ID DEL USUARIO
+	@GetMapping("/buscar-usuario/{idUsuario}")
+	public ResponseEntity<Optional<ProveedorModelo>> encontrarProveedorPorIdUsuario(@PathVariable Integer idUsuario) {
+	    Optional<ProveedorModelo> proveedorEncontrado = proveedorServicio.buscarProveedorPorUsuarioId(idUsuario);
+	    if (proveedorEncontrado.isPresent()) {
+	        return new ResponseEntity<>(proveedorEncontrado, HttpStatus.OK);
+	    } else {
+	        return new ResponseEntity<>(HttpStatus.NOT_FOUND);
+	    }
+	}
 }

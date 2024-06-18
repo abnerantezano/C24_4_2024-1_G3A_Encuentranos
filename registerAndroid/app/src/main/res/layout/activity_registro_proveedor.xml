@@ -21,11 +21,12 @@
         app:layout_constraintTop_toBottomOf="@id/header">
 
         <TextView
+            android:id="@+id/tvObtenerId"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginTop="20dp"
             android:textSize="25dp"
-            android:text="Información personal"
+            android:text="ID: "
             android:textColor="@color/skinBlack"
             android:textStyle="bold"
             android:layout_gravity="center"/>

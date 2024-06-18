@@ -16,4 +16,8 @@ interface UsuarioApi {
 
     @GET("usuario/verificar/{correo}")
     fun verificarUsuarioPorCorreo(@Path("correo") correo: String): Call<UsuarioModel>
+
+    // Nuevo método para obtener usuario por ID
+    @GET("usuario/{idUsuario}")
+    fun obtenerUsuarioPorId(@Path("idUsuario") idUsuario: Int): Call<UsuarioModel>
 }

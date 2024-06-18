@@ -22,7 +22,7 @@
         app:layout_constraintBottom_toTopOf="@id/btnActualizarContrasena">
 
         <TextView
-            android:id="@+id/text_crear_cuenta"
+            android:id="@+id/tvActualizarContrasena"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:gravity="center"
@@ -34,7 +34,7 @@
             android:textStyle="bold"/>
 
         <EditText
-            android:id="@+id/edit_text_contrasena"
+            android:id="@+id/edtContrasena"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_marginTop="30dp"
@@ -47,7 +47,7 @@
             android:inputType="textPassword"/>
 
         <EditText
-            android:id="@+id/edit_text_confirmar_contrasena"
+            android:id="@+id/edtConfirmarContrasena"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_marginTop="30dp"

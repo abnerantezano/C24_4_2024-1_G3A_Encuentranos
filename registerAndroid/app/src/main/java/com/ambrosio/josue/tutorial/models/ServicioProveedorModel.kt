@@ -1,8 +1,12 @@
 package com.ambrosio.josue.tutorial.models
 
 data class ServicioProveedorModel(
-    val idProveedor: ProveedorModel,
+    val id: ServicioProveedorModeloId,
+    val idProveedor: ProveedorModel = ProveedorModel(
+        idProveedor = 1,
+        idDistrito = DistritoModel(1)
+    ),
     val idServicio: ServicioModel,
-    val precio: Double,
-    val negociable: Boolean
+    val precio: Double = 0.0,
+    val negociable: Boolean = false
 )

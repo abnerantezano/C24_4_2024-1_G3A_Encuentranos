@@ -73,6 +73,10 @@ public class ClienteServicio {
 		return clienteRepositorio.findById(id);
 	}
 	
+    public Optional<ClienteModelo> buscarClientePorCorreo(String correo) {
+        return clienteRepositorio.findByIdUsuarioCorreo(correo);
+    }
+	
 	//OBTENER LOS PRESTADOR DEL MISMO DISTRITO DEL CLIENTE
 	public List<ProveedorModelo> encontrarPrestadoresDeMiDistrito(Integer idCliente) {
 		

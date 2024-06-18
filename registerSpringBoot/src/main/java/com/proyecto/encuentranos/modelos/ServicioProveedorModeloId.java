@@ -20,6 +20,9 @@ public class ServicioProveedorModeloId implements Serializable {
         this.idServicio = idServicio;
         this.idProveedor = idProveedor;
     }
+    public ServicioProveedorModeloId(int idProveedor) {
+        this.idProveedor = idProveedor;
+    }
 
     public int getIdServicio() {
         return idServicio;

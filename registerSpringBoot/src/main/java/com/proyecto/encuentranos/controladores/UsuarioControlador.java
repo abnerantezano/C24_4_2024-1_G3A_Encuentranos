@@ -1,27 +1,31 @@
 package com.proyecto.encuentranos.controladores;
 
-import org.springframework.http.HttpStatus;
-import org.springframework.http.ResponseEntity;
-import org.springframework.security.core.Authentication;
-import org.springframework.security.core.context.SecurityContextHolder;
-import org.springframework.security.oauth2.client.OAuth2AuthorizedClientService;
-import org.springframework.security.oauth2.client.authentication.OAuth2AuthenticationToken;
-import org.springframework.security.oauth2.core.OAuth2AccessToken;
-import org.springframework.security.oauth2.core.user.OAuth2User;
-import org.springframework.web.bind.annotation.*;
-
+import com.google.firebase.auth.FirebaseAuth;
+import com.google.firebase.auth.FirebaseAuthException;
+import com.google.firebase.auth.FirebaseToken;
 import com.proyecto.encuentranos.modelos.ClienteModelo;
 import com.proyecto.encuentranos.modelos.ProveedorModelo;
 import com.proyecto.encuentranos.modelos.UsuarioModelo;
 import com.proyecto.encuentranos.servicios.ClienteServicio;
 import com.proyecto.encuentranos.servicios.ProveedorServicio;
 import com.proyecto.encuentranos.servicios.UsuarioServicio;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
+import org.springframework.security.core.Authentication;
+import org.springframework.security.core.context.SecurityContextHolder;
+import org.springframework.security.oauth2.client.OAuth2AuthorizedClient;
+import org.springframework.security.oauth2.client.OAuth2AuthorizedClientService;
+import org.springframework.security.oauth2.client.authentication.OAuth2AuthenticationToken;
+import org.springframework.security.oauth2.core.OAuth2AccessToken;
+import org.springframework.security.oauth2.core.user.OAuth2User;
+import org.springframework.web.bind.annotation.*;
 
+import java.time.Instant;
 import java.util.List;
 import java.util.Map;
 import java.util.Optional;
 
-//ESTAMOS CREANDO EL CONTROLADOR PARA Usuario
 @CrossOrigin(origins = {"http://localhost:3000", "http://127.0.0.1:3000"})
 @RestController
 @RequestMapping("/usuario")
@@ -37,6 +41,7 @@ public class UsuarioControlador {
     private final ProveedorServicio proveedorServicio;
     private final OAuth2AuthorizedClientService authorizedClientService;
 
+    @Autowired
     public UsuarioControlador(UsuarioServicio usuarioServicio, ClienteServicio clienteServicio,
                               ProveedorServicio proveedorServicio, OAuth2AuthorizedClientService authorizedClientService) {
         this.usuarioServicio = usuarioServicio;
@@ -69,12 +74,59 @@ public class UsuarioControlador {
         }
         return ResponseEntity.status(HttpStatus.UNAUTHORIZED).body(Map.of(ERROR, NOT_OAUTH2_AUTHENTICATION));
     }
+    
+    @GetMapping("/buscar/{idUsuario}")
+    public ResponseEntity<UsuarioModelo> buscarUsuarioPorId(@PathVariable int idUsuario){
+        Optional<UsuarioModelo> usuario = usuarioServicio.buscarUsuarioPorId(idUsuario);
+        return usuario.map(ResponseEntity::ok).orElse(ResponseEntity.notFound().build());
+    }
 
     @GetMapping("/verificar/{correo}")
-    public ResponseEntity<UsuarioModelo> buscarUsuarioPorCorreo(@PathVariable String correo) {
+    public ResponseEntity<UsuarioModelo> buscarUsuarioPorCorreo(@PathVariable String correo, @RequestHeader("Authorization") String token) {
+        // Validate the token
+        if (!validarToken(token)) {
+            return ResponseEntity.status(HttpStatus.UNAUTHORIZED).build();
+        }
+
         Optional<UsuarioModelo> usuario = usuarioServicio.buscarUsuarioPorCorreo(correo);
         return usuario.map(ResponseEntity::ok).orElse(ResponseEntity.notFound().build());
     }
+
+    private boolean validarToken(String token) {
+        // Try to validate Firebase token first
+        try {
+            FirebaseToken decodedToken = FirebaseAuth.getInstance().verifyIdToken(token.replace("Bearer ", ""));
+            if (decodedToken != null) {
+                System.out.println("Firebase token validado correctamente.");
+                return true;
+            }
+        } catch (FirebaseAuthException e) {
+            e.printStackTrace();
+        }
+
+        // If Firebase token validation fails, handle OAuth2 token validation
+        Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
+        if (authentication instanceof OAuth2AuthenticationToken oauthToken) {
+            OAuth2AuthorizedClient authorizedClient = authorizedClientService.loadAuthorizedClient(
+                    oauthToken.getAuthorizedClientRegistrationId(), oauthToken.getName());
+
+            if (authorizedClient != null) {
+                OAuth2AccessToken accessToken = authorizedClient.getAccessToken();
+                if (accessToken != null && accessToken.getTokenValue().equals(token)) {
+                    Instant now = Instant.now();
+                    Instant tokenExpiration = accessToken.getExpiresAt();
+                    boolean tokenIsValid = tokenExpiration.isAfter(now);
+                    System.out.println("OAuth2 token es válido: " + tokenIsValid);
+                    return tokenIsValid;
+                }
+            }
+        }
+
+        System.out.println("Token no válido.");
+        return false;
+    }
+
+
 
     @GetMapping("/datos")
     public ResponseEntity<UsuarioModelo> listarUsuarioConectado() {
@@ -82,35 +134,39 @@ public class UsuarioControlador {
         if (authentication instanceof OAuth2AuthenticationToken oauthToken) {
             OAuth2User oauth2User = oauthToken.getPrincipal();
             String email = (String) oauth2User.getAttribute(EMAIL_ATTRIBUTE);
-            Optional<UsuarioModelo> usuario = usuarioServicio.buscarUsuarioPorCorreo(email);
-            return usuario.map(ResponseEntity::ok).orElse(ResponseEntity.notFound().build());
+            UsuarioModelo usuario = usuarioServicio.buscarUsuarioPorCorreo(email).orElse(null);
+            return ResponseEntity.ok(usuario);
         }
-        return ResponseEntity.badRequest().body(null);
+        return ResponseEntity.status(HttpStatus.UNAUTHORIZED).build();
     }
 
-    @GetMapping("/datossi")
-    public ResponseEntity<Object> listarClienteOProveedor() {
+    @GetMapping("/proveedor/datos")
+    public ResponseEntity<ProveedorModelo> listarProveedorConectado() {
         Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
         if (authentication instanceof OAuth2AuthenticationToken oauthToken) {
             OAuth2User oauth2User = oauthToken.getPrincipal();
             String email = (String) oauth2User.getAttribute(EMAIL_ATTRIBUTE);
-            Optional<UsuarioModelo> usuarioOptional = usuarioServicio.buscarUsuarioPorCorreo(email);
-            if (usuarioOptional.isPresent()) {
-                UsuarioModelo usuario = usuarioOptional.get();
-                Optional<ClienteModelo> clienteOptional = clienteServicio.buscarClientePorUsuarioId(usuario.getIdUsuario());
-                if (clienteOptional.isPresent()) {
-                    return ResponseEntity.ok((Object) clienteOptional.get());
-                }
-                Optional<ProveedorModelo> proveedorOptional = proveedorServicio.buscarProveedorPorUsuarioId(usuario.getIdUsuario());
-                if (proveedorOptional.isPresent()) {
-                    return ResponseEntity.ok((Object) proveedorOptional.get());
-                }
-                return ResponseEntity.notFound().build();
-            } else {
-                return ResponseEntity.notFound().build();
+            UsuarioModelo usuario = usuarioServicio.buscarUsuarioPorCorreo(email).orElse(null);
+            if (usuario != null) {
+                ProveedorModelo proveedor = proveedorServicio.buscarProveedorPorCorreo(email).orElse(null);
+                return ResponseEntity.ok(proveedor);
             }
-        } else {
-            return ResponseEntity.badRequest().body(NOT_OAUTH2_AUTHENTICATION);
         }
+        return ResponseEntity.status(HttpStatus.UNAUTHORIZED).build();
+    }
+
+    @GetMapping("/cliente/datos")
+    public ResponseEntity<ClienteModelo> listarClienteConectado() {
+        Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
+        if (authentication instanceof OAuth2AuthenticationToken oauthToken) {
+            OAuth2User oauth2User = oauthToken.getPrincipal();
+            String email = (String) oauth2User.getAttribute(EMAIL_ATTRIBUTE);
+            UsuarioModelo usuario = usuarioServicio.buscarUsuarioPorCorreo(email).orElse(null);
+            if (usuario != null) {
+                ClienteModelo cliente = clienteServicio.buscarClientePorCorreo(email).orElse(null);
+                return ResponseEntity.ok(cliente);
+            }
+        }
+        return ResponseEntity.status(HttpStatus.UNAUTHORIZED).build();
     }
 }

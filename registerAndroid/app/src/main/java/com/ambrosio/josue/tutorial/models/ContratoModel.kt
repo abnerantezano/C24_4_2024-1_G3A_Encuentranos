@@ -1,9 +1,10 @@
 package com.ambrosio.josue.tutorial.models
 
-import com.proyecto.encuentranos.models.ClienteModel
+import com.proyecto.encuentranos.models.DetalleContratoModel
 import java.util.Date
 
 data class ContratoModel(
+    val id: DetalleContratoModeloId,
     val idContrato: Int,
     val idCliente: ClienteModel,
     val fechaInicio: Date,

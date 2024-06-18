@@ -19,6 +19,10 @@ class RegistroProveedorViewModel(private val proveedorApi: ProveedorApi, private
     private val _registroProveedorResult = MutableLiveData<Boolean>()
     val registroProveedorResult: LiveData<Boolean> = _registroProveedorResult
 
+    // LiveData para guardar el id del proveedor
+    private val _idProveedor = MutableLiveData<Int>()
+    val idProveedor: LiveData<Int> = _idProveedor
+
     fun listarDistritos() {
         distritoApi.listarDistritos().enqueue(object : Callback<List<DistritoModel>> {
             override fun onResponse(call: Call<List<DistritoModel>>, response: Response<List<DistritoModel>>) {
@@ -38,7 +42,17 @@ class RegistroProveedorViewModel(private val proveedorApi: ProveedorApi, private
     fun registrarProveedor(proveedor: ProveedorModel) {
         proveedorApi.agregarProveedor(proveedor).enqueue(object : Callback<ProveedorModel> {
             override fun onResponse(call: Call<ProveedorModel>, response: Response<ProveedorModel>) {
-                _registroProveedorResult.postValue(response.isSuccessful)
+                if (response.isSuccessful) {
+                    val proveedorRegistrado = response.body()
+                    proveedorRegistrado?.let {
+                        _idProveedor.postValue(it.idProveedor)
+                        _registroProveedorResult.postValue(true)
+                    } ?: run {
+                        _registroProveedorResult.postValue(false)
+                    }
+                } else {
+                    _registroProveedorResult.postValue(false)
+                }
             }
 
             override fun onFailure(call: Call<ProveedorModel>, t: Throwable) {

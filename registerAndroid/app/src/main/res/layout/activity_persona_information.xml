@@ -1,14 +1,17 @@
 <?xml version="1.0" encoding="utf-8"?>
-<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<androidx.constraintlayout.widget.ConstraintLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:id="@+id/main"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     tools:context=".activities.InformacionPersonalActivity">
+
     <include
         android:id="@+id/header"
-        layout="@layout/header_volver"/>
+        layout="@layout/header_volver" />
+
     <LinearLayout
         android:id="@+id/LinearDescription"
         android:orientation="vertical"
@@ -20,6 +23,7 @@
         app:layout_constraintBottom_toTopOf="@id/btnActualizar">
 
         <TextView
+            android:id="@+id/tvActualizarInformacion"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:text="Actualizar Información personal"
@@ -29,7 +33,7 @@
             android:layout_gravity="center"/>
 
         <EditText
-            android:id="@+id/edit_text_nombre_completo"
+            android:id="@+id/edtNombre"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_marginTop="30dp"
@@ -49,7 +53,7 @@
             android:layout_gravity="center"
             android:layout_marginTop="20dp">
             <EditText
-                android:id="@+id/edit_text_apellido_paterno"
+                android:id="@+id/edtApellidoPaterno"
                 android:layout_marginEnd="3dp"
                 android:paddingStart="15dp"
                 android:layout_width="match_parent"
@@ -62,7 +66,7 @@
                 android:layout_gravity="center"
                 android:inputType="text"/>
             <EditText
-                android:id="@+id/edit_text_apellido_materno"
+                android:id="@+id/edtApellidoMaterno"
                 android:layout_width="match_parent"
                 android:layout_weight="1"
                 android:layout_height="wrap_content"
@@ -77,7 +81,7 @@
         </LinearLayout>
 
         <EditText
-            android:id="@+id/edit_text_fecha_nacimiento"
+            android:id="@+id/edtFechaNacimiento"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_marginTop="20dp"
@@ -96,7 +100,7 @@
             android:orientation="horizontal"
             android:layout_marginTop="20dp">
             <EditText
-                android:id="@+id/edit_text_dni"
+                android:id="@+id/edtDni"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_weight="1"
@@ -108,7 +112,7 @@
                 android:textStyle="bold"
                 android:inputType="number"/>
             <EditText
-                android:id="@+id/edit_text_celular"
+                android:id="@+id/edtCelular"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_weight="1"
@@ -133,7 +137,7 @@
             app:layout_constraintEnd_toEndOf="parent"/>
 
         <TextView
-            android:id="@+id/text_ofrece_servicio"
+            android:id="@+id/edtOfreceServicio"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_marginTop="20dp"
@@ -180,5 +184,15 @@
         app:layout_constraintEnd_toEndOf="@+id/LinearDescription"
         app:layout_constraintStart_toStartOf="@+id/LinearDescription"
         app:layout_constraintTop_toBottomOf="@id/LinearDescription" />
+
+    <ProgressBar
+        android:id="@+id/progressBar"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:visibility="gone"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"/>
 
 </androidx.constraintlayout.widget.ConstraintLayout>

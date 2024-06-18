@@ -153,5 +153,10 @@ public class ServicioProveedorServicio {
                 .filter(servicio -> serviciosRegistradosIds.contains(servicio.getIdServicio()))
                 .toList();
     }
+    
+    //OBTENER SERVICIO PROVEEDOR POR EL ID DEL PROVEEDOR
+    public List<ServicioProveedorModelo> obtenerServicioProveedorPorIdProveedor(int idProvedor) {
+        return servicioProveedorRepositorio.findByIdIdProveedor(idProvedor);
+    }
 
 }

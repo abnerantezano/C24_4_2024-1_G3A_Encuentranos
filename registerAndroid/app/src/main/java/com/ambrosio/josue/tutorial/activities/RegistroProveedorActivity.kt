@@ -1,6 +1,8 @@
 package com.ambrosio.josue.tutorial.activities
 
+import android.content.Context
 import android.content.Intent
+import android.content.SharedPreferences
 import android.os.Bundle
 import android.widget.ArrayAdapter
 import android.widget.Toast
@@ -24,14 +26,16 @@ class RegistroProveedorActivity : AppCompatActivity() {
     private lateinit var viewModel: RegistroProveedorViewModel
     private var userId: Int = -1
     private var email: String = ""
+    private lateinit var sharedPreferences: SharedPreferences
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         binding = ActivityRegistroProveedorBinding.inflate(layoutInflater)
         setContentView(binding.root)
 
+        sharedPreferences = getSharedPreferences("user_prefs", Context.MODE_PRIVATE)
         initializeViewModel()
-        retrieveIntentData()
+        retrieveSharedPreferencesData()
         setupObservers()
         setupListeners()
 
@@ -45,9 +49,12 @@ class RegistroProveedorActivity : AppCompatActivity() {
         viewModel = RegistroProveedorViewModel(proveedorApi, distritoApi)
     }
 
-    private fun retrieveIntentData() {
-        userId = intent.getIntExtra("user_id", -1)
-        email = intent.getStringExtra("email") ?: ""
+    private fun retrieveSharedPreferencesData() {
+        userId = sharedPreferences.getInt("user_id", -1)
+        email = sharedPreferences.getString("email", "") ?: ""
+
+        // Establecer el ID del usuario en el TextView
+        binding.tvObtenerId.text = "ID: $userId"
     }
 
     private fun setupObservers() {
@@ -63,12 +70,17 @@ class RegistroProveedorActivity : AppCompatActivity() {
 
         viewModel.registroProveedorResult.observe(this, Observer { isSuccessful ->
             if (isSuccessful) {
+                // Guardar el idProveedor en SharedPreferences
+                val idProveedor = viewModel.idProveedor.value ?: -1
+                sharedPreferences.edit().putInt("id_proveedor", idProveedor).apply()
+
                 Toast.makeText(this, "Proveedor registrado exitosamente", Toast.LENGTH_SHORT).show()
-                navigateToInicioSesion()
+                navigateToAgregarServicio()
             } else {
                 Toast.makeText(this, "Error al registrar proveedor", Toast.LENGTH_SHORT).show()
             }
         })
+
     }
 
     private fun setupListeners() {
@@ -122,8 +134,9 @@ class RegistroProveedorActivity : AppCompatActivity() {
         viewModel.registrarProveedor(nuevoProveedor)
     }
 
-    private fun navigateToInicioSesion() {
-        val intent = Intent(this, InicioSesionActivity::class.java)
+    private fun navigateToAgregarServicio() {
+        val intent = Intent(this, AgregarServicioActivity::class.java)
         startActivity(intent)
+        finish() // Finalizar esta actividad para evitar regresar a ella con el botón de atrás
     }
 }

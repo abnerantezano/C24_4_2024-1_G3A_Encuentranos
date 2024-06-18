@@ -17,4 +17,6 @@ public interface IClienteRepositorio extends JpaRepository<ClienteModelo, Intege
     
     //ESTAMOS CREANDO UNA OPCION DE BUSCAR EL ID DE UN USUARIO DESDE DEL CLIENTE
     Optional<ClienteModelo> findByIdUsuarioIdUsuario(Integer usuarioId);
+    
+    Optional<ClienteModelo> findByIdUsuarioCorreo(String email);
 }

@@ -51,6 +51,12 @@ class OpcionesUsuarioActivity : FooterInclude() {
             val intent = Intent(this, MiContratoActivity::class.java)
             startActivity(intent)
         }
+
+        binding.tvMisServicios.setOnClickListener {
+            val intent = Intent(this, MiServicioActivity::class.java)
+            startActivity(intent)
+        }
+
         binding.tvCerrarSesion.setOnClickListener {
             signOut()
         }

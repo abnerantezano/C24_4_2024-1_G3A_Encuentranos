@@ -15,4 +15,7 @@ public interface IServicioProveedorRepositorio extends JpaRepository<ServicioPro
 	//ESTAMOS OBTENIENDO LOS SERVICIOS DE UN PROVEEDOR PERO QUE ESTEN EN EL DISTRITO 
 	//QUE SE ASIGNE
 	List<ServicioProveedorModelo> findByIdProveedorIdDistritoNombre(String nombreDistrito);
+	
+	//OBTENER SERVICIO PROVEEDOR POR ID PROVEEDOR
+	List<ServicioProveedorModelo> findByIdIdProveedor(int idProveedor);
 }

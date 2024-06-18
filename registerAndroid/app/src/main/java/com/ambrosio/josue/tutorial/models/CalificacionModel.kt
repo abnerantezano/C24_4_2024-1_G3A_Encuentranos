@@ -1,6 +1,5 @@
 package com.ambrosio.josue.tutorial.models
 
-import com.proyecto.encuentranos.models.ClienteModel
 import java.util.Date
 
 data class CalificacionModel(

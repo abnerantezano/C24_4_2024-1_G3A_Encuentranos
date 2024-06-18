@@ -5,17 +5,19 @@ import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.Toast
 import androidx.fragment.app.Fragment
+import androidx.fragment.app.viewModels
+import androidx.lifecycle.Observer
 import com.ambrosio.josue.tutorial.activities.ServiciosListActivity
 import com.ambrosio.josue.tutorial.databinding.ActivityInicioSesionBinding
-import com.google.firebase.auth.FirebaseAuth
-import com.google.firebase.auth.FirebaseUser
+import com.ambrosio.josue.tutorial.viewModels.InicioViewModel
 
 class InicioFragment : Fragment() {
 
     private var _binding: ActivityInicioSesionBinding? = null
     private val binding get() = _binding!!
-    private lateinit var auth: FirebaseAuth
+    private val viewModel: InicioViewModel by viewModels()
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
@@ -28,32 +30,28 @@ class InicioFragment : Fragment() {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
-        auth = FirebaseAuth.getInstance()
+        // Mostrar el ProgressBar al iniciar la vista
+        binding.progressBar.visibility = View.VISIBLE
+        binding.content.visibility = View.GONE // content es un contenedor que agrupa los demás elementos de la UI
 
-        // Verificar si el usuario ya está autenticado
-        val currentUser = auth.currentUser
-        if (currentUser != null) {
-            updateUIWithUserDetails(currentUser)
-        } else {
-            // Manejar el caso donde el usuario no está autenticado
-        }
+        viewModel.nombreUsuario.observe(viewLifecycleOwner, Observer { name ->
+            binding.progressBar.visibility = View.GONE
+            binding.content.visibility = View.VISIBLE
+            binding.tvNombreUsuario.text = name
+        })
 
+        viewModel.mensajeError.observe(viewLifecycleOwner, Observer { message ->
+            binding.progressBar.visibility = View.GONE
+            binding.content.visibility = View.VISIBLE
+            showToast(message)
+        })
+
+        viewModel.verificarAutenticacionUsuario()
         goServicios()
     }
 
-    // Función para actualizar la UI con los detalles del usuario
-    private fun updateUIWithUserDetails(user: FirebaseUser) {
-        val email = user.email
-        val nombreUsuario = user.displayName
-
-        if (!nombreUsuario.isNullOrEmpty()) {
-            binding.tvNombreUsuario.text = "¡Bienvenido, $nombreUsuario!"
-        } else {
-            binding.tvNombreUsuario.text = "¡Bienvenido!"
-        }
-
-        // Mostrar el correo electrónico del usuario
-        binding.tvNombreUsuario.text = email ?: "Correo no disponible"
+    private fun showToast(message: String) {
+        Toast.makeText(context, message, Toast.LENGTH_SHORT).show()
     }
 
     private fun goServicios() {

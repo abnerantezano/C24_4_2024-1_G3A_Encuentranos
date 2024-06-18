@@ -39,7 +39,7 @@ class RegistroActivity : AppCompatActivity() {
         binding.loginText.setOnClickListener {
             val intent = Intent(this, LoginActivity::class.java)
             startActivity(intent)
-            finish() // Optional: close the current activity if you don't want users to navigate back to it
+            finish() // Close the current activity to prevent navigating back to it
         }
 
         // Set onClickListener for the Google Sign-In button
@@ -70,7 +70,7 @@ class RegistroActivity : AppCompatActivity() {
                 putExtra("email", user.email)
             }
             startActivity(intent)
-            finish() // Optional: close the current activity if you don't want users to navigate back to it
+            finish() // Close the current activity to prevent navigating back to it
         }
     }
 }

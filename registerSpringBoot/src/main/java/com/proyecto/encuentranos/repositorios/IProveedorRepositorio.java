@@ -22,4 +22,5 @@ public interface IProveedorRepositorio extends JpaRepository<ProveedorModelo, In
     //ESTAMOS CREANDO UNA OPCION DE BUSCAR EL ID DE UN USUARIO DESDE DEL PROVEEDOR
     Optional<ProveedorModelo> findByIdUsuarioIdUsuario(Integer usuarioId);
 
+    Optional<ProveedorModelo> findByIdUsuarioCorreo(String email);
 }

@@ -1,6 +1,8 @@
 package com.ambrosio.josue.tutorial.activities
 
+import android.content.Context
 import android.content.Intent
+import android.content.SharedPreferences
 import android.os.Bundle
 import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
@@ -14,6 +16,7 @@ class CrearUsuarioActivity : AppCompatActivity() {
 
     private lateinit var binding: ActivityCrearUsuarioBinding
     private lateinit var viewModel: UsuarioViewModel
+    private lateinit var sharedPreferences: SharedPreferences
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -23,6 +26,8 @@ class CrearUsuarioActivity : AppCompatActivity() {
         initializeViewModel()
         setupUI()
         setupListeners()
+
+        sharedPreferences = getSharedPreferences("user_prefs", Context.MODE_PRIVATE)
     }
 
     private fun initializeViewModel() {
@@ -58,6 +63,12 @@ class CrearUsuarioActivity : AppCompatActivity() {
 
         viewModel.crearUsuario(email, contrasena, tipoUsuarioId,
             onSuccess = { usuarioAgregado ->
+                // Guardar el user_id en SharedPreferences
+                val editor = sharedPreferences.edit()
+                editor.putInt("user_id", usuarioAgregado.idUsuario)
+                editor.putString("email", usuarioAgregado.correo)
+                editor.apply()
+
                 navigateToNextActivity(tipoUsuarioId, usuarioAgregado.idUsuario, usuarioAgregado.correo)
             },
             onFailure = { mensajeError ->

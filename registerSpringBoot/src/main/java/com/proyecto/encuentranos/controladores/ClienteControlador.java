@@ -84,4 +84,16 @@ public class ClienteControlador {
             return new ResponseEntity<>(HttpStatus.NOT_FOUND);
         }
     }
+    
+	//BUSCAR CLIENTE POR ID DEL USUARIO
+	@GetMapping("/buscar-usuario/{idUsuario}")
+	public ResponseEntity<Optional<ClienteModelo>> encontrarProveedorPorIdUsuario(@PathVariable Integer idUsuario) {
+	    Optional<ClienteModelo> clienteEncontrado = clienteServicio.buscarClientePorUsuarioId(idUsuario);
+	    if (clienteEncontrado.isPresent()) {
+	        return new ResponseEntity<>(clienteEncontrado, HttpStatus.OK);
+	    } else {
+	        return new ResponseEntity<>(HttpStatus.NOT_FOUND);
+	    }
+	}
+    
 }

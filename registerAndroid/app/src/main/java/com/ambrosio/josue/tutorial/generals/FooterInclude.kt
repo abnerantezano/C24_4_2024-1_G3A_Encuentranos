@@ -5,13 +5,8 @@ import android.os.Bundle
 import android.widget.LinearLayout
 import androidx.appcompat.app.AppCompatActivity
 import com.ambrosio.josue.tutorial.R
-import com.ambrosio.josue.tutorial.activities.InicioSesionActivity
-import com.ambrosio.josue.tutorial.activities.MensajeActivity
-import com.ambrosio.josue.tutorial.activities.OpcionesUsuarioActivity
-import com.ambrosio.josue.tutorial.activities.ServicioProveedorActivity
-import com.ambrosio.josue.tutorial.activities.ServiciosListActivity
 import com.ambrosio.josue.tutorial.databinding.FooterBinding
-import com.ambrosio.josue.tutorial.fragments.CuartoFragment
+import com.ambrosio.josue.tutorial.fragments.MensajeFragment
 import com.ambrosio.josue.tutorial.fragments.InicioFragment
 import com.ambrosio.josue.tutorial.fragments.PerfilFragment
 import com.ambrosio.josue.tutorial.fragments.ServicioProveedorFragment
@@ -46,7 +41,7 @@ abstract class FooterInclude : AppCompatActivity() {
             }
 
             binding?.iconChat?.setOnClickListener{
-                val intent = Intent(this, CuartoFragment::class.java)
+                val intent = Intent(this, MensajeFragment::class.java)
                 startActivity(intent)
             }
             binding?.iconUsuario?.setOnClickListener {

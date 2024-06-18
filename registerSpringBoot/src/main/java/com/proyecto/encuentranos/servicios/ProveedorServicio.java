@@ -64,6 +64,10 @@ public class ProveedorServicio {
 		return proveedorRepositorio.findById(id);
 	}
 	
+    public Optional<ProveedorModelo> buscarProveedorPorCorreo(String correo) {
+        return proveedorRepositorio.findByIdUsuarioCorreo(correo);
+    }
+	
 	//BUSCAR UN PROVEEDOR POR EL ID DEL USUARIO
 	public Optional<ProveedorModelo> buscarProveedorPorUsuarioId(Integer usuarioId) {
 	    return proveedorRepositorio.findByIdUsuarioIdUsuario(usuarioId);

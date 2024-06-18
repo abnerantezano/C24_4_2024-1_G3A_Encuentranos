@@ -1,4 +1,4 @@
-package com.proyecto.encuentranos.models
+package com.ambrosio.josue.tutorial.models
 
 import com.ambrosio.josue.tutorial.models.DistritoModel
 import com.ambrosio.josue.tutorial.models.UsuarioModel

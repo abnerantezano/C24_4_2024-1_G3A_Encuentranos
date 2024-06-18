@@ -135,4 +135,16 @@ public class ServicioProveedorControlador {
         List<ServicioModelo> serviciosRegistrados = servicioProveedorServicio.obtenerServiciosDeProveedorPorId(idProveedor);
         return new ResponseEntity<>(serviciosRegistrados, HttpStatus.OK);
     }
+    
+    // OBTENER LOS SERVICIOS PROVEEDOR POR ID DEL PROVEEDOR
+    @GetMapping("/listar/{idProveedor}")
+    public ResponseEntity<List<ServicioProveedorModelo>> obtenerServicioProveedorPorIdProveedor(@PathVariable("idProveedor") int idProveedor) {
+        List<ServicioProveedorModelo> serviciosProveedor = servicioProveedorServicio.obtenerServicioProveedorPorIdProveedor(idProveedor);
+        if (!serviciosProveedor.isEmpty()) {
+            return new ResponseEntity<>(serviciosProveedor, HttpStatus.OK);
+        } else {
+            return new ResponseEntity<>(HttpStatus.NOT_FOUND);
+        }
+    }
+
 }

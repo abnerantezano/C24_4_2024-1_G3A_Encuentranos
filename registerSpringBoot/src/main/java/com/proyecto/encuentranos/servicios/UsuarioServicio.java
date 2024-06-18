@@ -50,6 +50,11 @@ public class UsuarioServicio {
         return usuarioRepositorio.findByCorreo(correo);
     }
     
+    //BUSCAR USUARIO POR SU ID
+    public Optional<UsuarioModelo> buscarUsuarioPorId(int id){
+    	return usuarioRepositorio.findById(id);
+    }
+    
     //VERIFICAR SI EL CORREO EXISTE
     public boolean existsByEmail(String correo) {
         return usuarioRepositorio.existsByCorreo(correo);

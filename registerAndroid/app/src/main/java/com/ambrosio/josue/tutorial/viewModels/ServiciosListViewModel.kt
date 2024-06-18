@@ -14,7 +14,6 @@ class ServiciosListViewModel(
 ): ViewModel() {
 
     private val servicioApi = RetrofitClient.servicioApi
-    private lateinit var servicioModel: ServicioModel
     val listaServicios = MutableLiveData<List<ServicioModel>>()
 
     fun obtenerServicios() {
@@ -23,13 +22,14 @@ class ServiciosListViewModel(
                 if (response.isSuccessful) {
                     listaServicios.postValue(response.body())
                 } else {
-                    // Maneja errores aquí
+                    // Handle errors here
                 }
             }
 
             override fun onFailure(call: Call<List<ServicioModel>>, t: Throwable) {
-                // Maneja errores de conexión aquí
+                // Handle connection errors here
             }
         })
     }
+
 }

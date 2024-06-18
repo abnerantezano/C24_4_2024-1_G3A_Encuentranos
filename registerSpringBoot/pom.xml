@@ -13,6 +13,7 @@
 	<version>0.0.1-SNAPSHOT</version>
 	<name>registerSpringBoot</name>
 	<description>Proyecto encuentranos</description>
+
 	<properties>
 		<java.version>17</java.version>
 	</properties>
@@ -67,6 +68,11 @@
 			<artifactId>spring-security-test</artifactId>
 			<scope>test</scope>
 		</dependency>
+		<dependency>
+		    <groupId>com.google.firebase</groupId>
+		    <artifactId>firebase-admin</artifactId>
+		    <version>7.1.0</version>
+		</dependency>
 	</dependencies>
 
 	<build>
@@ -77,5 +83,6 @@
 			</plugin>
 		</plugins>
 	</build>
+
 
 </project>

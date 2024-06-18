@@ -27,6 +27,11 @@ class ServiciosFragment : Fragment() {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
+
+        // Mostrar el ProgressBar al iniciar la vista
+        binding.progressBar.visibility = View.VISIBLE
+        binding.recyclerViewServicios.visibility = View.GONE
+
         serviciosListViewModel = ServiciosListViewModel(requireActivity())
 
         serviciosListViewModel.obtenerServicios()
@@ -38,6 +43,8 @@ class ServiciosFragment : Fragment() {
 
     private fun observeValues() {
         serviciosListViewModel.listaServicios.observe(viewLifecycleOwner, Observer { servicios ->
+            binding.progressBar.visibility = View.GONE
+            binding.recyclerViewServicios.visibility = View.VISIBLE
             adapter.submitList(servicios)
             binding.recyclerViewServicios.adapter = adapter
         })

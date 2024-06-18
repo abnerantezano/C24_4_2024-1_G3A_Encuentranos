@@ -8,34 +8,36 @@
     android:layout_marginTop="10dp"
     android:background="?attr/selectableItemBackground">
 
-    <ImageView
-        android:id="@+id/imgServicio"
-        android:layout_width="0dp"
-        android:layout_height="wrap_content"
-        android:layout_weight="1"
-        android:src="@drawable/ic_seguridad"/>
+    <de.hdodenhof.circleimageview.CircleImageView
+        android:id="@+id/imgCliente"
+        android:layout_width="65dp"
+        android:layout_height="65dp"
+        android:layout_gravity="center"
+        android:src="@drawable/ic_launcher_background"
+        android:scaleType="centerCrop"/>
 
     <LinearLayout
         android:layout_width="0dp"
         android:layout_height="wrap_content"
         android:layout_weight="1"
+        android:layout_gravity="center"
         android:orientation="vertical"
         android:paddingStart="10dp"
         android:paddingEnd="10dp">
 
         <TextView
-            android:id="@+id/tvNombreProveedor"
+            android:id="@+id/tvNombreUsuario"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="Nombre del proveedor"
+            android:text="Nombre del usuario"
             android:textStyle="bold"
             android:textSize="16sp"/>
 
         <TextView
-            android:id="@+id/tvMensajeProveedor"
+            android:id="@+id/tvMensajeUsuario"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="Mnesaje del proveedor"
+            android:text="Mnesaje del usuario"
             android:textSize="14sp"
             android:textColor="@android:color/darker_gray"/>
     </LinearLayout>

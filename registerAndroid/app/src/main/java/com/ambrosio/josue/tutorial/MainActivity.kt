@@ -25,7 +25,7 @@ class MainActivity : AppCompatActivity() {
             showFragment(ServicioProveedorFragment())
         }
         binding.iconChat.setOnClickListener {
-            showFragment(CuartoFragment())
+            showFragment(MensajeFragment())
         }
         binding.iconUsuario.setOnClickListener {
             showFragment(PerfilFragment())

@@ -20,6 +20,7 @@ class ServicioProveedorFragment : Fragment() {
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
+
     ): View? {
         _binding = ActivityServicioProveedorBinding.inflate(inflater, container, false)
         return binding.root
@@ -27,17 +28,28 @@ class ServicioProveedorFragment : Fragment() {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
-        servicioProveedorViewModel = ServicioProveedorViewModel(requireActivity())
 
+        // Mostrar el ProgressBar al iniciar la vista
+        binding.progressBar.visibility = View.VISIBLE
+        binding.recyclerViewProveedores.visibility = View.GONE // content es un contenedor que agrupa los demás elementos de la UI
+
+        // Instancia del ViewModel sin argumentos
+        servicioProveedorViewModel = ServicioProveedorViewModel()
+
+        // Inicia la obtención de servicios proveedores
         servicioProveedorViewModel.obtenerServiciosProveedor()
 
-        adapter = ServicioProveedorAdapter()
+        // Instanciar el adaptador con VIEW_TYPE_UNO
+        adapter = ServicioProveedorAdapter(1)
 
         observeValues()
     }
 
+
     private fun observeValues() {
         servicioProveedorViewModel.listaServiciosProveedores.observe(viewLifecycleOwner, Observer { servicios ->
+            binding.progressBar.visibility = View.GONE
+            binding.recyclerViewProveedores.visibility = View.VISIBLE
             adapter.submitList(servicios)
             binding.recyclerViewProveedores.adapter = adapter
         })
