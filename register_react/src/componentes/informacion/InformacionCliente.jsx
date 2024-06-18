@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from "react";
-import ClienteService from "../servicios/ClienteService";
-import InformacionDeUsuario from '../componentes/InformacionDeUsuario';
+import ClienteService from "../../servicios/ClienteService";
+import InformacionDeUsuario from '../InformacionDeUsuario';
 
 const Cliente = ({ children }) => {
     

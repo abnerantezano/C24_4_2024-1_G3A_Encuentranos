@@ -1,14 +1,14 @@
 import React from 'react'
 //IMAGENES 
-import index1 from '../imagenes/index/index1.png'
-import index2 from '../imagenes/index/index2.png'
-import index3 from '../imagenes/index/index3.png'
+import index1 from '../../imagenes/index/index1.png'
+import index2 from '../../imagenes/index/index2.png'
+import index3 from '../../imagenes/index/index3.png'
 // FONT AWESOME
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import { faRankingStar, faUserShield, faUsersLine, faHandshake} from '@fortawesome/free-solid-svg-icons'
 
 //WAVES
-import waves1 from '../imagenes/waves/waves1.png'
+import waves1 from '../../imagenes/waves/waves1.png'
 
 export default function Index() {
   return (

@@ -1,5 +1,4 @@
 import React, { useEffect, useState } from 'react';
-import { Link } from 'react-router-dom';
 import { DataView } from 'primereact/dataview';
 import ServicioService from '../servicios/ServicioService';
 
@@ -17,11 +16,11 @@ function Servicios() {
   }, []);
 
   const listTemplate = (servicio, index) => (
-    <div key={index} className="w-full bg-white border border-gray-200 rounded-lg shadow dark:bg-gray-800 dark:border-gray-700 m-4">
+    <div key={index} className="w-full bg-white border border-gray-200 rounded-lg shadow m-4">
       <img className="rounded-t-lg" src="https://www.questionpro.com/blog/wp-content/uploads/2022/10/Portada-calidad-del-servicio.jpg" alt="Imagen del servicio" />
       <div className="p-5">
-        <h5 className="mb-2 text-2xl font-bold tracking-tight text-gray-900 dark:text-white">{servicio.nombre}</h5>
-        <p className="mb-3 font-normal text-gray-700 dark:text-gray-400">{servicio.descripcion}</p>
+        <h5 className="mb-2 text-2xl font-bold tracking-tight text-gray-900">{servicio.nombre}</h5>
+        <p className="mb-3 font-normal text-gray-700">{servicio.descripcion}</p>
       </div>
     </div>
   );

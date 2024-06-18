@@ -8,12 +8,13 @@ import HeaderAutenticado from './componentes/HeaderAutenticado';
 import Footer from './componentes/Footer';
 import FooterAutenticado from './componentes/FooterAutenticado';
 import InformacionDeUsuario from './componentes/InformacionDeUsuario';
-//PAGINAS
-import Index from './paginas/Index';
-import IniciarSesion from './paginas/IniciarSesion';
-import Registro from './paginas/Registro';
-import CrearUsuario from './paginas/CrearUsuario';
-import Formulario from './paginas/Formulario';
+//PAGINAS SIN LOGIN
+import Index from './paginas/Index/Index';
+import IniciarSesion from './paginas/Index/IniciarSesion';
+import Registro from './paginas/Index/Registro';
+import CrearUsuario from './paginas/Index/CrearUsuario';
+import Formulario from './paginas/Index/Formulario';
+//PAGINAS CON LOGIN
 import AgregarServicio from './paginas/AgregarServicio';
 import ServicioMultiple from './paginas/FuncionAgregarServicios'
 import Inicio from './paginas/Inicio';
@@ -46,6 +47,7 @@ function App() {
             <Route exact path='/crearUsuario' element={<CrearUsuario />} />
             <Route exact path='/registro' element={<Registro />} />
             <Route exact path='/formulario' element={<Formulario />} />
+            {/*LOGUEADO*/}
             <Route exact path='/agregarServicio' element={<AgregarServicio />} />
             <Route exact path='/inicio' element={<Inicio />} />
             <Route exact path='/servicios' element={<Servicios />} />

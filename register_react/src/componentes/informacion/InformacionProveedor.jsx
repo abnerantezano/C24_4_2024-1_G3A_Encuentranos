@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from "react";
 import InformacionDeUsuario from '../componentes/InformacionDeUsuario';
-import ServicioProveedor from "../servicios/ServicioProveedor";
+import ServicioProveedor from "../../servicios/ServicioProveedor";
 
 const Proveedor = ({ children }) => {
     

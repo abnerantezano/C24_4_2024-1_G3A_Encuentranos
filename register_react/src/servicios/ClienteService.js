@@ -9,7 +9,8 @@ export class ClienteService {
     }
 
     getCliente(idcliente){
-        return axios.get(`${this.baseUrl}/buscar/${idcliente}`);
+        return axios.get(`${this.baseUrl}/buscar/${idcliente}`,{withCredentials: true})
+            .then(res => res.data);
     }
 }
 

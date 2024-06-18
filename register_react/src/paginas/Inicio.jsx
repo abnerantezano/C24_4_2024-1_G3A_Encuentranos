@@ -88,7 +88,6 @@ function Inicio() {
                 <hr className="w-11/12 my-6 border-1 border-white" />
               </div>
               <div className='w-full py-16 px-32 grid grid-cols-1 lg:grid-cols-3 gap-4 items-center justify-start'>
-                
               </div>
             </div>
           </div>

@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from "react";
-import logo from "../imagenes/logo-color.png";
+import logo from "../../imagenes/logo-color.png";
 //PRIME REACT
 import { Calendar } from 'primereact/calendar';
 import { InputText } from 'primereact/inputtext';
@@ -11,10 +11,10 @@ import { addLocale } from 'primereact/api';
 import { useForm,Controller} from "react-hook-form";
 import { useNavigate } from "react-router-dom";
 //AXIOS
-import DistritoService from "../servicios/DistritoService";
-import UsuarioService from "../servicios/UsuarioService";
-import ClienteService from "../servicios/ClienteService";
-import ProveedorService from "../servicios/ProveedorService";
+import DistritoService from "../../servicios/DistritoService";
+import UsuarioService from "../../servicios/UsuarioService";
+import ClienteService from "../../servicios/ClienteService";
+import ProveedorService from "../../servicios/ProveedorService";
 
 
 
@@ -26,7 +26,6 @@ const Formulario = () => {
     const navigate = useNavigate();
 
     //PONER EL LOCALE ESPAÑOL
-
     addLocale('es', {
         firstDayOfWeek: 1,
         dayNames: ['domingo', 'lunes', 'martes', 'miércoles', 'jueves', 'viernes', 'sábado'],
@@ -122,19 +121,19 @@ const Formulario = () => {
                         <img src={logo} className="w-24" alt="Logo" />
                     </div>
                     <div className="mb-5">
-                        <label className="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Nombre</label>
-                        <InputText type="text" id="nombre" {...register("nombre", { required: true })} className="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring focus:ring-orange-200 focus:border-dark block w-full p-2.5 dark:bg-[#] dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"/>
+                        <label className="block mb-2 text-sm font-medium text-gray-900">Nombre</label>
+                        <InputText type="text" id="nombre" {...register("nombre", { required: true })} className="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring focus:ring-orange-200 focus:border-dark block w-full p-2.5"/>
                         {errors.nombre && <span className="text-red-500 text-sm">Ingresar su nombre</span>}
                     </div>
                     <div className="grid md:grid-cols-2 md:gap-6">
                         <div className="relative z-0 w-full mb-5 group">
-                            <label className="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Apellido paterno</label>
-                            <InputText type="text" id="apellidoPaterno" {...register("apellidoPaterno", { required: true })} className="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring focus:ring-orange-200 focus:border-dark block w-full p-2.5 dark:bg-[#] dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500" />
+                            <label className="block mb-2 text-sm font-medium text-gray-900">Apellido paterno</label>
+                            <InputText type="text" id="apellidoPaterno" {...register("apellidoPaterno", { required: true })} className="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring focus:ring-orange-200 focus:border-dark block w-full p-2.5" />
                             {errors.apellidoPaterno && <span className="text-red-500 text-sm">Ingresar su apellido paterno</span>}
                         </div>
                         <div className="relative z-0 w-full mb-5 group mb-5">
                             <label className="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Apellido materno</label>
-                            <InputText type="text" {...register("apellidoMaterno", { required: true })} className="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring focus:ring-orange-200 focus:border-dark block w-full p-2.5 dark:bg-[#] dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500" />
+                            <InputText type="text" {...register("apellidoMaterno", { required: true })} className="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring focus:ring-orange-200 focus:border-dark block w-full p-2.5" />
                             {errors.apellidoMaterno && <span className="text-red-500 text-sm">Ingresar su apellido materno</span>}
                         </div>
                     </div>
@@ -165,17 +164,17 @@ const Formulario = () => {
                         {errors.idDistrito && <span className="text-red-500 text-sm">Ingresar su distrito</span>}
                     </div>
                     <div className="mb-5"> 
-                        <label className="block text-sm font-medium text-gray-900 dark:text-white mb-2">Sexo</label>
+                        <label className="block text-sm font-medium text-gray-900 mb-2">Sexo</label>
                         <div className=" grid md:grid-cols-3 md:gap-6">
                             <div className="flex items-center mt-2">
-                                <input id="sexo-f" name="sexo" type="radio" value="F" {...register("sexo", { required: true })} className="w-4 h-4 border-gray-300 focus:ring focus:ring-orange-200 dark:focus:ring-blue-600 dark:focus:bg-blue-600 dark:bg-[#] dark:border-gray-600" />
-                                <label className="block ms-2  text-sm font-medium text-gray-900 dark:text-gray-300">
+                                <input id="sexo-f" name="sexo" type="radio" value="F" {...register("sexo", { required: true })} className="w-4 h-4 border-gray-300 focus:ring focus:ring-orange-200" />
+                                <label className="block ms-2  text-sm font-medium text-gray-900">
                                     Femenino
                                 </label>
                             </div>
                             <div className="flex items-center mt-2">
-                                <input id="sexo-m" name="sexo" type="radio" value="M" {...register("sexo", { required: true })} className="w-4 h-4 border-gray-300 focus:ring focus:ring-orange-200 dark:focus:ring-blue-600 dark:focus:bg-blue-600 dark:bg-[#] dark:border-gray-600" />
-                                <label className="block ms-2 text-sm font-medium text-gray-900 dark:text-gray-300">
+                                <input id="sexo-m" name="sexo" type="radio" value="M" {...register("sexo", { required: true })} className="w-4 h-4 border-gray-300 focus:ring focus:ring-orange-200" />
+                                <label className="block ms-2 text-sm font-medium text-gray-900">
                                     Masculino
                                 </label>
                             </div>
