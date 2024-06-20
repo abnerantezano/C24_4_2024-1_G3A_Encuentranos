@@ -8,7 +8,7 @@ import { useForm, Controller } from "react-hook-form";
 //AXIOS
 import ServicioProveedorService from "../servicios/ServicioProveedor";
 import UsuarioService from "../servicios/UsuarioService";
-import InformacionDeUsuario from "../componentes/InformacionDeUsuario";
+import InformacionProveedor from "../componentes/Informacion/InformacionProveedor";
 
 const AgregarServicio = () => {
 
@@ -26,7 +26,7 @@ const AgregarServicio = () => {
 
     //LLAMAR LA INFORMACIÓN DEL USUARIO
     useEffect(() => {
-        UsuarioService.getInfo()
+        UsuarioService.getProveedorInfo()
             .then(UsuarioResponse => {
                 setUsuario(UsuarioResponse);
             })
@@ -34,12 +34,13 @@ const AgregarServicio = () => {
                 console.log(error);
             });
     }, []);
+
     //LLAMAR LA LISTA DE LOS SERVICIOS NO REGISTRADOS POR EL PROVEEDOR
     useEffect(() => {
         if (usuario && usuario.idProveedor) {
             ServicioProveedorService.getServicioSinRegistrar(usuario.idProveedor)
                 .then(response => {
-                    setServicios(response.data);
+                    setServicios(response);
                 })
                 .catch(error => {
                     console.log(error);
@@ -67,9 +68,9 @@ const AgregarServicio = () => {
                 console.log(error);
             });
     }
-
+    
     return (
-        <InformacionDeUsuario>
+        <InformacionProveedor>
             {(info) => (
                 <form autoComplete="off" onSubmit={handleSubmit((data) => agregarServicio(data, info.idProveedor))}>
                     <div className="bg-[#F0EEEC] w-full">
@@ -102,7 +103,7 @@ const AgregarServicio = () => {
                     </div>
                 </form>
             )}
-        </InformacionDeUsuario>
+        </InformacionProveedor>
     );
 }
 

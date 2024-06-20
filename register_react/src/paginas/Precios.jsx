@@ -36,7 +36,7 @@ function Precios() {
   useEffect(() => {
     ServicioProveedorService.getPrecioMayor()
       .then(PrecioMayorResponse => {
-        setMayor(PrecioMayorResponse.data.precio);
+        setMayor(PrecioMayorResponse.precio);
       })
       .catch(error => {
         console.log(error);
@@ -47,7 +47,7 @@ function Precios() {
   useEffect(() => {
     ServicioProveedorService.getPrecioMenor()
       .then(PrecioMenorResponse => {
-        setMenor(PrecioMenorResponse.data.precio);
+        setMenor(PrecioMenorResponse.precio);
       })
       .catch(error => {
         console.log(error);
@@ -129,20 +129,6 @@ function Precios() {
       <div className='bg-gradient-to-r from-[#F3C7AC] to-[#E8A477] w-full p-6 text-center text-white'>
         <h1 className='font-bold'>Realiza la búsqueda de tu servicio</h1>
       </div>
-      <div className='flex items-center justify-center p-6'>
-        <form onSubmit={handleSubmit(busquedaServicios)}>
-          <div className="my-4 mx-auto">
-            <div className="p-inputgroup shadow-lg">
-              <span className="p-inputgroup-addon bg-white pe-6">
-                <FontAwesomeIcon icon={faMagnifyingGlass} className='px-4' /> Nombre del servicio
-              </span>
-              <img width="24" height="24" className="bg-white" src="https://img.icons8.com/material-rounded/24/CDCACA/vertical-line.png" alt="vertical-line" />
-              <InputText className='px-4 xl:w-96 focus:ring focus:ring-orange-200' onChange={e => setBusqueda(e.target.value)} />
-              <button type="submit" className="p-inputgroup-addon bg-[#E8A477] text-white font-bold p-2 px-4 text-sm">Buscar</button>
-            </div>
-          </div>
-        </form>
-      </div>
       <div className='flex justify-center p-6 xl:px-36 mx-auto'>
         <div className='w-2/12 py-12'>
           <h5 className='text-gray-500 font-bold my-2'>FILTRO DE PRECIO</h5>
@@ -151,7 +137,21 @@ function Precios() {
             <Slider className="w-full" value={precioFiltro} pt={{ root: "bg-gray-300", range: 'bg-[#BC7547]', handle: 'bg-[#BC7547]' }} min={menor} max={mayor} onChange={(e) => setPrecioFiltro(e.value)} range />
           </div>
         </div>
-        <div className='px-4 py-12 w-10/12'>
+        <div className='px-10 py-12 w-10/12'>
+          <div className='flex items-center justify-center mb-6'>
+            <form onSubmit={handleSubmit(busquedaServicios)}>
+              <div className="my-4 mx-auto">
+                <div className="p-inputgroup shadow-lg">
+                  <span className="p-inputgroup-addon bg-white pe-6">
+                    <FontAwesomeIcon icon={faMagnifyingGlass} className='px-4' /> Nombre del servicio
+                  </span>
+                  <img width="24" height="24" className="bg-white" src="https://img.icons8.com/material-rounded/24/CDCACA/vertical-line.png" alt="vertical-line" />
+                  <InputText className='px-4 xl:w-96 focus:ring focus:ring-orange-200' onChange={e => setBusqueda(e.target.value)} />
+                  <button type="submit" className="p-inputgroup-addon bg-[#E8A477] text-white font-bold p-2 px-4 text-sm">Buscar</button>
+                </div>
+              </div>
+            </form>
+          </div>
           {/*SINDATAVIEW*/}
           {/*
             filterServicios(listaFiltrada).map((Sproveedor, index) => (

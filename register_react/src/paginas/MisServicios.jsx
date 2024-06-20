@@ -1,10 +1,10 @@
 import React from 'react'
+//COMPONENTES
+import Configuracion_perfil from '../componentes/Diseños/Configuracion_perfil';
 
 function MisServicios() {
   return (
-    <div>
-      
-    </div>
+    <h1>hola servicios</h1>
   )
 }
 

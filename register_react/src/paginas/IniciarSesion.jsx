@@ -1,5 +1,5 @@
-import logo from "../../imagenes/logo-color.png";
-import logoGoogle from "../../imagenes/logos/logoGoogle.png";
+import logo from "../imagenes/logo-color.png";
+import logoGoogle from "../imagenes/logos/logoGoogle.png";
 
 const IniciarSesion = () => {
     

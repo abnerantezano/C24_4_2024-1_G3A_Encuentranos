@@ -1,5 +1,5 @@
 import React from 'react'
-import logo_texto from "../imagenes/logo-texto.png"
+import logo_texto from "../../imagenes/logo-texto.png"
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import { faUser } from '@fortawesome/free-solid-svg-icons'
 
@@ -8,7 +8,7 @@ export const Header = () => {
     <div>
         <header>
             <nav className="bg-[#F3C7AC] dark:bg-orange-900 w-full">
-                <div className="max-w-screen-xl flex flex-wrap items-center justify-between mx-auto p-4">
+                <div className="px-6 xl:px-36 flex flex-wrap items-center justify-between mx-auto py-4">
                     <a href="/" className="flex items-center space-x-3 rtl:space-x-reverse">
                         <img src={logo_texto} className="h-auto w-36" alt="Logo de texto" />
                     </a>

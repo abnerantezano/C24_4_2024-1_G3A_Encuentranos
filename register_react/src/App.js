@@ -3,26 +3,24 @@ import React, { useState } from 'react';
 import { BrowserRouter as Router, Routes, Route } from 'react-router-dom';
 import './App.css';
 //COMPONENTES
-import Header from './componentes/Header';
-import HeaderAutenticado from './componentes/HeaderAutenticado';
-import Footer from './componentes/Footer';
-import FooterAutenticado from './componentes/FooterAutenticado';
-import InformacionDeUsuario from './componentes/InformacionDeUsuario';
+import Header from './componentes/Header/Header';
+import HeaderAutenticado from './componentes/Header/HeaderAutenticado';
+import Footer from './componentes/Footer/Footer';
+import FooterAutenticado from './componentes/Footer/FooterAutenticado';
+import InformacionDeUsuario from './componentes/Informacion/InformacionDeUsuario';
 //PAGINAS SIN LOGIN
-import Index from './paginas/Index/Index';
-import IniciarSesion from './paginas/Index/IniciarSesion';
-import Registro from './paginas/Index/Registro';
-import CrearUsuario from './paginas/Index/CrearUsuario';
-import Formulario from './paginas/Index/Formulario';
+import Index from './paginas/Index';
+import IniciarSesion from './paginas/IniciarSesion';
+import Registro from './paginas/Registro';
+import CrearUsuario from './paginas/CrearUsuario';
+import Formulario from './paginas/Formulario';
 //PAGINAS CON LOGIN
 import AgregarServicio from './paginas/AgregarServicio';
 import ServicioMultiple from './paginas/FuncionAgregarServicios'
 import Inicio from './paginas/Inicio';
 import Servicios from './paginas/Servicios';
 import Precios from './paginas/Precios';
-import Perfil from './paginas/Perfil';
-import MisServicios from './paginas/MisServicios';
-import MisContratos from './paginas/MisContratos';
+import Configuracion from './componentes/Diseños/Configuracion_perfil';
 
 function App() {
 
@@ -48,13 +46,11 @@ function App() {
             <Route exact path='/registro' element={<Registro />} />
             <Route exact path='/formulario' element={<Formulario />} />
             {/*LOGUEADO*/}
-            <Route exact path='/agregarServicio' element={<AgregarServicio />} />
+            <Route exact path='/agregar-servicio' element={<AgregarServicio />} />
             <Route exact path='/inicio' element={<Inicio />} />
             <Route exact path='/servicios' element={<Servicios />} />
             <Route exact path='/precios' element={<Precios/>} />
-            <Route exact path='/perfil' element={<Perfil />} />
-            <Route exact path='/misServicios' element={<MisServicios />} />
-            <Route exact path='/misContratos' element={<MisContratos/>} />
+            <Route path='/configuracion?*' element={<Configuracion />} />
             <Route exact path='/servicioMultipe' element={<ServicioMultiple />} />
           </Routes>
         </div>

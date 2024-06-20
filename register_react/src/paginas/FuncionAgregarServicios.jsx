@@ -11,7 +11,7 @@ import { useForm, Controller } from "react-hook-form";
 // AXIOS
 import ServicioProveedorService from "../servicios/ServicioProveedor";
 import UsuarioService from "../servicios/UsuarioService";
-import InformacionDeUsuario from "../componentes/InformacionDeUsuario";
+import InformacionDeUsuario from "../componentes/Informacion/InformacionDeUsuario";
 
 const AgregarServicio = () => {
 

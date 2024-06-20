@@ -13,13 +13,18 @@ class UsuarioService {
             .then(res => res.data);
     }
 
-    getUser(){
+    getInfo(){
         return axios.get(this.baseUrl + '/datos',{withCredentials: true})
             .then(res => res.data); 
     }
 
-    getInfo(){
-        return axios.get(this.baseUrl + '/datossi',{withCredentials: true})
+    getProveedorInfo(){
+        return axios.get(this.baseUrl + '/proveedor/datos',{withCredentials: true})
+            .then(res => res.data);
+    }
+
+    getClienteInfo(){
+        return axios.get(this.baseUrl + '/cliente/datos',{withCredentials:true})
             .then(res => res.data);
     }
     

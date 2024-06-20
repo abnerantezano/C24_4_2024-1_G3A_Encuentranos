@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from "react";
-import logo from "../../imagenes/logo-color.png";
+import logo from "../imagenes/logo-color.png";
 //PRIME REACT
 import { Calendar } from 'primereact/calendar';
 import { InputText } from 'primereact/inputtext';
@@ -11,10 +11,10 @@ import { addLocale } from 'primereact/api';
 import { useForm,Controller} from "react-hook-form";
 import { useNavigate } from "react-router-dom";
 //AXIOS
-import DistritoService from "../../servicios/DistritoService";
-import UsuarioService from "../../servicios/UsuarioService";
-import ClienteService from "../../servicios/ClienteService";
-import ProveedorService from "../../servicios/ProveedorService";
+import DistritoService from "../servicios/DistritoService";
+import UsuarioService from "../servicios/UsuarioService";
+import ClienteService from "../servicios/ClienteService";
+import ProveedorService from "../servicios/ProveedorService";
 
 
 
@@ -104,7 +104,7 @@ const Formulario = () => {
                     .catch((error) => {
                         console.log(error);
                     })
-                navigate('/agregarServicio');
+                navigate('/agregar-servicio');
             }
             } else {
             console.error('Error al tener el idtipo');

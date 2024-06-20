@@ -1,32 +1,22 @@
 import React, { useState, useEffect } from "react";
-import InformacionDeUsuario from '../componentes/InformacionDeUsuario';
-import ServicioProveedor from "../../servicios/ServicioProveedor";
+import UsuarioService from "../../servicios/UsuarioService";
 
-const Proveedor = ({ children }) => {
+const InformacionProveedor = ({ children }) => {
     
-    const [proveedor, setProveedor] = useState('');
+    const [info, setInfo] = useState('');
 
     useEffect(() => {
-        InformacionDeUsuario().then(info => {
-            ServicioProveedor.getServicioRegistrados(info.id)
-                .then(response => {
-                    setProveedor(response);
-                })
-                .catch(error => {
-                    console.log(error);
-                });
-        });
+        UsuarioService.getProveedorInfo()
+            .then((response) => {
+                setInfo(response);
+            })
+            .catch((error) => {
+                console.error(error);
+            })
     }, []);
 
-    // Notificar al componente padre si el proveedor está autenticado
-    useEffect(() => {
-        if (proveedor !== '') {
-            // Proveedor está autenticado, notificar al componente padre
-            children(true);
-        }
-    }, [proveedor, children]);
-
-    return null;
+    return <>{children(info)}</>;
+    
 }
 
-export default Proveedor;
+export default InformacionProveedor;

@@ -1,12 +1,12 @@
 import React, { useState, useEffect, useRef } from 'react';
 import { Link, useLocation } from 'react-router-dom';
-import logo from "../imagenes/logo_texto_color.png";
+import logo from "../../imagenes/logo_texto_color.png";
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faBars, faComment, faBell } from '@fortawesome/free-solid-svg-icons';
-import DropDownPerfil from './DropDownPerfil';
-import DropdownMensaje from './DropdownMensaje';
-import DropdownNotificaciones from './DropdownNotificaciones';
-import InformacionDeUsuario from './InformacionDeUsuario';
+import DropDownPerfil from '../Dropdown/DropDownPerfil';
+import DropdownMensaje from '../Dropdown/DropdownMensaje';
+import DropdownNotificaciones from '../Dropdown/DropdownNotificaciones';
+import InformacionProveedor from '../Informacion/InformacionProveedor';
 
 export const HeaderAutenticado = () => {
   const [abrirMensaje, setAbrirMensaje] = useState(false);
@@ -26,7 +26,7 @@ export const HeaderAutenticado = () => {
   const perfilRef = useRef(null);
 
   return (
-    <InformacionDeUsuario>
+    <InformacionProveedor>
       {(info) => (
         <div>
           <header className='relative'>
@@ -46,7 +46,7 @@ export const HeaderAutenticado = () => {
                   </button>
                   {info.idUsuario && (
                     <button type="button" onClick={() => setAbrirPerfil((prev) => !prev)} ref={perfilRef} className="flex text-sm rounded-full md:me-0">
-                      <span className="sr-only">Menu del Perfil</span>
+                      <span className="sr-only">Imagen de perfil </span>
                       <img className="w-8 h-8 rounded-full object-cover" src={info.idUsuario.imagenUrl} alt="Foto de perfil" />
                     </button>
                   )}
@@ -76,7 +76,7 @@ export const HeaderAutenticado = () => {
           </header>
         </div>
       )}
-    </InformacionDeUsuario>
+    </InformacionProveedor>
   );
 }
 

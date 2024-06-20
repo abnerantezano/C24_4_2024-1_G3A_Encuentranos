@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from "react";
-import UsuarioService from "../servicios/UsuarioService";
+import UsuarioService from "../../servicios/UsuarioService";
 
-const Info = ({ children }) => {
+const InformacionDeUsuario = ({ children }) => {
     const [info, setInfo] = useState('');
 
     useEffect(() => {
@@ -17,4 +17,4 @@ const Info = ({ children }) => {
     return <>{children(info)}</>;
 }
 
-export default Info;
+export default InformacionDeUsuario;

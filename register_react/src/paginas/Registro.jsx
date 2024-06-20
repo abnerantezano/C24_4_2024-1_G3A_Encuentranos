@@ -1,4 +1,4 @@
-import logo from "../../imagenes/logo-color.png";
+import logo from "../imagenes/logo-color.png";
 
 const IniciarSesion = () => {
 

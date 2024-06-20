@@ -94,3 +94,21 @@ code {
   }
 }
 
+.custom-scrollbar::-webkit-scrollbar {
+  width: 12px; 
+}
+
+.custom-scrollbar::-webkit-scrollbar-track {
+  background: #dbdbdb; 
+  border-radius: 0.5rem;; 
+}
+
+.custom-scrollbar::-webkit-scrollbar-thumb {
+  background: #BC7547;
+  border-radius: 0.5rem;; 
+}
+
+.custom-scrollbar::-webkit-scrollbar-thumb:hover {
+  background: #B4663F; 
+}
+
