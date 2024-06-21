@@ -4,6 +4,7 @@ import android.util.Log
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import com.ambrosio.josue.tutorial.RetrofitClient
+import com.ambrosio.josue.tutorial.models.ServicioModel
 import com.ambrosio.josue.tutorial.models.ServicioProveedorModel
 import retrofit2.Call
 import retrofit2.Callback
@@ -13,7 +14,7 @@ class ServicioProveedorViewModel : ViewModel() {
     private val servicioProveedorApi = RetrofitClient.servicioProveedorApi
     val listaServiciosProveedores = MutableLiveData<List<ServicioProveedorModel>>()
     val obtenerServicioProveedorPorIdProveedor = MutableLiveData<List<ServicioProveedorModel>?>()
-    val listarServiciosNoRegistrados = MutableLiveData<List<ServicioProveedorModel>?>()
+    val listarServiciosNoRegistrados = MutableLiveData<List<ServicioModel>?>()
 
     fun obtenerServiciosProveedor() {
         servicioProveedorApi.listarServiciosProveedores().enqueue(object : Callback<List<ServicioProveedorModel>> {
@@ -33,10 +34,10 @@ class ServicioProveedorViewModel : ViewModel() {
 
     fun listarServiciosNoRegistrados(idProveedor: Int) {
         servicioProveedorApi.listarServiciosNoRegistrados(idProveedor)
-            .enqueue(object : Callback<List<ServicioProveedorModel>> {
+            .enqueue(object : Callback<List<ServicioModel>> {
                 override fun onResponse(
-                    call: Call<List<ServicioProveedorModel>>,
-                    response: Response<List<ServicioProveedorModel>>
+                    call: Call<List<ServicioModel>>,
+                    response: Response<List<ServicioModel>>
                 ) {
                     if (response.isSuccessful) {
                         val servicios = response.body()
@@ -46,7 +47,7 @@ class ServicioProveedorViewModel : ViewModel() {
                     }
                 }
 
-                override fun onFailure(call: Call<List<ServicioProveedorModel>>, t: Throwable) {
+                override fun onFailure(call: Call<List<ServicioModel>>, t: Throwable) {
                     listarServiciosNoRegistrados.postValue(null)
                 }
             })

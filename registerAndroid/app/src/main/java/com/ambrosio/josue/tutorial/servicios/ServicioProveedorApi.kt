@@ -19,5 +19,5 @@ interface ServicioProveedorApi {
     fun obtenerServicioProveedorPorIdProveedor(@Path("idProveedor") idProveedor: Int): Call<List<ServicioProveedorModel>>
 
     @GET("servicio-proveedor/servicios-no-registrados/{idProveedor}")
-    fun listarServiciosNoRegistrados(@Path("idProveedor") idProveedor: Int): Call<List<ServicioProveedorModel>>
+    fun listarServiciosNoRegistrados(@Path("idProveedor") idProveedor: Int): Call<List<ServicioModel>>
 }

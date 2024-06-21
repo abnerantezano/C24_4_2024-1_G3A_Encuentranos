@@ -8,8 +8,10 @@ import android.widget.TextView
 import androidx.recyclerview.widget.RecyclerView
 import com.ambrosio.josue.tutorial.R
 import com.ambrosio.josue.tutorial.models.ServicioProveedorModel
+import com.ambrosio.josue.tutorial.activities.MiServicioActivity
 
 class MiServicioAdapater(
+    private val miServicioActivity: MiServicioActivity
 ) : RecyclerView.Adapter<MiServicioAdapater.ServicioProveedorViewHolder>() {
 
     private var servicios: List<ServicioProveedorModel> = emptyList()
@@ -46,6 +48,9 @@ class MiServicioAdapater(
             tvServiciosProveedor.text = servicio.idServicio.nombre
             tvPrecioServicio.text = "S/ ${servicio.precio}"
 
+            imgEditarServicio.setOnClickListener {
+                miServicioActivity.mostrarDialogoEditarServicio(servicio)
+            }
         }
     }
 }
