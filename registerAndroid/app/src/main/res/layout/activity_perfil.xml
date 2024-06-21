@@ -35,12 +35,15 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_marginBottom="10dp"
+            android:textStyle="bold"
             android:text="Descripción" />
 
         <EditText
+            android:id="@+id/tvDescripcionUsuario"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:hint="Escrbie tu descripción"
+            android:background="@drawable/rectangle_border"
+            android:hint="@string/escribe_tu_descripci_n"
             android:padding="80dp" />
     </LinearLayout>
 
@@ -58,12 +61,15 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_marginBottom="10dp"
+            android:textStyle="bold"
             android:text="Curriculum Vitae" />
 
         <EditText
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:gravity="center"
+            android:padding="15dp"
+            android:background="@drawable/rectangle_border"
             android:hint="Elija un documento"/>
     </LinearLayout>
 

@@ -27,12 +27,11 @@
     <androidx.recyclerview.widget.RecyclerView
         android:id="@+id/recyclerViewServicios"
         android:layout_width="0dp"
-        android:layout_height="0dp"
+        android:layout_height="wrap_content"
         android:layout_marginBottom="15dp"
         app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
-        app:layout_constraintBottom_toTopOf="@id/tvAgregarServicio"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintEnd_toEndOf="@+id/tvMisServicios"
+        app:layout_constraintStart_toStartOf="@+id/tvMisServicios"
         app:layout_constraintTop_toBottomOf="@id/tvMisServicios"
         tools:listitem="@layout/item_mi_servicio" />
 
@@ -44,7 +43,7 @@
         android:textSize="17dp"
         android:textStyle="bold"
         android:textColor="@color/skinBlack"
-        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/recyclerViewServicios"
         app:layout_constraintEnd_toEndOf="@+id/tvMisServicios"
         app:layout_constraintStart_toStartOf="@+id/tvMisServicios" />
 
@@ -56,6 +55,15 @@
         app:layout_constraintTop_toTopOf="parent"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"/>
+
+    <com.google.android.material.floatingactionbutton.FloatingActionButton
+        android:id="@+id/fabAgregarServicio"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_margin="16dp"
+        android:src="@drawable/ic_servicemano"
+        app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"/>
 
 </androidx.constraintlayout.widget.ConstraintLayout>

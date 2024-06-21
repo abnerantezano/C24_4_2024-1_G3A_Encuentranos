@@ -52,9 +52,6 @@ class RegistroProveedorActivity : AppCompatActivity() {
     private fun retrieveSharedPreferencesData() {
         userId = sharedPreferences.getInt("user_id", -1)
         email = sharedPreferences.getString("email", "") ?: ""
-
-        // Establecer el ID del usuario en el TextView
-        binding.tvObtenerId.text = "ID: $userId"
     }
 
     private fun setupObservers() {

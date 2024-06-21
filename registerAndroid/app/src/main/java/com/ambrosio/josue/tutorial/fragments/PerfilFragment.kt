@@ -5,11 +5,12 @@ import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.Toast
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
 import androidx.lifecycle.Observer
 import com.ambrosio.josue.tutorial.activities.*
-import com.ambrosio.josue.tutorial.databinding.ActivityOpcionesUsuarioBinding
+import com.ambrosio.josue.tutorial.databinding.FragmentPerfilBinding
 import com.ambrosio.josue.tutorial.viewModels.InicioViewModel
 import com.google.android.gms.auth.api.signin.GoogleSignIn
 import com.google.android.gms.auth.api.signin.GoogleSignInClient
@@ -20,7 +21,7 @@ import com.google.firebase.auth.FirebaseUser
 
 class PerfilFragment : Fragment() {
 
-    private var _binding: ActivityOpcionesUsuarioBinding? = null
+    private var _binding: FragmentPerfilBinding? = null
     private val binding get() = _binding!!
     private lateinit var googleSignInClient: GoogleSignInClient
     private val viewModel: InicioViewModel by viewModels()
@@ -29,7 +30,7 @@ class PerfilFragment : Fragment() {
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View? {
-        _binding = ActivityOpcionesUsuarioBinding.inflate(inflater, container, false)
+        _binding = FragmentPerfilBinding.inflate(inflater, container, false)
         return binding.root
     }
 
@@ -41,6 +42,14 @@ class PerfilFragment : Fragment() {
         binding.opciones.visibility = View.GONE
         binding.cerrarSesion.visibility = View.GONE
 
+
+        viewModel.mensajeError.observe(viewLifecycleOwner, Observer { message ->
+            binding.progressBar.visibility = View.GONE
+            binding.informacion.visibility = View.VISIBLE
+            binding.opciones.visibility = View.VISIBLE
+            binding.cerrarSesion.visibility = View.VISIBLE
+            showToast(message)
+        })
         // Set up header information
         setupHeader()
 
@@ -60,6 +69,10 @@ class PerfilFragment : Fragment() {
             val correo = user.email
             binding.tvInformacionCorreoPersonal.text = correo
         }
+    }
+
+    private fun showToast(message: String) {
+        Toast.makeText(context, message, Toast.LENGTH_SHORT).show()
     }
 
     private fun fetchUserData() {

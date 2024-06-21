@@ -2,10 +2,9 @@ package com.ambrosio.josue.tutorial
 
 import android.os.Bundle
 import androidx.appcompat.app.AppCompatActivity
-import androidx.fragment.app.Fragment
-import androidx.fragment.app.commit
+import androidx.navigation.findNavController
+import androidx.navigation.ui.setupWithNavController
 import com.ambrosio.josue.tutorial.databinding.ActivityMainBinding
-import com.ambrosio.josue.tutorial.fragments.*
 
 class MainActivity : AppCompatActivity() {
     private lateinit var binding: ActivityMainBinding
@@ -15,32 +14,8 @@ class MainActivity : AppCompatActivity() {
         binding = ActivityMainBinding.inflate(layoutInflater)
         setContentView(binding.root)
 
-        binding.iconHome.setOnClickListener {
-            showFragment(InicioFragment())
-        }
-        binding.iconLimpieza.setOnClickListener {
-            showFragment(ServiciosFragment())
-        }
-        binding.iconTarjeta.setOnClickListener {
-            showFragment(ServicioProveedorFragment())
-        }
-        binding.iconChat.setOnClickListener {
-            showFragment(MensajeFragment())
-        }
-        binding.iconUsuario.setOnClickListener {
-            showFragment(PerfilFragment())
-        }
+        val navController = findNavController(R.id.nav_host_fragment)
 
-        // Mostrar el fragmento de inicio por defecto al iniciar la actividad
-        if (savedInstanceState == null) {
-            showFragment(InicioFragment())
-        }
-    }
-
-    private fun showFragment(fragment: Fragment) {
-        supportFragmentManager.commit {
-            replace(R.id.fragment_container, fragment)
-            addToBackStack(null) // Agregar a la pila de retroceso
-        }
+        binding.navView.setupWithNavController(navController)
     }
 }

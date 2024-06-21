@@ -11,7 +11,9 @@ import retrofit2.Call
 import retrofit2.Callback
 import retrofit2.Response
 
-class RegistroProveedorViewModel(private val proveedorApi: ProveedorApi, private val distritoApi: DistritoApi) : ViewModel() {
+class RegistroProveedorViewModel(
+    private val proveedorApi: ProveedorApi,
+    private val distritoApi: DistritoApi) : ViewModel() {
 
     private val _distritos = MutableLiveData<List<DistritoModel>>()
     val distritos: LiveData<List<DistritoModel>> = _distritos

@@ -137,7 +137,7 @@ public class ServicioProveedorControlador {
     }
     
     // OBTENER LOS SERVICIOS PROVEEDOR POR ID DEL PROVEEDOR
-    @GetMapping("/listar/{idProveedor}")
+    @GetMapping("/buscar/{idProveedor}")
     public ResponseEntity<List<ServicioProveedorModelo>> obtenerServicioProveedorPorIdProveedor(@PathVariable("idProveedor") int idProveedor) {
         List<ServicioProveedorModelo> serviciosProveedor = servicioProveedorServicio.obtenerServicioProveedorPorIdProveedor(idProveedor);
         if (!serviciosProveedor.isEmpty()) {

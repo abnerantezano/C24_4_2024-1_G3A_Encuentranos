@@ -6,8 +6,8 @@ import android.widget.LinearLayout
 import androidx.appcompat.app.AppCompatActivity
 import com.ambrosio.josue.tutorial.R
 import com.ambrosio.josue.tutorial.databinding.FooterBinding
-import com.ambrosio.josue.tutorial.fragments.MensajeFragment
 import com.ambrosio.josue.tutorial.fragments.InicioFragment
+import com.ambrosio.josue.tutorial.fragments.MensajeFragment
 import com.ambrosio.josue.tutorial.fragments.PerfilFragment
 import com.ambrosio.josue.tutorial.fragments.ServicioProveedorFragment
 import com.ambrosio.josue.tutorial.fragments.ServiciosFragment

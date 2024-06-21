@@ -1,0 +1,40 @@
+<?xml version="1.0" encoding="utf-8"?>
+<navigation xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/home_navigation"
+    app:startDestination="@id/inicioFragment">
+    <fragment
+        android:id="@+id/inicioFragment"
+        android:name="com.ambrosio.josue.tutorial.fragments.InicioFragment"
+        android:label="fragment_inicio"
+        tools:layout="@layout/fragment_inicio" />
+    <fragment
+        android:id="@+id/serviciosFragment"
+        android:name="com.ambrosio.josue.tutorial.fragments.ServiciosFragment"
+        android:label="fragment_servicios"
+        tools:layout="@layout/fragment_servicios" />
+    <fragment
+        android:id="@+id/servicioProveedorFragment"
+        android:name="com.ambrosio.josue.tutorial.fragments.ServicioProveedorFragment"
+        tools:layout="@layout/fragment_servicio_proveedor">
+        <action
+            android:id="@+id/action_servicioProveedorFragment_to_informacionProveedorFragment"
+            app:destination="@id/informacionProveedorFragment" />
+    </fragment>
+
+    <fragment
+        android:id="@+id/informacionProveedorFragment"
+        android:name="com.ambrosio.josue.tutorial.fragments.InformacionProveedorFragment"
+        tools:layout="@layout/fragment_informacion_proveedor" />
+    <fragment
+        android:id="@+id/mensajeFragment"
+        android:name="com.ambrosio.josue.tutorial.fragments.MensajeFragment"
+        android:label="fragment_mensaje"
+        tools:layout="@layout/fragment_mensaje" />
+    <fragment
+        android:id="@+id/perfilFragment"
+        android:name="com.ambrosio.josue.tutorial.fragments.PerfilFragment"
+        android:label="fragment_perfil"
+        tools:layout="@layout/fragment_perfil" />
+</navigation>

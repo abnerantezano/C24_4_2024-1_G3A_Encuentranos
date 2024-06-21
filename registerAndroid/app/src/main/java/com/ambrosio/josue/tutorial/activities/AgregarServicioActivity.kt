@@ -44,7 +44,7 @@ class AgregarServicioActivity : AppCompatActivity() {
         // Actualizar el TextView u otro elemento en tu UI con el id_proveedor
         binding.tvIdProveedor.text = "ID Proveedor: $idProveedor"
 
-        serviciosListViewModel = ServiciosListViewModel(this)
+        serviciosListViewModel = ServiciosListViewModel()
         serviciosListViewModel.obtenerServicios()
         adapter = ServicioAdapter()
 

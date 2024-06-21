@@ -8,6 +8,7 @@ import android.view.ViewGroup
 import androidx.fragment.app.Fragment
 import com.ambrosio.josue.tutorial.R
 import com.ambrosio.josue.tutorial.activities.*
+import com.ambrosio.josue.tutorial.fragments.PerfilFragment
 
 class FooterFragment : Fragment() {
 
@@ -24,7 +25,7 @@ class FooterFragment : Fragment() {
             startActivity(Intent(requireContext(), MensajeActivity::class.java))
         }
         view.findViewById<View>(R.id.iconUsuario).setOnClickListener {
-            startActivity(Intent(requireContext(), OpcionesUsuarioActivity::class.java))
+            startActivity(Intent(requireContext(), PerfilFragment::class.java))
         }
 
         return view

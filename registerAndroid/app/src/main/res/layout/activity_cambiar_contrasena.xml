@@ -47,12 +47,25 @@
             android:inputType="textPassword"/>
 
         <EditText
+            android:id="@+id/edtNuevaContrasena"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="30dp"
+            android:paddingStart="16dp"
+            android:hint="Nueva Contraseña"
+            android:paddingVertical="12dp"
+            android:background="@drawable/rectangle_border"
+            android:textStyle="bold"
+            android:layout_gravity="center"
+            android:inputType="textPassword"/>
+
+        <EditText
             android:id="@+id/edtConfirmarContrasena"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_marginTop="30dp"
             android:paddingStart="16dp"
-            android:hint="Confirmar contraseña"
+            android:hint="Confirmar nueva contraseña"
             android:paddingVertical="12dp"
             android:background="@drawable/rectangle_border"
             android:textStyle="bold"

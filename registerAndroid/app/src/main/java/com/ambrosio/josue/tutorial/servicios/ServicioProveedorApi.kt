@@ -1,5 +1,6 @@
 package com.ambrosio.josue.tutorial.servicios
 
+import com.ambrosio.josue.tutorial.models.ServicioModel
 import com.ambrosio.josue.tutorial.models.ServicioProveedorModel
 import retrofit2.Call
 import retrofit2.http.Body
@@ -14,6 +15,9 @@ interface ServicioProveedorApi {
     @POST("servicio-proveedor/agregar")
     fun agregarServicioProveedor(@Body serviciosProveedor: List<ServicioProveedorModel>): Call<Void>
 
-    @GET("servicio-proveedor/listar/{idProveedor}")
+    @GET("servicio-proveedor/buscar/{idProveedor}")
     fun obtenerServicioProveedorPorIdProveedor(@Path("idProveedor") idProveedor: Int): Call<List<ServicioProveedorModel>>
+
+    @GET("servicio-proveedor/servicios-no-registrados/{idProveedor}")
+    fun listarServiciosNoRegistrados(@Path("idProveedor") idProveedor: Int): Call<List<ServicioProveedorModel>>
 }

@@ -16,6 +16,12 @@
         android:usesCleartextTraffic="true"
         tools:targetApi="31">
         <activity
+            android:name=".activities.ContratoEspecificoActivity"
+            android:exported="false" />
+        <activity
+            android:name=".activities.InformacionProveedorActivity"
+            android:exported="false" />
+        <activity
             android:name=".activities.MiServicioActivity"
             android:exported="false" />
         <activity
@@ -29,13 +35,12 @@
             android:exported="true" />
         <activity
             android:name=".activities.AgregarServicioActivity"
-            android:exported="true"></activity>
-        <activity
-            android:name=".activities.OpcionesUsuarioActivity"
-            android:exported="false" />
+            android:exported="true" />
+
+
         <activity
             android:name=".activities.MiContratoActivity"
-            android:exported="true"></activity>
+            android:exported="true" />
         <activity
             android:name=".activities.CambiarContrasenaActivity"
             android:exported="false" />
@@ -53,7 +58,7 @@
             android:exported="false" />
         <activity
             android:name=".activities.InicioSesionActivity"
-            android:exported="true"></activity>
+            android:exported="true" />
         <activity
             android:name=".activities.ServiciosListActivity"
             android:exported="true" />
@@ -65,12 +70,10 @@
             android:exported="false" />
         <activity
             android:name=".activities.LoginActivity"
-            android:exported="true">
-
-        </activity>
+            android:exported="true" />
         <activity
             android:name=".activities.RegistroProveedorActivity"
-            android:exported="true"></activity>
+            android:exported="true" />
         <activity
             android:name=".MainActivity"
             android:exported="true">

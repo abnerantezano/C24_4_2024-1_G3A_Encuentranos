@@ -11,6 +11,7 @@ data class ProveedorModel(
     val dni: String = "",
     val celular: String = "",
     val fechaNacimiento: String = "",
+    val descripcion: String= "",
     val calificacionPromedio: Double = 0.0,
     val curriculumUrl: String = "",
     val fechaRegistro: String = ""

@@ -13,6 +13,7 @@ class ServicioProveedorViewModel : ViewModel() {
     private val servicioProveedorApi = RetrofitClient.servicioProveedorApi
     val listaServiciosProveedores = MutableLiveData<List<ServicioProveedorModel>>()
     val obtenerServicioProveedorPorIdProveedor = MutableLiveData<List<ServicioProveedorModel>?>()
+    val listarServiciosNoRegistrados = MutableLiveData<List<ServicioProveedorModel>?>()
 
     fun obtenerServiciosProveedor() {
         servicioProveedorApi.listarServiciosProveedores().enqueue(object : Callback<List<ServicioProveedorModel>> {
@@ -29,6 +30,28 @@ class ServicioProveedorViewModel : ViewModel() {
             }
         })
     }
+
+    fun listarServiciosNoRegistrados(idProveedor: Int) {
+        servicioProveedorApi.listarServiciosNoRegistrados(idProveedor)
+            .enqueue(object : Callback<List<ServicioProveedorModel>> {
+                override fun onResponse(
+                    call: Call<List<ServicioProveedorModel>>,
+                    response: Response<List<ServicioProveedorModel>>
+                ) {
+                    if (response.isSuccessful) {
+                        val servicios = response.body()
+                        listarServiciosNoRegistrados.postValue(servicios)
+                    } else {
+                        listarServiciosNoRegistrados.postValue(null)
+                    }
+                }
+
+                override fun onFailure(call: Call<List<ServicioProveedorModel>>, t: Throwable) {
+                    listarServiciosNoRegistrados.postValue(null)
+                }
+            })
+    }
+
 
     fun agregarServicioProveedor(serviciosProveedor: List<ServicioProveedorModel>, callback: (Boolean) -> Unit) {
         servicioProveedorApi.agregarServicioProveedor(serviciosProveedor).enqueue(object : Callback<Void> {
@@ -55,19 +78,15 @@ class ServicioProveedorViewModel : ViewModel() {
                 ) {
                     if (response.isSuccessful) {
                         val servicios = response.body()
-                        Log.d("MiServicioActivity", "Servicios obtenidos: $servicios")
                         obtenerServicioProveedorPorIdProveedor.postValue(servicios)
                     } else {
-                        Log.e("MiServicioActivity", "Error en la respuesta: ${response.code()}")
                         obtenerServicioProveedorPorIdProveedor.postValue(null)
                     }
                 }
 
                 override fun onFailure(call: Call<List<ServicioProveedorModel>>, t: Throwable) {
-                    Log.e("MiServicioActivity", "Error al obtener servicios: ${t.message}")
                     obtenerServicioProveedorPorIdProveedor.postValue(null)
                 }
             })
     }
-
 }

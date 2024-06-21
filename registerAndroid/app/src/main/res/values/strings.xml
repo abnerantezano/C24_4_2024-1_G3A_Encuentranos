@@ -1,4 +1,7 @@
 <resources>
     <string name="app_name">Encuetranos</string>
     <string name="default_web_client_id">872337376041-i2ivmqq52eaplm35jfi1ak64vhon6ida.apps.googleusercontent.com</string>
+    <!-- TODO: Remove or change this placeholder text -->
+    <string name="hello_blank_fragment">Hello blank fragment</string>
+    <string name="escribe_tu_descripci_n">Escribe tu descripción</string>
 </resources>

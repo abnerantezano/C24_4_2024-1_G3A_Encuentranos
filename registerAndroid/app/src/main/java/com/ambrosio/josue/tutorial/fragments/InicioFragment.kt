@@ -11,11 +11,12 @@ import androidx.fragment.app.viewModels
 import androidx.lifecycle.Observer
 import com.ambrosio.josue.tutorial.activities.ServiciosListActivity
 import com.ambrosio.josue.tutorial.databinding.ActivityInicioSesionBinding
+import com.ambrosio.josue.tutorial.databinding.FragmentInicioBinding
 import com.ambrosio.josue.tutorial.viewModels.InicioViewModel
 
 class InicioFragment : Fragment() {
 
-    private var _binding: ActivityInicioSesionBinding? = null
+    private var _binding: FragmentInicioBinding? = null
     private val binding get() = _binding!!
     private val viewModel: InicioViewModel by viewModels()
 
@@ -23,7 +24,7 @@ class InicioFragment : Fragment() {
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View? {
-        _binding = ActivityInicioSesionBinding.inflate(inflater, container, false)
+        _binding = FragmentInicioBinding.inflate(inflater, container, false)
         return binding.root
     }
 
@@ -56,7 +57,7 @@ class InicioFragment : Fragment() {
 
     private fun goServicios() {
         binding.btnBuscarServicios.setOnClickListener {
-            val intent = Intent(activity, ServiciosListActivity::class.java)
+            val intent = Intent(activity, ServiciosFragment::class.java)
             startActivity(intent)
         }
     }

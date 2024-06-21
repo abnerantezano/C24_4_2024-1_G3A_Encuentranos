@@ -16,7 +16,7 @@ class ServiciosListActivity : FooterInclude() {
         super.onCreate(savedInstanceState)
         binding = ActivityServiciosListBinding.inflate(layoutInflater)
         setContentView(binding.root)
-        serviciosListViewModel = ServiciosListViewModel(this)
+        serviciosListViewModel = ServiciosListViewModel()
 
         serviciosListViewModel.obtenerServicios()
 

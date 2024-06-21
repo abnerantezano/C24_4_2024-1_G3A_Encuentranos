@@ -1,11 +1,13 @@
 package com.ambrosio.josue.tutorial.adapters
 
+import android.content.Intent
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.TextView
 import androidx.recyclerview.widget.RecyclerView
 import com.ambrosio.josue.tutorial.R
+import com.ambrosio.josue.tutorial.activities.ContratoEspecificoActivity
 import com.proyecto.encuentranos.models.DetalleContratoModel
 
 class DetalleContratoAdapater : RecyclerView.Adapter<DetalleContratoAdapater.DetalleContratoAdapaterViewHolder>() {
@@ -17,8 +19,8 @@ class DetalleContratoAdapater : RecyclerView.Adapter<DetalleContratoAdapater.Det
     }
 
     override fun onBindViewHolder(holder: DetalleContratoAdapaterViewHolder, position: Int) {
-        val detalleContratos = detalleContratos[position]
-        holder.bind(detalleContratos)
+        val detalleContrato = detalleContratos[position]
+        holder.bind(detalleContrato)
     }
 
     override fun getItemCount(): Int {
@@ -34,13 +36,32 @@ class DetalleContratoAdapater : RecyclerView.Adapter<DetalleContratoAdapater.Det
         private val nombreClienteTextView: TextView = itemView.findViewById(R.id.tvNombreCliente)
         private val nombreServicioTextView: TextView = itemView.findViewById(R.id.tvNombreServicio)
         private val precioServicioTextView: TextView = itemView.findViewById(R.id.tvPrecioActual)
-        private val EstadoContratoTextView: TextView = itemView.findViewById(R.id.tvEstado)
+        private val estadoContratoTextView: TextView = itemView.findViewById(R.id.tvEstado)
+
+        init {
+            itemView.setOnClickListener {
+                val position = adapterPosition
+                if (position != RecyclerView.NO_POSITION) {
+                    val detalleContrato = detalleContratos[position]
+                    val intent = Intent(itemView.context, ContratoEspecificoActivity::class.java).apply {
+                        putExtra("NOMBRE_CLIENTE", "${detalleContrato.idContrato.idCliente.nombre} ${detalleContrato.idContrato.idCliente.apellidoPaterno}")
+                        putExtra("NOMBRE_SERVICIO", "${detalleContrato.idServicio.nombre}")
+                        putExtra("PRECIO_ACTUAL", "S/ ${detalleContrato.precioActual}")
+                        putExtra("ESTADO_SERVICIO", "${detalleContrato.idContrato.estado}")
+                    }
+                    itemView.context.startActivity(intent)
+                }
+            }
+        }
 
         fun bind(detalleContrato: DetalleContratoModel) {
-            nombreClienteTextView.text = detalleContrato.idContrato.idCliente.nombre
+            val nombre = detalleContrato.idContrato.idCliente.nombre
+            val apellido = detalleContrato.idContrato.idCliente.apellidoPaterno
+            val precio = detalleContrato.precioActual.toString()
+            nombreClienteTextView.text = "$nombre $apellido"
             nombreServicioTextView.text = detalleContrato.idServicio.nombre
-            precioServicioTextView.text = detalleContrato.precioActual.toString()
-            EstadoContratoTextView.text = detalleContrato.idContrato.estado
+            precioServicioTextView.text = "S/ $precio"
+            estadoContratoTextView.text = detalleContrato.idContrato.estado
         }
     }
 }

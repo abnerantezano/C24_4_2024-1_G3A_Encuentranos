@@ -5,6 +5,5 @@
         <!-- <item name="colorPrimary">@color/my_light_primary</item> -->
         <item name="colorPrimary">@color/skin</item>
     </style>
-
     <style name="Theme.Tutorial" parent="Base.Theme.Tutorial" />
 </resources>

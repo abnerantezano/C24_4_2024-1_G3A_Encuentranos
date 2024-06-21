@@ -1,22 +1,31 @@
 package com.ambrosio.josue.tutorial.activities
 
 import android.os.Bundle
+import android.view.View
+import android.widget.ArrayAdapter
+import android.util.Log
 import androidx.activity.viewModels
 import androidx.appcompat.app.AppCompatActivity
 import androidx.lifecycle.Observer
+import com.ambrosio.josue.tutorial.RetrofitClient
 import com.ambrosio.josue.tutorial.databinding.ActivityPersonaInformationBinding
 import com.ambrosio.josue.tutorial.viewModels.InicioViewModel
-import java.util.*
+import com.ambrosio.josue.tutorial.viewModels.DistritoViewModel
+import com.ambrosio.josue.tutorial.servicios.DistritoApi
+import com.ambrosio.josue.tutorial.generals.HeaderInclude
+import com.ambrosio.josue.tutorial.viewModels.RegistroProveedorViewModel
 import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.auth.GetTokenResult
 import com.google.android.gms.tasks.OnCompleteListener
-import android.util.Log
-import android.view.View
+import retrofit2.Retrofit
+import retrofit2.converter.gson.GsonConverterFactory
+import java.util.*
 
-class InformacionPersonalActivity : AppCompatActivity() {
+class InformacionPersonalActivity : HeaderInclude() {
 
     private lateinit var binding: ActivityPersonaInformationBinding
     private val viewModel: InicioViewModel by viewModels()
+    private lateinit var distritoViewModel: DistritoViewModel
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -27,6 +36,7 @@ class InformacionPersonalActivity : AppCompatActivity() {
         binding.LinearDescription.visibility = View.GONE
         binding.btnActualizar.visibility = View.GONE
 
+        setupViewModel()
         setupObservers()
 
         val user = FirebaseAuth.getInstance().currentUser
@@ -43,6 +53,14 @@ class InformacionPersonalActivity : AppCompatActivity() {
                     Log.e("InformacionPersonal", "Error getting token: ${task.exception}")
                 }
             })
+
+        setupHeader()
+    }
+
+    private fun setupViewModel() {
+        val distritoApi = RetrofitClient.distritoApi
+        distritoViewModel = DistritoViewModel( distritoApi)
+        distritoViewModel.listarDistritos()
     }
 
     private fun setupObservers() {
@@ -67,13 +85,29 @@ class InformacionPersonalActivity : AppCompatActivity() {
         viewModel.celularUsuario.observe(this, Observer { celular ->
             binding.edtCelular.setText(celular)
         })
+
+        // Observing distritos and setting up the spinner
+        distritoViewModel.distritos.observe(this, Observer { distritos ->
+            val adapter = ArrayAdapter(this, android.R.layout.simple_spinner_item, distritos.map { it.nombre })
+            adapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item)
+            binding.distritoSpinner.adapter = adapter
+
+            // Observing proveedor to select the corresponding distrito and sexo
+            viewModel.proveedor.observe(this, Observer { proveedor ->
+                val selectedDistrito = distritos.find { it.idDistrito == proveedor.idDistrito.idDistrito }
+                val position = distritos.indexOf(selectedDistrito)
+                binding.distritoSpinner.setSelection(position)
+
+                updateSexoRadioButton(proveedor.sexo)
+            })
+        })
     }
 
     private fun updateSexoRadioButton(sexo: String) {
-        when (sexo.toLowerCase(Locale.getDefault())) {
-            "masculino" -> binding.radioMasculino.isChecked = true
-            "femenino" -> binding.radioFemenino.isChecked = true
-            else -> Log.e("InformacionPersonal", "Sexo desconocido: $sexo")
+        if (sexo == "Masculino"){
+            binding.radioMasculino.isChecked = true
         }
+        binding.radioFemenino.isChecked = true
     }
+
 }

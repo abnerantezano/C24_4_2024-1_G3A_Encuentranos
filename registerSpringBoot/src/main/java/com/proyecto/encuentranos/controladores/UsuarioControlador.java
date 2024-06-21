@@ -97,14 +97,12 @@ public class UsuarioControlador {
         try {
             FirebaseToken decodedToken = FirebaseAuth.getInstance().verifyIdToken(token.replace("Bearer ", ""));
             if (decodedToken != null) {
-                System.out.println("Firebase token validado correctamente.");
                 return true;
             }
         } catch (FirebaseAuthException e) {
             e.printStackTrace();
         }
 
-        // If Firebase token validation fails, handle OAuth2 token validation
         Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
         if (authentication instanceof OAuth2AuthenticationToken oauthToken) {
             OAuth2AuthorizedClient authorizedClient = authorizedClientService.loadAuthorizedClient(
@@ -113,16 +111,14 @@ public class UsuarioControlador {
             if (authorizedClient != null) {
                 OAuth2AccessToken accessToken = authorizedClient.getAccessToken();
                 if (accessToken != null && accessToken.getTokenValue().equals(token)) {
-                    Instant now = Instant.now();
                     Instant tokenExpiration = accessToken.getExpiresAt();
-                    boolean tokenIsValid = tokenExpiration.isAfter(now);
-                    System.out.println("OAuth2 token es válido: " + tokenIsValid);
-                    return tokenIsValid;
+                    if (tokenExpiration != null) { // Check if tokenExpiration is not null
+                        Instant now = Instant.now();
+                        return tokenExpiration.isAfter(now);
+                    }
                 }
             }
         }
-
-        System.out.println("Token no válido.");
         return false;
     }
 

@@ -10,7 +10,6 @@ import retrofit2.Callback
 import retrofit2.Response
 
 class ServiciosListViewModel(
-    var context: Context
 ): ViewModel() {
 
     private val servicioApi = RetrofitClient.servicioApi

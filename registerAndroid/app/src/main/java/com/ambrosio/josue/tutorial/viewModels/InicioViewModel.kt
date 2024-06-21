@@ -4,6 +4,7 @@ import android.util.Log
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
+import com.ambrosio.josue.tutorial.RetrofitClient
 import com.ambrosio.josue.tutorial.models.ClienteModel
 import com.ambrosio.josue.tutorial.models.DistritoModel
 import com.ambrosio.josue.tutorial.models.ProveedorModel
@@ -41,6 +42,15 @@ class InicioViewModel : ViewModel() {
     private val _celularUsuario = MutableLiveData<String>()
     val celularUsuario: LiveData<String> get() = _celularUsuario
 
+    private val _distritoUsuario = MutableLiveData<String>()
+    val distritoUsuario: LiveData<String> get() = _distritoUsuario
+
+    private val _sexoUsuario = MutableLiveData<String>()
+    val sexoUsuario: LiveData<String> get() = _sexoUsuario
+
+    private val _descripcionUsuario = MutableLiveData<String>()
+    val descripcionUsuario: LiveData<String> get() = _descripcionUsuario
+
 
 
     private val _contrasenaUsuario = MutableLiveData<String>()
@@ -49,8 +59,16 @@ class InicioViewModel : ViewModel() {
     private val _mensajeError = MutableLiveData<String>()
     val mensajeError: LiveData<String> get() = _mensajeError
 
+    private val _proveedor = MutableLiveData<ProveedorModel>()
+    val proveedor: LiveData<ProveedorModel> get() = _proveedor
+
+
     private val auth: FirebaseAuth = FirebaseAuth.getInstance()
     private val cliente = OkHttpClient()
+
+    companion object {
+        const val BASE_URL = "http://192.168.100.13:4000"
+    }
 
 
     // Método para verificar la autenticación del usuario actual
@@ -80,6 +98,7 @@ class InicioViewModel : ViewModel() {
         }
     }
 
+
     // Método privado para ejecutar acciones autenticadas
     private fun ejecutarConAutenticacion(accion: (String, String?) -> Unit) {
         val usuarioActual = auth.currentUser
@@ -107,7 +126,7 @@ class InicioViewModel : ViewModel() {
     private fun obtenerIdProveedorPorEmail(email: String, token: String?) {
         val cliente = OkHttpClient()
         val solicitud = Request.Builder()
-            .url("http://192.168.100.13:4000/usuario/verificar/$email")
+            .url("$BASE_URL/usuario/verificar/$email")
             .addHeader("Authorization", "Bearer $token")
             .build()
 
@@ -128,7 +147,7 @@ class InicioViewModel : ViewModel() {
     private fun obtenerIdProveedorPorIdUsuario(idUsuario: Int, token: String?) {
         val cliente = OkHttpClient()
         val solicitud = Request.Builder()
-            .url("http://192.168.100.13:4000/proveedor/buscar-usuario/$idUsuario")
+            .url("$BASE_URL/proveedor/buscar-usuario/$idUsuario")
             .addHeader("Authorization", "Bearer $token")
             .build()
 
@@ -150,7 +169,7 @@ class InicioViewModel : ViewModel() {
         if (email == null || token == null) return
 
         val solicitud = Request.Builder()
-            .url("http://192.168.100.13:4000/usuario/verificar/$email")
+            .url("$BASE_URL/usuario/verificar/$email")
             .addHeader("Authorization", "Bearer $token")
             .build()
 
@@ -168,9 +187,9 @@ class InicioViewModel : ViewModel() {
     }
 
     private fun obtenerDatosUsuario(idUsuario: Int, token: String?) {
-        obtenerDatosDesdeEndpoint("http://192.168.100.13:4000/proveedor/buscar-usuario/$idUsuario", idUsuario, token) {
+        obtenerDatosDesdeEndpoint("$BASE_URL/proveedor/buscar-usuario/$idUsuario", idUsuario, token) {
             if (it == null) {
-                obtenerDatosDesdeEndpoint("http://192.168.100.13:4000/cliente/buscar-usuario/$idUsuario", idUsuario, token) { respuestaCliente ->
+                obtenerDatosDesdeEndpoint("$BASE_URL/cliente/buscar-usuario/$idUsuario", idUsuario, token) { respuestaCliente ->
                     if (respuestaCliente == null) {
                         _mensajeError.postValue("Error: Nombre no encontrado en cliente ni proveedor")
                     } else {
@@ -200,6 +219,9 @@ class InicioViewModel : ViewModel() {
         _fechaNacimiento.postValue(jsonObject.optString("fechaNacimiento", ""))
         _dniUsuario.postValue(jsonObject.optString("dni", ""))
         _celularUsuario.postValue(jsonObject.optString("celular", ""))
+        _descripcionUsuario.postValue(jsonObject.optString("descripcion", ""))
+        _distritoUsuario.postValue(jsonObject.optString("distrito", ""))
+        _sexoUsuario.postValue(jsonObject.optString("sexo", ""))
     }
 
     // Método para manejar errores de red
@@ -242,7 +264,7 @@ class InicioViewModel : ViewModel() {
 
         val cliente = OkHttpClient()
         val solicitud = Request.Builder()
-            .url("http://192.168.100.13:4000/usuario/verificar/$email")
+            .url("$BASE_URL/usuario/verificar/$email")
             .addHeader("Authorization", "Bearer $token")
             .build()
 

@@ -8,11 +8,12 @@ import androidx.fragment.app.Fragment
 import androidx.lifecycle.Observer
 import com.ambrosio.josue.tutorial.adapters.ServicioAdapter
 import com.ambrosio.josue.tutorial.databinding.ActivityServiciosListBinding
+import com.ambrosio.josue.tutorial.databinding.FragmentServiciosBinding
 import com.ambrosio.josue.tutorial.viewModels.ServiciosListViewModel
 
 class ServiciosFragment : Fragment() {
 
-    private var _binding: ActivityServiciosListBinding? = null
+    private var _binding: FragmentServiciosBinding? = null
     private val binding get() = _binding!!
     private lateinit var serviciosListViewModel: ServiciosListViewModel
     private lateinit var adapter: ServicioAdapter
@@ -21,7 +22,7 @@ class ServiciosFragment : Fragment() {
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View? {
-        _binding = ActivityServiciosListBinding.inflate(inflater, container, false)
+        _binding = FragmentServiciosBinding.inflate(inflater, container, false)
         return binding.root
     }
 
@@ -32,7 +33,7 @@ class ServiciosFragment : Fragment() {
         binding.progressBar.visibility = View.VISIBLE
         binding.recyclerViewServicios.visibility = View.GONE
 
-        serviciosListViewModel = ServiciosListViewModel(requireActivity())
+        serviciosListViewModel = ServiciosListViewModel()
 
         serviciosListViewModel.obtenerServicios()
 
