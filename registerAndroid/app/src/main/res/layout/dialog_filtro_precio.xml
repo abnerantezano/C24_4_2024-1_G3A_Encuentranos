@@ -9,20 +9,20 @@
         android:id="@+id/etMinPrice"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:hint="Precio mínimo"
+        android:hint="@string/precio_m_nimo"
         android:inputType="numberDecimal" />
 
     <EditText
         android:id="@+id/etMaxPrice"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:hint="Precio máximo"
+        android:hint="@string/precio_m_ximo"
         android:inputType="numberDecimal" />
 
     <Button
         android:id="@+id/btnApplyFilter"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:text="Aplicar filtro" />
+        android:text="@string/aplicar_filtro" />
 
 </LinearLayout>

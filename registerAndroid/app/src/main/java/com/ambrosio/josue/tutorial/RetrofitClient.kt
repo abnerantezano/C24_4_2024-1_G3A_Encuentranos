@@ -1,13 +1,13 @@
 package com.ambrosio.josue.tutorial
 
-import com.ambrosio.josue.tutorial.servicios.ClienteApi
-import com.ambrosio.josue.tutorial.servicios.DetalleContratoApi
-import com.ambrosio.josue.tutorial.servicios.DistritoApi
-import com.ambrosio.josue.tutorial.servicios.MensajeApi
-import com.ambrosio.josue.tutorial.servicios.ProveedorApi
-import com.ambrosio.josue.tutorial.servicios.ServicioApi
-import com.ambrosio.josue.tutorial.servicios.ServicioProveedorApi
-import com.ambrosio.josue.tutorial.servicios.UsuarioApi
+import com.ambrosio.josue.tutorial.data.servicios.ClienteApi
+import com.ambrosio.josue.tutorial.data.servicios.DetalleContratoApi
+import com.ambrosio.josue.tutorial.data.servicios.DistritoApi
+import com.ambrosio.josue.tutorial.data.servicios.MensajeApi
+import com.ambrosio.josue.tutorial.data.servicios.ProveedorApi
+import com.ambrosio.josue.tutorial.data.servicios.ServicioApi
+import com.ambrosio.josue.tutorial.data.servicios.ServicioProveedorApi
+import com.ambrosio.josue.tutorial.data.servicios.UsuarioApi
 import retrofit2.Retrofit
 import retrofit2.converter.gson.GsonConverterFactory
 import okhttp3.OkHttpClient

@@ -5,7 +5,7 @@
     android:id="@+id/main"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".activities.CrearUsuarioActivity">
+    tools:context=".ui.activities.CrearUsuarioActivity">
 
     <include
         android:id="@+id/header"
@@ -22,24 +22,24 @@
         app:layout_constraintTop_toBottomOf="@id/header">
 
         <TextView
-            android:id="@+id/text_crear_cuenta"
+            android:id="@+id/tvCrearCuenat"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:gravity="center"
             android:layout_marginTop="35dp"
             android:layout_marginBottom="40dp"
-            android:text="Crear Cuenta"
+            android:text="@string/crear_cuenta"
             android:textColor="@color/skinBlack"
             android:textSize="25dp"
             android:textStyle="bold"/>
 
         <EditText
-            android:id="@+id/edit_text_contrasena"
+            android:id="@+id/edtContrasena"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_marginTop="30dp"
             android:paddingStart="16dp"
-            android:hint="Contraseña"
+            android:hint="@string/contrase_a"
             android:paddingVertical="12dp"
             android:background="@drawable/rectangle_border"
             android:textStyle="bold"
@@ -47,12 +47,12 @@
             android:inputType="textPassword"/>
 
         <EditText
-            android:id="@+id/edit_text_confirmar_contrasena"
+            android:id="@+id/edtConfirmarContrasena"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_marginTop="30dp"
             android:paddingStart="16dp"
-            android:hint="Confirmar contraseña"
+            android:hint="@string/confirmar_contrase_a"
             android:paddingVertical="12dp"
             android:background="@drawable/rectangle_border"
             android:textStyle="bold"
@@ -64,7 +64,7 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_marginTop="30dp"
-            android:text="¿Ofreces algún servicio?"
+            android:text="@string/ofreces_alg_n_servicio"
             android:textSize="17dp"
             android:textStyle="bold"/>
 
@@ -79,14 +79,14 @@
                 android:id="@+id/radio_si"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="Sí" />
+                android:text="@string/s" />
 
             <RadioButton
                 android:id="@+id/radio_no"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginStart="30dp"
-                android:text="No" />
+                android:text="@string/no" />
 
         </RadioGroup>
 
@@ -109,17 +109,17 @@
             android:layout_marginTop="30dp"
             android:background="@drawable/button_background"
             android:paddingHorizontal="103dp"
-            android:text="Enviar"
+            android:text="@string/enviar"
             android:textSize="23dp"
             android:textStyle="bold" />
 
         <TextView
-            android:id="@+id/text_regresar"
+            android:id="@+id/tvRegresar"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_gravity="center"
             android:layout_marginTop="20dp"
-            android:text="Regresar"
+            android:text="@string/regresar"
             android:textColor="@color/gray"
             android:textSize="18dp"
             android:textStyle="bold" />

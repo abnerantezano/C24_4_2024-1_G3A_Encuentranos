@@ -6,7 +6,7 @@
     android:id="@+id/main"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".fragments.ServiciosFragment">
+    tools:context=".ui.fragments.ServiciosFragment">
 
     <include
         android:id="@+id/header"
@@ -18,7 +18,7 @@
         android:layout_height="wrap_content"
         app:layout_constraintTop_toBottomOf="@id/header"
         android:padding="25dp"
-        android:text="Servicios Disponibles"
+        android:text="@string/servicios_disponibles"
         android:gravity="center"
         android:textColor="@color/white"
         android:textStyle="bold"

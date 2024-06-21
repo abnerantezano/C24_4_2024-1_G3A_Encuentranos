@@ -5,7 +5,7 @@
     android:id="@+id/main"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".fragments.InicioFragment">
+    tools:context=".ui.fragments.InicioFragment">
 
     <include
         android:id="@+id/header"
@@ -33,7 +33,7 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="20dp"
-                android:text="!Bienvenido,"
+                android:text="@string/bienvenido"
                 android:textColor="@color/grayNoSoft"
                 android:textSize="25dp" />
 
@@ -42,7 +42,7 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="10dp"
-                android:text="Usuario!"
+                android:text="@string/usuario"
                 android:textColor="@color/skinBlack"
                 android:textSize="25dp"
                 android:textStyle="bold" />
@@ -74,7 +74,7 @@
                         android:layout_width="match_parent"
                         android:layout_height="match_parent"
                         android:layout_marginTop="15dp"
-                        android:text="Explora y contrata\nservicios domésticos"
+                        android:text="@string/explora_y_contrata_nservicios_dom_sticos"
                         android:textColor="@color/gray"
                         android:textSize="17dp" />
 
@@ -84,7 +84,7 @@
                         android:layout_height="wrap_content"
                         android:layout_marginTop="15dp"
                         android:background="@drawable/button_background"
-                        android:text="Buscar Servicios" />
+                        android:text="@string/buscar_servicios" />
                 </LinearLayout>
             </LinearLayout>
 
@@ -92,7 +92,7 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="35dp"
-                android:text="Funcionalidades"
+                android:text="@string/funcionalidades"
                 android:textSize="16sp" />
 
             <TextView
@@ -121,7 +121,7 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="25dp"
-                android:text="¿Como realizar un Contrato?"
+                android:text="@string/como_realizar_un_contrato"
                 android:textSize="16dp" />
 
             <LinearLayout
@@ -275,7 +275,7 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="18dp"
-                android:text="¿Por qúe elegirnos?"
+                android:text="@string/por_q_e_elegirnos"
                 android:textSize="16dp" />
             <HorizontalScrollView
                 android:layout_width="match_parent"

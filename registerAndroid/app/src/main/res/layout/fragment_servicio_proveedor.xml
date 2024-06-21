@@ -6,7 +6,7 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:background="@color/edtGray"
-    tools:context=".fragments.ServicioProveedorFragment">
+    tools:context=".ui.fragments.ServicioProveedorFragment">
 
     <include
         android:id="@+id/header"
@@ -35,7 +35,7 @@
             android:paddingStart="20dp"
             android:layout_marginStart="10dp"
             android:background="@drawable/white_textview"
-            android:hint="Encuentra tu servicio" />
+            android:hint="@string/encuentra_tu_servicio" />
     </LinearLayout>
 
     <androidx.recyclerview.widget.RecyclerView

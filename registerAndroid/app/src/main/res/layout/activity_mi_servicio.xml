@@ -5,7 +5,7 @@
     android:id="@+id/main"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".activities.MiServicioActivity">
+    tools:context=".ui.activities.opcionesPerfilFragment.MiServicioActivity">
 
     <include
         android:id="@+id/header"
@@ -21,7 +21,7 @@
         android:paddingVertical="30dp"
         android:layout_marginStart="20dp"
         android:layout_marginEnd="20dp"
-        android:text="MIS SERVICIOS"
+        android:text="@string/mis_servicios"
         app:layout_constraintTop_toBottomOf="@id/header"/>
 
     <androidx.recyclerview.widget.RecyclerView
@@ -39,7 +39,7 @@
         android:id="@+id/tvAgregarServicio"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
-        android:text="Agregar Servicio"
+        android:text="@string/agregar_servicio"
         android:textSize="17dp"
         android:textStyle="bold"
         android:textColor="@color/skinBlack"

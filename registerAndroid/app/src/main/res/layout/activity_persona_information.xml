@@ -6,7 +6,7 @@
     android:id="@+id/main"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".activities.InformacionPersonalActivity">
+    tools:context=".ui.activities.opcionesPerfilFragment.InformacionPersonalActivity">
 
     <include
         android:id="@+id/header"
@@ -26,7 +26,7 @@
             android:id="@+id/tvActualizarInformacion"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="Actualizar Información personal"
+            android:text="@string/actualizar_informaci_n_personal"
             android:textSize="20dp"
             android:textColor="@color/skinBlack"
             android:textStyle="bold"
@@ -38,7 +38,7 @@
             android:layout_height="wrap_content"
             android:layout_marginTop="30dp"
             android:paddingStart="16dp"
-            android:hint="Nombre completo"
+            android:hint="@string/nombre_completo"
             android:paddingVertical="12dp"
             android:background="@drawable/rectangle_border"
             android:textStyle="bold"
@@ -59,7 +59,7 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_weight="1"
-                android:hint="Apellido Paterno"
+                android:hint="@string/apellido_paterno"
                 android:paddingVertical="12dp"
                 android:background="@drawable/rectangle_border"
                 android:textStyle="bold"
@@ -72,7 +72,7 @@
                 android:layout_height="wrap_content"
                 android:paddingStart="15dp"
                 android:layout_marginStart="3dp"
-                android:hint="Apellido Materno"
+                android:hint="@string/apellido_materno"
                 android:paddingVertical="12dp"
                 android:background="@drawable/rectangle_border"
                 android:textStyle="bold"
@@ -86,7 +86,7 @@
             android:layout_height="wrap_content"
             android:layout_marginTop="20dp"
             android:paddingStart="16dp"
-            android:hint="Fecha de nacimiento"
+            android:hint="@string/fecha_de_nacimiento"
             android:paddingVertical="12dp"
             android:background="@drawable/rectangle_border"
             android:textStyle="bold"
@@ -104,7 +104,7 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_weight="1"
-                android:hint="DNI"
+                android:hint="@string/dni"
                 android:layout_marginEnd="3dp"
                 android:paddingVertical="12dp"
                 android:paddingStart="16dp"
@@ -118,7 +118,7 @@
                 android:layout_weight="1"
                 android:layout_marginStart="3dp"
                 android:paddingStart="16dp"
-                android:hint="Celular"
+                android:hint="@string/celular"
                 android:paddingVertical="12dp"
                 android:background="@drawable/rectangle_border"
                 android:textStyle="bold"
@@ -141,7 +141,7 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_marginTop="20dp"
-            android:text="Sexo"
+            android:text="@string/sexo"
             android:textStyle="bold"
             android:layout_marginStart="5dp"/>
 
@@ -159,7 +159,7 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_weight="1"
-                android:text="Masculino"
+                android:text="@string/masculino"
                 android:layout_marginEnd="50dp"/>
 
             <RadioButton
@@ -167,7 +167,7 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_weight="1"
-                android:text="Femenino"/>
+                android:text="@string/femenino"/>
         </RadioGroup>
 
     </LinearLayout>
@@ -178,7 +178,7 @@
         android:layout_height="wrap_content"
         android:layout_gravity="center"
         android:background="@drawable/button_background"
-        android:text="Actualizar"
+        android:text="@string/actualizar"
         android:textStyle="bold"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="@+id/LinearDescription"

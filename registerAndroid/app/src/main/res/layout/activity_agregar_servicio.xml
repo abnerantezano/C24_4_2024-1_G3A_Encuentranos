@@ -5,7 +5,7 @@
     android:id="@+id/main"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".activities.AgregarServicioActivity">
+    tools:context=".ui.activities.opcionesPerfilFragment.AgregarServicioActivity">
 
     <include
         android:id="@+id/header"
@@ -16,7 +16,7 @@
         android:id="@+id/tvAgregar"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:text="Agregar Servicio"
+        android:text="@string/agregar_servicio"
         android:gravity="center"
         android:textSize="25dp"
         android:textColor="@color/skinBlack"
@@ -33,12 +33,6 @@
         android:layout_marginEnd="30dp"
         app:layout_constraintTop_toBottomOf="@id/tvAgregar"
         app:layout_constraintBottom_toTopOf="@id/linearVolverEnviar">
-        <TextView
-            android:id="@+id/tvIdProveedor"
-            android:text="ID"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:gravity="center"/>
         <Spinner
             android:id="@+id/servicioSpinner"
             android:layout_width="match_parent"
@@ -53,7 +47,7 @@
             android:layout_height="wrap_content"
             android:layout_marginTop="20dp"
             android:paddingStart="16dp"
-            android:hint="Precio"
+            android:hint="@string/precio"
             android:paddingVertical="12dp"
             android:background="@drawable/rectangle_border"
             android:textStyle="bold"
@@ -77,7 +71,7 @@
             android:layout_gravity="center"
             android:layout_marginTop="30dp"
             android:background="@drawable/button_background"
-            android:text="Guardar"
+            android:text="@string/guardar"
             android:textSize="23dp"
             android:textStyle="bold" />
 
@@ -87,7 +81,7 @@
             android:layout_height="wrap_content"
             android:layout_gravity="center"
             android:layout_marginTop="20dp"
-            android:text="Regresar"
+            android:text="@string/regresar"
             android:textColor="@color/gray"
             android:textSize="18dp"
             android:textStyle="bold" />

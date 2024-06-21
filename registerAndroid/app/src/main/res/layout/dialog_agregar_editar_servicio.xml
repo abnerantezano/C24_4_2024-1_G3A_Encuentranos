@@ -15,7 +15,7 @@
         android:id="@+id/edtPrecioServicio"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:hint="Precio"
+        android:hint="@string/precio"
         android:inputType="numberDecimal"
         android:layout_marginBottom="16dp"/>
 
@@ -23,6 +23,6 @@
         android:id="@+id/btnGuardar"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:text="Guardar"/>
+        android:text="@string/guardar"/>
 
 </LinearLayout>

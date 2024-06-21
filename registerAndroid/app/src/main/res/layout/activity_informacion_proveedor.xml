@@ -5,7 +5,7 @@
     android:id="@+id/main"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".activities.InformacionProveedorActivity">
+    tools:context=".ui.activities.InformacionProveedorActivity">
 
     <include
         android:id="@+id/header"
@@ -40,23 +40,23 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:textStyle="bold"
-                    android:text="Nombre proveedor"/>
+                    android:text="@string/nombre_proveedor"/>
                 <TextView
                     android:id="@+id/tvCalificacionProveedor"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:text="Calificacion proveedor"/>
+                    android:text="@string/calificacion_proveedor"/>
                 <TextView
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:text="descargar cv"/>
+                    android:text="@string/descargar_cv"/>
             </LinearLayout>
         </LinearLayout>
         <TextView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginTop="15dp"
-            android:text="Contacto"
+            android:text="@string/contacto"
             android:textStyle="bold"
             android:textColor="@color/grayNoSoft"
             android:textSize="18dp"/>
@@ -75,14 +75,14 @@
                 android:layout_height="wrap_content"
                 android:textColor="@color/grayBlack"
                 android:textSize="15dp"
-                android:text="Correo electrónico"/>
+                android:text="@string/correo_electr_nico"/>
 
             <TextView
                 android:id="@+id/tvCorreoProveedor"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginStart="100dp"
-                android:text="Correo proveedor"/>
+                android:text="@string/correo_proveedor"/>
 
         </LinearLayout>
         </HorizontalScrollView>
@@ -96,7 +96,7 @@
                 android:layout_height="wrap_content"
                 android:textColor="@color/grayBlack"
                 android:textSize="15dp"
-                android:text="Celular"/>
+                android:text="@string/celular"/>
             <View
                 android:layout_width="0dp"
                 android:layout_height="0dp"
@@ -105,13 +105,13 @@
                 android:id="@+id/tvCelularProveedor"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="Celular proveedor"/>
+                android:text="@string/celular_proveedor"/>
         </LinearLayout>
         <TextView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginTop="10dp"
-            android:text="Acerca de mi"
+            android:text="@string/acerca_de_mi"
             android:textStyle="bold"
             android:textColor="@color/grayNoSoft"
             android:textSize="18dp"/>
@@ -120,12 +120,12 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginTop="8dp"
-            android:text="Descripcion proveedor"/>
+            android:text="@string/descripcion_proveedor"/>
         <TextView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginTop="10dp"
-            android:text="Servicios Que ofrece"
+            android:text="@string/servicios_que_ofrece"
             android:textStyle="bold"
             android:textColor="@color/grayNoSoft"
             android:textSize="18dp"/>

@@ -5,7 +5,7 @@
     android:id="@+id/main"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".activities.RegistroActivity">
+    tools:context=".ui.activities.RegistroActivity">
     <include
         android:id="@+id/header"
         layout="@layout/header_inicial"
@@ -23,7 +23,7 @@
             android:layout_height="wrap_content"
             android:layout_marginTop="90dp"
             android:gravity="center"
-            android:text="Registrate"
+            android:text="@string/registrate"
             android:textColor="@color/skinBlack"
             android:textSize="24dp"
             android:textStyle="bold"
@@ -33,7 +33,7 @@
             android:layout_height="wrap_content"
             android:layout_marginTop="40dp"
             android:gravity="center"
-            android:text="EMPIEZA TU BÚSQUEDA"
+            android:text="@string/empieza_tu_b_squeda"
             android:textColor="@color/black"
             android:textSize="20dp"
             android:textStyle="bold"
@@ -43,7 +43,7 @@
             android:layout_height="wrap_content"
             android:layout_marginTop="5dp"
             android:gravity="center"
-            android:text="Registrate para navegar en nuestra plataforma"
+            android:text="@string/registrate_para_navegar_en_nuestra_plataforma"
             android:textColor="@color/black"
             android:textSize="14dp"
             android:textStyle="bold"
@@ -69,14 +69,14 @@
                 android:layout_height="wrap_content"
                 android:layout_marginEnd="10dp"
                 android:textColor="@color/gray"
-                android:text="¿Ya tienes una cuenta?"/>
+                android:text="@string/ya_tienes_una_cuenta"/>
 
             <TextView
-                android:id="@+id/login_text"
+                android:id="@+id/tvLogin"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:textColor="@color/black"
-                android:text="Iniciar Sesión"/>
+                android:text="@string/iniciar_sesi_n"/>
 
         </LinearLayout>
 

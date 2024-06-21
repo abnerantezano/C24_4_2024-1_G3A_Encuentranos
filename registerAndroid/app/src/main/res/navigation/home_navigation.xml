@@ -6,17 +6,17 @@
     app:startDestination="@id/inicioFragment">
     <fragment
         android:id="@+id/inicioFragment"
-        android:name="com.ambrosio.josue.tutorial.fragments.InicioFragment"
+        android:name="com.ambrosio.josue.tutorial.ui.fragments.InicioFragment"
         android:label="fragment_inicio"
         tools:layout="@layout/fragment_inicio" />
     <fragment
         android:id="@+id/serviciosFragment"
-        android:name="com.ambrosio.josue.tutorial.fragments.ServiciosFragment"
+        android:name="com.ambrosio.josue.tutorial.ui.fragments.ServiciosFragment"
         android:label="fragment_servicios"
         tools:layout="@layout/fragment_servicios" />
     <fragment
         android:id="@+id/servicioProveedorFragment"
-        android:name="com.ambrosio.josue.tutorial.fragments.ServicioProveedorFragment"
+        android:name="com.ambrosio.josue.tutorial.ui.fragments.ServicioProveedorFragment"
         tools:layout="@layout/fragment_servicio_proveedor">
         <action
             android:id="@+id/action_servicioProveedorFragment_to_informacionProveedorFragment"
@@ -25,16 +25,16 @@
 
     <fragment
         android:id="@+id/informacionProveedorFragment"
-        android:name="com.ambrosio.josue.tutorial.fragments.InformacionProveedorFragment"
+        android:name="com.ambrosio.josue.tutorial.ui.fragments.InformacionProveedorFragment"
         tools:layout="@layout/fragment_informacion_proveedor" />
     <fragment
         android:id="@+id/mensajeFragment"
-        android:name="com.ambrosio.josue.tutorial.fragments.MensajeFragment"
+        android:name="com.ambrosio.josue.tutorial.ui.fragments.MensajeFragment"
         android:label="fragment_mensaje"
         tools:layout="@layout/fragment_mensaje" />
     <fragment
         android:id="@+id/perfilFragment"
-        android:name="com.ambrosio.josue.tutorial.fragments.PerfilFragment"
+        android:name="com.ambrosio.josue.tutorial.ui.fragments.PerfilFragment"
         android:label="fragment_perfil"
         tools:layout="@layout/fragment_perfil" />
 </navigation>

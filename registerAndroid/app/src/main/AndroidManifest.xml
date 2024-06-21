@@ -16,13 +16,16 @@
         android:usesCleartextTraffic="true"
         tools:targetApi="31">
         <activity
-            android:name=".activities.ContratoEspecificoActivity"
+            android:name=".ui.activities.opcionesPerfilFragment.CambiarContrasenaActivity"
             android:exported="false" />
         <activity
-            android:name=".activities.InformacionProveedorActivity"
+            android:name=".ui.activities.opcionesPerfilFragment.ContratoEspecificoActivity"
             android:exported="false" />
         <activity
-            android:name=".activities.MiServicioActivity"
+            android:name=".ui.activities.InformacionProveedorActivity"
+            android:exported="false" />
+        <activity
+            android:name=".ui.activities.opcionesPerfilFragment.MiServicioActivity"
             android:exported="false" />
         <activity
             android:name=".generals.HeaderInclude"
@@ -34,21 +37,19 @@
             android:name=".pruebas"
             android:exported="true" />
         <activity
-            android:name=".activities.AgregarServicioActivity"
+            android:name=".ui.activities.opcionesPerfilFragment.AgregarServicioActivity"
             android:exported="true" />
-
-
         <activity
-            android:name=".activities.MiContratoActivity"
+            android:name=".ui.activities.opcionesPerfilFragment.MiContratoActivity"
             android:exported="true" />
         <activity
             android:name=".activities.CambiarContrasenaActivity"
             android:exported="false" />
         <activity
-            android:name=".activities.InformacionPersonalActivity"
+            android:name=".ui.activities.opcionesPerfilFragment.InformacionPersonalActivity"
             android:exported="false" />
         <activity
-            android:name=".activities.PerfilActivity"
+            android:name=".ui.activities.opcionesPerfilFragment.PerfilActivity"
             android:exported="false" />
         <activity
             android:name=".activities.MensajeActivity"
@@ -63,16 +64,16 @@
             android:name=".activities.ServiciosListActivity"
             android:exported="true" />
         <activity
-            android:name=".activities.CrearUsuarioActivity"
+            android:name=".ui.activities.CrearUsuarioActivity"
             android:exported="false" />
         <activity
-            android:name=".activities.RegistroActivity"
+            android:name=".ui.activities.RegistroActivity"
             android:exported="false" />
         <activity
-            android:name=".activities.LoginActivity"
+            android:name=".ui.activities.LoginActivity"
             android:exported="true" />
         <activity
-            android:name=".activities.RegistroProveedorActivity"
+            android:name=".ui.activities.RegistroProveedorActivity"
             android:exported="true" />
         <activity
             android:name=".MainActivity"

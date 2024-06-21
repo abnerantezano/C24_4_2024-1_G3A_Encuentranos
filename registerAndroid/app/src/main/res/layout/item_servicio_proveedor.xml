@@ -41,7 +41,7 @@
                     android:id="@+id/tvNombreProveedor"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:text="Nombre del proveedor"
+                    android:text="@string/nombre_del_proveedor"
                     android:textStyle="bold"
                     android:textSize="16sp"/>
 
@@ -50,7 +50,7 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_marginTop="5dp"
-                    android:text="Servicio"
+                    android:text="@string/servicio"
                     android:textStyle="bold"
                     android:textColor="@color/grayBlack"/>
                 <TextView
@@ -58,7 +58,7 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_marginTop="5dp"
-                    android:text="Precio no negociable"
+                    android:text="@string/negociable"
                     android:textColor="@color/grayBlack"/>
                 <TextView
                     android:id="@+id/tvPrecioActual"
@@ -68,7 +68,7 @@
                     android:textStyle="bold"
                     android:textSize="18dp"
                     android:textColor="@color/grayNoSoft"
-                    android:text="S/ 000.00"/>
+                    android:text="@string/s_000_00"/>
                 <Button
                     android:id="@+id/btnVerPerfil"
                     android:layout_width="wrap_content"
@@ -76,7 +76,7 @@
                     android:layout_marginTop="5dp"
                     android:textStyle="bold"
                     android:textColor="@color/white"
-                    android:text="Ver Perfil"/>
+                    android:text="@string/ver_perfil"/>
             </LinearLayout>
         </LinearLayout>
     </androidx.cardview.widget.CardView>

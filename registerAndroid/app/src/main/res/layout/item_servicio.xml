@@ -28,7 +28,7 @@
             android:id="@+id/textNombreServicio"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="Nombre del servicio"
+            android:text="@string/nombre_del_servicio"
             android:textStyle="bold"
             android:textSize="16sp"/>
 
@@ -36,7 +36,7 @@
             android:id="@+id/textDescripcionServicio"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="Descripción del servicio"
+            android:text="@string/descripci_n_del_servicio"
             android:textSize="14sp"
             android:textColor="@android:color/darker_gray"/>
     </LinearLayout>

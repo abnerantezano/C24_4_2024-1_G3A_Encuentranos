@@ -5,7 +5,7 @@
     android:id="@+id/main"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".activities.CambiarContrasenaActivity">
+    tools:context=".ui.activities.opcionesPerfilFragment.CambiarContrasenaActivity">
 
     <include
         android:id="@+id/header"
@@ -28,7 +28,7 @@
             android:gravity="center"
             android:layout_marginTop="35dp"
             android:layout_marginBottom="40dp"
-            android:text="Actualizar Contraseña"
+            android:text="@string/actualizar_contrase_a"
             android:textColor="@color/skinBlack"
             android:textSize="25dp"
             android:textStyle="bold"/>
@@ -39,7 +39,7 @@
             android:layout_height="wrap_content"
             android:layout_marginTop="30dp"
             android:paddingStart="16dp"
-            android:hint="Contraseña"
+            android:hint="@string/contrase_a"
             android:paddingVertical="12dp"
             android:background="@drawable/rectangle_border"
             android:textStyle="bold"
@@ -52,7 +52,7 @@
             android:layout_height="wrap_content"
             android:layout_marginTop="30dp"
             android:paddingStart="16dp"
-            android:hint="Nueva Contraseña"
+            android:hint="@string/nueva_contrase_a"
             android:paddingVertical="12dp"
             android:background="@drawable/rectangle_border"
             android:textStyle="bold"
@@ -65,7 +65,7 @@
             android:layout_height="wrap_content"
             android:layout_marginTop="30dp"
             android:paddingStart="16dp"
-            android:hint="Confirmar nueva contraseña"
+            android:hint="@string/confirmar_nueva_contrase_a"
             android:paddingVertical="12dp"
             android:background="@drawable/rectangle_border"
             android:textStyle="bold"
@@ -81,7 +81,7 @@
         android:layout_gravity="center"
         android:layout_marginTop="30dp"
         android:background="@drawable/button_background"
-        android:text="Actualizar"
+        android:text="@string/actualizar"
         android:textStyle="bold"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="@+id/body"
