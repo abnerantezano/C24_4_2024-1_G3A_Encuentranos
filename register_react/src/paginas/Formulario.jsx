@@ -140,26 +140,26 @@ const Formulario = () => {
                     <div className="grid md:grid-cols-3 md:gap-6">
                         <div className="relative z-0 w-full group mb-5">
                             <label className="block mb-2 text-sm font-medium text-gray-900 dark:text-white">DNI</label>
-                            <InputText type="text" id="dni" {...register("dni", { required: true })} className="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring focus:ring-orange-200 focus:border-dark block w-full p-2.5 dark:bg-[#] dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"/>
+                            <InputText type="text" id="dni" {...register("dni", { required: true })} className="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring focus:ring-orange-200 focus:border-dark block w-full p-2.5"/>
                             {errors.dni && <span className="text-red-500 text-sm">Ingresar su DNI</span>}
                         </div>
                         <div className=" w-full group mb-5">
                             <label className="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Fecha de nacimiento</label>
                             <Controller name="fechaNacimiento" {...register("fechaNacimiento", { required: true })} control={control} render={({ field }) => (
-                                <Calendar id={field.name} value={field.value} onChange={field.onChange} dateFormat="yy-mm-dd" locale="es" inputClassName="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring focus:ring-orange-200 focus:border-dark w-full p-2.5 dark:bg-[#] dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"/>
+                                <Calendar id={field.name} value={field.value} onChange={field.onChange} dateFormat="yy-mm-dd" locale="es" inputClassName="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring focus:ring-orange-200 focus:border-dark w-full p-2.5"/>
                             )} />
                             {errors.fechaNacimiento && <span className="text-red-500 text-sm">Ingresar la fecha</span>}
                         </div>
                         <div className="mb-5">
                             <label className="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Celular</label>
-                            <InputMask id="celular" mask="999999999" {...register("celular", { required: true })} panelClassName="text-sm focus:ring focus:ring-orange-200" className="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring focus:ring-orange-200 focus:border-dark block w-full p-2.5 dark:bg-[#] dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"/>
+                            <InputMask id="celular" mask="999999999" {...register("celular", { required: true })} panelClassName="text-sm focus:ring focus:ring-orange-200" className="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring focus:ring-orange-200 focus:border-dark block w-full p-2.5"/>
                             {errors.celular && <span className="text-red-500 text-sm">Ingresar su celular</span>}
                         </div>
                     </div>
                     <div className="relative z-0 w-full group mb-5 text-sm">
-                        <label className="block mb-2 text-sm font-medium text-gray-900 dark:text-white mb-2 mt-2">Distrito</label>
+                        <label className="block text-sm font-medium text-gray-900 dark:text-white mb-2 mt-2">Distrito</label>
                         <Controller name="idDistrito" {...register("idDistrito", { required: true })} control={control} render={({ field }) => (
-                            <Dropdown id={field.name} value={field.value} onChange={(e) => field.onChange(e.value)} options={distritos} optionValue="idDistrito" optionLabel="nombre" placeholder="Seleccione un distrito" panelClassName="custom-panel" pt={{input:'text-sm',panel:'text-sm',root:'ring-0'}} className="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:border-dark w-full dark:bg-[#] dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"/>
+                            <Dropdown id={field.name} value={field.value} onChange={(e) => field.onChange(e.value)} options={distritos} optionValue="idDistrito" optionLabel="nombre" placeholder="Seleccione un distrito" panelClassName="custom-panel" pt={{input:'text-sm',panel:'text-sm',root:'ring-0'}} className="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:border-dark w-full"/>
                         )} />
                         {errors.idDistrito && <span className="text-red-500 text-sm">Ingresar su distrito</span>}
                     </div>

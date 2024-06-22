@@ -38,13 +38,13 @@ public class ContratoModelo {
 
     @Temporal(TemporalType.TIMESTAMP)
     @Column(name = "hi_servicio")
-    private Time hiServicio;
+    private Date hiServicio;
 
     @Temporal(TemporalType.TIMESTAMP)
     @Column(name = "hf_servicio")
-    private Time hfServicio;
+    private Date hfServicio;
 
-    @Column(name = "fh_creacion")
     @Temporal(TemporalType.DATE)
-    private DateTime fh_creacion;
+    @Column(name = "fh_creacion")
+    private Date fh_creacion;
 }

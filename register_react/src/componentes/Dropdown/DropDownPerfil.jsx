@@ -5,18 +5,18 @@ import { Link } from 'react-router-dom';
 const DropDownPerfil = ({ onClose }) => {
   const dropdownRef = useRef(null);
 
-  const handleClickOutside = (event) => {
-    if (dropdownRef.current && !dropdownRef.current.contains(event.target)) {
-      onClose();
-    }
-  };
-
   useEffect(() => {
+    const handleClickOutside = (event) => {
+      if (dropdownRef.current && !dropdownRef.current.contains(event.target)) {
+        onClose();
+      }
+    };
+
     document.addEventListener('mousedown', handleClickOutside);
     return () => {
       document.removeEventListener('mousedown', handleClickOutside);
     };
-  }, []);
+  }, [onClose]);
 
   return (
     <InformacionProveedor>
@@ -45,7 +45,7 @@ const DropDownPerfil = ({ onClose }) => {
                   <Link to="/configuracion/mis-servicios" className="block px-4 py-2 text-sm text-gray-800 hover:bg-gray-100 dark:hover:bg-gray-600 dark:text-gray-200 dark:hover:text-white">Mis servicios</Link>
                 </li>
                 <li>
-                  <Link to="/mis-contratos" className="block px-4 py-2 text-sm text-gray-800 hover:bg-gray-100 dark:hover:bg-gray-600 dark:text-gray-200 dark:hover:text-white">Mis contratos</Link>
+                  <Link to="/configuracion/mis-contratos" className="block px-4 py-2 text-sm text-gray-800 hover:bg-gray-100 dark:hover:bg-gray-600 dark:text-gray-200 dark:hover:text-white">Mis contratos</Link>
                 </li>
               </ul>
               <hr />

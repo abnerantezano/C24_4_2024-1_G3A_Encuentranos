@@ -8,7 +8,6 @@ import { useForm, Controller } from "react-hook-form";
 //AXIOS
 import ServicioProveedorService from "../servicios/ServicioProveedor";
 import UsuarioService from "../servicios/UsuarioService";
-import InformacionProveedor from "../componentes/Informacion/InformacionProveedor";
 
 const AgregarServicio = () => {
 
@@ -49,10 +48,10 @@ const AgregarServicio = () => {
     }, [usuario]);
 
     //FUNCIÓN DEL BOTON PARA AGREGAR LOS SERVICIOS
-    const agregarServicio = (data, idProveedor) => {
+    const agregarServicio = (data) => {
 
         const servicioParaAgregar = [{
-            idProveedor: { idProveedor: parseInt(idProveedor) },
+            idProveedor: { idProveedor: parseInt(usuario.idProveedor) },
             idServicio: { idServicio: parseInt(data.idServicio) },
             precio: parseFloat(data.precio)
         }]
@@ -70,40 +69,38 @@ const AgregarServicio = () => {
     }
     
     return (
-        <InformacionProveedor>
-            {(info) => (
-                <form autoComplete="off" onSubmit={handleSubmit((data) => agregarServicio(data, info.idProveedor))}>
-                    <div className="bg-[#F0EEEC] w-full">
-                        <div className="flex items-center justify-center py-4 lg:pt-6 lg:pb-12">
-                            <div className="md:mb-0 md:w-8/12 lg:w-5/12 bg-white m-6 py-12 px-16 rounded-lg shadow-xl">
-                                <div className="flex mb-8 justify-center">
-                                    <img src={logo} className="w-24" alt="Logo" />
+        <div>
+            <form autoComplete="off" onSubmit={handleSubmit((data) => agregarServicio(data))}>
+                <div className="bg-[#F0EEEC] w-full">
+                    <div className="flex items-center justify-center py-4 lg:pt-6 lg:pb-12">
+                        <div className="md:mb-0 md:w-8/12 lg:w-5/12 bg-white m-6 py-12 px-16 rounded-lg shadow-xl">
+                            <div className="flex mb-8 justify-center">
+                                <img src={logo} className="w-24" alt="Logo" />
+                             </div>
+                            <div className="grid md:grid-cols-2 md:gap-6 mb-5">
+                                <div className="relative z-0 w-full group">
+                                    <label className="block mb-2 text-sm font-medium text-gray-900 dark:text-white mb-2 mt-2">Servicio</label>
+                                    <Controller name="idServicio" {...register("idServicio", { required: true })} control={control} render={({ field }) => (
+                                        <Dropdown id={field.name} value={field.value} onChange={(e) => field.onChange(e.value)} options={servicios} optionValue="idServicio" optionLabel="nombre" placeholder="Seleccione un servicio" panelClassName="custom-panel" pt={{input:'text-sm',panel:'text-sm',root:'ring-0',select:'text-red-500'}} className="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:border-dark w-full dark:bg-[#] dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500" />
+                                    )} />
+                                    {errors.idServicio && <span className="text-red-500 text-sm">Agregue un servicio</span>}
                                 </div>
-                                <div className="grid md:grid-cols-2 md:gap-6 mb-5">
-                                    <div className="relative z-0 w-full group">
-                                        <label className="block mb-2 text-sm font-medium text-gray-900 dark:text-white mb-2 mt-2">Servicio</label>
-                                        <Controller name="idServicio" {...register("idServicio", { required: true })} control={control} render={({ field }) => (
-                                            <Dropdown id={field.name} value={field.value} onChange={(e) => field.onChange(e.value)} options={servicios} optionValue="idServicio" optionLabel="nombre" placeholder="Seleccione un servicio" panelClassName="custom-panel" pt={{input:'text-sm',panel:'text-sm',root:'ring-0',select:'text-red-500'}} className="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:border-dark w-full dark:bg-[#] dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500" />
-                                        )} />
-                                        {errors.idServicio && <span className="text-red-500 text-sm">Agregue un servicio</span>}
-                                    </div>
-                                    <div className="relative z-0 w-full group">
-                                        <label className="block mb-2 text-sm font-medium text-gray-900 dark:text-white mb-2 mt-2">Precio</label>
-                                        <Controller name="precio" {...register("precio", { required: true })} control={control} render={({ field }) => (
-                                            <InputNumber inputId={field.name} value={field.value} onChange={(e) => field.onChange(e.value)} mode="currency" currency="PEN" className="block w-full" inputClassName="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring focus:ring-orange-200 focus:border-dark block w-full p-2.5" />
-                                        )} />
-                                        {errors.precio && <span className="text-red-500 text-sm">Ingrese el precio del servicio</span>}
-                                    </div>
+                                <div className="relative z-0 w-full group">
+                                    <label className="block mb-2 text-sm font-medium text-gray-900 dark:text-white mb-2 mt-2">Precio</label>
+                                    <Controller name="precio" {...register("precio", { required: true })} control={control} render={({ field }) => (
+                                        <InputNumber inputId={field.name} value={field.value} onChange={(e) => field.onChange(e.value)} mode="currency" currency="PEN" className="block w-full" inputClassName="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring focus:ring-orange-200 focus:border-dark block w-full p-2.5" />
+                                    )} />
+                                    {errors.precio && <span className="text-red-500 text-sm">Ingrese el precio del servicio</span>}
                                 </div>
-                                <div className="mb-5 flex justify-center my-16">
-                                    <button type="submit" className="w-full focus:outline-none w-1/2 text-white bg-[#E8A477] hover:bg-[#BC7547] focus:ring-4 focus:ring-[#BC7547] font-medium rounded-lg text-sm px-5 py-2.5 me-2 mb-2">Agregar servicios</button>
-                                </div>
+                            </div>
+                            <div className="mb-5 flex justify-center my-16">
+                                <button type="submit" className="w-full focus:outline-none w-1/2 text-white bg-[#E8A477] hover:bg-[#BC7547] focus:ring-4 focus:ring-[#BC7547] font-medium rounded-lg text-sm px-5 py-2.5 me-2 mb-2">Agregar servicios</button>
                             </div>
                         </div>
                     </div>
-                </form>
-            )}
-        </InformacionProveedor>
+                </div>
+            </form>
+        </div>
     );
 }
 

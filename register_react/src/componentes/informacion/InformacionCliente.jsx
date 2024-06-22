@@ -1,30 +1,21 @@
 import React, { useState, useEffect } from "react";
-import ClienteService from "../../servicios/ClienteService";
-import InformacionDeUsuario from '../InformacionDeUsuario';
+import UsuarioService from "../../servicios/UsuarioService";
 
 const Cliente = ({ children }) => {
     
-    const [cliente, setCliente] = useState('');
+    const [info, setInfo] = useState('');
 
     useEffect(() => {
-        InformacionDeUsuario().then(info => {
-            ClienteService.getCliente(info.id)
-                .then(response => {
-                    setCliente(response);
-                })
-                .catch(error => {
-                    console.log(error);
-                });
-        });
+        UsuarioService.getClienteInfo()
+            .then((response) => {
+                setInfo(response);
+            })
+            .catch((error) => {
+                console.error(error);
+            })
     }, []);
 
-    useEffect(() => {
-        if (cliente !== '') {
-            children(true);
-        }
-    }, [cliente, children]);
-
-    return null;
+    return <>{children(info)}</>;
 }
 
 export default Cliente;

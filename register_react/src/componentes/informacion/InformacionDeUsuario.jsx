@@ -2,7 +2,7 @@ import React, { useState, useEffect } from "react";
 import UsuarioService from "../../servicios/UsuarioService";
 
 const InformacionDeUsuario = ({ children }) => {
-    const [info, setInfo] = useState('');
+    const [info, setInfo] = useState({});
 
     useEffect(() => {
         UsuarioService.getInfo()

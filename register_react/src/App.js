@@ -16,7 +16,7 @@ import CrearUsuario from './paginas/CrearUsuario';
 import Formulario from './paginas/Formulario';
 //PAGINAS CON LOGIN
 import AgregarServicio from './paginas/AgregarServicio';
-import ServicioMultiple from './paginas/FuncionAgregarServicios'
+import ServicioMultiple from './componentes/Funciones/AgregarVariosServicios'
 import Inicio from './paginas/Inicio';
 import Servicios from './paginas/Servicios';
 import Precios from './paginas/Precios';
@@ -25,18 +25,40 @@ import Configuracion from './componentes/Diseños/Configuracion_perfil';
 function App() {
 
   //SE DECLARA COMO NO INICIO SESION
-  const [isLoggedIn, setIsLoggedIn] = useState(false); 
-
+  const [isLoggedIn, setIsLoggedIn] = useState(false);
+  const [tipoAdmin, setTipoAdmin] = useState(false);
+  const [tipoProveedor, setTipoProveedor] = useState(false); 
+  const [tipoCliente, setTipoCliente] = useState(false);
   return (
     <div className="">
       <Router>
         <InformacionDeUsuario>
           {(info) => {
-            //VERIFICAR SI HAY INFORMACION DEL USUARIO
-            setIsLoggedIn(info !== '');
+            if (info.idUsuario) {
+              setIsLoggedIn(true);
+            } else {
+              setIsLoggedIn(false);
+            }
+
+            if (info.idTipo && info.idTipo.idTipo) {
+              if (info.idTipo.idTipo === 1) {
+                setTipoCliente(true);
+              } else if (info.idTipo.idTipo === 2) {
+                setTipoProveedor(true);
+              } else if (info.idTipo.idTipo === 3) {
+                setTipoAdmin(true);
+              } else {
+                setIsLoggedIn(false);
+                setTipoCliente(false);
+                setTipoProveedor(false);
+                setTipoAdmin(false);
+              }
+            }
+            
           }}
+
         </InformacionDeUsuario>
-        
+
         <div className=''>
         {isLoggedIn ? <HeaderAutenticado /> : <Header />}
           <Routes>
@@ -50,7 +72,7 @@ function App() {
             <Route exact path='/inicio' element={<Inicio />} />
             <Route exact path='/servicios' element={<Servicios />} />
             <Route exact path='/precios' element={<Precios/>} />
-            <Route path='/configuracion?*' element={<Configuracion />} />
+            <Route path='/configuracion/*' element={<Configuracion />} />
             <Route exact path='/servicioMultipe' element={<ServicioMultiple />} />
           </Routes>
         </div>
