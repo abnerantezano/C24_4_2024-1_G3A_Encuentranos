@@ -2,9 +2,13 @@ package com.proyecto.encuentranos.modelos;
 
 import jakarta.persistence.Column;
 import jakarta.persistence.Embeddable;
+import lombok.Getter;
+import lombok.Setter;
 
 import java.io.Serializable;
 
+@Setter
+@Getter
 @Embeddable
 public class DetalleCalificacionModeloId implements Serializable {
 	@Column(name = "id_proveedor")
@@ -23,22 +27,5 @@ public class DetalleCalificacionModeloId implements Serializable {
 		this.idServicio = idServicio;
 		this.idCalificacion = idCalificacion;
 	}
-	public int getIdProveedor() {
-		return idProveedor;
-	}
-	public void setIdProveedor(int idProveedor) {
-		this.idProveedor = idProveedor;
-	}
-	public int getIdServicio() {
-		return idServicio;
-	}
-	public void setIdServicio(int idServicio) {
-		this.idServicio = idServicio;
-	}
-	public int getIdCalificacion() {
-		return idCalificacion;
-	}
-	public void setIdCalificacion(int idCalificacion) {
-		this.idCalificacion = idCalificacion;
-	}
+
 }

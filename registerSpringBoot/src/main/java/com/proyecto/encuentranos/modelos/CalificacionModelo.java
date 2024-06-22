@@ -2,8 +2,13 @@ package com.proyecto.encuentranos.modelos;
 
 import java.util.Date;
 
+import com.google.type.DateTime;
 import jakarta.persistence.*;
+import lombok.Getter;
+import lombok.Setter;
 
+@Setter
+@Getter
 @Entity
 @Table(name = "calificacion")
 public class CalificacionModelo {
@@ -23,50 +28,7 @@ public class CalificacionModelo {
     @Column(name = "comentario")
     private String comentario;
 
+    @Column(name = "fh_creacion")
     @Temporal(TemporalType.DATE)
-    @Column(name = "fecha_calificacion")
-    private Date fechaCalificacion;
-
-    // Getters and Setters
-
-	public int getIdCalificacion() {
-		return idCalificacion;
-	}
-
-	public void setIdCalificacion(int idCalificacion) {
-		this.idCalificacion = idCalificacion;
-	}
-
-	public ClienteModelo getCliente() {
-		return cliente;
-	}
-
-	public void setCliente(ClienteModelo cliente) {
-		this.cliente = cliente;
-	}
-
-	public int getNumero() {
-		return numero;
-	}
-
-	public void setNumero(int numero) {
-		this.numero = numero;
-	}
-
-	public String getComentario() {
-		return comentario;
-	}
-
-	public void setComentario(String comentario) {
-		this.comentario = comentario;
-	}
-
-	public Date getFechaCalificacion() {
-		return fechaCalificacion;
-	}
-
-	public void setFechaCalificacion(Date fechaCalificacion) {
-		this.fechaCalificacion = fechaCalificacion;
-	}
-
+    private DateTime fh_creacion;
 }

@@ -6,13 +6,15 @@ import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
 import jakarta.persistence.Table;
+import lombok.Getter;
+import lombok.Setter;
 
+@Setter
+@Getter
 @Entity
 @Table(name = "tipo_usuario")
 public class TipoUsuarioModelo {
-	
-	// Atributos
-	
+
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
 	@Column( name = "id_tipo")
@@ -21,22 +23,4 @@ public class TipoUsuarioModelo {
 	@Column( name = "nombre")
     private String nombre;
 
-    // Getters and Setters
-
-	public int getIdTipo() {
-		return idTipo;
-	}
-
-	public void setIdTipo(int idTipo) {
-		this.idTipo = idTipo;
-	}
-
-	public String getNombre() {
-		return nombre;
-	}
-
-	public void setNombre(String nombre) {
-		this.nombre = nombre;
-	}
-	
 }
