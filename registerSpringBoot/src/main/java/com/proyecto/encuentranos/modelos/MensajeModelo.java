@@ -33,7 +33,7 @@ public class MensajeModelo {
     @Column(nullable = false)
     private String mensaje;
 
-    @Column(name = "fh_creacion")
     @Temporal(TemporalType.DATE)
-    private DateTime fh_creacion;
+    @Column(name = "fh_creacion")
+    private Date fh_creacion;
 }

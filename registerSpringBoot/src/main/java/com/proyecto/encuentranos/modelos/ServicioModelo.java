@@ -5,6 +5,8 @@ import jakarta.persistence.*;
 import lombok.Getter;
 import lombok.Setter;
 
+import java.util.Date;
+
 @Setter
 @Getter
 @Entity
@@ -25,7 +27,7 @@ public class ServicioModelo {
 	@Column(name = "imagen_url")
 	private String imagenUrl;
 
-	@Column(name = "fh_creacion")
 	@Temporal(TemporalType.DATE)
-	private DateTime fh_creacion;
+	@Column(name = "fh_creacion")
+	private Date fh_creacion;
 }

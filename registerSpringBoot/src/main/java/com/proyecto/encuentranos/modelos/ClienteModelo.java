@@ -51,8 +51,8 @@ public class ClienteModelo {
 	@Column( name = "descripcion")
     private String descripcion;
 
-    @Column(name = "fh_creacion")
     @Temporal(TemporalType.DATE)
-    private DateTime fh_creacion;
+    @Column(name = "fh_creacion")
+    private Date fh_creacion;
 
 }

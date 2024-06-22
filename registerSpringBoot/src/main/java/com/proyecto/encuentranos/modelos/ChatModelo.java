@@ -28,7 +28,7 @@ public class ChatModelo {
     @Column(nullable = false)
     private boolean eliminado;
 
-    @Column(name = "fh_creacion")
     @Temporal(TemporalType.DATE)
-    private DateTime fh_creacion;
+    @Column(name = "fh_creacion")
+    private Date fh_creacion;
 }
