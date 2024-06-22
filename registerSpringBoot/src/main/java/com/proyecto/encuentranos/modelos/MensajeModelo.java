@@ -1,12 +1,10 @@
 package com.proyecto.encuentranos.modelos;
 
-import com.google.type.DateTime;
 import jakarta.persistence.*;
 import lombok.Getter;
 import lombok.Setter;
 
 import java.util.Date;
-import java.sql.Time;
 
 @Setter
 @Getter
@@ -35,5 +33,5 @@ public class MensajeModelo {
 
     @Temporal(TemporalType.DATE)
     @Column(name = "fh_creacion")
-    private Date fh_creacion;
+    private Date fechaCreacion;
 }

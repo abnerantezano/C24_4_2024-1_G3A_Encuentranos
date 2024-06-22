@@ -54,11 +54,11 @@ public class ProveedorModelo {
 	@Column( name = "calificacion_promedio")
     private double calificacionPromedio;
 
-	@Column( name = "curriculum_url")
+	@Column( name = "curriculo_url")
     private String curriculumUrl;
 
 	@Column(name = "fh_creacion")
 	@Temporal(TemporalType.DATE)
-	private DateTime fh_creacion;
+	private DateTime fechaRegistro;
 
 }

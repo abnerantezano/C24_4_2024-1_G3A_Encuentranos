@@ -2,7 +2,6 @@ package com.proyecto.encuentranos.modelos;
 
 import java.util.Date;
 
-import com.google.type.DateTime;
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
@@ -44,6 +43,6 @@ public class UsuarioModelo {
 
     @Temporal(TemporalType.DATE)
     @Column(name = "fh_creacion")
-    private Date fh_creacion;
+    private Date fechaRegistro;
 
 }
