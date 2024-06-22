@@ -1,9 +1,15 @@
 package com.proyecto.encuentranos.modelos;
 
+import java.sql.Time;
 import java.util.Date;
 
+import com.google.type.DateTime;
 import jakarta.persistence.*;
+import lombok.Getter;
+import lombok.Setter;
 
+@Setter
+@Getter
 @Entity
 @Table(name = "contrato")
 public class ContratoModelo {
@@ -31,76 +37,14 @@ public class ContratoModelo {
     private Double precioFinal;  // Cambiado a Double
 
     @Temporal(TemporalType.TIMESTAMP)
-    @Column(name = "inicio_servicio")
-    private Date inicioServicio;
+    @Column(name = "hi_servicio")
+    private Time hiServicio;
 
     @Temporal(TemporalType.TIMESTAMP)
-    @Column(name = "fin_servicio")
-    private Date finServicio;
+    @Column(name = "hf_servicio")
+    private Time hfServicio;
 
-    // Getters and Setters
-
-    public int getIdContrato() {
-        return idContrato;
-    }
-
-    public void setIdContrato(int idContrato) {
-        this.idContrato = idContrato;
-    }
-
-    public ClienteModelo getIdCliente() {
-        return idCliente;
-    }
-
-    public void setIdCliente(ClienteModelo idCliente) {
-        this.idCliente = idCliente;
-    }
-
-    public Date getFechaInicio() {
-        return fechaInicio;
-    }
-
-    public void setFechaInicio(Date fechaInicio) {
-        this.fechaInicio = fechaInicio;
-    }
-
-    public Date getFechaFin() {
-        return fechaFin;
-    }
-
-    public void setFechaFin(Date fechaFin) {
-        this.fechaFin = fechaFin;
-    }
-
-    public String getEstado() {
-        return estado;
-    }
-
-    public void setEstado(String estado) {
-        this.estado = estado;
-    }
-
-    public Double getPrecioFinal() {
-        return precioFinal;
-    }
-
-    public void setPrecioFinal(Double precioFinal) {
-        this.precioFinal = precioFinal;
-    }
-
-    public Date getInicioServicio() {
-        return inicioServicio;
-    }
-
-    public void setInicioServicio(Date inicioServicio) {
-        this.inicioServicio = inicioServicio;
-    }
-
-    public Date getFinServicio() {
-        return finServicio;
-    }
-
-    public void setFinServicio(Date finServicio) {
-        this.finServicio = finServicio;
-    }
+    @Column(name = "fh_creacion")
+    @Temporal(TemporalType.DATE)
+    private DateTime fh_creacion;
 }

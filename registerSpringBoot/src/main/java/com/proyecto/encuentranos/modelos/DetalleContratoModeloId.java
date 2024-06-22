@@ -5,7 +5,11 @@ import java.util.Objects;
 
 import jakarta.persistence.Column;
 import jakarta.persistence.Embeddable;
+import lombok.Getter;
+import lombok.Setter;
 
+@Setter
+@Getter
 @Embeddable
 public class DetalleContratoModeloId implements Serializable {
 
@@ -24,30 +28,6 @@ public class DetalleContratoModeloId implements Serializable {
     public DetalleContratoModeloId(int idProveedor, int idServicio, int idContrato) {
         this.idProveedor = idProveedor;
         this.idServicio = idServicio;
-        this.idContrato = idContrato;
-    }
-
-    public int getIdProveedor() {
-        return idProveedor;
-    }
-
-    public void setIdProveedor(int idProveedor) {
-        this.idProveedor = idProveedor;
-    }
-
-    public int getIdServicio() {
-        return idServicio;
-    }
-
-    public void setIdServicio(int idServicio) {
-        this.idServicio = idServicio;
-    }
-
-    public int getIdContrato() {
-        return idContrato;
-    }
-
-    public void setIdContrato(int idContrato) {
         this.idContrato = idContrato;
     }
 

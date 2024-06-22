@@ -1,6 +1,8 @@
 package com.proyecto.encuentranos.modelos;
 
 import java.util.Date;
+
+import com.google.type.DateTime;
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
@@ -11,7 +13,11 @@ import jakarta.persistence.ManyToOne;
 import jakarta.persistence.Table;
 import jakarta.persistence.Temporal;
 import jakarta.persistence.TemporalType;
+import lombok.Getter;
+import lombok.Setter;
 
+@Setter
+@Getter
 @Entity
 @Table(name = "usuario")
 public class UsuarioModelo {
@@ -36,64 +42,8 @@ public class UsuarioModelo {
     @Column(name = "activo")
     private boolean activo;
 
-    @Column(name = "fecha_creacion")
+    @Column(name = "fh_creacion")
     @Temporal(TemporalType.DATE)
-    private Date fechaCreacion;
-
-	public int getIdUsuario() {
-		return idUsuario;
-	}
-
-	public void setIdUsuario(int idUsuario) {
-		this.idUsuario = idUsuario;
-	}
-
-	public TipoUsuarioModelo getIdTipo() {
-		return idTipo;
-	}
-
-	public void setIdTipo(TipoUsuarioModelo idTipo) {
-		this.idTipo = idTipo;
-	}
-
-	public String getCorreo() {
-		return correo;
-	}
-
-	public void setCorreo(String correo) {
-		this.correo = correo;
-	}
-
-	public String getContrasena() {
-		return contrasena;
-	}
-
-	public void setContrasena(String contrasena) {
-		this.contrasena = contrasena;
-	}
-
-	public String getImagenUrl() {
-		return imagenUrl;
-	}
-
-	public void setImagenUrl(String imagenUrl) {
-		this.imagenUrl = imagenUrl;
-	}
-
-	public boolean isActivo() {
-		return activo;
-	}
-
-	public void setActivo(boolean activo) {
-		this.activo = activo;
-	}
-
-	public Date getFechaCreacion() {
-		return fechaCreacion;
-	}
-
-	public void setFechaCreacion(Date fechaCreacion) {
-		this.fechaCreacion = fechaCreacion;
-	}
+    private DateTime fh_creacion;
 
 }

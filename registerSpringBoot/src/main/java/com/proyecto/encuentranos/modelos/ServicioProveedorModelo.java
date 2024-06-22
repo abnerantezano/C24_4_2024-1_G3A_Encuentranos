@@ -1,7 +1,12 @@
 package com.proyecto.encuentranos.modelos;
 
+import com.google.type.DateTime;
 import jakarta.persistence.*;
+import lombok.Getter;
+import lombok.Setter;
 
+@Setter
+@Getter
 @Entity
 @Table(name = "servicio_proveedor")
 public class ServicioProveedorModelo {
@@ -22,44 +27,4 @@ public class ServicioProveedorModelo {
     
     @Column(name = "negociable")
     private boolean negociable;
-
-    public ServicioProveedorModeloId getId() {
-        return id;
-    }
-
-    public void setId(ServicioProveedorModeloId id) {
-        this.id = id;
-    }
-
-    public ServicioModelo getIdServicio() {
-        return idServicio;
-    }
-
-    public void setIdServicio(ServicioModelo idServicio) {
-        this.idServicio = idServicio;
-    }
-
-    public ProveedorModelo getIdProveedor() {
-        return idProveedor;
-    }
-
-    public void setIdProveedor(ProveedorModelo idProveedor) {
-        this.idProveedor = idProveedor;
-    }
-
-    public double getPrecio() {
-        return precio;
-    }
-
-    public void setPrecio(double precio) {
-        this.precio = precio;
-    }
-
-    public boolean isNegociable() {
-        return negociable;
-    }
-
-    public void setNegociable(boolean negociable) {
-        this.negociable = negociable;
-    }
 }

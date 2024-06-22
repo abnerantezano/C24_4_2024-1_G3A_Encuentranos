@@ -1,7 +1,11 @@
 package com.proyecto.encuentranos.modelos;
 
 import jakarta.persistence.*;
+import lombok.Getter;
+import lombok.Setter;
 
+@Setter
+@Getter
 @Entity
 @Table(name = "detalle_contrato")
 public class DetalleContratoModelo {
@@ -23,45 +27,5 @@ public class DetalleContratoModelo {
 
     @Column(name = "precio_actual")
     private double precioActual;
-
-	public DetalleContratoModeloId getId() {
-		return id;
-	}
-
-	public void setId(DetalleContratoModeloId id) {
-		this.id = id;
-	}
-
-	public ProveedorModelo getIdProveedor() {
-		return idProveedor;
-	}
-
-	public void setIdProveedor(ProveedorModelo idProveedor) {
-		this.idProveedor = idProveedor;
-	}
-
-	public ServicioModelo getIdServicio() {
-		return idServicio;
-	}
-
-	public void setIdServicio(ServicioModelo idServicio) {
-		this.idServicio = idServicio;
-	}
-
-	public ContratoModelo getIdContrato() {
-		return idContrato;
-	}
-
-	public void setIdContrato(ContratoModelo idContrato) {
-		this.idContrato = idContrato;
-	}
-
-	public double getPrecioActual() {
-		return precioActual;
-	}
-
-	public void setPrecioActual(double precioActual) {
-		this.precioActual = precioActual;
-	}
 
 }

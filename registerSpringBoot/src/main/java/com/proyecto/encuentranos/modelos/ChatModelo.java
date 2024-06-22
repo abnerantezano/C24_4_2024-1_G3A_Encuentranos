@@ -1,8 +1,14 @@
 package com.proyecto.encuentranos.modelos;
 
+import com.google.type.DateTime;
 import jakarta.persistence.*;
+import lombok.Getter;
+import lombok.Setter;
+
 import java.util.Date;
 
+@Setter
+@Getter
 @Entity
 @Table(name = "chat")
 public class ChatModelo {
@@ -11,35 +17,18 @@ public class ChatModelo {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private int idChat;
 
+    @ManyToOne
+    @JoinColumn(name = "id_proveedor", referencedColumnName = "id_proveedor", insertable = false, updatable = false)
+    private ProveedorModelo idProveedor;
+
+    @ManyToOne
+    @JoinColumn(name = "id_cliente", referencedColumnName = "id_cliente")
+    private ClienteModelo idCliente;
+
     @Column(nullable = false)
     private boolean eliminado;
 
-    @Column(name = "fecha_creacion")
-    private Date fechaCreacion;
-
-    // Getters and Setters
-
-    public int getIdChat() {
-        return idChat;
-    }
-
-    public void setIdChat(int idChat) {
-        this.idChat = idChat;
-    }
-
-    public boolean isEliminado() {
-        return eliminado;
-    }
-
-    public void setEliminado(boolean eliminado) {
-        this.eliminado = eliminado;
-    }
-
-    public Date getFechaCreacion() {
-        return fechaCreacion;
-    }
-
-    public void setFechaCreacion(Date fechaCreacion) {
-        this.fechaCreacion = fechaCreacion;
-    }
+    @Column(name = "fh_creacion")
+    @Temporal(TemporalType.DATE)
+    private DateTime fh_creacion;
 }

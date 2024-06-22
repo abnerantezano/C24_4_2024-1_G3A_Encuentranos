@@ -1,7 +1,12 @@
 package com.proyecto.encuentranos.modelos;
 
+import com.google.type.DateTime;
 import jakarta.persistence.*;
+import lombok.Getter;
+import lombok.Setter;
 
+@Setter
+@Getter
 @Entity
 @Table(name = "servicio")
 public class ServicioModelo {
@@ -17,30 +22,10 @@ public class ServicioModelo {
 	@Column( name = "descripcion")
     private String descripcion;
 
-    // Getters and Setters
+	@Column(name = "imagen_url")
+	private String imagenUrl;
 
-	public int getIdServicio() {
-		return idServicio;
-	}
-
-	public void setIdServicio(int idServicio) {
-		this.idServicio = idServicio;
-	}
-
-	public String getNombre() {
-		return nombre;
-	}
-
-	public void setNombre(String nombre) {
-		this.nombre = nombre;
-	}
-
-	public String getDescripcion() {
-		return descripcion;
-	}
-
-	public void setDescripcion(String descripcion) {
-		this.descripcion = descripcion;
-	}
-
+	@Column(name = "fh_creacion")
+	@Temporal(TemporalType.DATE)
+	private DateTime fh_creacion;
 }

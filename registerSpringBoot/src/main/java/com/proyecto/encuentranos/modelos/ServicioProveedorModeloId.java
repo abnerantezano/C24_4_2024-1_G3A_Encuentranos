@@ -2,9 +2,14 @@ package com.proyecto.encuentranos.modelos;
 
 import jakarta.persistence.Column;
 import jakarta.persistence.Embeddable;
+import lombok.Getter;
+import lombok.Setter;
+
 import java.io.Serializable;
 
 // Clase para la clave compuesta
+@Setter
+@Getter
 @Embeddable
 public class ServicioProveedorModeloId implements Serializable {
     @Column(name = "id_servicio")
@@ -24,19 +29,4 @@ public class ServicioProveedorModeloId implements Serializable {
         this.idProveedor = idProveedor;
     }
 
-    public int getIdServicio() {
-        return idServicio;
-    }
-
-    public void setIdServicio(int idServicio) {
-        this.idServicio = idServicio;
-    }
-
-    public int getIdProveedor() {
-        return idProveedor;
-    }
-
-    public void setIdProveedor(int idProveedor) {
-        this.idProveedor = idProveedor;
-    }
 }
