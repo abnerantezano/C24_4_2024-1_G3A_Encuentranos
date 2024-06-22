@@ -53,12 +53,8 @@ public class ProveedorModelo {
     private String curriculumUrl;
 
     @Temporal(TemporalType.DATE)
-    @Column(name = "fecha_registro", nullable = false)
+    @Column(name = "fecha_registro")
     private Date fechaRegistro;
-
-    public ProveedorModelo() {
-        this.fechaRegistro = new Date();
-    }
     
 	public int getIdProveedor() {
 		return idProveedor;
