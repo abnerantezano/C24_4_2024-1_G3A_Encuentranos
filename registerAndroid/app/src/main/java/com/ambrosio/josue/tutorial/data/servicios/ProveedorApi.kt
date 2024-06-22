@@ -14,4 +14,7 @@ interface ProveedorApi {
     // Nuevo método para buscar proveedor por usuario ID
     @GET("proveedor/buscar-usuario/{idUsuario}")
     fun buscarProveedorPorUsuario(@Path("idUsuario") idUsuario: Int): Call<ProveedorModel>
+
+    @GET("proveedor/buscar/{idUsuario}")
+    fun obtenerDatosDeUsuarioPorId(@Path("idUsuario") idUsuario: Int): Call<ProveedorModel>
 }

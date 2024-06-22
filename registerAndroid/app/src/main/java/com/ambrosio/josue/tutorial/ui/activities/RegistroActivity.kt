@@ -26,7 +26,6 @@ class RegistroActivity : AppCompatActivity() {
         registroViewModel = ViewModelProvider(this, RegistroViewModel.Factory(applicationContext)).get(
             RegistroViewModel::class.java)
 
-        // Initialize the ActivityResultLauncher
         resultLauncher = registerForActivityResult(
             ActivityResultContracts.StartActivityForResult()
         ) { result ->
@@ -36,18 +35,8 @@ class RegistroActivity : AppCompatActivity() {
             }
         }
 
-        // Set onClickListener for the "Iniciar Sesión" TextView
-        binding.tvLogin.setOnClickListener {
-            val intent = Intent(this, LoginActivity::class.java)
-            startActivity(intent)
-            finish() // Close the current activity to prevent navigating back to it
-        }
-
-        // Set onClickListener for the Google Sign-In button
-        binding.signInButton.setOnClickListener {
-            val signInIntent = registroViewModel.signIn()
-            resultLauncher.launch(signInIntent)
-        }
+        goLoginActivitiy()
+        goRegistrarUsuario()
 
         observeViewModel()
     }
@@ -72,6 +61,21 @@ class RegistroActivity : AppCompatActivity() {
             }
             startActivity(intent)
             finish() // Close the current activity to prevent navigating back to it
+        }
+    }
+
+    private fun goLoginActivitiy(){
+        binding.tvLogin.setOnClickListener {
+            val intent = Intent(this, LoginActivity::class.java)
+            startActivity(intent)
+            finish() // Close the current activity to prevent navigating back to it
+        }
+    }
+
+    private fun goRegistrarUsuario(){
+        binding.signInButton.setOnClickListener {
+            val signInIntent = registroViewModel.signIn()
+            resultLauncher.launch(signInIntent)
         }
     }
 }

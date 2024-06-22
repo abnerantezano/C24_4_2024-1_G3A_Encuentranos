@@ -187,7 +187,7 @@ class InicioViewModel : ViewModel() {
     }
 
     private fun obtenerDatosUsuario(idUsuario: Int, token: String?) {
-        obtenerDatosDesdeEndpoint("$BASE_URL/proveedor/buscar-usuario/$idUsuario", idUsuario, token) {
+        obtenerDatosDesdeEndpoint("$BASE_URL/cliente/buscar-usuario/$idUsuario", idUsuario, token) {
             if (it == null) {
                 obtenerDatosDesdeEndpoint("$BASE_URL/cliente/buscar-usuario/$idUsuario", idUsuario, token) { respuestaCliente ->
                     if (respuestaCliente == null) {

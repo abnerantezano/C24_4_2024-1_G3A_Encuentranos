@@ -104,4 +104,5 @@ class InformacionPersonalActivity : HeaderInclude() {
         binding.radioFemenino.isChecked = true
     }
 
+
 }

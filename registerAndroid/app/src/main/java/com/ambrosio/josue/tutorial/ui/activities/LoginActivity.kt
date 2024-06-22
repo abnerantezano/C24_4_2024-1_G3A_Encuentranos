@@ -10,14 +10,16 @@ import androidx.activity.result.contract.ActivityResultContracts
 import androidx.appcompat.app.AppCompatActivity
 import androidx.lifecycle.ViewModelProvider
 import com.ambrosio.josue.tutorial.MainActivity
+import com.ambrosio.josue.tutorial.RetrofitClient
+import com.ambrosio.josue.tutorial.data.models.UsuarioModel
+import com.ambrosio.josue.tutorial.data.servicios.UsuarioApi
 import com.ambrosio.josue.tutorial.databinding.ActivityLoginBinding
 import com.ambrosio.josue.tutorial.ui.viewModels.LoginViewModel
 import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.auth.FirebaseUser
-import okhttp3.OkHttpClient
-import okhttp3.Request
-import okhttp3.Response
-import java.io.IOException
+import retrofit2.Response
+import retrofit2.Call
+import retrofit2.Callback
 
 class LoginActivity : AppCompatActivity() {
 
@@ -25,6 +27,7 @@ class LoginActivity : AppCompatActivity() {
     private lateinit var loginViewModel: LoginViewModel
     private lateinit var resultLauncher: ActivityResultLauncher<Intent>
     private lateinit var auth: FirebaseAuth
+    private val usuarioApi: UsuarioApi = RetrofitClient.usuarioApi
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -71,42 +74,28 @@ class LoginActivity : AppCompatActivity() {
         observeViewModel()
     }
 
-    private fun verificarCorreoEnBackend(email: String?, idToken: String?) {
+    fun verificarCorreoEnBackend(email: String?, idToken: String?) {
         if (email == null || idToken == null) return
 
-        val client = OkHttpClient()
-        val request = Request.Builder()
-            .url("http://192.168.100.13:4000/usuario/verificar/$email")
-            .addHeader("Authorization", "Bearer $idToken")
-            .build()
-
-        client.newCall(request).enqueue(object : okhttp3.Callback {
-            override fun onFailure(call: okhttp3.Call, e: IOException) {
-                Log.e("LoginActivity", "Error de red: ${e.message}")
-                runOnUiThread {
-                    Toast.makeText(this@LoginActivity, "Error de red", Toast.LENGTH_SHORT).show()
+        val call = usuarioApi.verificarUsuarioPorCorreo(email)
+        call.enqueue(object : Callback<UsuarioModel> {
+            override fun onResponse(call: Call<UsuarioModel>, response: Response<UsuarioModel>) {
+                if (response.isSuccessful) {
+                    // Usuario encontrado, actualiza UI o realiza acciones necesarias
+                    Log.d("InformacionProveedorVM", "Usuario encontrado: ${response.body()}")
+                } else {
+                    // Usuario no encontrado, maneja la respuesta del servidor
+                    Log.e("InformacionProveedorVM", "Usuario no registrado: ${response.code()}")
+                    // Puedes manejar el error según tus requerimientos
                 }
             }
 
-            override fun onResponse(call: okhttp3.Call, response: Response) {
-                if (response.isSuccessful) {
-                    val user = auth.currentUser
-                    runOnUiThread {
-                        if (user != null) {
-                            updateUI(user)
-                        }
-                    }
-                } else {
-                    Log.e("LoginActivity", "Error del servidor: ${response.code}")
-                    runOnUiThread {
-                        Toast.makeText(this@LoginActivity, "Usuario no registrado", Toast.LENGTH_SHORT).show()
-                        startActivity(Intent(this@LoginActivity, RegistroActivity::class.java))
-                    }
-                }
+            override fun onFailure(call: Call<UsuarioModel>, t: Throwable) {
+                Log.e("InformacionProveedorVM", "Error en la llamada: ${t.message}")
+                // Maneja el error de red aquí
             }
         })
     }
-
     private fun updateUI(user: FirebaseUser?) {
         if (user != null) {
             startActivity(Intent(this, MainActivity::class.java))

@@ -31,7 +31,7 @@ class InicioFragment : Fragment() {
 
         // Mostrar el ProgressBar al iniciar la vista
         binding.progressBar.visibility = View.VISIBLE
-        binding.content.visibility = View.GONE // content es un contenedor que agrupa los demás elementos de la UI
+        binding.content.visibility = View.GONE
 
         viewModel.nombreUsuario.observe(viewLifecycleOwner, Observer { name ->
             binding.progressBar.visibility = View.GONE

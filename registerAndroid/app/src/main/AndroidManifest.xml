@@ -31,38 +31,17 @@
             android:name=".generals.HeaderInclude"
             android:exported="false" />
         <activity
-            android:name=".FooterFragment"
-            android:exported="false" />
-        <activity
-            android:name=".pruebas"
-            android:exported="true" />
-        <activity
             android:name=".ui.activities.opcionesPerfilFragment.AgregarServicioActivity"
             android:exported="true" />
         <activity
             android:name=".ui.activities.opcionesPerfilFragment.MiContratoActivity"
             android:exported="true" />
         <activity
-            android:name=".activities.CambiarContrasenaActivity"
-            android:exported="false" />
-        <activity
             android:name=".ui.activities.opcionesPerfilFragment.InformacionPersonalActivity"
             android:exported="false" />
         <activity
             android:name=".ui.activities.opcionesPerfilFragment.PerfilActivity"
             android:exported="false" />
-        <activity
-            android:name=".activities.MensajeActivity"
-            android:exported="false" />
-        <activity
-            android:name=".activities.ServicioProveedorActivity"
-            android:exported="false" />
-        <activity
-            android:name=".activities.InicioSesionActivity"
-            android:exported="true" />
-        <activity
-            android:name=".activities.ServiciosListActivity"
-            android:exported="true" />
         <activity
             android:name=".ui.activities.CrearUsuarioActivity"
             android:exported="false" />
@@ -73,7 +52,7 @@
             android:name=".ui.activities.LoginActivity"
             android:exported="true" />
         <activity
-            android:name=".ui.activities.RegistroProveedorActivity"
+            android:name=".ui.activities.RegistroProveedorOClienteActivity"
             android:exported="true" />
         <activity
             android:name=".MainActivity"

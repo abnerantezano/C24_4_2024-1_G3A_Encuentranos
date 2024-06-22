@@ -4,6 +4,7 @@ import com.ambrosio.josue.tutorial.data.models.UsuarioModel
 import retrofit2.Call
 import retrofit2.http.Body
 import retrofit2.http.GET
+import retrofit2.http.Header
 import retrofit2.http.POST
 import retrofit2.http.Path
 
@@ -20,4 +21,7 @@ interface UsuarioApi {
     // Nuevo método para obtener usuario por ID
     @GET("usuario/{idUsuario}")
     fun obtenerUsuarioPorId(@Path("idUsuario") idUsuario: Int): Call<UsuarioModel>
+
+    @GET("usuario/token")
+    fun obtenerDatosUsuarioPorToken(@Header("Authorization") accessToken: String): Call<UsuarioModel>
 }

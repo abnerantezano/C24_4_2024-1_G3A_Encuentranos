@@ -20,25 +20,23 @@ import com.ambrosio.josue.tutorial.ui.viewModels.ServicioProveedorViewModel
 import com.ambrosio.josue.tutorial.ui.viewModels.ServiciosListViewModel
 
 class AgregarServicioActivity : AppCompatActivity() {
-
     private lateinit var binding: ActivityAgregarServicioBinding
     private lateinit var serviciosListViewModel: ServiciosListViewModel
     private lateinit var adapter: ServicioAdapter
     private val servicioProveedorViewModel: ServicioProveedorViewModel by viewModels()
     private lateinit var sharedPreferences: SharedPreferences
     private var idProveedor: Int = -1
-
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         binding = ActivityAgregarServicioBinding.inflate(layoutInflater)
         setContentView(binding.root)
-
         // Obtener id_proveedor desde SharedPreferences
         sharedPreferences = getSharedPreferences("user_prefs", Context.MODE_PRIVATE)
         idProveedor = sharedPreferences.getInt("id_proveedor", -1)
-
         // Verificar si se está recuperando correctamente
         Log.d("AgregarServicioActivity", "ID Proveedor recuperado: $idProveedor")
+        // Actualizar el TextView u otro elemento en tu UI con el id_proveedor
+        binding.tvAgregar.text = "ID Proveedor: $idProveedor"
 
         serviciosListViewModel = ServiciosListViewModel()
         serviciosListViewModel.obtenerServicios()
@@ -47,15 +45,11 @@ class AgregarServicioActivity : AppCompatActivity() {
         setupViews()
         observeValues()
     }
-
-
-
     private fun setupViews() {
         binding.apply {
             btnEnviar.setOnClickListener { agregarServicioProveedor() }
         }
     }
-
     private fun observeValues() {
         serviciosListViewModel.listaServicios.observe(this, Observer { servicios ->
             if (servicios != null && servicios.isNotEmpty()) {
@@ -67,30 +61,25 @@ class AgregarServicioActivity : AppCompatActivity() {
             }
         })
     }
-
     private fun agregarServicioProveedor() {
         // Verificar que id_proveedor tenga un valor válido
         if (idProveedor == -1) {
             Toast.makeText(this, "Error: ID de proveedor no válido.", Toast.LENGTH_SHORT).show()
             return
         }
-
         // Resto del código para agregar el servicio usando idProveedor
         val selectedServicePosition = binding.servicioSpinner.selectedItemPosition
         val servicios = serviciosListViewModel.listaServicios.value
         val selectedService = servicios?.getOrNull(selectedServicePosition)
-
         if (selectedService == null) {
             Toast.makeText(this, "Seleccione un servicio válido.", Toast.LENGTH_SHORT).show()
             return
         }
-
         val precio = binding.edtPrecio.text.toString().toDoubleOrNull()
         if (precio == null || precio < 0) {
             Toast.makeText(this, "Ingrese un precio válido.", Toast.LENGTH_SHORT).show()
             return
         }
-
         val servicioProveedor = ServicioProveedorModel(
             id = ServicioProveedorModeloId(selectedService.idServicio, idProveedor),
             idServicio = selectedService,
@@ -98,7 +87,6 @@ class AgregarServicioActivity : AppCompatActivity() {
             precio = precio,
             negociable = true
         )
-
         servicioProveedorViewModel.agregarServicioProveedor(listOf(servicioProveedor)) { success ->
             if (success) {
                 Toast.makeText(this, "Servicio agregado exitosamente.", Toast.LENGTH_SHORT).show()
@@ -108,12 +96,9 @@ class AgregarServicioActivity : AppCompatActivity() {
             }
         }
     }
-
     private fun navigateToHome() {
         val intent = Intent(this, MainActivity::class.java)
         startActivity(intent)
         finish()
     }
-
-
 }

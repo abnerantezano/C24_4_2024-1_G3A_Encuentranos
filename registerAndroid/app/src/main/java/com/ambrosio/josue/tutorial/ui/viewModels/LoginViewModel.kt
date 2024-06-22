@@ -8,6 +8,9 @@ import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.ViewModelProvider
 import com.ambrosio.josue.tutorial.R
+import com.ambrosio.josue.tutorial.RetrofitClient
+import com.ambrosio.josue.tutorial.data.models.UsuarioModel
+import com.ambrosio.josue.tutorial.data.servicios.UsuarioApi
 import com.google.android.gms.auth.api.signin.GoogleSignIn
 import com.google.android.gms.auth.api.signin.GoogleSignInClient
 import com.google.android.gms.auth.api.signin.GoogleSignInOptions
@@ -15,15 +18,9 @@ import com.google.android.gms.common.api.ApiException
 import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.auth.FirebaseUser
 import com.google.firebase.auth.GoogleAuthProvider
-import kotlinx.coroutines.Dispatchers
-import kotlinx.coroutines.withContext
-import okhttp3.Call
-import okhttp3.Callback
-import okhttp3.OkHttpClient
-import okhttp3.Request
-import okhttp3.Response
-import org.json.JSONObject
-import java.io.IOException
+import retrofit2.Call
+import retrofit2.Callback
+import retrofit2.Response
 
 class LoginViewModel(
     private val context: Context
@@ -44,6 +41,8 @@ class LoginViewModel(
 
     private val _backendResponse = MutableLiveData<String>()
     val backendResponse: LiveData<String> get() = _backendResponse
+
+    private val usuarioApi: UsuarioApi = RetrofitClient.usuarioApi
 
     init {
         // Configurar Google Sign In
@@ -91,33 +90,27 @@ class LoginViewModel(
             }
     }
 
-    private fun fetchBackendData(accessToken: String) {
-        val client = OkHttpClient()
-        val request = Request.Builder()
-            .url("http://192.168.100.13:4000/usuario/token")
-            .addHeader("Authorization", "Bearer $accessToken")
-            .build()
-
-        client.newCall(request).enqueue(object : Callback {
-            override fun onFailure(call: Call, e: IOException) {
-                Log.e("Auth", "Error fetching token and email", e)
-            }
-
-            override fun onResponse(call: Call, response: Response) {
+    fun fetchBackendData(accessToken: String) {
+        val call = usuarioApi.obtenerDatosUsuarioPorToken("Bearer $accessToken")
+        call.enqueue(object : Callback<UsuarioModel> {
+            override fun onResponse(call: Call<UsuarioModel>, response: Response<UsuarioModel>) {
                 if (response.isSuccessful) {
-                    response.body?.let {
-                        val responseBody = it.string()
-                        val json = JSONObject(responseBody)
-                        val token = json.getString("token")
-                        val email = json.getString("email")
-                        Log.d("Auth", "Token: $token, Email: $email")
+                    response.body()?.let { usuarioModel ->
+                        // Procesar la respuesta exitosa
+                        Log.d("InformacionProveedorVM", "Usuario encontrado: $usuarioModel")
+                        // Aquí puedes manejar la lógica de tu aplicación con los datos del usuario
                     }
                 } else {
-                    Log.e("Auth", "Error response code: ${response.code}")
+                    Log.e("InformacionProveedorVM", "Error en la llamada: ${response.code()}")
+                    // Manejar el error según tus necesidades
                 }
             }
-        })
 
+            override fun onFailure(call: Call<UsuarioModel>, t: Throwable) {
+                Log.e("InformacionProveedorVM", "Error en la llamada: ${t.message}")
+                // Manejar el error de red aquí
+            }
+        })
     }
 
 

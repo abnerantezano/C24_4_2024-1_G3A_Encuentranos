@@ -20,11 +20,11 @@ class CrearUsuarioActivity : AppCompatActivity() {
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
+
         binding = ActivityCrearUsuarioBinding.inflate(layoutInflater)
         setContentView(binding.root)
 
         initializeViewModel()
-        setupUI()
         setupListeners()
 
         sharedPreferences = getSharedPreferences("user_prefs", Context.MODE_PRIVATE)
@@ -35,17 +35,14 @@ class CrearUsuarioActivity : AppCompatActivity() {
         viewModel = UsuarioViewModel(usuarioApi)
     }
 
-    private fun setupUI() {
-    }
-
     private fun setupListeners() {
         binding.apply {
-            btnEnviar.setOnClickListener { handleCreateUser() }
+            btnEnviar.setOnClickListener { crearUsuario() }
             tvRegresar.setOnClickListener { navigateToLogin() }
         }
     }
 
-    private fun handleCreateUser() {
+    private fun crearUsuario() {
         val email = intent.getStringExtra("email") ?: ""
         val contrasena = binding.edtContrasena.text.toString()
         val confirmarContrasena = binding.edtConfirmarContrasena.text.toString()
@@ -67,6 +64,7 @@ class CrearUsuarioActivity : AppCompatActivity() {
                 val editor = sharedPreferences.edit()
                 editor.putInt("user_id", usuarioAgregado.idUsuario)
                 editor.putString("email", usuarioAgregado.correo)
+                editor.putInt("tipo_id", usuarioAgregado.idTipo.idTipo)
                 editor.apply()
 
                 navigateToNextActivity(tipoUsuarioId, usuarioAgregado.idUsuario, usuarioAgregado.correo)
@@ -78,9 +76,12 @@ class CrearUsuarioActivity : AppCompatActivity() {
     }
 
     private fun navigateToNextActivity(tipoUsuarioId: Int, userId: Int, email: String) {
-        val intent = Intent(this, if (tipoUsuarioId == 2) RegistroProveedorActivity::class.java else MainActivity::class.java).apply {
+        val intent = Intent(this,
+            if (tipoUsuarioId == 2 || tipoUsuarioId == 1)
+                RegistroProveedorOClienteActivity::class.java else MainActivity::class.java).apply {
             putExtra("user_id", userId)
             putExtra("email", email)
+            putExtra("tipo_id", tipoUsuarioId)
         }
         startActivity(intent)
         finish()

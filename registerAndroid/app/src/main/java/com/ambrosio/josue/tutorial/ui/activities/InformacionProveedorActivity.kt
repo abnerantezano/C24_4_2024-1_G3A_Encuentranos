@@ -17,12 +17,9 @@ class InformacionProveedorActivity : AppCompatActivity() {
         binding = ActivityInformacionProveedorBinding.inflate(layoutInflater)
         setContentView(binding.root)
 
-        // Obtener el ID del proveedor pasado desde el intent
         val proveedorId = intent.getIntExtra("PROVEEDOR_ID", -1)
 
-        // Observar los cambios en el ViewModel para actualizar la UI cuando se obtenga el proveedor
         viewModel.proveedor.observe(this, Observer { proveedor ->
-            // Verificar si el proveedor no es nulo
             if (proveedor != null) {
                 binding.tvNombreProveedor.text = "${proveedor.nombre} ${proveedor.apellidoPaterno} ${proveedor.apellidoMaterno}"
                 binding.tvCalificacionProveedor.text = proveedor.calificacionPromedio.toString()
@@ -33,7 +30,6 @@ class InformacionProveedorActivity : AppCompatActivity() {
             }
         })
 
-        // Llamar al método del ViewModel para obtener los datos del proveedor por su ID
         viewModel.obtenerDatosProveedorPorId(proveedorId)
     }
 }
