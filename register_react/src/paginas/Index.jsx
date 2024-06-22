@@ -103,7 +103,7 @@ export default function Index() {
                   <li>Calidad de servicio</li>
                 </ul>
               </div>
-              <img className='w-1/2 p-16' src={index3}/>
+              <img className='w-1/2 p-16' src={index3} alt='Imagen'/>
             </div>
           </div>
         </div>

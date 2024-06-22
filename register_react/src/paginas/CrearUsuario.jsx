@@ -89,14 +89,14 @@ const CrearUsuario = () => {
                                 <div className="mb-5">
                                     <label className="block mb-2 text-sm font-medium text-gray-900">Contraseña</label>
                                     <Controller name="contrasena" control={control} rules={{ required: 'Ingresar una contraseña' }} render={({ field }) => (
-                                        <Password id="contrasena" {...field} className="block w-full" feedback={false} toggleMask inputClassName="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring focus:ring-orange-200 focus:border-dark block w-full p-2.5 dark:bg-[#] dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"/>
+                                        <Password id="contrasena" {...field} className="block w-full" feedback={false} toggleMask inputClassName="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring focus:ring-orange-200 focus:border-dark block w-full p-2.5"/>
                                     )}/>
                                     {errors.contrasena && <span className="text-red-500 text-sm">{errors.contrasena.message}</span>}
                                 </div>
                                 <div className="mb-5">
                                     <label className="block mb-2 text-sm font-medium text-gray-900">Confirmar contraseña</label>
                                     <Controller name="confirmarContrasena" control={control} rules={{ required: 'Confirmar la contraseña', validate: value => value === watch('contrasena') || 'Las contraseñas no coinciden'}} render={({ field }) => (
-                                        <Password id="confirmarContrasena" {...field} className="block w-full" feedback={false} toggleMask inputClassName="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring focus:ring-orange-200 focus:border-dark block w-full p-2.5 dark:bg-[#] dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"/>
+                                        <Password id="confirmarContrasena" {...field} className="block w-full" feedback={false} toggleMask inputClassName="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring focus:ring-orange-200 focus:border-dark block w-full p-2.5"/>
                                     )}/>
                                     {errors.confirmarContrasena && <span className="text-red-500 text-sm">{errors.confirmarContrasena.message}</span>}
                                 </div>
@@ -119,7 +119,7 @@ const CrearUsuario = () => {
                                     {errors.idTipo && <span className="text-red-500 text-sm">Elija una opción</span>}
                                 </div>
                                 <div className="flex justify-center my-8">
-                                    <button type="submit" className="focus:outline-none w-full text-white bg-[#E8A477] hover:bg-[#BC7547] focus:ring-4 focus:ring-[#BC7547] font-medium rounded-lg text-sm px-5 py-2.5 me-2 mb-2">Crear cuenta</button>
+                                    <button type="submit" className="focus:outline-none w-full text-white bg-[#E8A477] hover:bg-[#BC7547] focus:ring-4 focus:ring-[#fcdac4] font-medium rounded-lg text-sm px-5 py-2.5 me-2 mb-2">Crear cuenta</button>
                                 </div>
                                 <div className="my-4 flex items-center before:mt-0.5 before:flex-1 before:border-t before:border-neutral-300 after:mt-0.5 after:flex-1 after:border-t after:border-neutral-300">
                                     <p className="mx-4 mb-0 text-center font-semibold">O</p>
