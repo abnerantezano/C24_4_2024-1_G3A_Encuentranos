@@ -2,6 +2,7 @@ package com.proyecto.encuentranos.modelos;
 
 import java.util.Date;
 
+import com.google.type.DateTime;
 import jakarta.persistence.*;
 import lombok.Getter;
 import lombok.Setter;
@@ -13,7 +14,7 @@ import lombok.Setter;
 public class ProveedorModelo {
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
-	@Column(name = "id_proveedor")
+	@Column( name = "id_proveedor")
 	private int idProveedor;
 
 	@ManyToOne
@@ -24,13 +25,13 @@ public class ProveedorModelo {
 	@JoinColumn(name = "id_distrito", referencedColumnName = "id_distrito")
 	private DistritoModelo idDistrito;
 
-	@Column(name = "nombre")
+	@Column( name = "nombre")
 	private String nombre;
 
-	@Column(name = "apellido_paterno")
+	@Column( name = "apellido_paterno")
 	private String apellidoPaterno;
 
-	@Column(name = "apellido_materno")
+	@Column( name = "apellido_materno")
 	private String apellidoMaterno;
 
 	@Column(name = "dni", length = 8, unique = true)
@@ -39,24 +40,24 @@ public class ProveedorModelo {
 	@Column(name = "celular", length = 9, unique = true)
 	private String celular;
 
-	@Column(name = "sexo")
+	@Column( name = "sexo")
 	private String sexo;
 
 	@Temporal(TemporalType.DATE)
-	@Column(name = "fecha_nacimiento")
+	@Column( name = "fecha_nacimiento")
 	private Date fechaNacimiento;
 
 	@Lob
-	@Column(name = "descripcion")
+	@Column( name = "descripcion")
 	private String descripcion;
 
-	@Column(name = "calificacion_promedio")
+	@Column( name = "calificacion_promedio")
 	private double calificacionPromedio;
 
-	@Column(name = "curriculum_url")
+	@Column( name = "curriculum_url")
 	private String curriculumUrl;
 
-	@Column(name = "fh_creacion")
 	@Temporal(TemporalType.DATE)
-	private Date fh_creacion;  // Change to java.util.Date
+	@Column(name = "fh_creacion")
+	private Date fh_creacion;
 }
