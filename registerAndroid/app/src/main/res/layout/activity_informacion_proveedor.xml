@@ -11,6 +11,14 @@
         android:id="@+id/header"
         layout="@layout/header_volver"/>
 
+    <ScrollView
+        android:id="@+id/content"
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/header"
+        app:layout_constraintVertical_bias="0.035"
+        tools:layout_editor_absoluteX="0dp">
     <LinearLayout
         android:id="@+id/linearInformacionProveedor"
         android:layout_width="match_parent"
@@ -59,7 +67,7 @@
             android:text="@string/contacto"
             android:textStyle="bold"
             android:textColor="@color/grayNoSoft"
-            android:textSize="18dp"/>
+            android:textSize="16dp"/>
         <HorizontalScrollView
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
@@ -114,7 +122,7 @@
             android:text="@string/acerca_de_mi"
             android:textStyle="bold"
             android:textColor="@color/grayNoSoft"
-            android:textSize="18dp"/>
+            android:textSize="16dp"/>
         <TextView
             android:id="@+id/tvDescripcionProveedor"
             android:layout_width="wrap_content"
@@ -125,22 +133,76 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginTop="10dp"
-            android:text="@string/servicios_que_ofrece"
+            android:text="@string/servicios_que_ofrece_negociables"
             android:textStyle="bold"
             android:textColor="@color/grayNoSoft"
-            android:textSize="18dp"/>
+            android:textSize="16dp"/>
+
+        <androidx.recyclerview.widget.RecyclerView
+            android:id="@+id/recyclerViewServiciosNegociables"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginBottom="15dp"
+            app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
+            tools:listitem="@layout/item_servicio_negociable" />
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="10dp"
+            android:text="@string/servicios_que_ofrece_no_negociables"
+            android:textStyle="bold"
+            android:textColor="@color/grayNoSoft"
+            android:textSize="16dp"/>
+        <androidx.recyclerview.widget.RecyclerView
+            android:id="@+id/recyclerViewServiciosNoNegociables"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginBottom="15dp"
+            app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="@+id/linearInformacionProveedor"
+            app:layout_constraintStart_toStartOf="@+id/linearInformacionProveedor"
+            app:layout_constraintTop_toBottomOf="@id/linearInformacionProveedor"
+            tools:listitem="@layout/item_servicio_negociable" />
+        <LinearLayout
+            android:id="@+id/linearOpciones"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:weightSum="2"
+            android:orientation="horizontal">
+            <Button
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="@string/enviar_mensaje"
+                android:background="@drawable/button_background"
+                android:layout_marginEnd="10dp"
+                android:layout_weight="1"/>
+            <Button
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="@string/contratar"
+                android:background="@drawable/button_background"
+                android:layout_marginStart="10dp"
+                android:layout_weight="1"/>
+        </LinearLayout>
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="10dp"
+            android:text="@string/rese_as"
+            android:layout_marginBottom="10dp"
+            android:textStyle="bold"
+            android:textColor="@color/grayNoSoft"
+            android:textSize="16dp"/>
     </LinearLayout>
+        <androidx.recyclerview.widget.RecyclerView
+            android:id="@+id/recyclerViewResenas"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginBottom="15dp"
+            app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
 
-    <androidx.recyclerview.widget.RecyclerView
-        android:id="@+id/recyclerViewServicios"
-        android:layout_width="0dp"
-        android:layout_height="0dp"
-        android:layout_marginBottom="15dp"
-        app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="@+id/linearInformacionProveedor"
-        app:layout_constraintStart_toStartOf="@+id/linearInformacionProveedor"
-        app:layout_constraintTop_toBottomOf="@id/linearInformacionProveedor"
-        tools:listitem="@layout/item_mi_servicio" />
-
+            app:layout_constraintBottom_toBottomOf="parent"
+            tools:listitem="@layout/item_resenas" />
+    </ScrollView>
 </androidx.constraintlayout.widget.ConstraintLayout>

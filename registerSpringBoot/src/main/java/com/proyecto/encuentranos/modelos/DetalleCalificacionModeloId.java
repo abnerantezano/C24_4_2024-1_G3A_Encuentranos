@@ -27,5 +27,9 @@ public class DetalleCalificacionModeloId implements Serializable {
 		this.idServicio = idServicio;
 		this.idCalificacion = idCalificacion;
 	}
+	public DetalleCalificacionModeloId(int idProveedor, int idServicio) {
+		this.idProveedor = idProveedor;
+		this.idServicio = idServicio;
+	}
 
 }

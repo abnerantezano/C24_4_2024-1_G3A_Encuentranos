@@ -2,7 +2,6 @@ package com.proyecto.encuentranos.modelos;
 
 import java.util.Date;
 
-import com.google.type.DateTime;
 import jakarta.persistence.*;
 import lombok.Getter;
 import lombok.Setter;
@@ -59,6 +58,6 @@ public class ProveedorModelo {
 
 	@Column(name = "fh_creacion")
 	@Temporal(TemporalType.DATE)
-	private DateTime fechaRegistro;
+	private Date fechaRegistro;
 
 }

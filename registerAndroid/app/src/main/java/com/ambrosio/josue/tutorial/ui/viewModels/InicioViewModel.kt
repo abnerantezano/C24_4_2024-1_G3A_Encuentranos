@@ -24,6 +24,9 @@ class InicioViewModel : ViewModel() {
     private val _idProveedor = MutableLiveData<Int>()
     val idProveedor: LiveData<Int> get() = _idProveedor
 
+    private val _idTipo = MutableLiveData<Int>()
+    val idTipo: LiveData<Int> get() = _idTipo
+
     private val _nombreUsuario = MutableLiveData<String>()
     val nombreUsuario: LiveData<String> get() = _nombreUsuario
 
@@ -178,7 +181,7 @@ class InicioViewModel : ViewModel() {
                 val jsonObject = JSONObject(respuesta)
                 val idUsuario = jsonObject.optInt("idUsuario", -1)
                 if (idUsuario != -1) {
-                    obtenerDatosUsuario(idUsuario, token)
+                    obtenerTipoUsuario(idUsuario, token)
                 } else {
                     _mensajeError.postValue("Error: Usuario no encontrado")
                 }
@@ -186,20 +189,41 @@ class InicioViewModel : ViewModel() {
         })
     }
 
-    private fun obtenerDatosUsuario(idUsuario: Int, token: String?) {
-        obtenerDatosDesdeEndpoint("$BASE_URL/cliente/buscar-usuario/$idUsuario", idUsuario, token) {
-            if (it == null) {
-                obtenerDatosDesdeEndpoint("$BASE_URL/cliente/buscar-usuario/$idUsuario", idUsuario, token) { respuestaCliente ->
-                    if (respuestaCliente == null) {
-                        _mensajeError.postValue("Error: Nombre no encontrado en cliente ni proveedor")
-                    } else {
-                        actualizarDatosUsuario(respuestaCliente)
+    private fun obtenerTipoUsuario(idUsuario: Int, token: String?) {
+        val solicitud = Request.Builder()
+            .url("$BASE_URL/usuario/tipo/$idUsuario")
+            .addHeader("Authorization", "Bearer $token")
+            .build()
+
+        cliente.newCall(solicitud).enqueue(crearCallback { respuesta ->
+            if (respuesta != null) {
+                val jsonObject = JSONObject(respuesta)
+                val idTipo = jsonObject.optInt("idTipo", -1)
+                if (idTipo == 1) {
+                    obtenerDatosDesdeEndpoint("$BASE_URL/cliente/buscar-usuario/$idUsuario", idUsuario, token) { respuestaCliente ->
+                        if (respuestaCliente == null) {
+                            _mensajeError.postValue("Error: Nombre no encontrado en cliente")
+                        } else {
+                            actualizarDatosUsuario(respuestaCliente)
+                            _idTipo.postValue(idTipo) // Asignar el valor de idTipo al LiveData _idTipo
+                        }
                     }
+                } else if (idTipo == 2) {
+                    obtenerDatosDesdeEndpoint("$BASE_URL/proveedor/buscar-usuario/$idUsuario", idUsuario, token) { respuestaProveedor ->
+                        if (respuestaProveedor == null) {
+                            _mensajeError.postValue("Error: Nombre no encontrado en proveedor")
+                        } else {
+                            actualizarDatosUsuario(respuestaProveedor)
+                            _idTipo.postValue(idTipo) // Asignar el valor de idTipo al LiveData _idTipo
+                        }
+                    }
+                } else {
+                    _mensajeError.postValue("Error: Tipo de usuario no válido")
                 }
             } else {
-                actualizarDatosUsuario(it)
+                _mensajeError.postValue("Error: No se pudo obtener el tipo de usuario")
             }
-        }
+        })
     }
 
     private fun obtenerDatosDesdeEndpoint(url: String, idUsuario: Int, token: String?, callback: (String?) -> Unit) {

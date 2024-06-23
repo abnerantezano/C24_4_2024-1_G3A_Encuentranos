@@ -69,4 +69,19 @@ public class DetalleCalificacionControlador {
             return new ResponseEntity<>(HttpStatus.NOT_FOUND);
         }
     }
+
+    @GetMapping("/buscar/{idProveedor}/{idServicio}")
+    public ResponseEntity<List<DetalleCalificacionModelo>> obtenerCalificacionesProveedorPorIdProveedor(
+            @PathVariable("idProveedor") Integer idProveedor,
+            @PathVariable("idServicio") Integer idServicio) {
+        List<DetalleCalificacionModelo> calificacionesProveedor = calificacionProveedorServicio.obtenerCalificacionesPorProveedorYServicio(idProveedor, idServicio);
+        return new ResponseEntity<>(calificacionesProveedor, HttpStatus.OK);
+    }
+
+    @GetMapping("/buscar/{idProveedor}")
+    public ResponseEntity<List<DetalleCalificacionModelo>> obtenerCalificacionesProveedor(
+            @PathVariable("idProveedor") Integer idProveedor) {
+        List<DetalleCalificacionModelo> calificacionesProveedor = calificacionProveedorServicio.obtenerCalificacionesPorProveedor(idProveedor);
+        return new ResponseEntity<>(calificacionesProveedor, HttpStatus.OK);
+    }
 }

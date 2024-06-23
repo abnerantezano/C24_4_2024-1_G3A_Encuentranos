@@ -1,9 +1,10 @@
 package com.proyecto.encuentranos.modelos;
 
-import com.google.type.DateTime;
 import jakarta.persistence.*;
 import lombok.Getter;
 import lombok.Setter;
+
+import java.util.Date;
 
 @Setter
 @Getter
@@ -20,7 +21,7 @@ public class CalificacionModelo {
     private ClienteModelo cliente;
 
     @Column(name = "numero")
-    private int numero;
+    private Integer numero;
 
     @Lob
     @Column(name = "comentario")
@@ -28,5 +29,5 @@ public class CalificacionModelo {
 
     @Column(name = "fh_creacion")
     @Temporal(TemporalType.DATE)
-    private DateTime fhCreacion;
+    private Date fhCreacion;
 }

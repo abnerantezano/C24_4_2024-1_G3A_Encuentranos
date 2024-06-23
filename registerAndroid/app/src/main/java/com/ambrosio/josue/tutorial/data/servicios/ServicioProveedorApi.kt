@@ -20,4 +20,11 @@ interface ServicioProveedorApi {
 
     @GET("servicio-proveedor/servicios-no-registrados/{idProveedor}")
     fun listarServiciosNoRegistrados(@Path("idProveedor") idProveedor: Int): Call<List<ServicioModel>>
+
+    @GET("servicio-proveedor/negociables/{idProveedor}")
+    fun obtenerServicioProveedorNegociables(@Path("idProveedor") idProveedor: Int): Call<List<ServicioProveedorModel>>
+
+    @GET("servicio-proveedor/no-negociables/{idProveedor}")
+    fun obtenerServicioProveedorNoNegociables(@Path("idProveedor") idProveedor: Int): Call<List<ServicioProveedorModel>>
+
 }

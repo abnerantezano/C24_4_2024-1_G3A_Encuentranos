@@ -6,6 +6,7 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 import java.util.Optional;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -90,7 +91,6 @@ public class ServicioProveedorServicio {
                 .mapToDouble(ServicioProveedorModelo::getPrecio)
                 .max()
                 .orElse(Double.MIN_VALUE);
-        // FILTRAMOS LOS SERVICIOS MÁS ALTOS
         List<ServicioProveedorModelo> serviciosMasCaros = servicios.stream()
                 .filter(servicio -> servicio.getPrecio() == maxPrecio)
                 .toList();
@@ -101,12 +101,10 @@ public class ServicioProveedorServicio {
                 .min()
                 .orElse(Double.MAX_VALUE);
 
-        // FILTRAMOS LOS SERVICIOS MÁS BAJOS
         List<ServicioProveedorModelo> serviciosMasBaratos = servicios.stream()
                 .filter(servicio -> servicio.getPrecio() == minPrecio)
                 .toList();
 
-        // CREAMOS UN MAP AL QUE AGREGAREMOS LA LISTA DEPENDIENDO DE QUE SEA
         Map<String, List<ServicioProveedorModelo>> extremos = new HashMap<>();
         extremos.put("serviciosMasCaros", serviciosMasCaros);
         extremos.put("serviciosMasBaratos", serviciosMasBaratos);
@@ -157,6 +155,20 @@ public class ServicioProveedorServicio {
     //OBTENER SERVICIO PROVEEDOR POR EL ID DEL PROVEEDOR
     public List<ServicioProveedorModelo> obtenerServicioProveedorPorIdProveedor(int idProvedor) {
         return servicioProveedorRepositorio.findByIdIdProveedor(idProvedor);
+    }
+
+    public List<ServicioProveedorModelo> obtenerServiciosProveedorNegociablePorIdProveedor(int idProveedor) {
+        List<ServicioProveedorModelo> serviciosProveedor = servicioProveedorRepositorio.findByIdIdProveedor(idProveedor);
+        return serviciosProveedor.stream()
+                .filter(ServicioProveedorModelo::isNegociable)
+                .toList(); // Usar Stream.toList() para lista inmutable
+    }
+
+    public List<ServicioProveedorModelo> obtenerServiciosProveedorNoNegociablePorIdProveedor(int idProveedor) {
+        List<ServicioProveedorModelo> serviciosProveedor = servicioProveedorRepositorio.findByIdIdProveedor(idProveedor);
+        return serviciosProveedor.stream()
+                .filter(servicio -> !servicio.isNegociable())
+                .toList(); // Usar Stream.toList() para lista inmutable
     }
 
 }

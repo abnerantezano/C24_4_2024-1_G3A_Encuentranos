@@ -49,6 +49,15 @@ public class DetalleCalificacionServicio {
     public Optional<DetalleCalificacionModelo> obtenerCalificacionProveedorPorId(DetalleCalificacionModeloId id){
         return detalleCalificacionRepositorio.findById(id);
     }
+
+    public List<DetalleCalificacionModelo> obtenerCalificacionesPorProveedorYServicio(Integer idProveedor, Integer idServicio) {
+        return detalleCalificacionRepositorio.findByIdIdProveedorAndIdIdServicio(idProveedor, idServicio);
+    }
+    public List<DetalleCalificacionModelo> obtenerCalificacionesPorProveedor(Integer idProveedor) {
+        return detalleCalificacionRepositorio.findByIdIdProveedor(idProveedor);
+    }
+
+
     
     //CALCULAR PROMEDIO DEL PROVEEDOR
     public Double calcularCalificacionPromedioProveedor(Integer idProveedor) {

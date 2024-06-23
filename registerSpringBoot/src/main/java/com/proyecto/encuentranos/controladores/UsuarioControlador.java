@@ -22,6 +22,7 @@ import org.springframework.security.oauth2.core.user.OAuth2User;
 import org.springframework.web.bind.annotation.*;
 
 import java.time.Instant;
+import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 import java.util.Optional;
@@ -60,6 +61,14 @@ public class UsuarioControlador {
         return ResponseEntity.ok(usuarioServicio.obtenerUsuarios());
     }
 
+    @GetMapping("/buscar/{idUsuario}")
+    public ResponseEntity<UsuarioModelo> obtenerUsuarios(@PathVariable int idUsuario) {
+        Optional<UsuarioModelo> usuario = usuarioServicio.buscarUsuarioPorId(idUsuario);
+        return usuario.map(ResponseEntity::ok).orElse(ResponseEntity.notFound().build());
+    }
+
+
+
     @GetMapping("/token")
     public ResponseEntity<Map<String, String>> obtenerTokenYEmail() {
         Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
@@ -74,11 +83,17 @@ public class UsuarioControlador {
         }
         return ResponseEntity.status(HttpStatus.UNAUTHORIZED).body(Map.of(ERROR, NOT_OAUTH2_AUTHENTICATION));
     }
-    
-    @GetMapping("/buscar/{idUsuario}")
-    public ResponseEntity<UsuarioModelo> buscarUsuarioPorId(@PathVariable int idUsuario){
+
+    @GetMapping("/tipo/{idUsuario}")
+    public ResponseEntity<Map<String, Integer>> obtenerIdTipoUsuario(@PathVariable int idUsuario) {
         Optional<UsuarioModelo> usuario = usuarioServicio.buscarUsuarioPorId(idUsuario);
-        return usuario.map(ResponseEntity::ok).orElse(ResponseEntity.notFound().build());
+        if (usuario.isPresent()) {
+            Map<String, Integer> response = new HashMap<>();
+            response.put("idTipo", usuario.get().getIdTipo().getIdTipo());
+            return ResponseEntity.ok(response);
+        } else {
+            return ResponseEntity.status(HttpStatus.NOT_FOUND).body(null);
+        }
     }
 
     @GetMapping("/verificar/{correo}")

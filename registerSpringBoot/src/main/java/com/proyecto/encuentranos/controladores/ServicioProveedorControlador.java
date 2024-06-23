@@ -147,4 +147,16 @@ public class ServicioProveedorControlador {
         }
     }
 
+    @GetMapping("/negociables/{idProveedor}")
+    public ResponseEntity<List<ServicioProveedorModelo>> obtenerServiciosNegociables(@PathVariable int idProveedor) {
+        List<ServicioProveedorModelo> serviciosNegociables = servicioProveedorServicio.obtenerServiciosProveedorNegociablePorIdProveedor(idProveedor);
+        return ResponseEntity.ok(serviciosNegociables);
+    }
+
+    @GetMapping("/no-negociables/{idProveedor}")
+    public ResponseEntity<List<ServicioProveedorModelo>> obtenerServiciosNoNegociables(@PathVariable int idProveedor) {
+        List<ServicioProveedorModelo> serviciosNoNegociables = servicioProveedorServicio.obtenerServiciosProveedorNoNegociablePorIdProveedor(idProveedor);
+        return ResponseEntity.ok(serviciosNoNegociables);
+    }
+
 }

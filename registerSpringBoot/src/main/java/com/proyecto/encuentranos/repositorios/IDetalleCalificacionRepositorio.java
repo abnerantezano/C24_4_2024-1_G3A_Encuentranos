@@ -17,5 +17,9 @@ public interface IDetalleCalificacionRepositorio extends JpaRepository<DetalleCa
 	//NOS SIRVE PARA EL PROMEDIO DE CALIFICACIONES
     @Query("SELECT dc FROM DetalleCalificacionModelo dc WHERE dc.idProveedor.idProveedor = :idProveedor")
     List<DetalleCalificacionModelo> obtenerCalificacionesPorIdProveedor(@Param("idProveedor") Integer idProveedor);
-    
+
+    List<DetalleCalificacionModelo> findByIdIdProveedorAndIdIdServicio(Integer idProveedor, Integer idServicio);
+
+    List<DetalleCalificacionModelo> findByIdIdProveedor(Integer idProveedor);
+
 }

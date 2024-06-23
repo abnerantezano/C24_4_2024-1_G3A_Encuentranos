@@ -47,7 +47,6 @@ class PerfilFragment : Fragment() {
         binding.opciones.visibility = View.GONE
         binding.cerrarSesion.visibility = View.GONE
 
-
         viewModel.mensajeError.observe(viewLifecycleOwner, Observer { message ->
             binding.progressBar.visibility = View.GONE
             binding.informacion.visibility = View.VISIBLE
@@ -66,6 +65,19 @@ class PerfilFragment : Fragment() {
 
         // Set up click listeners for navigation
         setupClickListeners()
+
+        // Observa el tipo de usuario para mostrar las opciones adecuadas
+        viewModel.idTipo.observe(viewLifecycleOwner, Observer { idTipo ->
+            when (idTipo) {
+                1 -> {
+                    binding.tvMisServicios.visibility = View.GONE
+                    binding.cerrarSesion.visibility = View.VISIBLE
+                }
+                else -> {
+                    // Manejar otro caso si es necesario
+                }
+            }
+        })
     }
 
     private fun setupHeader() {

@@ -93,4 +93,11 @@
     <string name="nombre_del_proveedor">Nombre del proveedor</string>
     <string name="negociable">negociable</string>
     <string name="ver_perfil">Ver Perfil</string>
+    <string name="servicios_que_ofrece_negociables">Servicios Que ofrece (Negociables)</string>
+    <string name="servicios_que_ofrece_no_negociables">Servicios Que ofrece (No Negociables)</string>
+    <string name="enviar_mensaje">Enviar Mensaje</string>
+    <string name="contratar">Contratar</string>
+    <string name="rese_as">Reseñas</string>
+    <string name="calificacion">calificacion</string>
+    <string name="comentario">Comentario</string>
 </resources>

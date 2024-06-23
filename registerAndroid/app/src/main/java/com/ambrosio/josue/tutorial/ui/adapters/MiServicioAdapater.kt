@@ -11,7 +11,7 @@ import com.ambrosio.josue.tutorial.data.models.ServicioProveedorModel
 import com.ambrosio.josue.tutorial.ui.activities.opcionesPerfilFragment.MiServicioActivity
 
 class MiServicioAdapater(
-    private val miServicioActivity: MiServicioActivity
+    private val miServicioActivity: MiServicioActivity? = null
 ) : RecyclerView.Adapter<MiServicioAdapater.ServicioProveedorViewHolder>() {
 
     private var servicios: List<ServicioProveedorModel> = emptyList()
@@ -26,9 +26,7 @@ class MiServicioAdapater(
         holder.bind(servicio)
     }
 
-    override fun getItemCount(): Int {
-        return servicios.size
-    }
+    override fun getItemCount(): Int = servicios.size
 
     fun submitList(list: List<ServicioProveedorModel>) {
         servicios = list
@@ -49,7 +47,7 @@ class MiServicioAdapater(
             tvPrecioServicio.text = "S/ ${servicio.precio}"
 
             imgEditarServicio.setOnClickListener {
-                miServicioActivity.mostrarDialogoEditarServicio(servicio)
+                miServicioActivity?.mostrarDialogoEditarServicio(servicio)
             }
         }
     }

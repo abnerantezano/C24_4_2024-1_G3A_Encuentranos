@@ -15,6 +15,9 @@ class ServicioProveedorViewModel : ViewModel() {
     val listaServiciosProveedores = MutableLiveData<List<ServicioProveedorModel>>()
     val obtenerServicioProveedorPorIdProveedor = MutableLiveData<List<ServicioProveedorModel>?>()
     val listarServiciosNoRegistrados = MutableLiveData<List<ServicioModel>?>()
+    val listaServiciosProveedoresNegociables = MutableLiveData<List<ServicioProveedorModel>?>()
+    val listaServiciosProveedoresNoNegociables = MutableLiveData<List<ServicioProveedorModel>?>()
+
 
     fun obtenerServiciosProveedor() {
         servicioProveedorApi.listarServiciosProveedores().enqueue(object : Callback<List<ServicioProveedorModel>> {
@@ -89,5 +92,42 @@ class ServicioProveedorViewModel : ViewModel() {
                     obtenerServicioProveedorPorIdProveedor.postValue(null)
                 }
             })
+    }
+
+    fun obtenerServicioProveedorNegociables(idProveedor: Int) {
+        servicioProveedorApi.obtenerServicioProveedorNegociables(idProveedor).enqueue(object : Callback<List<ServicioProveedorModel>> {
+            override fun onResponse(call: Call<List<ServicioProveedorModel>>, response: Response<List<ServicioProveedorModel>>) {
+                if (response.isSuccessful) {
+                    listaServiciosProveedoresNegociables.postValue(response.body())
+                } else {
+                    listaServiciosProveedoresNegociables.postValue(null)
+                }
+            }
+
+            override fun onFailure(call: Call<List<ServicioProveedorModel>>, t: Throwable) {
+                listaServiciosProveedoresNegociables.postValue(null)
+            }
+        })
+    }
+
+    fun obtenerServicioProveedorNoNegociables(idProveedor: Int) {
+        servicioProveedorApi.obtenerServicioProveedorNoNegociables(idProveedor)
+            .enqueue(object : Callback<List<ServicioProveedorModel>> {
+                override fun onResponse(
+                    call: Call<List<ServicioProveedorModel>>,
+                    response: Response<List<ServicioProveedorModel>>
+                ) {
+                    if (response.isSuccessful) {
+                        val servicios = response.body()
+                        listaServiciosProveedoresNoNegociables.postValue(servicios)
+                    } else {
+                        listaServiciosProveedoresNoNegociables.postValue(null)
+                    }
+                }
+                override fun onFailure(call: Call<List<ServicioProveedorModel>>, t: Throwable) {
+                    obtenerServicioProveedorPorIdProveedor.postValue(null)
+                }
+            }
+            )
     }
 }
