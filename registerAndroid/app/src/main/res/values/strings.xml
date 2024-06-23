@@ -100,4 +100,5 @@
     <string name="rese_as">Reseñas</string>
     <string name="calificacion">calificacion</string>
     <string name="comentario">Comentario</string>
+    <string name="ingrese_el_precio_negociado">Ingrese el precio negociado</string>
 </resources>

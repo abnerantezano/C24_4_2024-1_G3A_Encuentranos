@@ -1,6 +1,8 @@
 package com.ambrosio.josue.tutorial.ui.activities
 
+import android.content.Intent
 import android.os.Bundle
+import android.view.View
 import androidx.activity.viewModels
 import androidx.appcompat.app.AppCompatActivity
 import androidx.lifecycle.Observer
@@ -9,8 +11,10 @@ import com.ambrosio.josue.tutorial.ui.adapters.InformacionProveedorAdapter
 import com.ambrosio.josue.tutorial.ui.adapters.ListaResenaAdapter
 import com.ambrosio.josue.tutorial.ui.adapters.MiServicioAdapater
 import com.ambrosio.josue.tutorial.ui.adapters.ServicioProveedorAdapter
+import com.ambrosio.josue.tutorial.ui.fragments.ServiciosFragment
 import com.ambrosio.josue.tutorial.ui.viewModels.DetalleCalificacionViewModel
 import com.ambrosio.josue.tutorial.ui.viewModels.InformacionProveedorViewModel
+import com.ambrosio.josue.tutorial.ui.viewModels.InicioViewModel
 import com.ambrosio.josue.tutorial.ui.viewModels.ServicioProveedorViewModel
 
 class InformacionProveedorActivity : AppCompatActivity() {
@@ -18,6 +22,7 @@ class InformacionProveedorActivity : AppCompatActivity() {
     private val informacionProveedorViewModel: InformacionProveedorViewModel by viewModels()
     private val servicioProveedorViewModel: ServicioProveedorViewModel by viewModels()
     private val detalleCalificacionViewModel: DetalleCalificacionViewModel by viewModels()
+    private val viewModel: InicioViewModel by viewModels()
     private lateinit var adapterNegociables: InformacionProveedorAdapter
     private lateinit var adapterNoNegociables: InformacionProveedorAdapter
     private lateinit var listaResenaAdapter: ListaResenaAdapter
@@ -38,10 +43,27 @@ class InformacionProveedorActivity : AppCompatActivity() {
         val proveedorId = intent.getIntExtra("PROVEEDOR_ID", -1)
 
         setupObservers()
+        goCrearContrato(proveedorId)
+
         informacionProveedorViewModel.obtenerDatosProveedorPorId(proveedorId)
         servicioProveedorViewModel.obtenerServicioProveedorNegociables(proveedorId)
         servicioProveedorViewModel.obtenerServicioProveedorNoNegociables(proveedorId)
         detalleCalificacionViewModel.listarResenasDeProveedor(proveedorId)
+
+        viewModel.idTipo.observe(this, Observer { idTipo ->
+            when (idTipo) {
+                2 -> {
+                    binding.linearOpciones.visibility = View.GONE
+                }
+                else -> {
+                    // Añadir manejo para otros casos si es necesario
+                    binding.linearOpciones.visibility = View.VISIBLE
+                }
+            }
+        })
+
+        viewModel.verificarAutenticacionUsuario()
+
     }
 
     private fun setupObservers() {
@@ -82,5 +104,13 @@ class InformacionProveedorActivity : AppCompatActivity() {
                 listaResenaAdapter.submitList(emptyList())
             }
         })
+    }
+
+    private fun goCrearContrato(proveedorId: Int){
+        binding.btnContrato.setOnClickListener{
+            val intent = Intent(this, CrearContratoActivity::class.java)
+            intent.putExtra("PROVEEDOR_ID", proveedorId)
+            startActivity(intent)
+        }
     }
 }

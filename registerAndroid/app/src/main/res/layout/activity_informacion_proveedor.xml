@@ -178,6 +178,7 @@
                 android:layout_marginEnd="10dp"
                 android:layout_weight="1"/>
             <Button
+                android:id="@+id/btnContrato"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:text="@string/contratar"
@@ -194,15 +195,15 @@
             android:textStyle="bold"
             android:textColor="@color/grayNoSoft"
             android:textSize="16dp"/>
-    </LinearLayout>
         <androidx.recyclerview.widget.RecyclerView
             android:id="@+id/recyclerViewResenas"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_marginBottom="15dp"
             app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
-
             app:layout_constraintBottom_toBottomOf="parent"
             tools:listitem="@layout/item_resenas" />
+    </LinearLayout>
+
     </ScrollView>
 </androidx.constraintlayout.widget.ConstraintLayout>

@@ -103,7 +103,7 @@ class PerfilFragment : Fragment() {
                 binding.tvInformacionPersonal.text = "$nombre $apellido"
             })
         })
-        viewModel.verificarAutenticacionUsuario() // Verificar estado de autenticación
+        viewModel.verificarAutenticacionUsuario()
     }
 
     private fun setupGoogleSignInClient() {
