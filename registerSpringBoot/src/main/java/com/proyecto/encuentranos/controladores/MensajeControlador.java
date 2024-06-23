@@ -31,9 +31,9 @@ public class MensajeControlador {
         return mensaje.map(ResponseEntity::ok).orElseGet(() -> ResponseEntity.notFound().build());
     }
 
-    @GetMapping("/chat/{chatId}")
-    public List<MensajeModelo> getMensajesByChatId(@PathVariable Integer chatId) {
-        return mensajeServicio.getMensajesByChatId(chatId);
+    @GetMapping("/chat/{idChat}")
+    public List<MensajeModelo> getMensajesByChatId(@PathVariable Integer idChat) {
+        return mensajeServicio.getMensajesByChatId(idChat);
     }
 
     @PostMapping("/agregar")

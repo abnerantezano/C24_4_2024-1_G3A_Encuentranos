@@ -205,7 +205,7 @@ class InicioViewModel : ViewModel() {
                             _mensajeError.postValue("Error: Nombre no encontrado en cliente")
                         } else {
                             actualizarDatosUsuario(respuestaCliente)
-                            _idTipo.postValue(idTipo) // Asignar el valor de idTipo al LiveData _idTipo
+                            _idTipo.postValue(idTipo)
                         }
                     }
                 } else if (idTipo == 2) {
@@ -214,7 +214,7 @@ class InicioViewModel : ViewModel() {
                             _mensajeError.postValue("Error: Nombre no encontrado en proveedor")
                         } else {
                             actualizarDatosUsuario(respuestaProveedor)
-                            _idTipo.postValue(idTipo) // Asignar el valor de idTipo al LiveData _idTipo
+                            _idTipo.postValue(idTipo)
                         }
                     }
                 } else {

@@ -9,15 +9,12 @@ import jakarta.persistence.Table;
 import lombok.Getter;
 import lombok.Setter;
 
-//CREANDO EL MODELO distrito
 @Setter
 @Getter
 @Entity
 @Table(name="distrito")
 public class DistritoModelo {
-	
-	//ATRIBUTOS
-	
+
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
 	@Column( name = "id_distrito")

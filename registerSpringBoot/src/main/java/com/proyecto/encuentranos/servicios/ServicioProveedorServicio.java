@@ -16,11 +16,9 @@ import com.proyecto.encuentranos.modelos.ServicioProveedorModeloId;
 import com.proyecto.encuentranos.repositorios.IServicioProveedorRepositorio;
 import com.proyecto.encuentranos.repositorios.IServicioRepositorio;
 
-// ESTAMOS CREANDO EL SERVICIO PARA ServicioProveedor
 @Service
 public class ServicioProveedorServicio {
 
-    // INYECTAR LAS DEPENDENCIAS
     private final IServicioProveedorRepositorio servicioProveedorRepositorio;
     private final IServicioRepositorio servicioRepositorio;
 
@@ -157,18 +155,19 @@ public class ServicioProveedorServicio {
         return servicioProveedorRepositorio.findByIdIdProveedor(idProvedor);
     }
 
+    //OBTENER LOS SERVICIOS DEL PROVEEDOR QUE SON NEGOCIABLES
     public List<ServicioProveedorModelo> obtenerServiciosProveedorNegociablePorIdProveedor(int idProveedor) {
         List<ServicioProveedorModelo> serviciosProveedor = servicioProveedorRepositorio.findByIdIdProveedor(idProveedor);
         return serviciosProveedor.stream()
                 .filter(ServicioProveedorModelo::isNegociable)
-                .toList(); // Usar Stream.toList() para lista inmutable
+                .toList();
     }
 
+    //OBTENER LOS SERVICIOS DEL PROVEEDOR QUE NO SON NEGOCIABLES
     public List<ServicioProveedorModelo> obtenerServiciosProveedorNoNegociablePorIdProveedor(int idProveedor) {
         List<ServicioProveedorModelo> serviciosProveedor = servicioProveedorRepositorio.findByIdIdProveedor(idProveedor);
         return serviciosProveedor.stream()
                 .filter(servicio -> !servicio.isNegociable())
-                .toList(); // Usar Stream.toList() para lista inmutable
+                .toList();
     }
-
 }

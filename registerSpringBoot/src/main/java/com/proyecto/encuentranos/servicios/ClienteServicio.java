@@ -13,11 +13,9 @@ import com.proyecto.encuentranos.modelos.ServicioProveedorModelo;
 import com.proyecto.encuentranos.repositorios.IClienteRepositorio;
 import com.proyecto.encuentranos.repositorios.IProveedorRepositorio;
 import com.proyecto.encuentranos.repositorios.IServicioProveedorRepositorio;
-//ESTAMOS CREANDO EL SERVICIO PARA Cliente
 @Service
 public class ClienteServicio {
 	
-	//INSTANCIAR LAS CLASES QUE USAREMOS
 	private final IClienteRepositorio clienteRepositorio;
 	private final IProveedorRepositorio proveedorRepositorio;
 	private final IServicioProveedorRepositorio servicioRepositorio;
@@ -45,7 +43,6 @@ public class ClienteServicio {
 	public ClienteModelo actualizarCliente(Integer id, ClienteModelo clienteActualizado) {
 		ClienteModelo clienteExistente = clienteRepositorio.findById(id).orElse(null);
         if (clienteExistente != null) {
-            // ACTUALIZAR DATOS DEL USUARIO
         	clienteExistente.setNombre(clienteActualizado.getNombre());
         	clienteExistente.setApellidoPaterno(clienteActualizado.getApellidoPaterno());
         	clienteExistente.setApellidoMaterno(clienteActualizado.getApellidoMaterno());
@@ -55,29 +52,24 @@ public class ClienteServicio {
         	clienteExistente.setCelular(clienteActualizado.getCelular());
         	clienteExistente.setIdDistrito(clienteActualizado.getIdDistrito());
 
-            // ACTUALIZAR CORREO Y CONTRASEÑA DEL USUARIO
-        	clienteExistente.getIdUsuario().setCorreo(clienteActualizado.getIdUsuario().getCorreo());
-        	clienteExistente.getIdUsuario().setContrasena(clienteActualizado.getIdUsuario().getContrasena());
-
-            // GUARDAR EL CLIENTE ACTUALIZADO
             clienteExistente = clienteRepositorio.save(clienteExistente);
         }
         return clienteExistente;
 	}
-	
-	//DELETE
+
     //----------------------------------------
 	
 	//BUSCAR CLIENTE POR ID
 	public Optional<ClienteModelo> encontrarClientePorId(Integer id){
 		return clienteRepositorio.findById(id);
 	}
-	
+
+	//BUSCAR CLIENTE POR CORREO
     public Optional<ClienteModelo> buscarClientePorCorreo(String correo) {
         return clienteRepositorio.findByIdUsuarioCorreo(correo);
     }
 	
-	//OBTENER LOS PRESTADOR DEL MISMO DISTRITO DEL CLIENTE
+	//OBTENER LOS PRESTADORES DEL MISMO DISTRITO DEL CLIENTE
 	public List<ProveedorModelo> encontrarPrestadoresDeMiDistrito(Integer idCliente) {
 		
 	    Optional<ClienteModelo> clienteOptional = clienteRepositorio.findById(idCliente);

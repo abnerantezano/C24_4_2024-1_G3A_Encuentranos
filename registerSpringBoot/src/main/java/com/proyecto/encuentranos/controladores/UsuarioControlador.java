@@ -33,9 +33,6 @@ import java.util.Optional;
 public class UsuarioControlador {
 
     private static final String EMAIL_ATTRIBUTE = "email";
-    private static final String TOKEN = "token";
-    private static final String ERROR = "error";
-    private static final String NOT_OAUTH2_AUTHENTICATION = "Not an OAuth2 authentication";
 
     private final UsuarioServicio usuarioServicio;
     private final ClienteServicio clienteServicio;
@@ -67,21 +64,15 @@ public class UsuarioControlador {
         return usuario.map(ResponseEntity::ok).orElse(ResponseEntity.notFound().build());
     }
 
-
-
-    @GetMapping("/token")
-    public ResponseEntity<Map<String, String>> obtenerTokenYEmail() {
-        Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
-        if (authentication instanceof OAuth2AuthenticationToken oauthToken) {
-            OAuth2User oauth2User = oauthToken.getPrincipal();
-            String email = (String) oauth2User.getAttribute(EMAIL_ATTRIBUTE);
-            OAuth2AccessToken accessToken = authorizedClientService.loadAuthorizedClient(
-                    oauthToken.getAuthorizedClientRegistrationId(),
-                    oauthToken.getName()
-            ).getAccessToken();
-            return ResponseEntity.ok(Map.of(TOKEN, accessToken.getTokenValue(), EMAIL_ATTRIBUTE, email));
+    @GetMapping("/verificar/{correo}")
+    public ResponseEntity<UsuarioModelo> buscarUsuarioPorCorreo(@PathVariable String correo, @RequestHeader("Authorization") String token) {
+        // Validate the token
+        if (!validarToken(token)) {
+            return ResponseEntity.status(HttpStatus.UNAUTHORIZED).build();
         }
-        return ResponseEntity.status(HttpStatus.UNAUTHORIZED).body(Map.of(ERROR, NOT_OAUTH2_AUTHENTICATION));
+
+        Optional<UsuarioModelo> usuario = usuarioServicio.buscarUsuarioPorCorreo(correo);
+        return usuario.map(ResponseEntity::ok).orElse(ResponseEntity.notFound().build());
     }
 
     @GetMapping("/tipo/{idUsuario}")
@@ -95,49 +86,6 @@ public class UsuarioControlador {
             return ResponseEntity.status(HttpStatus.NOT_FOUND).body(null);
         }
     }
-
-    @GetMapping("/verificar/{correo}")
-    public ResponseEntity<UsuarioModelo> buscarUsuarioPorCorreo(@PathVariable String correo, @RequestHeader("Authorization") String token) {
-        // Validate the token
-        if (!validarToken(token)) {
-            return ResponseEntity.status(HttpStatus.UNAUTHORIZED).build();
-        }
-
-        Optional<UsuarioModelo> usuario = usuarioServicio.buscarUsuarioPorCorreo(correo);
-        return usuario.map(ResponseEntity::ok).orElse(ResponseEntity.notFound().build());
-    }
-
-    private boolean validarToken(String token) {
-        // Try to validate Firebase token first
-        try {
-            FirebaseToken decodedToken = FirebaseAuth.getInstance().verifyIdToken(token.replace("Bearer ", ""));
-            if (decodedToken != null) {
-                return true;
-            }
-        } catch (FirebaseAuthException e) {
-            e.printStackTrace();
-        }
-
-        Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
-        if (authentication instanceof OAuth2AuthenticationToken oauthToken) {
-            OAuth2AuthorizedClient authorizedClient = authorizedClientService.loadAuthorizedClient(
-                    oauthToken.getAuthorizedClientRegistrationId(), oauthToken.getName());
-
-            if (authorizedClient != null) {
-                OAuth2AccessToken accessToken = authorizedClient.getAccessToken();
-                if (accessToken != null && accessToken.getTokenValue().equals(token)) {
-                    Instant tokenExpiration = accessToken.getExpiresAt();
-                    if (tokenExpiration != null) { // Check if tokenExpiration is not null
-                        Instant now = Instant.now();
-                        return tokenExpiration.isAfter(now);
-                    }
-                }
-            }
-        }
-        return false;
-    }
-
-
 
     @GetMapping("/datos")
     public ResponseEntity<UsuarioModelo> listarUsuarioConectado() {
@@ -179,5 +127,34 @@ public class UsuarioControlador {
             }
         }
         return ResponseEntity.status(HttpStatus.UNAUTHORIZED).build();
+    }
+
+    private boolean validarToken(String token) {
+        try {
+            FirebaseToken decodedToken = FirebaseAuth.getInstance().verifyIdToken(token.replace("Bearer ", ""));
+            if (decodedToken != null) {
+                return true;
+            }
+        } catch (FirebaseAuthException e) {
+            e.printStackTrace();
+        }
+
+        Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
+        if (authentication instanceof OAuth2AuthenticationToken oauthToken) {
+            OAuth2AuthorizedClient authorizedClient = authorizedClientService.loadAuthorizedClient(
+                    oauthToken.getAuthorizedClientRegistrationId(), oauthToken.getName());
+
+            if (authorizedClient != null) {
+                OAuth2AccessToken accessToken = authorizedClient.getAccessToken();
+                if (accessToken != null && accessToken.getTokenValue().equals(token)) {
+                    Instant tokenExpiration = accessToken.getExpiresAt();
+                    if (tokenExpiration != null) {
+                        Instant now = Instant.now();
+                        return tokenExpiration.isAfter(now);
+                    }
+                }
+            }
+        }
+        return false;
     }
 }

@@ -45,20 +45,21 @@ public class DetalleCalificacionServicio {
     }
     //----------------------------------------
     
-    //METODO PARA OBTENER LAS CALIFICACIONES DE UN PROVEEDOR POR SU ID
+    //METODO PARA OBTENER LAS CALIFICACIONES DE UN PROVEEDOR POR EL ID GENERA DEL CALIFICACION PROVEEDOR
     public Optional<DetalleCalificacionModelo> obtenerCalificacionProveedorPorId(DetalleCalificacionModeloId id){
         return detalleCalificacionRepositorio.findById(id);
     }
 
+    //METODO PARA OBTENER LAS CALIFICACIONES DE UN PROVEEDOR POR SU ID Y EL ID DEL SERVICIO
     public List<DetalleCalificacionModelo> obtenerCalificacionesPorProveedorYServicio(Integer idProveedor, Integer idServicio) {
         return detalleCalificacionRepositorio.findByIdIdProveedorAndIdIdServicio(idProveedor, idServicio);
     }
+
+    //METODO PARA OBTENER LAS CALIFICACIONES DE UN PROVEEDOR POR SU ID
     public List<DetalleCalificacionModelo> obtenerCalificacionesPorProveedor(Integer idProveedor) {
         return detalleCalificacionRepositorio.findByIdIdProveedor(idProveedor);
     }
 
-
-    
     //CALCULAR PROMEDIO DEL PROVEEDOR
     public Double calcularCalificacionPromedioProveedor(Integer idProveedor) {
         List<DetalleCalificacionModelo> calificaciones = detalleCalificacionRepositorio.obtenerCalificacionesPorIdProveedor(idProveedor);

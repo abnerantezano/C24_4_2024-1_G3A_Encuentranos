@@ -20,15 +20,15 @@ public class ChatServicio {
         this.chatRepositorio = chatRepositorio;
     }
 
-    public List<ChatModelo> getAllChats() {
+    public List<ChatModelo> listarChats() {
         return chatRepositorio.findAll();
     }
 
-    public Optional<ChatModelo> getChatById(Integer id) {
+    public Optional<ChatModelo> buscarChatPorId(Integer id) {
         return chatRepositorio.findById(id);
     }
 
-    public ChatModelo saveChat(ChatModelo chat) {
+    public ChatModelo agregarChat(ChatModelo chat) {
         return chatRepositorio.save(chat);
     }
 }

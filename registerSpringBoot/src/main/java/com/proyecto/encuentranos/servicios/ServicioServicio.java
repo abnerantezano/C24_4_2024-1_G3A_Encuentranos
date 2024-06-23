@@ -8,11 +8,9 @@ import org.springframework.stereotype.Service;
 
 import com.proyecto.encuentranos.modelos.ServicioModelo;
 import com.proyecto.encuentranos.repositorios.IServicioRepositorio;
-//ESTAMOS CREANDO EL SERVICIO PARA Servicio
 @Service
 public class ServicioServicio {
 	
-	//INSTANCIAR LAS CLASES QUE USAREMOS
     private final IServicioRepositorio servicioRepositorio;
 
     @Autowired

@@ -21,18 +21,18 @@ public class ChatControlador {
     }
 
     @GetMapping("/listar")
-    public List<ChatModelo> getAllChats() {
-        return chatServicio.getAllChats();
+    public List<ChatModelo> listarChats() {
+        return chatServicio.listarChats();
     }
 
     @GetMapping("/buscar/{id}")
-    public ResponseEntity<ChatModelo> getChatById(@PathVariable Integer id) {
-        Optional<ChatModelo> chat = chatServicio.getChatById(id);
+    public ResponseEntity<ChatModelo> obtenerChatsPorId(@PathVariable Integer id) {
+        Optional<ChatModelo> chat = chatServicio.buscarChatPorId(id);
         return chat.map(ResponseEntity::ok).orElseGet(() -> ResponseEntity.notFound().build());
     }
 
     @PostMapping("/agregar")
-    public ChatModelo createChat(@RequestBody ChatModelo chat) {
-        return chatServicio.saveChat(chat);
+    public ChatModelo agregarChat(@RequestBody ChatModelo chat) {
+        return chatServicio.agregarChat(chat);
     }
 }

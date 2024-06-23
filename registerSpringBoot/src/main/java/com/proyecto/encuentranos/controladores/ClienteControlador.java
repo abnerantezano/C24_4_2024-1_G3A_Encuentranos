@@ -13,13 +13,11 @@ import com.proyecto.encuentranos.modelos.ProveedorModelo;
 import com.proyecto.encuentranos.modelos.ServicioProveedorModelo;
 import com.proyecto.encuentranos.servicios.ClienteServicio;
 
-//ESTAMOS CREANDO EL CONTROLADOR PARA Cliente
 @CrossOrigin(origins = {"http://localhost:3000", "http://127.0.0.1:3000"})
 @RestController
 @RequestMapping("/cliente")
 public class ClienteControlador {
     
-    //INSTANCIAR LAS CLASES QUE USAREMOS
     private final ClienteServicio clienteServicio;
 
     @Autowired
@@ -27,21 +25,18 @@ public class ClienteControlador {
         this.clienteServicio = clienteServicio;
     }
 
-    //AGREGAR UN CLIENTE
     @PostMapping("/agregar")
     public ResponseEntity<ClienteModelo> guardarCliente(@RequestBody ClienteModelo cliente) {
         ClienteModelo nuevoCliente = clienteServicio.guardarCliente(cliente);
         return new ResponseEntity<>(nuevoCliente, HttpStatus.CREATED);
     }
     
-    //LISTAR TODOS LOS CLIENTES
     @GetMapping("/listar")
     public ResponseEntity<List<ClienteModelo>> obtenerClientes() {
         List<ClienteModelo> clientes = clienteServicio.obtenerClientes();
         return new ResponseEntity<>(clientes, HttpStatus.OK);
     }
     
-    //ACTUALIZAR UN CLIENTE 
     @PutMapping("/actualizar/{id}")
     public ResponseEntity<ClienteModelo> actualizarCliente(@RequestBody ClienteModelo request, @PathVariable("id") Integer id) {
         ClienteModelo clienteActualizado = clienteServicio.actualizarCliente(id, request);
@@ -52,7 +47,6 @@ public class ClienteControlador {
         }
     }
     
-    //BUSCAR UN CLIENTE POR SU ID
     @GetMapping("/buscar/{id}")
     public ResponseEntity<Optional<ClienteModelo>> encontrarClientePorId(@PathVariable Integer id) {
         Optional<ClienteModelo> cliente = clienteServicio.encontrarClientePorId(id);
@@ -63,8 +57,7 @@ public class ClienteControlador {
         }
     }
 
-    //BUSCAR PROVEEDORES DEL MISMO DISTRITO DEL CLIENTE
-    @GetMapping("/buscar-proveedores/{idCliente}")
+    @GetMapping("/buscar-proveedores/distrito/{idCliente}")
     public ResponseEntity<List<ProveedorModelo>> buscarProveedoresPorDistrito(@PathVariable Integer idCliente) {
         List<ProveedorModelo> proveedores = clienteServicio.encontrarPrestadoresDeMiDistrito(idCliente);
         if (!proveedores.isEmpty()) {
@@ -74,8 +67,7 @@ public class ClienteControlador {
         }
     }
     
-    //BUSCAR SERVICIOS DEL MISMO DISTRITO DEL CLIENTE
-    @GetMapping("/buscar-servicios/{idCliente}")
+    @GetMapping("/buscar-servicios/distrito/{idCliente}")
     public ResponseEntity<List<ServicioProveedorModelo>> encontrarServiciosDeMiDistrito(@PathVariable Integer idCliente) {
         List<ServicioProveedorModelo> servicios = clienteServicio.encontrarServiciosDeMiDistrito(idCliente);
         if (!servicios.isEmpty()) {

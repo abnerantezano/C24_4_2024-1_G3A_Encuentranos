@@ -11,7 +11,6 @@ import com.proyecto.encuentranos.repositorios.ITipoUsuarioRepositorio;
 @Service
 public class TipoUsuarioServicio {
 
-	//INSTANCIAR LAS CLASES QUE USAREMOS
     private final ITipoUsuarioRepositorio tipoUsuarioRepositorio;
 
     @Autowired

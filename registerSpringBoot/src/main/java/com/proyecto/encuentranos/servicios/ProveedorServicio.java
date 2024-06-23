@@ -8,11 +8,8 @@ import org.springframework.stereotype.Service;
 
 import com.proyecto.encuentranos.modelos.ProveedorModelo;
 import com.proyecto.encuentranos.repositorios.IProveedorRepositorio;
-//ESTAMOS CREANDO EL SERVICIO PARA CalificacionProveedor
 @Service
 public class ProveedorServicio {
-	
-	//INSTANCIAR LAS CLASES QUE USAREMOS
 
 	private final IProveedorRepositorio proveedorRepositorio;
 
@@ -46,24 +43,20 @@ public class ProveedorServicio {
         	proveedorExistente.setDni(proovedorActualizado.getDni());
         	proveedorExistente.setCelular(proovedorActualizado.getCelular());
         	proveedorExistente.setIdDistrito(proovedorActualizado.getIdDistrito());
-            // ACTUALIZAR CORREO Y CONTRASEÑA DEL USUARIO
-        	proveedorExistente.getIdUsuario().setCorreo(proovedorActualizado.getIdUsuario().getCorreo());
-        	proveedorExistente.getIdUsuario().setContrasena(proovedorActualizado.getIdUsuario().getContrasena());
 
-            // GUARDAR EL PROVEEDOR ACTUALIZADO
         	proveedorExistente = proveedorRepositorio.save(proveedorExistente);
         }
         return proveedorExistente;
 	}
-	
-	//DELETE
+
     //----------------------------------------
 
 	//BUSCAR UN PROVEEDOR POR SU ID
 	public Optional<ProveedorModelo> encontrarProveedorPorId(Integer id){
 		return proveedorRepositorio.findById(id);
 	}
-	
+
+	//BUSCAR UN PROVEEDOR POR SU CORREO
     public Optional<ProveedorModelo> buscarProveedorPorCorreo(String correo) {
         return proveedorRepositorio.findByIdUsuarioCorreo(correo);
     }
@@ -72,6 +65,5 @@ public class ProveedorServicio {
 	public Optional<ProveedorModelo> buscarProveedorPorUsuarioId(Integer usuarioId) {
 	    return proveedorRepositorio.findByIdUsuarioIdUsuario(usuarioId);
 	}
-	
 	
 }

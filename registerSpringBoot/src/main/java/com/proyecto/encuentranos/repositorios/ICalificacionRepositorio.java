@@ -9,7 +9,6 @@ import org.springframework.stereotype.Repository;
 
 import com.proyecto.encuentranos.modelos.CalificacionModelo;
 import com.proyecto.encuentranos.modelos.DetalleCalificacionModelo;
-//CREANDO EL REPOSITORIO PARA CalificacionModelo
 @Repository
 public interface ICalificacionRepositorio extends JpaRepository<CalificacionModelo, Integer> {
 	//ESTAMOS CONSIGUIENDO LAS CALIFICACIONES DE UN PROVEEDOR POR SU ID

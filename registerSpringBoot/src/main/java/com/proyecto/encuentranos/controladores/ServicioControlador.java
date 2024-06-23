@@ -11,13 +11,11 @@ import org.springframework.web.bind.annotation.*;
 import com.proyecto.encuentranos.modelos.ServicioModelo;
 import com.proyecto.encuentranos.servicios.ServicioServicio;
 
-//ESTAMOS CREANDO EL CONTROLADOR PARA Servicio
 @CrossOrigin(origins = {"http://localhost:3000", "http://127.0.0.1:3000"})
 @RestController
 @RequestMapping("/servicio")
 public class ServicioControlador {
 	
-	//INSTANCIAR LAS CLASES QUE USAREMOS
 	private final ServicioServicio servicioServicio;
 
 	@Autowired
@@ -25,14 +23,12 @@ public class ServicioControlador {
 		this.servicioServicio = servicioServicio;
 	}
 
-	//LISTAR SERVICIOS
 	@GetMapping("/listar")
 	public ResponseEntity<List<ServicioModelo>> obtenerServicios(){
 		List<ServicioModelo> servicios = this.servicioServicio.obtenerServicios();
 		return new ResponseEntity<>(servicios, HttpStatus.OK);
 	}
 	
-	//BUSCAR UN SERVICIO POR SU ID
 	@GetMapping("/buscar/{id}")
 	public ResponseEntity<Optional<ServicioModelo>> obtenerServicioPorId(@PathVariable Integer id){
 		Optional<ServicioModelo> servicioEncontrado = servicioServicio.obtenerServicioPorId(id);

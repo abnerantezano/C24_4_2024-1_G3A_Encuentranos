@@ -12,13 +12,11 @@ import com.proyecto.encuentranos.modelos.DetalleCalificacionModelo;
 import com.proyecto.encuentranos.modelos.DetalleCalificacionModeloId;
 import com.proyecto.encuentranos.servicios.DetalleCalificacionServicio;
 
-// ESTAMOS CREANDO EL CONTROLADOR PARA CalificacionProveedor
 @CrossOrigin(origins = {"http://localhost:3000", "http://127.0.0.1:3000"})
 @RestController
 @RequestMapping("/detalle-calificacion")
 public class DetalleCalificacionControlador {
 
-    // INSTANCIAR LAS CLASES QUE USAREMOS
     private final DetalleCalificacionServicio calificacionProveedorServicio;
 
     @Autowired
@@ -48,14 +46,12 @@ public class DetalleCalificacionControlador {
         }
     }
 
-    // LISTADO LA TABLA CALIFICACION PROVEEDOR
     @GetMapping("/listar")
     public ResponseEntity<List<DetalleCalificacionModelo>> obtenerCalificacionesProveedores() {
         List<DetalleCalificacionModelo> calificacionesProveedores = calificacionProveedorServicio.obtenerCalificacionesProveedores();
         return new ResponseEntity<>(calificacionesProveedores, HttpStatus.OK);
     }
 
-    // OBTENER LA CALIFICACION PROVEEDOR POR EL ID DEL CLIENTE Y EL PROVEEDOR QUE INTERVIENEN
     @GetMapping("/buscar/{idProveedor}/{idServicio}/{idCalificacion}")
     public ResponseEntity<Optional<DetalleCalificacionModelo>> obtenerCalificacionProveedorPorId(
             @PathVariable("idProveedor") Integer idProveedor,

@@ -16,7 +16,6 @@ import java.util.List;
 @RequestMapping("/distrito")
 public class DistritoControlador {
 	
-	//INSTANCIAR LAS CLASES QUE USAREMOS
 	private final DistritoServicio distritoServicio;
 
 	@Autowired
@@ -24,7 +23,6 @@ public class DistritoControlador {
 		this.distritoServicio = distritoServicio;
 	}
 	
-	//LISTAR LOS DISTRITOS
 	@GetMapping("/listar")
 	public ResponseEntity<List<DistritoModelo>> obtenerDistritos() {
 		List<DistritoModelo> distritos = distritoServicio.obtenerDistritos();

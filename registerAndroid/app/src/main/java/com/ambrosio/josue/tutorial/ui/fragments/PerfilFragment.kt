@@ -66,7 +66,6 @@ class PerfilFragment : Fragment() {
         // Set up click listeners for navigation
         setupClickListeners()
 
-        // Observa el tipo de usuario para mostrar las opciones adecuadas
         viewModel.idTipo.observe(viewLifecycleOwner, Observer { idTipo ->
             when (idTipo) {
                 1 -> {
@@ -74,7 +73,6 @@ class PerfilFragment : Fragment() {
                     binding.cerrarSesion.visibility = View.VISIBLE
                 }
                 else -> {
-                    // Manejar otro caso si es necesario
                 }
             }
         })

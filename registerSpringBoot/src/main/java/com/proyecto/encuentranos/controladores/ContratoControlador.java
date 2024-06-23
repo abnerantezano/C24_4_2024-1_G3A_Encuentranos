@@ -21,35 +21,30 @@ public class ContratoControlador {
         this.contratoServicio = contratoServicio;
     }
 
-    // Crear un nuevo contrato
     @PostMapping("/crear")
     public ResponseEntity<ContratoModelo> crearContrato(@RequestBody ContratoModelo contrato) {
         ContratoModelo nuevoContrato = contratoServicio.crearContrato(contrato);
         return new ResponseEntity<>(nuevoContrato, HttpStatus.CREATED);
     }
     
-    // Listar todos los contratos
     @GetMapping("/listar")
     public ResponseEntity<List<ContratoModelo>> obtenerContratos() {
         List<ContratoModelo> contratos = contratoServicio.obtenerContratos();
         return new ResponseEntity<>(contratos, HttpStatus.OK);
     }
     
-    // Listar contratos por ID de cliente
     @GetMapping("/listar/cliente/{idCliente}")
     public ResponseEntity<List<ContratoModelo>> obtenerContratosPorCliente(@PathVariable Integer idCliente) {
         List<ContratoModelo> contratos = contratoServicio.obtenerContratoPorIdCliente(idCliente);
         return new ResponseEntity<>(contratos, HttpStatus.OK);
     }
     
-    // Listar contratos por ID de cliente
     @GetMapping("/listar/proveedor/{idProveedor}")
     public ResponseEntity<List<DetalleContratoModelo>> obtenerContratoPorIdProveedor(@PathVariable Integer idProveedor) {
         List<DetalleContratoModelo> contratos = contratoServicio.obtenerContratoPorIdProveedor(idProveedor);
         return new ResponseEntity<>(contratos, HttpStatus.OK);
     }
     
-    // Aceptar un contrato por el proveedor
     @PutMapping("/aceptar-proveedor")
     public ResponseEntity<ContratoModelo> aceptarContratoProveedor(@RequestBody ContratoModelo contrato) {
         ContratoModelo contratoAceptado = contratoServicio.aceptarContratoProveedor(contrato);
@@ -60,7 +55,6 @@ public class ContratoControlador {
         }
     }
     
-    // Denegar un contrato por el proveedor
     @PutMapping("/denegar-proveedor")
     public ResponseEntity<ContratoModelo> denegarContratoProveedor(@RequestBody ContratoModelo contrato) {
         ContratoModelo contratoDenegado = contratoServicio.denegarContratoProveedor(contrato);

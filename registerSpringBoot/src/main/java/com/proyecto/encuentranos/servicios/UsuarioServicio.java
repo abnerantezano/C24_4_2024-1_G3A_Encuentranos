@@ -3,6 +3,7 @@ package com.proyecto.encuentranos.servicios;
 import java.util.List;
 import java.util.Optional;
 
+import com.proyecto.encuentranos.auth.config.PasswordConfig;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -10,11 +11,11 @@ import com.proyecto.encuentranos.modelos.UsuarioModelo;
 import com.proyecto.encuentranos.repositorios.IClienteRepositorio;
 import com.proyecto.encuentranos.repositorios.IProveedorRepositorio;
 import com.proyecto.encuentranos.repositorios.IUsuarioRepositorio;
-//ESTAMOS CREANDO EL SERVICIO PARA Usuario
 @Service
 public class UsuarioServicio {
 
-	//INSTANCIAR LAS CLASES QUE USAREMOS
+    private final PasswordConfig passwordEncoder;
+
 	private final IUsuarioRepositorio usuarioRepositorio;
 	
     private final IClienteRepositorio clienteRepositorio;
@@ -22,27 +23,45 @@ public class UsuarioServicio {
     private final IProveedorRepositorio proveedorRepositorio;
 
     @Autowired
-    public UsuarioServicio(IUsuarioRepositorio usuarioRepositorio, IClienteRepositorio clienteRepositorio, IProveedorRepositorio proveedorRepositorio) {
+    public UsuarioServicio(PasswordConfig passwordEncoder, IUsuarioRepositorio usuarioRepositorio, IClienteRepositorio clienteRepositorio, IProveedorRepositorio proveedorRepositorio) {
+        this.passwordEncoder = passwordEncoder;
         this.usuarioRepositorio = usuarioRepositorio;
         this.clienteRepositorio = clienteRepositorio;
         this.proveedorRepositorio = proveedorRepositorio;
     }
 
+    public UsuarioServicio(IUsuarioRepositorio usuarioRepositorio) {
+        this.passwordEncoder = null;
+        this.usuarioRepositorio = usuarioRepositorio;
+        this.clienteRepositorio = null;
+        this.proveedorRepositorio = null;
+    }
     //CRUD
-    
+
     //CREATE
-	public UsuarioModelo guardarUsuario(UsuarioModelo usuario) {
-		return usuarioRepositorio.save(usuario);
-	}
-	
+    public UsuarioModelo guardarUsuario(UsuarioModelo usuario) {
+        usuario.setContrasena(passwordEncoder.passwordEncoder().encode(usuario.getContrasena()));
+        return usuarioRepositorio.save(usuario);
+    }
     //READ
     public List<UsuarioModelo> obtenerUsuarios(){
     	return usuarioRepositorio.findAll();
     }
     
     //UPDATE
-    
-    //DELETE
+    public UsuarioModelo actualizarUsuario(Integer id, UsuarioModelo usuarioActualzado){
+        UsuarioModelo usuarioExistente = usuarioRepositorio.findById(id).orElse(null);
+        if (usuarioExistente != null){
+            usuarioExistente.setCorreo(usuarioActualzado.getCorreo());
+            usuarioExistente.setContrasena(usuarioActualzado.getContrasena());
+            usuarioExistente.setImagenUrl(usuarioActualzado.getImagenUrl());
+            usuarioExistente.setActivo(usuarioActualzado.isActivo());
+
+            usuarioExistente = usuarioRepositorio.save(usuarioExistente);
+        }
+        return usuarioExistente;
+    }
+
     //----------------------------------------
 	
     //BUSCAR UN USUARIO POR SU CORREO

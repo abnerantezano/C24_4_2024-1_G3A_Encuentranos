@@ -9,7 +9,6 @@ import org.springframework.stereotype.Repository;
 
 import com.proyecto.encuentranos.modelos.DetalleCalificacionModelo;
 import com.proyecto.encuentranos.modelos.DetalleCalificacionModeloId;
-//CREANDO EL REPOSITORIO PARA DetalleCalificacionModelo
 @Repository
 public interface IDetalleCalificacionRepositorio extends JpaRepository<DetalleCalificacionModelo, DetalleCalificacionModeloId> {
 
