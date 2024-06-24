@@ -1,6 +1,5 @@
 package com.proyecto.encuentranos.servicios;
 
-import com.proyecto.encuentranos.exepciones.ContratoNoEncontradoException;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import com.proyecto.encuentranos.modelos.*;
@@ -40,16 +39,13 @@ public class ContratoServicio {
     
     //OBTENER CONTRATO POR EL ID DEL CLIENTE
     public List<ContratoModelo> obtenerContratoPorIdCliente(Integer idCliente) {
-
-        List<ContratoModelo> contrato = contratoRepositorio.findByIdClienteIdCliente(idCliente);
-        return contrato;
+        return contratoRepositorio.findByIdClienteIdCliente(idCliente);
     }
 
     
   //OBTENER CONTRATO POR EL ID DEL PROVEEDOR
     public List<DetalleContratoModelo> obtenerContratoPorIdProveedor(Integer idProveedor) {
-        List<DetalleContratoModelo> contrato = detalleContratoRepositorio.findByIdProveedorIdProveedor(idProveedor);
-        return contrato;
+        return detalleContratoRepositorio.findByIdProveedorIdProveedor(idProveedor);
     }
 
     //SE CAMBIA EL MODO DEL CONTRATO A ACTIVO CUANDO EL PROVEEDOR ACEPTE
