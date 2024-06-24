@@ -42,10 +42,6 @@ public class ContratoServicio {
     public List<ContratoModelo> obtenerContratoPorIdCliente(Integer idCliente) {
 
         List<ContratoModelo> contrato = contratoRepositorio.findByIdClienteIdCliente(idCliente);
-
-        if (contrato == null || contrato.isEmpty()) {
-            throw new ContratoNoEncontradoException("Contrato no encontrado para el cliente con ID: " + idCliente);
-        }
         return contrato;
     }
 
@@ -53,10 +49,6 @@ public class ContratoServicio {
   //OBTENER CONTRATO POR EL ID DEL PROVEEDOR
     public List<DetalleContratoModelo> obtenerContratoPorIdProveedor(Integer idProveedor) {
         List<DetalleContratoModelo> contrato = detalleContratoRepositorio.findByIdProveedorIdProveedor(idProveedor);
-
-        if (contrato == null || contrato.isEmpty()) {
-            throw new ContratoNoEncontradoException("Contrato no encontrado para el cliente con ID: " + idProveedor);
-        }
         return contrato;
     }
 

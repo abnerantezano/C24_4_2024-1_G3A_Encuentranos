@@ -32,13 +32,13 @@ public class ContratoControlador {
         List<ContratoModelo> contratos = contratoServicio.obtenerContratos();
         return new ResponseEntity<>(contratos, HttpStatus.OK);
     }
-    
+
     @GetMapping("/listar/cliente/{idCliente}")
     public ResponseEntity<List<ContratoModelo>> obtenerContratosPorCliente(@PathVariable Integer idCliente) {
         List<ContratoModelo> contratos = contratoServicio.obtenerContratoPorIdCliente(idCliente);
         return new ResponseEntity<>(contratos, HttpStatus.OK);
     }
-    
+
     @GetMapping("/listar/proveedor/{idProveedor}")
     public ResponseEntity<List<DetalleContratoModelo>> obtenerContratoPorIdProveedor(@PathVariable Integer idProveedor) {
         List<DetalleContratoModelo> contratos = contratoServicio.obtenerContratoPorIdProveedor(idProveedor);
