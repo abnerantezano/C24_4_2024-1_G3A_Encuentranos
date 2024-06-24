@@ -1,6 +1,7 @@
 package com.proyecto.encuentranos.servicios;
 
 import java.util.List;
+import java.util.Optional;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -29,8 +30,7 @@ public class DetalleContratoServicio {
     }
     
     // OBTENER DETALLES CONTRATOS POR CLIENTE
-    public List<DetalleContratoModelo> obtenerDetalleContratoPorCliente(ContratoModelo contrato){
-        return detalleContratoRepositorio.findByIdContratoIdCliente(contrato);
+    public List<DetalleContratoModelo> obtenerDetalleContratoPorCliente(Optional<ClienteModelo> cliente) {
+        return detalleContratoRepositorio.findByIdContratoIdCliente(cliente);
     }
-    
 }

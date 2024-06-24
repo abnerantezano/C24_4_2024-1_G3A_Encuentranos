@@ -1,7 +1,9 @@
 package com.proyecto.encuentranos.controladores;
 
 import java.util.List;
+import java.util.Optional;
 
+import com.proyecto.encuentranos.servicios.ClienteServicio;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
@@ -12,12 +14,14 @@ import com.proyecto.encuentranos.servicios.DetalleContratoServicio;
 @RestController
 @RequestMapping("/detalle-contrato")
 public class DetalleContratoControlador {
-    
+
     private final DetalleContratoServicio detalleContratoServicio;
+    private final ClienteServicio clienteServicio;
 
     @Autowired
-    public DetalleContratoControlador(DetalleContratoServicio detalleContratoServicio) {
+    public DetalleContratoControlador(DetalleContratoServicio detalleContratoServicio, ClienteServicio clienteServicio) {
         this.detalleContratoServicio = detalleContratoServicio;
+        this.clienteServicio = clienteServicio;
     }
 
     @GetMapping("/listar")
@@ -31,6 +35,13 @@ public class DetalleContratoControlador {
         ProveedorModelo proveedor = new ProveedorModelo();
         proveedor.setIdProveedor(proveedorId);
         List<DetalleContratoModelo> detalles = detalleContratoServicio.obtenerDetalleContratoPorProveedor(proveedor);
+        return ResponseEntity.ok(detalles);
+    }
+
+    @GetMapping("/cliente/{clienteId}")
+    public ResponseEntity<List<DetalleContratoModelo>> obtenerDetalleContratoPorCliente(@PathVariable Integer clienteId) {
+        Optional<ClienteModelo> cliente = clienteServicio.encontrarClientePorId(clienteId);
+        List<DetalleContratoModelo> detalles = detalleContratoServicio.obtenerDetalleContratoPorCliente(cliente);
         return ResponseEntity.ok(detalles);
     }
     
