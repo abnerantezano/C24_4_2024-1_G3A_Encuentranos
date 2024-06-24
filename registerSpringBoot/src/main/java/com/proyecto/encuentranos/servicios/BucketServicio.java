@@ -20,8 +20,13 @@ import java.util.List;
 @Slf4j
 @Service
 public class BucketServicio {
+
+    private final AmazonS3 s3Client;
+
     @Autowired
-    private AmazonS3 s3Client;
+    public BucketServicio(AmazonS3 s3Client){
+        this.s3Client = s3Client;
+    }
 
     public void uploadFile(
             final String bucketName,

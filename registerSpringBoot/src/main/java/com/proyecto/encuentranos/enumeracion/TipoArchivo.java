@@ -26,6 +26,6 @@ public enum TipoArchivo {
                 .filter(e -> e.getExtension().equals(fileExtension))
                 .findFirst()
                 .map(TipoArchivo::getMediaType)
-                .orElse(MediaType.APPLICATION_OCTET_STREAM); // Default to octet-stream if no matching media type found
+                .orElse(MediaType.APPLICATION_OCTET_STREAM);
     }
 }
