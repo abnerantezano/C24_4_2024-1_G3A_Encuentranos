@@ -1,7 +1,7 @@
 import React from 'react';
-import Rol from '../componentes/Rol';
-import InicioProveedor from '../componentes/Vistas/VInicio/Proveedor';
-import InicioCliente from '../componentes/Vistas/VInicio/Cliente';
+import Rol from '../../componentes/Rol';
+import InicioProveedor from '../../componentes/Vistas/VInicio/Proveedor';
+import InicioCliente from '../../componentes/Vistas/VInicio/Cliente';
 
 function Inicio() {
   

@@ -10,7 +10,7 @@ import { DataView } from 'primereact/dataview';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import { faMagnifyingGlass } from '@fortawesome/free-solid-svg-icons'
 // AXIOS
-import ServicioProveedorService from '../servicios/ServicioProveedor';
+import ServicioProveedorService from '../../servicios/Miembro/ServicioProveedor';
 //REACT HOOK FORM
 import { useForm} from "react-hook-form";
 
@@ -102,8 +102,8 @@ function Precios() {
   //VALOR PARA EL DATAVIEW CON EL FILTRO DEL PRECIO SIN BOTON
   const filteredData = filterServicios(listaFiltrada);
   //TEMPLATE PARA EL DATAVIEW
-  const listTemplate = (Sproveedor, index) => (
-    <div key={index} className='flex items-center bg-white shadow-lg py-1 rounded-lg mb-6'>
+  const listTemplate = (Sproveedor) => (
+    <div key={Sproveedor.idProveedor.idProveedor} className='flex items-center bg-white shadow-lg py-1 rounded-lg mb-6'>
       <div className='xl:w-2/12'>
         <img className='w-auto h-24 rounded-full mx-8 object-cover' src={Sproveedor.idProveedor.idUsuario.imagenUrl} alt="Foto del proveedor" />
       </div>
@@ -119,7 +119,7 @@ function Precios() {
         <p className='text-base text-gray-500 font-medium mb-1'> S/ {parseFloat(Sproveedor.precio).toFixed(2)} </p>
         </div>
         <div className='xl:w-2/12'>
-          <Link to="" className='bg-[#E8A477]  font-bold text-white text-center text-sm p-3 rounded-lg'>Ver perfil</Link>
+          <Link to={`/proveedor/perfil/${Sproveedor.idProveedor.idProveedor}`}  className='bg-[#E8A477]  font-bold text-white text-center text-sm p-3 rounded-lg hover:bg-[#BC7547] focus:ring-4 focus:ring-[#fcdac4]'>Ver perfil</Link>
         </div>
     </div>
   );

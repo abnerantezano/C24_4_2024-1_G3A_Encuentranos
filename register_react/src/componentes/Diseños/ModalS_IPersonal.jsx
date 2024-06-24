@@ -6,7 +6,7 @@ import { InputText } from 'primereact/inputtext';
 import { Dropdown } from 'primereact/dropdown';
 import { InputMask } from 'primereact/inputmask';
 import { addLocale } from 'primereact/api';
-import DistritoServiceInstance from '../../servicios/DistritoService';
+import DistritoServiceInstance from '../../servicios/Miembro/DistritoService';
 
 const ModalS_IPersonal = ({ usuario, Modal }) => {
 

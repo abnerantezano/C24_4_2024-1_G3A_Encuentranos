@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from 'react';
 import { DataView } from 'primereact/dataview';
-import ServicioService from '../servicios/ServicioService';
+import ServicioService from '../../servicios/Miembro/ServicioService';
 
 function Servicios() {
   const [servicio, setServicio] = useState([]);

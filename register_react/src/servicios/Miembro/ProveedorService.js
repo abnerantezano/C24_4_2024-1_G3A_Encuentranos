@@ -23,6 +23,15 @@ class ProveedorService {
                 throw error;
             });
     }
+
+    getProveedorDetalle(idProveedor) {
+        return axios.get(this.baseUrl + `/buscar/${idProveedor}` , {withCredentials:true})
+            .then(res => res.data)
+            .catch(error => {
+                console.error('Error al obtener proveedor:', error);
+                throw error;
+            });
+    }
 }
 
 const ProveedorServiceInstance = new ProveedorService();

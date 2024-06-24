@@ -6,8 +6,8 @@ import { DataView } from 'primereact/dataview';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faMagnifyingGlass } from '@fortawesome/free-solid-svg-icons';
 //SERVICIOS
-import usuarioServiceInstance from '../../../servicios/UsuarioService';
-import ContratoServiceInstance from '../../../servicios/ContratosService';
+import usuarioServiceInstance from '../../../servicios/Miembro/UsuarioService';
+import ContratoServiceInstance from '../../../servicios/Miembro/ContratosService';
 
 function MisContratosCliente() {
 
@@ -57,12 +57,12 @@ function MisContratosCliente() {
                         <img className='className="w-20 h-20 rounded-full object-cover border-gray-300 border' src={contrato.idProveedor.imagenUrl} />
                         <div className='flex flex-col'>
                             <h1 className='text-[#787171] text-sm'>Cliente</h1>
-                            <p className='text-base font-semibold'>{`${contrato.idProveedor.nombre} ${contrato.idProveedor.apellidoPaterno} ${contrato.idProveedor.apellidoMaterno}`}</p>
+                            <p className='text-base font-semibold'>{`${contrato.idProveedor.nombre} ${contrato.idProveedor.apellidoPaterno}`}</p>
                         </div>
                     </div>
                     <div className='flex flex-wrap items-center justify-between'>
                         <p className='text-sm font-semibold text-[#635F5F]'>Precio</p>
-                        <p className='font-bold text-lg text-[#B4663F]'>{`S/ ${contrato.precio}`}</p>
+                        <p className='font-bold text-lg text-[#B4663F]'>{`S/ ${contrato.precioFinal}`}</p>
                     </div>
                 </div>
                 <div className='flex flex-col px-4'>
@@ -78,17 +78,17 @@ function MisContratosCliente() {
                 <div className='flex flex-col px-4'>
                     <div className='flex flex-col mb-4'>
                         <p className='text-sm font-semibold text-[#635F5F] mb-2'>Fecha del contrato</p>
-                        <p className='text-sm text-[#787171] mb-2'>{contrato.fechaContrato}</p>
+                        <p className='text-sm text-[#787171] mb-2'>{contrato.fechaInicio}</p>
                     </div>
                     <div className='flex flex-col mb-4'>
                         <p className='text-sm font-semibold text-[#635F5F] mb-2'>Fecha del servicio</p>
                         <div className='flex flex-wrap items-center justify-between mb-2'>
                             <p className='text-sm text-[#787171]'>Inicio</p>
-                            <p className='text-sm text-[#787171]'>{contrato.fechaInicioServicio}</p>
+                            <p className='text-sm text-[#787171]'>{contrato.hiServicio}</p>
                         </div>
                         <div className='flex flex-wrap items-center justify-between mb-2'>
                             <p className='text-sm text-[#787171]'>Fin</p>
-                            <p className='text-sm text-[#787171]'>{contrato.fechaFinServicio}</p>
+                            <p className='text-sm text-[#787171]'>{contrato.hfServicio}</p>
                         </div>
                     </div>
                 </div>

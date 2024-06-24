@@ -1,8 +1,8 @@
 import React from 'react';
 import { Link, Route, Routes, useLocation } from 'react-router-dom';
-import MiCuenta from '../../paginas/MiCuenta';
-import MisServicios from '../../paginas/MisServicios';
-import MisContratos from '../../paginas/MisContratos';
+import MiCuenta from '../../paginas/Miembro/MiCuenta';
+import MisServicios from '../../paginas/Miembro/MisServicios';
+import MisContratos from '../../paginas/Miembro/MisContratos';
 import Rol from '../Rol';
 
 function Configuracion() {

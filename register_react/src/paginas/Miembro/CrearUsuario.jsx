@@ -1,16 +1,16 @@
 import React, { useState } from "react";
 import { useForm, Controller } from "react-hook-form";
 import { useNavigate } from "react-router-dom";
-import perfil from "../imagenes/perfil/perfil.png";
+import perfil from "../../imagenes/perfil/perfil.png";
 // PRIME REACT
 import { Password } from 'primereact/password';
 // FONT AWESOME
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faPlus } from '@fortawesome/free-solid-svg-icons';
 // SERVICIOS
-import UsuarioService from "../servicios/UsuarioService";
+import UsuarioService from "../../servicios/Miembro/UsuarioService";
 // COMPONENTES
-import Token from "../componentes/Token";
+import Token from "../../componentes/Token";
 
 const CrearUsuario = () => {
     const navigate = useNavigate();

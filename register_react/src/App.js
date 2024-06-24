@@ -9,18 +9,18 @@ import Footer from './componentes/Footer/Footer';
 import FooterAutenticado from './componentes/Footer/FooterAutenticado';
 import InformacionDeUsuario from './componentes/Informacion/InformacionDeUsuario';
 //PAGINAS SIN LOGIN
-import Index from './paginas/Index';
-import IniciarSesion from './paginas/IniciarSesion';
-import Registro from './paginas/Registro';
-import CrearUsuario from './paginas/CrearUsuario';
-import Formulario from './paginas/Formulario';
+import Index from './paginas/Miembro/Index';
+import IniciarSesion from './paginas/Miembro/IniciarSesion';
+import Registro from './paginas/Miembro/Registro';
+import CrearUsuario from './paginas/Miembro/CrearUsuario';
+import Formulario from './paginas/Miembro/Formulario';
 //PAGINAS CON LOGIN
-import AgregarServicio from './paginas/AgregarServicio';
-import ServicioMultiple from './componentes/Funciones/AgregarVariosServicios'
-import Inicio from './paginas/Inicio';
-import Servicios from './paginas/Servicios';
-import Precios from './paginas/Precios';
+import AgregarServicio from './paginas/Miembro/AgregarServicio';
+import Inicio from './paginas/Miembro/Inicio';
+import Servicios from './paginas/Miembro/Servicios';
+import Precios from './paginas/Miembro/Precios';
 import Configuracion from './componentes/Diseños/Configuracion_perfil';
+import PerfilProveedor from './paginas/Miembro/PerfilProveedor';
 
 function App() {
 
@@ -73,7 +73,7 @@ function App() {
             <Route exact path='/servicios' element={<Servicios />} />
             <Route exact path='/precios' element={<Precios/>} />
             <Route path='/configuracion/*' element={<Configuracion />} />
-            <Route exact path='/servicioMultipe' element={<ServicioMultiple />} />
+            <Route exact path='/proveedor/perfil/:id' element={<PerfilProveedor />} />
           </Routes>
         </div>
         {isLoggedIn ? <FooterAutenticado /> : <Footer />}

@@ -6,8 +6,8 @@ import { DataView } from 'primereact/dataview';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faMagnifyingGlass } from '@fortawesome/free-solid-svg-icons';
 //SERVICIOS
-import usuarioServiceInstance from '../../../servicios/UsuarioService';
-import ContratoServiceInstance from '../../../servicios/ContratosService';
+import usuarioServiceInstance from '../../../servicios/Miembro/UsuarioService';
+import ContratoServiceInstance from '../../../servicios/Miembro/ContratosService';
 
 function MisContratosProveedor() {
     const [busqueda, setBusqueda] = useState('');

@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from 'react'
-import usuarioServiceInstance from '../servicios/UsuarioService';
+import usuarioServiceInstance from '../servicios/Miembro/UsuarioService';
 
 const Rol = ({children}) => {
 
