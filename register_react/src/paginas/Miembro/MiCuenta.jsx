@@ -1,13 +1,13 @@
 import React from 'react'
 //COMPONENTES
-import InformacionDeUsuario from '../componentes/Informacion/InformacionDeUsuario';
-import InformacionCliente from '../componentes/Informacion/InformacionCliente';
-import EditarCuenta from '../componentes/Diseños/Modal/EditarCuenta';
-import SeccionPerfil from '../componentes/Diseños/Seccion_Perfil';
-import InformacionProveedor from '../componentes/Informacion/InformacionProveedor';
-import SeccionInformacionPersonal from '../componentes/Diseños/Seccion_InformacionPersonal';
-import EditarPerfil from '../componentes/Diseños/Modal/EditarPerfil';
-import EditarIPersonal from '../componentes/Diseños/Modal/EditarIPersonal';
+import InformacionDeUsuario from '../../componentes/Informacion/InformacionDeUsuario';
+import InformacionCliente from '../../componentes/Informacion/InformacionCliente';
+import EditarCuenta from '../../componentes/Diseños/Modal/EditarCuenta';
+import SeccionPerfil from '../../componentes/Diseños/Seccion_Perfil';
+import InformacionProveedor from '../../componentes/Informacion/InformacionProveedor';
+import SeccionInformacionPersonal from '../../componentes/Diseños/Seccion_InformacionPersonal';
+import EditarPerfil from '../../componentes/Diseños/Modal/EditarPerfil';
+import EditarIPersonal from '../../componentes/Diseños/Modal/EditarIPersonal';
 
 function MiCuenta() {
 

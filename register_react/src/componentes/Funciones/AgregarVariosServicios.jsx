@@ -7,8 +7,8 @@ import { Dropdown } from 'primereact/dropdown';
 import { InputNumber } from 'primereact/inputnumber';
 import { useForm, Controller } from "react-hook-form";
 // AXIOS
-import servicioProveedorServiceInstance from "../../servicios/ServicioProveedor";
-import usuarioServiceInstance from "../../servicios/UsuarioService";
+import servicioProveedorServiceInstance from "../../servicios/Miembro/ServicioProveedor";
+import usuarioServiceInstance from "../../servicios/Miembro/UsuarioService";
 
 const AgregarServicio = ({ onServiciosAgregados }) => {
 

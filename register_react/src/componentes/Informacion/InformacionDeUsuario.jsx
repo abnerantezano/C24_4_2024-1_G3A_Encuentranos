@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from "react";
-import UsuarioService from "../../servicios/UsuarioService";
+import UsuarioService from "../../servicios/Miembro/UsuarioService";
 
 const InformacionDeUsuario = ({ children }) => {
     const [info, setInfo] = useState({});

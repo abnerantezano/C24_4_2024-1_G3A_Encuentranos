@@ -1,13 +1,13 @@
 import React, { useEffect, useState } from "react";
-import logo from "../imagenes/logo-color.png";
+import logo from "../../imagenes/logo-color.png";
 import { useNavigate } from "react-router-dom";
 //PRIME REACT
 import { Dropdown } from 'primereact/dropdown';
 import { InputNumber } from 'primereact/inputnumber';
 import { useForm, Controller } from "react-hook-form";
 //AXIOS
-import ServicioProveedorService from "../servicios/ServicioProveedor";
-import UsuarioService from "../servicios/UsuarioService";
+import ServicioProveedorService from "../../servicios/Miembro/ServicioProveedor";
+import UsuarioService from "../../servicios/Miembro/UsuarioService";
 
 const AgregarServicio = () => {
 
