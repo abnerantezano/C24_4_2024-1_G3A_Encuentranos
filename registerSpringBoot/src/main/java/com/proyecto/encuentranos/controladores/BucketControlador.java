@@ -17,12 +17,18 @@ import java.io.InputStream;
 @RestController
 @RequestMapping("api/bucket")
 public class BucketControlador {
-    @Autowired
+
     private BucketServicio service;
+    private static final String ENCUENTRANOS = "encuentranos";
+
+    @Autowired
+    public BucketControlador(BucketServicio service){
+        this.service = service;
+    }
 
     @GetMapping("/encuentranos")
     public ResponseEntity<?> listFiles() {
-        val body = service.listFiles("encuentranos");
+        val body = service.listFiles(ENCUENTRANOS);
         return ResponseEntity.ok(body);
     }
 
@@ -40,7 +46,7 @@ public class BucketControlador {
         long fileSize = file.getSize();
         InputStream inputStream = file.getInputStream();
 
-        service.uploadFile("encuentranos", fileName, fileSize, contentType, inputStream);
+        service.uploadFile(ENCUENTRANOS, fileName, fileSize, contentType, inputStream);
 
         return ResponseEntity.ok().body("File uploaded successfully");
     }
@@ -50,7 +56,7 @@ public class BucketControlador {
     public ResponseEntity<?> downloadFile(
             @PathVariable("fileName") String fileName
     ) {
-        val body = service.downloadFile("encuentranos", fileName);
+        val body = service.downloadFile(ENCUENTRANOS, fileName);
 
         return ResponseEntity.ok()
                 .header(HttpHeaders.CONTENT_DISPOSITION, "attachment; filename=\"" + fileName + "\"")
@@ -62,7 +68,7 @@ public class BucketControlador {
     public ResponseEntity<?> deleteFile(
             @PathVariable("fileName") String fileName
     ) {
-        service.deleteFile("encuentranos", fileName);
+        service.deleteFile(ENCUENTRANOS, fileName);
         return ResponseEntity.ok().build();
     }
 }
