@@ -45,7 +45,7 @@ const Formulario = () => {
 
     //TRAER LOS DATOS DEL USUARIO QUE INICIO SESION
     useEffect(() => {
-        UsuarioService.getUser()
+        UsuarioService.getInfo()
             .then(UsuarioResponse => {
                 setUsuario(UsuarioResponse);
             })

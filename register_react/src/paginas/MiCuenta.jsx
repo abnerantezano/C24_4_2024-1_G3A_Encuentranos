@@ -9,8 +9,6 @@ import SeccionInformacionPersonal from '../componentes/Diseños/Seccion_Informac
 import EditarPerfil from '../componentes/Diseños/Modal/EditarPerfil';
 import EditarIPersonal from '../componentes/Diseños/Modal/EditarIPersonal';
 
-
-
 function MiCuenta() {
 
   const maskPassword = (password) => {
@@ -43,14 +41,12 @@ function MiCuenta() {
                   {usuario.idTipo.idTipo === 1 ? (
                     <InformacionCliente>
                       {(cliente) => { 
-                        console.log(cliente);
                         return <SeccionPerfil usuario={cliente} />;
                       }}
                     </InformacionCliente>
                   ) : usuario.idTipo.idTipo === 2 ? (
                     <InformacionProveedor>
                       {(proveedor) => {
-                        console.log(proveedor)
                         return <SeccionPerfil usuario={proveedor} />;
                       }}
                     </InformacionProveedor>
@@ -66,14 +62,12 @@ function MiCuenta() {
                   {usuario.idTipo.idTipo === 1 ? (
                     <InformacionCliente>
                       {(cliente) => { 
-                        console.log(cliente);
                         return <SeccionInformacionPersonal usuario={cliente} />;
                       }}
                     </InformacionCliente>
                   ) : usuario.idTipo.idTipo === 2 ? (
                     <InformacionProveedor>
                       {(proveedor) => {
-                        console.log(proveedor)
                         return <SeccionInformacionPersonal usuario={proveedor} />;
                       }}
                     </InformacionProveedor>

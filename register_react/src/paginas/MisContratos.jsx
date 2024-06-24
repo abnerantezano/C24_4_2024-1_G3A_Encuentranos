@@ -1,14 +1,25 @@
-import React, { useEffect, useState } from 'react'
-import ServicioProveedor from '../servicios/ServicioProveedor';
-import InformacionProveedor from '../componentes/Informacion/InformacionProveedor';
+import React from 'react'
+import Rol from '../componentes/Rol'
+import MisContratosProveedor from '../componentes/Vistas/VMisContratos/Proveedor'
+import MisContratosCliente from '../componentes/Vistas/VMisContratos/Cliente'
+
 
 function MisContratos() {
 
-  const [servicios, setServicios] = useState([]);
-  const [serviviosByP, setServiciosByP] = useState([]);
-
   return (
-    <h1>hola contratoss</h1>
+    <Rol>
+      {(rol) => {
+        return (
+          <div>
+            {rol.idTipo === 1 ? (
+              <MisContratosCliente/>
+            ) : rol.idTipo === 2 ? (  
+              <MisContratosProveedor/>
+            ) : null}
+          </div>
+        )
+      }}
+    </Rol>
   )
 }
 

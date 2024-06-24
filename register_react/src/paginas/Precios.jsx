@@ -109,7 +109,7 @@ function Precios() {
       </div>
       <div className='p-4 xl:w-8/12'>
         <h4 className='text-[#B4663F] font-bold text-base mb-1'>{Sproveedor.idProveedor.nombre} {Sproveedor.idProveedor.apellidoPaterno} {Sproveedor.idProveedor.apellidoMaterno} </h4>
-        <p className='text-sm mb-1'><Rating value={Sproveedor.calificacionPromedio} readOnly cancel={false} pt={{ root: 'focus:ring-0', onIcon: 'text-[#EBC351] focus:ring-0', offIcon: 'text-[#B7B7B7] focus:ring-0' }} /></p>
+        <p className='text-sm mb-1'><Rating value={Sproveedor.idProveedor.calificacionPromedio} readOnly cancel={false} pt={{ root: 'focus:ring-0', onIcon: 'text-[#EBC351] focus:ring-0', offIcon: 'text-[#B7B7B7] focus:ring-0' }} /></p>
         <p className='text-base text-black mb-1 font-medium'>{Sproveedor.idServicio.nombre}</p>
         {Sproveedor.negociable ? (
           <p className='text-[#787171] text-sm mb-1 font-normal'>Precio negociable</p>

@@ -25,6 +25,15 @@ class UsuarioService {
             });
     }
 
+    getTipoUsuario(idUsuario){
+        return axios.get(this.baseUrl + `/tipo/${idUsuario}`, {withCredentials: true})
+        .then(res => res.data)
+        .catch(error => {
+            console.error('Error al agregar usuario: ', error);
+            throw error;
+        });
+    }
+
     getInfo() {
         return axios.get(this.baseUrl + '/datos', {withCredentials: true})
             .then(res => res.data)

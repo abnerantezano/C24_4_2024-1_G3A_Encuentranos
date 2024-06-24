@@ -3,11 +3,11 @@ import React, { useState } from 'react'
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faPenToSquare } from '@fortawesome/free-solid-svg-icons';
 //COMPONENTES
-import InformacionDeUsuario from '../../Informacion/InformacionDeUsuario';
 import InformacionProveedor from '../../Informacion/InformacionProveedor';
 import InformacionCliente from '../../Informacion/InformacionCliente';
 //MODAL RELACIONADO
 import ModalSIPersonal from '../ModalS_IPersonal';
+import Rol from '../../Rol';
 
 function EditarIPersonal() {
 
@@ -22,8 +22,8 @@ function EditarIPersonal() {
     };
 
     return (
-        <InformacionDeUsuario>
-            {(usuario) => {
+        <Rol>
+            {(rol) => {
                 return (
                     <div>
                         <button onClick={Modal} className='text-white bg-[#E8A477] py-2 px-4 rounded-lg font-bold'>
@@ -31,7 +31,7 @@ function EditarIPersonal() {
                         </button>
                         {visible && (
                             <div>
-                                {usuario.idTipo.idTipo === 1 ? (
+                                {rol.idTipo === 1 ? (
                                     <InformacionCliente>
                                         {(cliente) => {
                                             return (
@@ -39,7 +39,7 @@ function EditarIPersonal() {
                                             )
                                         }}
                                     </InformacionCliente>
-                                ) : usuario.idTipo.idTipo === 2 ? (
+                                ) : rol.idTipo === 2 ? (
                                     <InformacionProveedor>
                                         {(proveedor) => {
                                             return (
@@ -53,7 +53,7 @@ function EditarIPersonal() {
                     </div>
                 );
             }}
-        </InformacionDeUsuario>
+        </Rol>
     )
 }
 

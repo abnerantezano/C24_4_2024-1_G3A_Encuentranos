@@ -15,7 +15,23 @@ import Token from "../componentes/Token";
 const CrearUsuario = () => {
     const navigate = useNavigate();
     const { register, handleSubmit, watch, control, formState: { errors } } = useForm();
+
+    //MOSTRAR LA IMAGEN
     const [selectedImage, setSelectedImage] = useState(null);
+    //CARGAR LA IMAGEN
+    const [nombreImagen, setNombreImagen] = useState(null);
+
+    const handleImageChange = (e) => {
+        if (e.target.files && e.target.files[0]) {
+            const file = e.target.files[0];
+            setNombreImagen(file.name);
+            const reader = new FileReader();
+            reader.onload = (event) => {
+                setSelectedImage(event.target.result);
+            };
+            reader.readAsDataURL(file);
+        }
+    };
 
     const EnviarDatos = (data, email) => {
         const fechaActual = new Date().toISOString().split('T')[0];
@@ -23,9 +39,9 @@ const CrearUsuario = () => {
             idTipo: {idTipo: parseInt(data.idTipo)},
             correo: email,
             contrasena: data.contrasena,
-            imagenUrl: selectedImage || "https://www.transparentpng.com/download/user/gray-user-profile-icon-png-fP8Q1P.png",
+            imagenUrl: nombreImagen || "https://www.transparentpng.com/download/user/gray-user-profile-icon-png-fP8Q1P.png",
             activo: true,
-            fechaCreacion: fechaActual
+            fechaRegistro: fechaActual
         };
 
         console.log(usuario);
@@ -38,17 +54,6 @@ const CrearUsuario = () => {
             .catch(error => {
                 console.error(error);
             });
-    };
-
-    const handleImageChange = (e) => {
-        if (e.target.files && e.target.files[0]) {
-            const file = e.target.files[0];
-            const reader = new FileReader();
-            reader.onload = (event) => {
-                setSelectedImage(event.target.result);
-            };
-            reader.readAsDataURL(file);
-        }
     };
 
     return (

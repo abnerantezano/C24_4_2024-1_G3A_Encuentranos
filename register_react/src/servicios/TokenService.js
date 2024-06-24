@@ -3,11 +3,11 @@ import axios from 'axios';
 class TokenService {
 
   constructor() {
-    this.baseUrl = 'http://localhost:4000/usuario';
+    this.baseUrl = 'http://localhost:4000/token';
   }
 
   getToken() {
-    return axios.get(this.baseUrl + '/token', { withCredentials: true })
+    return axios.get(this.baseUrl, { withCredentials: true })
       .then(res => res.data)
       .catch(error => {
         console.error('Error al obtener el token del usuario: ', error);

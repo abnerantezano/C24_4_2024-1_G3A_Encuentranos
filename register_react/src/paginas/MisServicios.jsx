@@ -24,8 +24,12 @@ function MisServicios() {
             console.error(error);
         });
   }, []);
-
+  
   useEffect(() => {
+    ActualizarLista();
+  }, [proveedor]);
+
+  const ActualizarLista = () => {
       if (proveedor) {
           servicioProveedorServiceInstance.getServiciosDisponibles(proveedor.idProveedor)
               .then((serviciosregistrados) => {
@@ -35,7 +39,7 @@ function MisServicios() {
                   console.error(error);
               });
       }
-  }, [proveedor]);
+  }
 
   return (
     <div>
@@ -67,7 +71,7 @@ function MisServicios() {
             </tbody>
         </table>
       )}
-      <AgregarServicio/>
+      <AgregarServicio onServiciosAgregados={ActualizarLista()} />
     </div>
   );
 }

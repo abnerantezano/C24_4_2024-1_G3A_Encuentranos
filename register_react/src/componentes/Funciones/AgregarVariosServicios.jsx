@@ -67,8 +67,6 @@ const AgregarServicio = ({ onServiciosAgregados }) => {
         }
     }, [serviciosSeleccionados]);
 
-    console.log(serviciosSeleccionados);
-
     //OPCIONES PARA SABER SI ES NEGOCIABLE O NO
     const opciones = [
         {id:1, nombre:"Si",valor:true},

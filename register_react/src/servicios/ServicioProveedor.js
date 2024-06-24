@@ -38,7 +38,7 @@ class ServicioProveedorService {
 
     //TENER LA LISTA DE LOS SERVICIOS SEGUN EL PROVEEDOR
     getServiciosDisponibles(idproveedor) {
-        return axios.get(`${this.baseUrl}/listar/${idproveedor}`, { withCredentials: true })
+        return axios.get(`${this.baseUrl}/buscar/${idproveedor}`, { withCredentials: true })
         .then(res => res.data)
         .catch(error => {
             console.error('Error al obtener servicio según proveedor: ', error);

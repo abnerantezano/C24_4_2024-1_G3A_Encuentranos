@@ -16,7 +16,7 @@ class ProveedorService {
     }
 
     getListaProveedor() {
-        return axios.get(this.baseUrl + '/listar', { withCredentials: true })
+        return axios.get(this.baseUrl + '/buscar', { withCredentials: true })
             .then(res => res.data)
             .catch(error => {
                 console.error('Error al obtener proveedores:', error);
