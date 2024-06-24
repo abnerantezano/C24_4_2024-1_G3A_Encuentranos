@@ -31,22 +31,46 @@ public class ProveedorServicio {
 	}
 	
 	//UPDATE
-	public ProveedorModelo actualizarProveedor(Integer id, ProveedorModelo proovedorActualizado) {
-		ProveedorModelo proveedorExistente = proveedorRepositorio.findById(id).orElse(null);
-        if (proveedorExistente != null) {
-            // ACTUALIZAR DATOS DEL CLIENTE
-        	proveedorExistente.setNombre(proovedorActualizado.getNombre());
-        	proveedorExistente.setApellidoPaterno(proovedorActualizado.getApellidoPaterno());
-        	proveedorExistente.setApellidoMaterno(proovedorActualizado.getApellidoMaterno());
-        	proveedorExistente.setSexo(proovedorActualizado.getSexo());
-        	proveedorExistente.setFechaNacimiento(proovedorActualizado.getFechaNacimiento());
-        	proveedorExistente.setDni(proovedorActualizado.getDni());
-        	proveedorExistente.setCelular(proovedorActualizado.getCelular());
-        	proveedorExistente.setIdDistrito(proovedorActualizado.getIdDistrito());
+	public ProveedorModelo actualizarProveedor(Integer id, ProveedorModelo proveedorActualizado) {
+		Optional<ProveedorModelo> proveedorExistenteOptional = proveedorRepositorio.findById(id);
+		if (proveedorExistenteOptional.isPresent()) {
+			ProveedorModelo proveedorExistente = proveedorExistenteOptional.get();
 
-        	proveedorExistente = proveedorRepositorio.save(proveedorExistente);
-        }
-        return proveedorExistente;
+			if (proveedorActualizado.getNombre() != null) {
+				proveedorExistente.setNombre(proveedorActualizado.getNombre());
+			}
+			if (proveedorActualizado.getApellidoPaterno() != null) {
+				proveedorExistente.setApellidoPaterno(proveedorActualizado.getApellidoPaterno());
+			}
+			if (proveedorActualizado.getApellidoMaterno() != null) {
+				proveedorExistente.setApellidoMaterno(proveedorActualizado.getApellidoMaterno());
+			}
+			if (proveedorActualizado.getDni() != null) {
+				proveedorExistente.setDni(proveedorActualizado.getDni());
+			}
+			if (proveedorActualizado.getCelular() != null) {
+				proveedorExistente.setCelular(proveedorActualizado.getCelular());
+			}
+			if (proveedorActualizado.getSexo() != null) {
+				proveedorExistente.setSexo(proveedorActualizado.getSexo());
+			}
+			if (proveedorActualizado.getFechaNacimiento() != null) {
+				proveedorExistente.setFechaNacimiento(proveedorActualizado.getFechaNacimiento());
+			}
+			if (proveedorActualizado.getDescripcion() != null) {
+				proveedorExistente.setDescripcion(proveedorActualizado.getDescripcion());
+			}
+			if (proveedorActualizado.getCurriculumUrl() != null) {
+				proveedorExistente.setCurriculumUrl(proveedorActualizado.getCurriculumUrl());
+			}
+			if (proveedorActualizado.getIdDistrito() != null) {
+				proveedorExistente.setIdDistrito(proveedorActualizado.getIdDistrito());
+			}
+
+			proveedorExistente = proveedorRepositorio.save(proveedorExistente);
+			return proveedorExistente;
+		}
+		return null;
 	}
 
     //----------------------------------------

@@ -6,6 +6,7 @@ import java.util.Optional;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.web.bind.annotation.*;
 
 import com.proyecto.encuentranos.modelos.ProveedorModelo;
@@ -13,6 +14,7 @@ import com.proyecto.encuentranos.servicios.ProveedorServicio;
 
 @CrossOrigin(origins = {"http://localhost:3000", "http://127.0.0.1:3000"})
 @RestController
+@PreAuthorize("hasRole('PROVEEDOR')")
 @RequestMapping("/proveedor")
 public class ProveedorControlador {
 	
@@ -28,7 +30,7 @@ public class ProveedorControlador {
 		ProveedorModelo nuevoProveedor = this.proveedorServicio.guardarProveedor(proveedor);
 		return new ResponseEntity<>(nuevoProveedor, HttpStatus.CREATED);
 	}
-	
+
 	@GetMapping("/listar")
 	public ResponseEntity<List<ProveedorModelo>> obtenerProveedor(){
 		List<ProveedorModelo> proveedores = this.proveedorServicio.obtenerProveedores();

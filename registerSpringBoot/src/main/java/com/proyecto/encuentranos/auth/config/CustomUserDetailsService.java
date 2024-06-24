@@ -11,11 +11,14 @@ import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.stereotype.Service;
 
 import java.util.Collections;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 @Service
 public class CustomUserDetailsService implements UserDetailsService {
 
-    private IUsuarioRepositorio usuarioRepositorio;
+    private static final Logger logger = LoggerFactory.getLogger(CustomUserDetailsService.class);
+    private final IUsuarioRepositorio usuarioRepositorio;
 
     @Autowired
     public CustomUserDetailsService(IUsuarioRepositorio usuarioRepositorio){
@@ -27,7 +30,9 @@ public class CustomUserDetailsService implements UserDetailsService {
         UsuarioModelo usuario = usuarioRepositorio.findByCorreo(email)
                 .orElseThrow(() -> new UsernameNotFoundException("Usuario no encontrado"));
 
+        logger.debug("Usuario encontrado: {}", usuario);
         String role = "ROLE_" + usuario.getIdTipo().getNombre().toUpperCase();
+        logger.debug("Asignando rol: {}", role);
 
         SimpleGrantedAuthority authority = new SimpleGrantedAuthority(role);
 

@@ -41,20 +41,42 @@ public class ClienteServicio {
 	
 	//UPDATE
 	public ClienteModelo actualizarCliente(Integer id, ClienteModelo clienteActualizado) {
-		ClienteModelo clienteExistente = clienteRepositorio.findById(id).orElse(null);
-        if (clienteExistente != null) {
-        	clienteExistente.setNombre(clienteActualizado.getNombre());
-        	clienteExistente.setApellidoPaterno(clienteActualizado.getApellidoPaterno());
-        	clienteExistente.setApellidoMaterno(clienteActualizado.getApellidoMaterno());
-        	clienteExistente.setFechaNacimiento(clienteActualizado.getFechaNacimiento());
-        	clienteExistente.setDni(clienteActualizado.getDni());
-        	clienteExistente.setSexo(clienteActualizado.getSexo());
-        	clienteExistente.setCelular(clienteActualizado.getCelular());
-        	clienteExistente.setIdDistrito(clienteActualizado.getIdDistrito());
+		Optional<ClienteModelo> clienteExistenteOptional = clienteRepositorio.findById(id);
+		if (clienteExistenteOptional.isPresent()) {
+			ClienteModelo clienteExistente = clienteExistenteOptional.get();
 
-            clienteExistente = clienteRepositorio.save(clienteExistente);
-        }
-        return clienteExistente;
+			if (clienteActualizado.getNombre() != null) {
+				clienteExistente.setNombre(clienteActualizado.getNombre());
+			}
+			if (clienteActualizado.getApellidoPaterno() != null) {
+				clienteExistente.setApellidoPaterno(clienteActualizado.getApellidoPaterno());
+			}
+			if (clienteActualizado.getApellidoMaterno() != null) {
+				clienteExistente.setApellidoMaterno(clienteActualizado.getApellidoMaterno());
+			}
+			if (clienteActualizado.getSexo() != null) {
+				clienteExistente.setSexo(clienteActualizado.getSexo());
+			}
+			if (clienteActualizado.getDni() != null) {
+				clienteExistente.setDni(clienteActualizado.getDni());
+			}
+			if (clienteActualizado.getCelular() != null) {
+				clienteExistente.setCelular(clienteActualizado.getCelular());
+			}
+			if (clienteActualizado.getFechaNacimiento() != null) {
+				clienteExistente.setFechaNacimiento(clienteActualizado.getFechaNacimiento());
+			}
+			if (clienteActualizado.getDescripcion() != null) {
+				clienteExistente.setDescripcion(clienteActualizado.getDescripcion());
+			}
+			if (clienteActualizado.getIdDistrito() != null) {
+				clienteExistente.setIdDistrito(clienteActualizado.getIdDistrito());
+			}
+
+			clienteExistente = clienteRepositorio.save(clienteExistente);
+			return clienteExistente;
+		}
+		return null;
 	}
 
     //----------------------------------------

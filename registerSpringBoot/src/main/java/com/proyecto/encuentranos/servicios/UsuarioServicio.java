@@ -49,13 +49,20 @@ public class UsuarioServicio {
     }
     
     //UPDATE
-    public UsuarioModelo actualizarUsuario(Integer id, UsuarioModelo usuarioActualzado){
+    public UsuarioModelo actualizarUsuario(Integer id, UsuarioModelo usuarioActualizado){
         UsuarioModelo usuarioExistente = usuarioRepositorio.findById(id).orElse(null);
-        if (usuarioExistente != null){
-            usuarioExistente.setCorreo(usuarioActualzado.getCorreo());
-            usuarioExistente.setContrasena(usuarioActualzado.getContrasena());
-            usuarioExistente.setImagenUrl(usuarioActualzado.getImagenUrl());
-            usuarioExistente.setActivo(usuarioActualzado.isActivo());
+        if (usuarioExistente != null) {
+            if (usuarioActualizado.getCorreo() != null) {
+                usuarioExistente.setCorreo(usuarioActualizado.getCorreo());
+            }
+            if (usuarioActualizado.getContrasena() != null) {
+                usuarioExistente.setContrasena((passwordEncoder.passwordEncoder().encode(usuarioActualizado.getContrasena())));
+            }
+            if (usuarioActualizado.getImagenUrl() != null) {
+                usuarioExistente.setImagenUrl(usuarioActualizado.getImagenUrl());
+            }
+
+            usuarioExistente.setActivo(usuarioActualizado.isActivo());
 
             usuarioExistente = usuarioRepositorio.save(usuarioExistente);
         }

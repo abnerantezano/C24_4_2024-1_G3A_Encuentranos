@@ -58,6 +58,18 @@ public class UsuarioControlador {
         return ResponseEntity.ok(usuarioServicio.obtenerUsuarios());
     }
 
+    @PutMapping("/actualizar/{id}")
+    public ResponseEntity<UsuarioModelo> actualizarUsuario(
+            @PathVariable("id") Integer id,
+            @RequestBody UsuarioModelo usuarioActualizado) {
+        UsuarioModelo usuarioExistente = usuarioServicio.actualizarUsuario(id, usuarioActualizado);
+        if (usuarioExistente != null) {
+            return new ResponseEntity<>(usuarioExistente, HttpStatus.OK);
+        } else {
+            return new ResponseEntity<>(HttpStatus.NOT_FOUND);
+        }
+    }
+
     @GetMapping("/buscar/{idUsuario}")
     public ResponseEntity<UsuarioModelo> obtenerUsuarios(@PathVariable int idUsuario) {
         Optional<UsuarioModelo> usuario = usuarioServicio.buscarUsuarioPorId(idUsuario);
