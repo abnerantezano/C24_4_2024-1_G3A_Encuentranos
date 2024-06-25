@@ -1,44 +1,50 @@
-from rest_framework import generics, status
+from rest_framework.views import APIView
 from rest_framework.response import Response
-from .models import Usuario, TipoUsuario, Distrito, Proveedor, Cliente
-from .serializers import TipoUsuarioSerializer, UsuarioSerializer, ProveedorSerializer, ClienteSerializer, DistritoSerializer
-from django.shortcuts import get_object_or_404
+from rest_framework import status
+from gestion_usuarios.models import Usuario, TipoUsuario, Proveedor, Cliente
+from gestion_usuarios.serializers import UsuarioSerializer, ProveedorSerializer, ClienteSerializer
 
-class TipoUsuarioDetailAPIView(generics.RetrieveAPIView):
-    queryset = TipoUsuario.objects.all()
-    serializer_class = TipoUsuarioSerializer
+class UsuarioListCreateAPIView(APIView):
+    def get(self, request):
+        usuarios = Usuario.objects.all()
+        usuarioSerilizer = UsuarioSerializer(usuarios, many=True)
+        return Response(usuarioSerilizer.data)
 
-class UsuarioListCreateAPIView(generics.ListCreateAPIView):
-    queryset = Usuario.objects.all()
-    serializer_class = UsuarioSerializer
+    def post(self, request):
+        try:
+            administrador_tipo = TipoUsuario.objects.get(nombre='Administrador')
+        except TipoUsuario.DoesNotExist:
+            return Response({"error": "No se encontró el tipo de usuario 'Administrador'"}, status=status.HTTP_404_NOT_FOUND)
 
-    def perform_create(self, serializer):
-        administrador_tipo = get_object_or_404(TipoUsuario, nombre='Administrador')
-        serializer.save(id_tipo=administrador_tipo)
-
-
-class UsuarioDetailAPIView(generics.RetrieveUpdateAPIView):
-    queryset = Usuario.objects.all()
-    serializer_class = UsuarioSerializer
-
-    def patch(self, request):
-        instance = self.get_object()
-        instance.estado = request.data.get("estado", instance.estado)
-        instance.save()
-        serializer = self.get_serializer(instance)
-        return Response(serializer.data, status=status.HTTP_200_OK)
+        usuario_serializer = UsuarioSerializer(data=request.data)
+        if usuario_serializer.is_valid():
+            usuario_serializer.save(id_tipo=administrador_tipo)
+            return Response(usuario_serializer.data, status=status.HTTP_201_CREATED)
+        return Response(usuario_serializer.errors, status=status.HTTP_400_BAD_REQUEST)
 
 
-class DistritoDetailAPIView(generics.RetrieveAPIView):
-    queryset = Distrito.objects.all()
-    serializer_class = DistritoSerializer
+class UsuarioDetailAPIView(APIView):
+    def get(self, request, id_usuario):
+        usuario = Usuario.objects.get(pk=id_usuario)
+        usuarioSerializer = UsuarioSerializer(usuario)
+        return Response(usuarioSerializer.data)
 
-class ProveedorListAPIView(generics.ListAPIView):
-    queryset = Proveedor.objects.all()
-    serializer_class = ProveedorSerializer
+    def patch(self, request, id_usuario):
+        serializer = UsuarioSerializer(data=request.data, partial=True)
+        if serializer.is_valid():
+            serializer.save()
+            return Response(serializer.data)
+        return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
 
+class ProveedorListAPIView(APIView):
+    def get(self, request):
+        proveedores = Proveedor.objects.all()
+        serializer = ProveedorSerializer(proveedores, many=True)
+        return Response(serializer.data)
 
-class ClienteListAPIView(generics.ListAPIView):
-    queryset = Cliente.objects.all()
-    serializer_class = ClienteSerializer
+class ClienteListAPIView(APIView):
+    def get(self, request):
+        clientes = Cliente.objects.all()
+        serializer = ClienteSerializer(clientes, many=True)
+        return Response(serializer.data)
 

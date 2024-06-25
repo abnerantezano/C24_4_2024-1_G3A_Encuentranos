@@ -1,17 +1,21 @@
-from rest_framework import generics, status
+from rest_framework.views import APIView
 from rest_framework.response import Response
+from rest_framework import status
 from .models import Servicio
 from .serializers import ServicioSerializer
 from django.conf import settings
 import boto3
 
-class ServicioListCreateAPIView(generics.ListCreateAPIView):
-    queryset = Servicio.objects.all()
-    serializer_class = ServicioSerializer
+class ServicioListCreateAPIView(APIView):
+    def get(self, request):
+        servicios = Servicio.objects.all()
+        serializer = ServicioSerializer(servicios, many=True)
+        return Response(serializer.data)
 
     def post(self, request):
         archivo = request.data.get('archivo')
         nombre_archivo = archivo.name
+
         # Guardar archivo en AWS S3
         s3_client = boto3.client(
             's3',
@@ -19,32 +23,32 @@ class ServicioListCreateAPIView(generics.ListCreateAPIView):
             aws_secret_access_key=settings.AWS_SECRET_ACCESS_KEY,
             region_name=settings.AWS_S3_REGION_NAME
         )
+
         try:
             s3_client.upload_fileobj(archivo, settings.AWS_STORAGE_BUCKET_NAME, nombre_archivo)
             # Construir la URL del archivo en S3
             archivo_url = f'https://{settings.AWS_S3_CUSTOM_DOMAIN}/{nombre_archivo}'
+            
             # Crear el servicio en la base de datos
-            serializer = self.get_serializer(data={**request.data, 'imagen_url': archivo_url})
+            data = {**request.data, 'imagen_url': archivo_url}
+            serializer = ServicioSerializer(data=data)
             serializer.is_valid(raise_exception=True)
             serializer.save()
             return Response(serializer.data, status=status.HTTP_201_CREATED)
         except Exception as e:
             return Response({'error': str(e)}, status=status.HTTP_400_BAD_REQUEST)
 
-class ServicioDetailAPIView(generics.RetrieveUpdateDestroyAPIView):
-    queryset = Servicio.objects.all()
-    serializer_class = ServicioSerializer
 
-    def put(self, request):
-        return self.update(request)
+class ServicioDetailAPIView(APIView):
+    def get(self, request, id_servicio):
+        servicio = Servicio.objects.get(pk=id_servicio) 
+        serializer = ServicioSerializer(servicio)
+        return Response(serializer.data)
 
-    def patch(self, request):
-        return self.partial_update(request)
+    def put(self, request, id_servicio):
+        servicio = Servicio.objects.get(pk=id_servicio)
+        archivo = request.data.get('archivo')
 
-    def update(self, request):
-        archivo = request.data.get('imagen')
-        
-        # Si hay un archivo en la solicitud, cargarlo en AWS S3
         if archivo:
             try:
                 nombre_archivo = archivo.name
@@ -60,7 +64,15 @@ class ServicioDetailAPIView(generics.RetrieveUpdateDestroyAPIView):
             except Exception as e:
                 return Response({'error': str(e)}, status=status.HTTP_400_BAD_REQUEST)
         
-        return super().update(request)
+        serializer = ServicioSerializer(servicio, data=request.data)
+        serializer.is_valid(raise_exception=True)
+        serializer.save()
+        return Response(serializer.data)
 
-    def partial_update(self, request):
-        return self.update(request)
+    def patch(self, request, id_servicio):
+        return self.put(request, id_servicio)
+
+    def delete(self, request, pk):
+        servicio = self.get_object(pk)
+        servicio.delete()
+        return Response(status=status.HTTP_204_NO_CONTENT)

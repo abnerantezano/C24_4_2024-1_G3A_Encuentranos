@@ -49,7 +49,6 @@ INSTALLED_APPS += [
     'gestion_servicios',
     'gestion_contratos',
     'gestion_chats',
-    'gestion_calificaciones',
     'reportes',
     'api',
 ]
@@ -65,6 +64,7 @@ MIDDLEWARE = [
     'django.middleware.clickjacking.XFrameOptionsMiddleware',
 ]
 
+SESSION_ENGINE = 'django.contrib.sessions.backends.file'
 ROOT_URLCONF = 'config.urls'
 
 TEMPLATES = [
@@ -94,7 +94,7 @@ DATABASES = {
         'ENGINE': 'django.db.backends.mysql',
         'NAME': 'encuentranos',
         'USER': 'root',
-        'PASSWORD': '',
+        'PASSWORD': 'vO2W+tt36&6ZA^q$7UH',
         'HOST': 'localhost',  
         'PORT': '3306',       
     }

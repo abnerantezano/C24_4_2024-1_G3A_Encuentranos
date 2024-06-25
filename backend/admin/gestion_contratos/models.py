@@ -3,6 +3,7 @@ from gestion_servicios.models import Servicio
 from gestion_usuarios.models import Cliente, Proveedor
 
 class Contrato(models.Model):
+    id_contrato = models.AutoField(primary_key=True)
     id_cliente = models.ForeignKey(Cliente, on_delete=models.CASCADE)
     estado = models.CharField(max_length=45)
     precio_final = models.FloatField()
