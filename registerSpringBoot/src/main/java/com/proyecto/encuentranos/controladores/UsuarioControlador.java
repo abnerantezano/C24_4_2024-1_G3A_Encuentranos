@@ -70,6 +70,12 @@ public class UsuarioControlador {
         }
     }
 
+    @PutMapping("/actualizar-contrasena/{id}")
+    public ResponseEntity<String> actualizarContrasena(@PathVariable Integer id, @RequestParam String contrasenaActual, @RequestParam String nuevaContrasena) {
+        usuarioServicio.actualizarContrasena(id, contrasenaActual, nuevaContrasena);
+        return ResponseEntity.status(HttpStatus.NO_CONTENT).body("Contraseña actualizada correctamente");
+    }
+
     @GetMapping("/buscar/{idUsuario}")
     public ResponseEntity<UsuarioModelo> obtenerUsuarios(@PathVariable int idUsuario) {
         Optional<UsuarioModelo> usuario = usuarioServicio.buscarUsuarioPorId(idUsuario);

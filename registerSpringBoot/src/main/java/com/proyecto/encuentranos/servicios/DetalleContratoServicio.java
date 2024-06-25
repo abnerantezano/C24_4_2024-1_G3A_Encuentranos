@@ -19,6 +19,11 @@ public class DetalleContratoServicio {
         this.detalleContratoRepositorio = detalleContratoRepositorio;
     }
 
+    //CREAR EL DETALLE CONTRATO
+    public DetalleContratoModelo crearDetalleContrato(DetalleContratoModelo detalleContrato) {
+        return detalleContratoRepositorio.save(detalleContrato);
+    }
+
     //OBTENER TODOS LOS DETALLES CONTRATOS QUE HAY
     public List<DetalleContratoModelo> obtenerDetalleContratos(){
         return detalleContratoRepositorio.findAll();

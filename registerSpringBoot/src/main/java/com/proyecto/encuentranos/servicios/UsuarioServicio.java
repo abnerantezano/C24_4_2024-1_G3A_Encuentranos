@@ -55,9 +55,6 @@ public class UsuarioServicio {
             if (usuarioActualizado.getCorreo() != null) {
                 usuarioExistente.setCorreo(usuarioActualizado.getCorreo());
             }
-            if (usuarioActualizado.getContrasena() != null) {
-                usuarioExistente.setContrasena((passwordEncoder.passwordEncoder().encode(usuarioActualizado.getContrasena())));
-            }
             if (usuarioActualizado.getImagenUrl() != null) {
                 usuarioExistente.setImagenUrl(usuarioActualizado.getImagenUrl());
             }
@@ -90,4 +87,25 @@ public class UsuarioServicio {
     public boolean existsInClienteOrProveedor(String correo) {
         return clienteRepositorio.existsByIdUsuarioCorreo(correo) || proveedorRepositorio.existsByIdUsuarioCorreo(correo);
     }
+
+    // ACTUALIZAR CONTRASEÑA DEL USUARIO
+    public UsuarioModelo actualizarContrasena(Integer id, String contrasenaActual, String nuevaContrasena) {
+        Optional<UsuarioModelo> optionalUsuario = usuarioRepositorio.findById(id);
+        if (optionalUsuario.isPresent()) {
+            UsuarioModelo usuarioExistente = optionalUsuario.get();
+
+            if (passwordEncoder.passwordEncoder().matches(contrasenaActual, usuarioExistente.getContrasena())) {
+                usuarioExistente.setContrasena(passwordEncoder.passwordEncoder().encode(nuevaContrasena));
+
+                usuarioExistente = usuarioRepositorio.save(usuarioExistente);
+
+                return usuarioExistente;
+            } else {
+                throw new IllegalArgumentException("Contraseña actual incorrecta");
+            }
+        } else {
+            throw new IllegalArgumentException("Usuario no encontrado");
+        }
+    }
+
 }

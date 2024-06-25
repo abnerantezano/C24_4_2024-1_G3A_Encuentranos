@@ -21,6 +21,9 @@ class InicioViewModel : ViewModel() {
 
     // LiveData para datos que se utlizaran en los UI's
 
+    private val _idCliente = MutableLiveData<Int>()
+    val idCliente: LiveData<Int> get() = _idCliente
+
     private val _idProveedor = MutableLiveData<Int>()
     val idProveedor: LiveData<Int> get() = _idProveedor
 
@@ -93,6 +96,28 @@ class InicioViewModel : ViewModel() {
         }
     }
 
+    //Metodo apra obtener el ID del cliente
+    fun obtenerIdCliente(email: String) {
+        ejecutarConAutenticacion { email, token ->
+            val cliente = OkHttpClient()
+            val solicitud = Request.Builder()
+                .url("$BASE_URL/cliente/buscar-usuario/$email")
+                .addHeader("Authorization", "Bearer $token")
+                .build()
+
+            cliente.newCall(solicitud).enqueue(crearCallback { respuesta ->
+                if (respuesta != null) {
+                    val jsonObject = JSONObject(respuesta)
+                    val idCliente = jsonObject.optInt("idCliente", -1)
+                    if (idCliente != -1) {
+                        _idCliente.postValue(idCliente)
+                    } else {
+                        _mensajeError.postValue("Error: Cliente no encontrado")
+                    }
+                }
+            })
+        }
+    }
 
     // Método para obtener el ID del proveedor
     fun obtenerIdProveedor() {

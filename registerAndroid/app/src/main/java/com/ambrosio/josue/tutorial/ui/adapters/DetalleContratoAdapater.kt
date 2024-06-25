@@ -7,8 +7,8 @@ import android.view.ViewGroup
 import android.widget.TextView
 import androidx.recyclerview.widget.RecyclerView
 import com.ambrosio.josue.tutorial.R
+import com.ambrosio.josue.tutorial.data.models.DetalleContratoModel
 import com.ambrosio.josue.tutorial.ui.activities.opcionesPerfilFragment.ContratoEspecificoActivity
-import com.proyecto.encuentranos.models.DetalleContratoModel
 
 class DetalleContratoAdapater : RecyclerView.Adapter<DetalleContratoAdapater.DetalleContratoAdapaterViewHolder>() {
     private var detalleContratos: List<DetalleContratoModel> = emptyList()

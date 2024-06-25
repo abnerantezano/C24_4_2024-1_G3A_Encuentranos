@@ -24,6 +24,12 @@ public class DetalleContratoControlador {
         this.clienteServicio = clienteServicio;
     }
 
+    @PostMapping("/crear")
+    public ResponseEntity<DetalleContratoModelo> crearDetalleContrato(@RequestBody DetalleContratoModelo detalleContrato) {
+        DetalleContratoModelo nuevoDetalleContrato = detalleContratoServicio.crearDetalleContrato(detalleContrato);
+        return ResponseEntity.ok(nuevoDetalleContrato);
+    }
+
     @GetMapping("/listar")
     public ResponseEntity<List<DetalleContratoModelo>> obtenerDetalleContratos() {
         List<DetalleContratoModelo> detalles = detalleContratoServicio.obtenerDetalleContratos();

@@ -5,8 +5,8 @@ import android.util.Log
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import com.ambrosio.josue.tutorial.RetrofitClient
+import com.ambrosio.josue.tutorial.data.models.DetalleContratoModel
 import com.ambrosio.josue.tutorial.data.models.ServicioProveedorModel
-import com.proyecto.encuentranos.models.DetalleContratoModel
 import retrofit2.Call
 import retrofit2.Callback
 import retrofit2.Response

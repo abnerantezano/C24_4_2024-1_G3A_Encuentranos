@@ -1,10 +1,7 @@
-package com.proyecto.encuentranos.models
-
-import com.ambrosio.josue.tutorial.data.models.ContratoModel
-import com.ambrosio.josue.tutorial.data.models.ProveedorModel
-import com.ambrosio.josue.tutorial.data.models.ServicioModel
+package com.ambrosio.josue.tutorial.data.models
 
 data class DetalleContratoModel(
+    val id: DetalleContratoModeloId,
     val idProveedor: ProveedorModel,
     val idServicio: ServicioModel,
     val idContrato: ContratoModel,

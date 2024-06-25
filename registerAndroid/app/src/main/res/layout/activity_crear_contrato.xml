@@ -100,7 +100,7 @@
                     android:layout_marginStart="7dp"
                     android:textSize="16dp"
                     android:textColor="@color/black"
-                    android:text="Fecha de inicio"/>
+                    android:text="Hora de inicio"/>
                 <EditText
                     android:id="@+id/edtHoraInicio"
                     android:layout_width="match_parent"
@@ -155,7 +155,7 @@
                     android:textSize="16dp"
                     android:textStyle="bold"
                     android:textColor="@color/black"
-                    android:text="Fecha de Fin"/>
+                    android:text="Hora de Fin"/>
                 <EditText
                     android:id="@+id/edtHoraFin"
                     android:layout_width="match_parent"

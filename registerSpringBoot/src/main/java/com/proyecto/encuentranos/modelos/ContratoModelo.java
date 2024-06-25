@@ -32,7 +32,7 @@ public class ContratoModelo {
     private String estado;
 
     @Column(name = "precio_final")
-    private Double precioFinal;  // Cambiado a Double
+    private Double precioFinal;
 
     @Temporal(TemporalType.TIMESTAMP)
     @Column(name = "hi_servicio")
