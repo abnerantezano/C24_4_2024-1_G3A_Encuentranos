@@ -1,0 +1,4 @@
+.pylintrc
+.venv/
+.env
+db.sqlite3
