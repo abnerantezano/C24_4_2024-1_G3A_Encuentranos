@@ -20,6 +20,8 @@ import java.util.Locale
 class InicioViewModel : ViewModel() {
 
     // LiveData para datos que se utlizaran en los UI's
+    private val _idUsuario = MutableLiveData<Int>()
+    val idUsuario: LiveData<Int> get() = _idUsuario
 
     private val _idCliente = MutableLiveData<Int>()
     val idCliente: LiveData<Int> get() = _idCliente
@@ -97,25 +99,9 @@ class InicioViewModel : ViewModel() {
     }
 
     //Metodo apra obtener el ID del cliente
-    fun obtenerIdCliente(email: String) {
+    fun obtenerIdCliente() {
         ejecutarConAutenticacion { email, token ->
-            val cliente = OkHttpClient()
-            val solicitud = Request.Builder()
-                .url("$BASE_URL/cliente/buscar-usuario/$email")
-                .addHeader("Authorization", "Bearer $token")
-                .build()
-
-            cliente.newCall(solicitud).enqueue(crearCallback { respuesta ->
-                if (respuesta != null) {
-                    val jsonObject = JSONObject(respuesta)
-                    val idCliente = jsonObject.optInt("idCliente", -1)
-                    if (idCliente != -1) {
-                        _idCliente.postValue(idCliente)
-                    } else {
-                        _mensajeError.postValue("Error: Cliente no encontrado")
-                    }
-                }
-            })
+            obtenerIdClientePorEmail(email, token)
         }
     }
 
@@ -150,7 +136,7 @@ class InicioViewModel : ViewModel() {
         _mensajeError.postValue(mensajeError)
     }
 
-    // Método para obtener el ID de usuario por email
+    // Método para obtener el ID de proveedor por email
     private fun obtenerIdProveedorPorEmail(email: String, token: String?) {
         val cliente = OkHttpClient()
         val solicitud = Request.Builder()
@@ -185,6 +171,48 @@ class InicioViewModel : ViewModel() {
                 val idProveedor = jsonObject.optInt("idProveedor", -1)
                 if (idProveedor != -1) {
                     _idProveedor.postValue(idProveedor)
+                } else {
+                    _mensajeError.postValue("Error: Proveedor no encontrado")
+                }
+            }
+        })
+    }
+
+    // Método para obtener el ID de cliente por email
+    private fun obtenerIdClientePorEmail(email: String, token: String?) {
+        val cliente = OkHttpClient()
+        val solicitud = Request.Builder()
+            .url("$BASE_URL/usuario/verificar/$email")
+            .addHeader("Authorization", "Bearer $token")
+            .build()
+
+        cliente.newCall(solicitud).enqueue(crearCallback { respuesta ->
+            if (respuesta != null) {
+                val jsonObject = JSONObject(respuesta)
+                val idUsuario = jsonObject.optInt("idUsuario", -1)
+                if (idUsuario != -1) {
+                    obtenerIdClientePorIdUsuario(idUsuario, token)
+                } else {
+                    _mensajeError.postValue("Error: Usuario no encontrado")
+                }
+            }
+        })
+    }
+
+    // Método para obtener el ID de proveedor por ID de usuario
+    private fun obtenerIdClientePorIdUsuario(idUsuario: Int, token: String?) {
+        val cliente = OkHttpClient()
+        val solicitud = Request.Builder()
+            .url("$BASE_URL/cliente/buscar-usuario/$idUsuario")
+            .addHeader("Authorization", "Bearer $token")
+            .build()
+
+        cliente.newCall(solicitud).enqueue(crearCallback { respuesta ->
+            if (respuesta != null) {
+                val jsonObject = JSONObject(respuesta)
+                val idCliente = jsonObject.optInt("idCliente", -1)
+                if (idCliente != -1) {
+                    _idCliente.postValue(idCliente)
                 } else {
                     _mensajeError.postValue("Error: Proveedor no encontrado")
                 }
@@ -298,36 +326,6 @@ class InicioViewModel : ViewModel() {
                 }
             }
         }
-    }
-
-    // Método para obtener la contraseña del usuario
-    fun obtenerContrasenaUsuario() {
-        ejecutarConAutenticacion { email, token ->
-            obtenerContrasenaUsuario(email, token)
-        }
-    }
-
-    // Método privado para obtener la contraseña del usuario
-    private fun obtenerContrasenaUsuario(email: String?, token: String?) {
-        if (email == null || token == null) return
-
-        val cliente = OkHttpClient()
-        val solicitud = Request.Builder()
-            .url("$BASE_URL/usuario/verificar/$email")
-            .addHeader("Authorization", "Bearer $token")
-            .build()
-
-        cliente.newCall(solicitud).enqueue(crearCallback { respuesta ->
-            if (respuesta != null) {
-                val jsonObject = JSONObject(respuesta)
-                val contrasena = jsonObject.optString("contrasena", "")
-                if (contrasena.isNotEmpty()) {
-                    _contrasenaUsuario.postValue(contrasena)
-                } else {
-                    _mensajeError.postValue("Error: Contraseña no encontrada")
-                }
-            }
-        })
     }
 
 }

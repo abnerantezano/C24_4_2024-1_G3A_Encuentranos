@@ -16,6 +16,12 @@
         android:usesCleartextTraffic="true"
         tools:targetApi="31">
         <activity
+            android:name=".ui.activities.AceptarOCancelarContratoActivity"
+            android:exported="false" />
+        <activity
+            android:name=".ui.activities.NotificacionesActivity"
+            android:exported="false" />
+        <activity
             android:name=".ui.activities.CrearContratoActivity"
             android:exported="false" />
         <activity

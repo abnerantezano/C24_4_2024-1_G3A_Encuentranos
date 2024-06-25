@@ -12,4 +12,5 @@ public interface IDetalleContratoRepositorio extends JpaRepository<DetalleContra
 	List<DetalleContratoModelo> findByIdProveedor(ProveedorModelo proveedor);
     List<DetalleContratoModelo> findByIdContratoIdCliente(Optional<ClienteModelo> clienteId);
 	List<DetalleContratoModelo> findByIdProveedorIdProveedor(Integer idProveedor);
+	List<DetalleContratoModelo> findByIdProveedorAndIdContratoEstado(ProveedorModelo proveedor, String estado);
 }

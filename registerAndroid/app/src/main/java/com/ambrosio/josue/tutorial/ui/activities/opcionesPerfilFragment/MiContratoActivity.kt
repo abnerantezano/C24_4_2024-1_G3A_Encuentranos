@@ -1,13 +1,15 @@
 package com.ambrosio.josue.tutorial.ui.activities.opcionesPerfilFragment
 
 import android.os.Bundle
+import android.text.Editable
+import android.text.TextWatcher
 import android.view.View
 import android.widget.Toast
 import androidx.activity.viewModels
 import androidx.lifecycle.Observer
-import com.ambrosio.josue.tutorial.ui.adapters.DetalleContratoAdapater
 import com.ambrosio.josue.tutorial.databinding.ActivityMiContratoBinding
 import com.ambrosio.josue.tutorial.generals.HeaderInclude
+import com.ambrosio.josue.tutorial.ui.adapters.DetalleContratoAdapater
 import com.ambrosio.josue.tutorial.ui.viewModels.ContratoViewModel
 import com.ambrosio.josue.tutorial.ui.viewModels.InicioViewModel
 
@@ -21,7 +23,7 @@ class MiContratoActivity : HeaderInclude() {
         super.onCreate(savedInstanceState)
         binding = ActivityMiContratoBinding.inflate(layoutInflater)
         setContentView(binding.root)
-        contractsViewModel = ContratoViewModel(this)
+        contractsViewModel = ContratoViewModel()
 
         // Mostrar el ProgressBar y ocultar el contenido al iniciar la actividad
         binding.progressBar.visibility = View.VISIBLE
@@ -36,16 +38,17 @@ class MiContratoActivity : HeaderInclude() {
 
         observeViewModel()
         setupHeader()
+        setupSearch()
     }
 
     private fun observeViewModel() {
         viewModel.idProveedor.observe(this, Observer { idProveedor ->
             if (idProveedor != null) {
-                contractsViewModel.obtenerDetalleContratoPorIdProveedor(idProveedor)
+                contractsViewModel.obtenerDetalleContratoPorProveedorYEstadoAceptado(idProveedor)
             }
         })
 
-        contractsViewModel.obtenerDetalleContratoPorIdProveedor.observe(this, Observer { detalleContrato ->
+        contractsViewModel.detalleContratoPorIdProveedor.observe(this, Observer { detalleContrato ->
             binding.progressBar.visibility = View.GONE
             if (detalleContrato != null && detalleContrato.isNotEmpty()) {
                 binding.recyclerViewMensajes.visibility = View.VISIBLE
@@ -70,5 +73,26 @@ class MiContratoActivity : HeaderInclude() {
                 binding.textViewError.text = "No hubo conexión."
             }
         })
+    }
+
+    private fun setupSearch() {
+        binding.edtBuscar.addTextChangedListener(object : TextWatcher {
+            override fun beforeTextChanged(s: CharSequence?, start: Int, count: Int, after: Int) {}
+
+            override fun onTextChanged(s: CharSequence?, start: Int, before: Int, count: Int) {
+                filterContracts(s.toString())
+            }
+
+            override fun afterTextChanged(s: Editable?) {}
+        })
+    }
+
+    private fun filterContracts(query: String) {
+        val filteredList = contractsViewModel.detalleContratoPorIdProveedor.value?.filter {
+            it.idContrato.idCliente.nombre.contains(query, ignoreCase = true)
+        }
+        if (filteredList != null) {
+            adapter.submitList(filteredList)
+        }
     }
 }

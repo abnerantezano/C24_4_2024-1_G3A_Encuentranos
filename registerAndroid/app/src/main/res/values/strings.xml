@@ -101,4 +101,8 @@
     <string name="calificacion">calificacion</string>
     <string name="comentario">Comentario</string>
     <string name="ingrese_el_precio_negociado">Ingrese el precio negociado</string>
+    <string name="nuevo_contrato">¡Nuevo Contrato!</string>
+    <string name="aceptar_contrato">Aceptar Contrato</string>
+    <string name="denegar_contrato">Denegar Contrato</string>
+    <string name="buscar_contrato_por_cliente">Buscar contrato por cliente</string>
 </resources>

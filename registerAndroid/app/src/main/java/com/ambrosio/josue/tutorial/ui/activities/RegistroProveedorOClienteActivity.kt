@@ -103,8 +103,8 @@ class RegistroProveedorOClienteActivity : AppCompatActivity() {
         val apellidoMaterno = binding.editTextApellidoMaterno.text.toString()
         val fechaNacimientoStr = binding.editTextFechaNacimiento.text.toString()
         val sexo = when (binding.radioSexo.checkedRadioButtonId) {
-            R.id.radio_masculino -> "Masculino"
-            R.id.radio_femenino -> "Femenino"
+            R.id.radio_masculino -> "M"
+            R.id.radio_femenino -> "F"
             else -> ""
         }
         val dni = binding.editTextDni.text.toString()

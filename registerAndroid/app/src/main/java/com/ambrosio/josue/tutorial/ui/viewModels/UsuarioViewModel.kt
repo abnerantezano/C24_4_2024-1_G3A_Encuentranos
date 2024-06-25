@@ -2,6 +2,7 @@ package com.ambrosio.josue.tutorial.ui.viewModels
 
 import android.content.Context
 import androidx.lifecycle.ViewModel
+import com.ambrosio.josue.tutorial.data.models.ActualizarContrasenaRequest
 import com.ambrosio.josue.tutorial.data.models.TipoUsuarioModel
 import com.ambrosio.josue.tutorial.data.models.UsuarioModel
 import com.ambrosio.josue.tutorial.data.servicios.UsuarioApi
@@ -47,6 +48,28 @@ class UsuarioViewModel(
         })
     }
 
+    fun actualizarContrasena(
+        id: Int,
+        contrasenaActual: String,
+        nuevaContrasena: String,
+        onSuccess: () -> Unit,
+        onFailure: (String) -> Unit
+    ) {
+        val request = ActualizarContrasenaRequest(contrasenaActual, nuevaContrasena)
+        usuarioApi.actualizarContrasena(id, request)
+            .enqueue(object : Callback<UsuarioModel> {
+                override fun onResponse(call: Call<UsuarioModel>, response: Response<UsuarioModel>) {
+                    if (response.isSuccessful) {
+                        onSuccess()
+                    } else {
+                        onFailure("Error al actualizar la contraseña")
+                    }
+                }
 
+                override fun onFailure(call: Call<UsuarioModel>, t: Throwable) {
+                    onFailure("Error de red: ${t.message}")
+                }
+            })
+    }
 
 }

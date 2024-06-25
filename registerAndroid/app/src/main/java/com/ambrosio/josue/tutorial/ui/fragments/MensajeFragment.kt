@@ -11,6 +11,7 @@ import androidx.lifecycle.Observer
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.ambrosio.josue.tutorial.ui.adapters.MensajeAdapter
 import com.ambrosio.josue.tutorial.databinding.FragmentMensajeBinding
+import com.ambrosio.josue.tutorial.generals.HeaderPrincipal
 import com.ambrosio.josue.tutorial.ui.viewModels.MensajeViewModel
 
 class MensajeFragment : Fragment() {
@@ -30,6 +31,10 @@ class MensajeFragment : Fragment() {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
+
+        // Configurar el encabezado
+        val headerPrincipal = HeaderPrincipal(binding.root)
+        headerPrincipal.setupHeader()
 
         // Mostrar el ProgressBar al iniciar la vista
         binding.progressBar.visibility = View.VISIBLE

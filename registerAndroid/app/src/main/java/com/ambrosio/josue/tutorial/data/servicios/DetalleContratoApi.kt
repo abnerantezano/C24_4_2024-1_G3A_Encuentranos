@@ -11,10 +11,19 @@ interface DetalleContratoApi {
 
     @POST("detalle-contrato/crear")
     fun detalleContratoAgregar(@Body contrato: DetalleContratoModel): Call<DetalleContratoModel>
+
     @GET("detalle-contrato/listar")
     fun listarDetallesContratos(): Call<List<DetalleContratoModel>>
 
     @GET("detalle-contrato/proveedor/{idProveedor}")
-    fun obtenerDetalleContratoPorIdProveedor(@Path("idProveedor") idContrato: Int): Call<List<DetalleContratoModel>>
+    fun obtenerDetalleContratoPorIdProveedor(@Path("idProveedor") idProveedor: Int): Call<List<DetalleContratoModel>>
 
+    @GET("detalle-contrato/proveedor-pendientes/{idProveedor}")
+    fun obtenerDetalleContratoPorProveedorYEstadoPendiente(@Path("idProveedor") idProveedor: Int): Call<List<DetalleContratoModel>>
+
+    @GET("detalle-contrato/proveedor-aceptados/{idProveedor}")
+    fun obtenerDetalleContratoPorProveedorYEstadoAceptado(@Path("idProveedor") idProveedor: Int): Call<List<DetalleContratoModel>>
+
+    @GET("detalle-contrato/cliente/{clienteId}")
+    fun obtenerDetalleContratoPorCliente(@Path("clienteId") clienteId: Int): Call<List<DetalleContratoModel>>
 }

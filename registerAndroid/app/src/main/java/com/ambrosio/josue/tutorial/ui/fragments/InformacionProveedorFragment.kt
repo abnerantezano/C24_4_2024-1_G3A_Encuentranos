@@ -8,6 +8,7 @@ import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
 import androidx.lifecycle.Observer
 import com.ambrosio.josue.tutorial.databinding.FragmentInformacionProveedorBinding
+import com.ambrosio.josue.tutorial.generals.HeaderPrincipal
 import com.ambrosio.josue.tutorial.ui.viewModels.InicioViewModel
 
 class InformacionProveedorFragment : Fragment() {
@@ -26,6 +27,10 @@ class InformacionProveedorFragment : Fragment() {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
+
+        // Configurar el encabezado
+        val headerPrincipal = HeaderPrincipal(binding.root)
+        headerPrincipal.setupHeader()
 
         viewModel.nombreUsuario.observe(viewLifecycleOwner, Observer { name ->
             binding.tvNombreProveedor.text = name

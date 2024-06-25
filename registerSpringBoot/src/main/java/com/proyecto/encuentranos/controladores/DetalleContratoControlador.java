@@ -44,6 +44,22 @@ public class DetalleContratoControlador {
         return ResponseEntity.ok(detalles);
     }
 
+    @GetMapping("/proveedor-pendientes/{proveedorId}")
+    public ResponseEntity<List<DetalleContratoModelo>> obtenerDetalleContratoPorProveedorYEstadoPendiente(@PathVariable Integer proveedorId) {
+        ProveedorModelo proveedor = new ProveedorModelo();
+        proveedor.setIdProveedor(proveedorId);
+        List<DetalleContratoModelo> detalles = detalleContratoServicio.obtenerDetalleContratoPorProveedorYEstadoPendiente(proveedor);
+        return ResponseEntity.ok(detalles);
+    }
+
+    @GetMapping("/proveedor-aceptados/{proveedorId}")
+    public ResponseEntity<List<DetalleContratoModelo>> obtenerDetalleContratoPorProveedorYEstadoAceptado(@PathVariable Integer proveedorId) {
+        ProveedorModelo proveedor = new ProveedorModelo();
+        proveedor.setIdProveedor(proveedorId);
+        List<DetalleContratoModelo> detalles = detalleContratoServicio.obtenerDetalleContratoPorProveedorYEstadoAceptado(proveedor);
+        return ResponseEntity.ok(detalles);
+    }
+
     @GetMapping("/cliente/{clienteId}")
     public ResponseEntity<List<DetalleContratoModelo>> obtenerDetalleContratoPorCliente(@PathVariable Integer clienteId) {
         Optional<ClienteModelo> cliente = clienteServicio.encontrarClientePorId(clienteId);

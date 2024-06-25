@@ -28,10 +28,20 @@ public class DetalleContratoServicio {
     public List<DetalleContratoModelo> obtenerDetalleContratos(){
         return detalleContratoRepositorio.findAll();
     }
-    
+
     // OBTENER DETALLES CONTRATOS POR PROVEEDOR
     public List<DetalleContratoModelo> obtenerDetalleContratoPorProveedor(ProveedorModelo proveedor){
         return detalleContratoRepositorio.findByIdProveedor(proveedor);
+    }
+
+    // OBTENER DETALLES CONTRATOS POR PROVEEDOR Y ESTADO PENDIENTE
+    public List<DetalleContratoModelo> obtenerDetalleContratoPorProveedorYEstadoPendiente(ProveedorModelo proveedor){
+        return detalleContratoRepositorio.findByIdProveedorAndIdContratoEstado(proveedor, "Pendiente");
+    }
+
+    // OBTENER DETALLES CONTRATOS POR PROVEEDOR Y ESTADO ACEPTADO
+    public List<DetalleContratoModelo> obtenerDetalleContratoPorProveedorYEstadoAceptado(ProveedorModelo proveedor){
+        return detalleContratoRepositorio.findByIdProveedorAndIdContratoEstado(proveedor, "Progreso");
     }
     
     // OBTENER DETALLES CONTRATOS POR CLIENTE

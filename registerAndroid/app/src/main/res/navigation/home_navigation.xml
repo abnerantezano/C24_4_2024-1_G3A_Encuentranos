@@ -8,12 +8,20 @@
         android:id="@+id/inicioFragment"
         android:name="com.ambrosio.josue.tutorial.ui.fragments.InicioFragment"
         android:label="fragment_inicio"
-        tools:layout="@layout/fragment_inicio" />
+        tools:layout="@layout/fragment_inicio" >
+        <action
+            android:id="@+id/action_inicioFragment_to_serviciosFragment"
+            app:destination="@id/serviciosFragment" />
+    </fragment>
     <fragment
         android:id="@+id/serviciosFragment"
         android:name="com.ambrosio.josue.tutorial.ui.fragments.ServiciosFragment"
-        android:label="fragment_servicios"
-        tools:layout="@layout/fragment_servicios" />
+        android:label="Servicios"
+        tools:layout="@layout/fragment_servicios">
+        <action
+            android:id="@+id/action_serviciosFragment_to_inicioFragment"
+            app:destination="@id/inicioFragment" />
+    </fragment>
     <fragment
         android:id="@+id/servicioProveedorFragment"
         android:name="com.ambrosio.josue.tutorial.ui.fragments.ServicioProveedorFragment"

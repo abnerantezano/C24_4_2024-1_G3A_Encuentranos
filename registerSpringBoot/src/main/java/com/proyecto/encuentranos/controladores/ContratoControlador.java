@@ -45,9 +45,9 @@ public class ContratoControlador {
         return new ResponseEntity<>(contratos, HttpStatus.OK);
     }
     
-    @PutMapping("/aceptar-proveedor")
-    public ResponseEntity<ContratoModelo> aceptarContratoProveedor(@RequestBody ContratoModelo contrato) {
-        ContratoModelo contratoAceptado = contratoServicio.aceptarContratoProveedor(contrato);
+    @PutMapping("/aceptar-proveedor/{idContrato}")
+    public ResponseEntity<ContratoModelo> aceptarContratoProveedor(@PathVariable int idContrato) {
+        ContratoModelo contratoAceptado = contratoServicio.aceptarContratoProveedor(idContrato);
         if (contratoAceptado != null) {
             return new ResponseEntity<>(contratoAceptado, HttpStatus.OK);
         } else {
@@ -55,9 +55,9 @@ public class ContratoControlador {
         }
     }
     
-    @PutMapping("/denegar-proveedor")
-    public ResponseEntity<ContratoModelo> denegarContratoProveedor(@RequestBody ContratoModelo contrato) {
-        ContratoModelo contratoDenegado = contratoServicio.denegarContratoProveedor(contrato);
+    @PutMapping("/denegar-proveedor/{idContrato}")
+    public ResponseEntity<ContratoModelo> denegarContratoProveedor(@PathVariable int idContrato) {
+        ContratoModelo contratoDenegado = contratoServicio.denegarContratoProveedor(idContrato);
         if (contratoDenegado != null) {
             return new ResponseEntity<>(contratoDenegado, HttpStatus.OK);
         } else {

@@ -6,6 +6,7 @@ import androidx.lifecycle.ViewModel
 import com.ambrosio.josue.tutorial.RetrofitClient
 import com.ambrosio.josue.tutorial.data.models.ServicioModel
 import com.ambrosio.josue.tutorial.data.models.ServicioProveedorModel
+import com.ambrosio.josue.tutorial.data.models.ServicioProveedorModeloId
 import retrofit2.Call
 import retrofit2.Callback
 import retrofit2.Response
@@ -129,5 +130,38 @@ class ServicioProveedorViewModel : ViewModel() {
                 }
             }
             )
+    }
+
+    fun actualizarServicioProveedor(servicioProveedor: ServicioProveedorModel, callback: (Boolean) -> Unit) {
+        servicioProveedorApi.actualizarServicioProveedor(servicioProveedor).enqueue(object : Callback<ServicioProveedorModel> {
+            override fun onResponse(call: Call<ServicioProveedorModel>, response: Response<ServicioProveedorModel>) {
+                if (response.isSuccessful) {
+                    callback(true)
+                } else {
+                    callback(false)
+                }
+            }
+
+            override fun onFailure(call: Call<ServicioProveedorModel>, t: Throwable) {
+                callback(false)
+            }
+        })
+    }
+
+    fun eliminarServicioProveedor(id: ServicioProveedorModeloId, callback: (Boolean) -> Unit) {
+        servicioProveedorApi.eliminarServicioProveedor(id.idServicio, id.idProveedor)
+            .enqueue(object : Callback<Void> {
+                override fun onResponse(call: Call<Void>, response: Response<Void>) {
+                    if (response.isSuccessful) {
+                        callback(true)
+                    } else {
+                        callback(false)
+                    }
+                }
+
+                override fun onFailure(call: Call<Void>, t: Throwable) {
+                    callback(false)
+                }
+            })
     }
 }

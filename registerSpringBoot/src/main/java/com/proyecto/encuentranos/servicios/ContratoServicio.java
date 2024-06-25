@@ -49,19 +49,20 @@ public class ContratoServicio {
     }
 
     //SE CAMBIA EL MODO DEL CONTRATO A ACTIVO CUANDO EL PROVEEDOR ACEPTE
-    public ContratoModelo aceptarContratoProveedor(ContratoModelo contrato) {
+    public ContratoModelo aceptarContratoProveedor(int idContrato) {
+        ContratoModelo contratoExistente = contratoRepositorio.findById(idContrato)
+                .orElseThrow(() -> new RuntimeException("Contrato no encontrado"));
 
-        ContratoModelo contratoExistente = contratoRepositorio.findById(contrato.getIdContrato()).orElseThrow(() -> new RuntimeException("Contrato no encontrado"));
-
-        contratoExistente.setEstado("Aceptado");
+        contratoExistente.setEstado("Progreso");
 
         return contratoRepositorio.save(contratoExistente);
     }
     
     //SE CAMBIA EL MODO DEL CONTRATO A CANCELADO SI EL PROVEEDOR CANCELA
-    public ContratoModelo denegarContratoProveedor(ContratoModelo contrato) {
-        ContratoModelo contratoExistente = contratoRepositorio.findById(contrato.getIdContrato()).orElseThrow(() -> new RuntimeException("Contrato no encontrado"));
-        
+    public ContratoModelo denegarContratoProveedor(int idContrato) {
+        ContratoModelo contratoExistente = contratoRepositorio.findById(idContrato)
+                .orElseThrow(() -> new RuntimeException("Contrato no encontrado"));
+
         contratoExistente.setEstado("Cancelado");
 
         return contratoRepositorio.save(contratoExistente);

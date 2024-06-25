@@ -16,6 +16,7 @@ import com.ambrosio.josue.tutorial.R
 import com.ambrosio.josue.tutorial.ui.adapters.ServicioProveedorAdapter
 import com.ambrosio.josue.tutorial.databinding.FragmentServicioProveedorBinding
 import com.ambrosio.josue.tutorial.data.models.ServicioProveedorModel
+import com.ambrosio.josue.tutorial.generals.HeaderPrincipal
 import com.ambrosio.josue.tutorial.ui.viewModels.ServicioProveedorViewModel
 
 class ServicioProveedorFragment : Fragment() {
@@ -39,6 +40,10 @@ class ServicioProveedorFragment : Fragment() {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
+
+        // Configurar el encabezado
+        val headerPrincipal = HeaderPrincipal(binding.root)
+        headerPrincipal.setupHeader()
 
         binding.progressBar.visibility = View.VISIBLE
         binding.recyclerViewProveedores.visibility = View.GONE

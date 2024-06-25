@@ -1,6 +1,5 @@
 package com.ambrosio.josue.tutorial.ui.fragments
 
-import android.content.Intent
 import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
@@ -9,7 +8,10 @@ import android.widget.Toast
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
 import androidx.lifecycle.Observer
+import androidx.navigation.fragment.findNavController
+import com.ambrosio.josue.tutorial.R
 import com.ambrosio.josue.tutorial.databinding.FragmentInicioBinding
+import com.ambrosio.josue.tutorial.generals.HeaderPrincipal
 import com.ambrosio.josue.tutorial.ui.viewModels.InicioViewModel
 
 class InicioFragment : Fragment() {
@@ -29,6 +31,10 @@ class InicioFragment : Fragment() {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
+        // Configurar el encabezado
+        val headerPrincipal = HeaderPrincipal(binding.root)
+        headerPrincipal.setupHeader()
+
         // Mostrar el ProgressBar al iniciar la vista
         binding.progressBar.visibility = View.VISIBLE
         binding.content.visibility = View.GONE
@@ -46,17 +52,16 @@ class InicioFragment : Fragment() {
         })
 
         viewModel.verificarAutenticacionUsuario()
-        goServicios()
+        setupNavigation()
     }
 
     private fun showToast(message: String) {
         Toast.makeText(context, message, Toast.LENGTH_SHORT).show()
     }
 
-    private fun goServicios() {
+    private fun setupNavigation() {
         binding.btnBuscarServicios.setOnClickListener {
-            val intent = Intent(activity, ServiciosFragment::class.java)
-            startActivity(intent)
+            findNavController().navigate(R.id.action_inicioFragment_to_serviciosFragment)
         }
     }
 

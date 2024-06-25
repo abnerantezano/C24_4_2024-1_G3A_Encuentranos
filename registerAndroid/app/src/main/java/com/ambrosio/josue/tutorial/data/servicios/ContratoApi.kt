@@ -17,11 +17,11 @@ interface ContratoApi {
     fun listarContratos(): Call<List<ContratoModel>>
 
     @GET("contrato/listar/cliente/{idCliente}")
-    fun listarContratoPorIdContrato(@Path("idCliente") idCliente: Int): Call<ContratoModel>
+    fun listarContratoPorIdCliente(@Path("idCliente") idCliente: Int): Call<ContratoModel>
 
-    @PUT("contrato/aceptar-proveedor")
-    fun aceptarContratoProveedor(@Body contrato: ContratoModel): Call<ContratoModel>
+    @PUT("contrato/aceptar-proveedor/{idContrato}")
+    fun aceptarContratoProveedor(@Path("idContrato") idContrato: Int): Call<ContratoModel>
 
-    @PUT("contrato/denegar-proveedor")
-    fun denegarContratoProveedor(@Body contrato: ContratoModel): Call<ContratoModel>
+    @PUT("contrato/denegar-proveedor/{idContrato}")
+    fun denegarContratoProveedor(@Path("idContrato") idContrato: Int): Call<ContratoModel>
 }

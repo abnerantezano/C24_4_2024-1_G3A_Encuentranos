@@ -6,7 +6,7 @@ data class ServicioProveedorModel(
         idProveedor = 1,
         idDistrito = DistritoModel(1)
     ),
-    val idServicio: ServicioModel,
-    val precio: Double = 0.0,
+    var idServicio: ServicioModel,
+    var precio: Double = 0.0,
     val negociable: Boolean = false
 )
