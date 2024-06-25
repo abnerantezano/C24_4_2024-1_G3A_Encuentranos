@@ -1,270 +1,143 @@
 import React, { useState, useEffect } from "react";
 import { useNavigate } from "react-router-dom";
-//REACT HOOK FORM
-import { useForm } from "react-hook-form";
+// PRIME REACT
+import { InputText } from 'primereact/inputtext';
 // FONT AWESOME
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import { faMinus } from "@fortawesome/free-solid-svg-icons";
-//PRIME REACT
-import { Dialog } from "primereact/dialog";
-import { Button } from "primereact/button";
-//AXIOS
+import { faMagnifyingGlass } from "@fortawesome/free-solid-svg-icons";
+// AXIOS
 import ServiciosService from "../servicios/Servicios";
+import EditarModal from "../componentes/Modal/Servicios/Editar";
+import CrearModal from "../componentes/Modal/Servicios/Crear"; // Importa el modal de creación
 
 function Servicios() {
-  //PROPIEDADES DE REACT HOOK FORM
-  const {
-    register,
-    handleSubmit,
-    formState: { errors },
-  } = useForm();
 
-  //DECLARAR UNA VARIABLE PARA LA NAVEGACIÓN
+  // DECLARAR UNA VARIABLE PARA LA NAVEGACIÓN
   const navigate = useNavigate();
 
   const [servicios, setServicios] = useState([]);
-  const [id_servicio, setIdServicio] = useState();
-  const [data, setData] = useState([]);
+  const [filteredServicios, setFilteredServicios] = useState([]);
+  
+  const [selectedServicio, setSelectedServicio] = useState(null);
+  const [isModalOpen, setIsModalOpen] = useState(false);
+  const [isEdit, setIsEdit] = useState(false); 
 
-  //LLAMAR LA LISTA DE SERVICIOS
+  const [busqueda, setBusqueda] = useState("");
+
+  // LLAMAR LA LISTA DE SERVICIOS
   useEffect(() => {
+    getServicios();
+  }, []);
+
+  const getServicios = () => {
     ServiciosService.getLista()
       .then((ServicioResponse) => {
         setServicios(ServicioResponse);
+        setFilteredServicios(ServicioResponse);
       })
       .catch((error) => {
         console.log(error);
       });
-  }, []);
+  };
 
   const eliminarServicio = (idServicio) => {
     ServiciosService.deleteServicio(idServicio)
       .then((response) => {
         console.log(response);
+        setServicios(servicios.filter(servicio => servicio.id_servicio !== idServicio));
+        setFilteredServicios(filteredServicios.filter(servicio => servicio.id_servicio !== idServicio));
       })
       .catch((error) => {
         console.log(error);
       });
   };
 
-  const editarServicio = (data, idServicio) => {
-    const datos = {
-      nombre: data.nombre,
-      descripcion: data.descripcion,
-    };
-
-    ServiciosService.putServicio(datos, idServicio)
-      .then((response) => {
-        console.log(response);
-        console.log("Servicio actualizado");
-      })
-      .catch((error) => {
-        console.log(error);
-      });
-
-    navigate("/servicios");
+  const openModal = (servicio = null) => {
+    setSelectedServicio(servicio);
+    setIsEdit(!!servicio); // Establece true si hay un servicio (editar), false si no (crear)
+    setIsModalOpen(true);
   };
 
-  const agregarServicio = (data) => {
-    const servicio = {
-      nombre: data.nombre,
-      descripcion: data.descripcion,
-    };
+  const closeModal = () => {
+    setSelectedServicio(null);
+    setIsModalOpen(false);
+  };
 
-    console.log(servicio);
-
-    ServiciosService.postServicio(servicio)
-      .then((response) => {
-        console.log(response);
-      })
-      .catch((error) => {
-        console.log(error);
-      });
-
-    navigate("/servicios");
+  const handleSearchChange = (e) => {
+    setBusqueda(e.target.value);
+    if (e.target.value === "") {
+      setFilteredServicios(servicios); // Si el campo de búsqueda está vacío, muestra todos los servicios
+    } else {
+      setFilteredServicios(
+        servicios.filter((servicio) =>
+          servicio.nombre.toLowerCase().includes(e.target.value.toLowerCase())
+        )
+      );
+    }
   };
 
   return (
-    <div>
-      <h1 className="mb-5">Servicios</h1>
-      {/*<form className="flex items-center mb-5 ">
-        <div className="mx-4 ">
-          <input
-            type="text"
-            className="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5"
-            placeholder="Nombre del servicio"
-            required
-          />
-        </div>
-        <button className="text-white bg-blue-700 hover:bg-blue-800 focus:ring-4 focus:outline-none focus:ring-blue-300 font-medium rounded-lg text-sm w-full sm:w-auto p-2 text-center">
-          Buscar
-        </button>
-      </form>*/}
-      <form
-        onSubmit={handleSubmit((data) => editarServicio(data, id_servicio))}
-      >
+    <div className='mx-10'>
+      <h1 className="mb-10 text-3xl font-bold text-[#8f5132]">Servicios</h1>
+      <div className="flex flex-wrap items-center justify-between mb-10">
+        <form className="w-1/2">
+          <div className="relative">
+            <div className="absolute inset-y-0 left-0 flex items-center pl-3 pointer-events-none">
+              <FontAwesomeIcon icon={faMagnifyingGlass} className="w-4 h-4 text-[#787171]" />
+            </div>
+            <InputText type="text" className="block w-full p-2 pl-10 text-sm text-[#787171] border rounded-lg bg-[#fcfcfc] focus:ring-2 focus:ring-orange-200" placeholder="Nombre del servicio" value={busqueda} onChange={handleSearchChange} />
+          </div>
+        </form>
         <div>
-          <label>Editar servicio</label>
-          <select
-            value={parseInt(id_servicio)}
-            onChange={(e) => setIdServicio(e.target.value)}
-            id="countries"
-            className="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
-          >
-            <option value="">Choose a service</option>{" "}
-            {servicios.map((servicio) => (
-              <option key={servicio.id_servicio} value={servicio.id_servicio}>
-                {servicio.id_servicio}
-              </option>
-            ))}
-          </select>
-          <input
-            name="nombre"
-            {...register("nombre", { required: true })}
-            type="text"
-            className="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 mb-5"
-            placeholder="Nombre del servicio"
-          />
-          {errors.nombre && (
-            <span className="text-red-500 text-sm">
-              Ingrese el nombre del servicio
-            </span>
-          )}
-          {errors.nombre && (
-            <span className="text-red-500 text-sm">
-              Ingrese el nombre del servicio
-            </span>
-          )}
-          <textarea
-            rows="4"
-            name="descripcion"
-            placeholder="Descripción del servicio"
-            {...register("descripcion", { required: true })}
-            className="w-full px-0 text-sm text-gray-900 bg-white p-2.5 px-2.5 rounded-lg bg-gray-50 border border-gray-300 dark:bg-gray-800 focus:ring-0 mb-50"
-          ></textarea>
-          {errors.descripcion && (
-            <span className="text-red-500 text-sm">
-              Llene la descripción del servicio
-            </span>
-          )}
+          <button onClick={() => openModal()} className="bg-[#E8A477] hover:bg-[#BC7547] p-2 px-4 rounded-lg text-sm text-white font-semibold focus:ring-4 focus:ring-orange-200">
+            Agregar servicio
+          </button>
         </div>
-        <button
-          type="submit"
-          className="bg-gray-500 p-2 text-white px-2 rounded-lg px-0 text-sm text-gray-900 bg-white border-1"
-        >
-          Editar
-        </button>
-      </form>
-
-      {/*</form>
-      <form onSubmit={handleSubmit(agregarServicio)}>
-        <div>
-          <label>Agregar un servicio</label>
-          <input
-            name="nombre"
-            {...register("nombre", { required: true })}
-            type="text"
-            className="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 mb-5"
-            placeholder="Nombre del servicio"
-          />
-          {errors.nombre && (
-            <span className="text-red-500 text-sm">
-              Ingrese el nombre del servicio
-            </span>
-          )}
-          <textarea
-            rows="4"
-            name="descripcion"
-            placeholder="Descripción del servicio"
-            {...register("descripcion", { required: true })}
-            className="w-full px-0 text-sm text-gray-900 bg-white p-2.5 px-2.5 rounded-lg bg-gray-50 border border-gray-300 dark:bg-gray-800 focus:ring-0 mb-50"
-          ></textarea>
-          {errors.descripcion && (
-            <span className="text-red-500 text-sm">
-              Llene la descripción del servicio
-            </span>
-          )}
-        </div>
-        <button
-          type="submit"
-          className="bg-gray-500 p-2 text-white px-2 rounded-lg px-0 text-sm text-gray-900 bg-white border-1"
-        >
-          Agregar
-        </button>
-        </form>*/}
-      {/*<div className="flex justify-end mb-5">
-        <button class="text-white bg-blue-700 hover:bg-blue-800 focus:ring-4 focus:outline-none focus:ring-blue-300 font-medium rounded-lg text-sm w-full sm:w-auto px-5 py-2.5 text-center">
-          Agregar
-        </button>
-        <Button
-          label="Show"
-          icon="pi pi-external-link"
-          onClick={() => {
-            setVisible(true);
-            agregarServicio();
-          }}
-        />
-        <Dialog
-          header="Header"
-          visible={visible}
-          style={{ width: "50vw" }}
-          onHide={() => setVisible(false)}
-        >
-          <p className="m-0">
-            Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do
-            eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim
-            ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut
-            aliquip ex ea commodo consequat. Duis aute irure dolor in
-            reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla
-            pariatur. Excepteur sint occaecat cupidatat non proident, sunt in
-            culpa qui officia deserunt mollit anim id est laborum.
-          </p>
-        </Dialog>
-        </div>*/}
-      <div class="relative overflow-x-auto shadow-md sm:rounded-lg">
-        <table class="w-full text-sm text-left rtl:text-right text-gray-500 dark:text-gray-400">
-          <thead class="text-xs text-gray-700 uppercase bg-gray-50 dark:bg-gray-700 dark:text-gray-400">
+      </div>
+      <div className="relative overflow-x-auto shadow-md sm:rounded-lg">
+        <table className="w-full text-sm text-left rtl:text-right text-gray-500">
+          <thead className="text-xs text-gray-700 uppercase bg-[#ffdbca]">
             <tr>
-              <th scope="col" class="px-6 py-3">
+              <th scope="col" className="px-6 py-3 font-bold text-[#BC7547]">
                 ID
               </th>
-              <th scope="col" class="px-6 py-3">
+              <th scope="col" className="px-6 py-3 font-bold text-[#BC7547]">
                 NOMBRE
               </th>
-              <th scope="col" class="px-6 py-3">
+              <th scope="col" className="px-6 py-3 font-bold text-[#BC7547]">
                 DESCRIPCIÓN
               </th>
-              <th scope="col" class="px-6 py-3">
-                <span class="sr-only">Edit</span>
+              <th scope="col" className="px-6 py-3 font-bold text-[#BC7547]">
+                <span className="sr-only">Edit</span>
               </th>
-              <th scope="col" class="px-6 py-3">
-                <span class="sr-only">Eliminar</span>
+              <th scope="col" className="px-6 py-3 font-bold text-[#BC7547]">
+                <span className="sr-only">Eliminar</span>
               </th>
             </tr>
           </thead>
           <tbody>
-            {servicios.map((servicio) => (
+            {filteredServicios.map((servicio) => (
               <tr
                 key={servicio.id_servicio}
-                class="bg-white border-b dark:bg-gray-800 dark:border-gray-700"
+                className="bg-white border-b"
               >
                 <th
                   scope="row"
-                  class="px-6 py-4 font-medium text-gray-900 whitespace-nowrap dark:text-white"
+                  className="px-6 py-4 font-medium text-gray-900 whitespace-nowrap dark:text-white"
                 >
                   {servicio.id_servicio}
                 </th>
-                <td class="px-6 py-4">{servicio.nombre}</td>
-                <td class="px-6 py-4">{servicio.descripcion}</td>
-                <td class="px-6 py-4 text-right">
-                  <button class="font-medium text-blue-600 dark:text-blue-500 hover:underline">
-                    Edit
+                <td className="px-6 py-4">{servicio.nombre}</td>
+                <td className="px-6 py-4">{servicio.descripcion}</td>
+                <td className="px-6 py-4 text-right">
+                  <button onClick={() => openModal(servicio)} className="font-semibold text-[#BC7547]">
+                    Editar
                   </button>
                 </td>
-                <td class="px-6 py-4 text-right">
+                <td className="px-6 py-4 text-right">
                   <button
                     onClick={() => eliminarServicio(servicio.id_servicio)}
-                    class="font-medium text-blue-600 dark:text-blue-500 hover:underline"
+                    className="font-semibold text-[#BC7547]"
                   >
                     Eliminar
                   </button>
@@ -274,6 +147,13 @@ function Servicios() {
           </tbody>
         </table>
       </div>
+      {isModalOpen && (
+        isEdit ? (
+          <EditarModal servicio={selectedServicio} closeModal={closeModal} funcion={getServicios} />
+        ) : (
+          <CrearModal closeModal={closeModal} funcion={getServicios} />
+        )
+      )}
     </div>
   );
 }

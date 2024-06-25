@@ -1,29 +1,32 @@
 import axios from "axios";
 
 class Servicio {
-  baseUrl = "http://localhost:8000/encuentranos/";
+  
+  constructor(){
+    this.baseUrl = "http://localhost:8000/api/v1/servicios";
+  }
 
   getLista() {
     return axios
-      .get(this.baseUrl + "api/v1/servicios/")
+      .get(this.baseUrl)
       .then((res) => res.data);
   }
 
   postServicio(servicio) {
     return axios
-      .post(this.baseUrl + "api/v1/servicios/", servicio)
+      .post(this.baseUrl, servicio)
       .then((res) => res.data);
   }
 
   deleteServicio(id_servicio) {
     return axios
-      .delete(this.baseUrl + `api/v1/servicios/detalle/${id_servicio}`)
+      .delete(this.baseUrl + `/${id_servicio}`)
       .then((res) => res.data);
   }
 
   putServicio(datos, id_servicio) {
     return axios
-      .put(this.baseUrl + `api/v1/servicios/detalle/${id_servicio}`, datos)
+      .put(this.baseUrl + `/${id_servicio}`, datos)
       .then((res) => res.data);
   }
 }
