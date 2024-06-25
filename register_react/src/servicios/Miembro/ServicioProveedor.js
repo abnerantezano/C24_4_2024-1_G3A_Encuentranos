@@ -86,6 +86,26 @@ class ServicioProveedorService {
         });
     }
     
+    //TENER LA LISTA DE LOS SERVICIOS NEGOCIABLES DEL PROVEEDOR
+    getServiciosNegociables(idproveedor) {
+        return axios.get(`${this.baseUrl}/negociables/${idproveedor}`, { withCredentials: true })
+        .then(res => res.data)
+        .catch(error => {
+            console.error('Error al obtener servicios negociables del proveedor: ', error);
+            throw error;
+        });
+    }
+
+    //TENER LA LISTA DE LOS SERVICIOS NO NEGOCIABLES DEL PROVEEDOR
+    getServiciosNoNegociables(idproveedor) {
+        return axios.get(`${this.baseUrl}/no-negociables/${idproveedor}`, { withCredentials: true })
+        .then(res => res.data)
+        .catch(error => {
+            console.error('Error al obtener servicios negociables del proveedor: ', error);
+            throw error;
+        });
+    }
+
 }
 
 const servicioProveedorServiceInstance = new ServicioProveedorService();

@@ -21,6 +21,7 @@ import Servicios from './paginas/Miembro/Servicios';
 import Precios from './paginas/Miembro/Precios';
 import Configuracion from './componentes/Diseños/Configuracion_perfil';
 import PerfilProveedor from './paginas/Miembro/PerfilProveedor';
+import BandejaDeEntrada from './paginas/Miembro/BandejaDeEntrada';
 
 function App() {
 
@@ -74,6 +75,8 @@ function App() {
             <Route exact path='/precios' element={<Precios/>} />
             <Route path='/configuracion/*' element={<Configuracion />} />
             <Route exact path='/proveedor/perfil/:id' element={<PerfilProveedor />} />
+            <Route path='/bandeja' element={<BandejaDeEntrada />} />
+            <Route path='/bandeja/:id' element={<BandejaDeEntrada />} />
           </Routes>
         </div>
         {isLoggedIn ? <FooterAutenticado /> : <Footer />}

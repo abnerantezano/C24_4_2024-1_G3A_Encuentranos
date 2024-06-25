@@ -39,7 +39,7 @@ const ModalS_IPersonal = ({ usuario, Modal }) => {
     }, []);
 
     const actualizar = (data, usuario) => {
-        // Your update logic here
+       
     };
 
     return (

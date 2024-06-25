@@ -6,26 +6,23 @@ import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faBars, faComment, faBell } from '@fortawesome/free-solid-svg-icons';
 //COMPONENTES
 import DropDownPerfil from '../Dropdown/DropDownPerfil';
-import DropdownMensaje from '../Dropdown/DropdownMensaje';
 import DropdownNotificaciones from '../Dropdown/DropdownNotificaciones';
 import InformacionProveedor from '../Informacion/InformacionProveedor';
 import InformacionCliente from '../Informacion/InformacionCliente';
 import Rol from '../Rol';
 
 export const HeaderAutenticado = () => {
-  const [abrirMensaje, setAbrirMensaje] = useState(false);
+
   const [abrirNotificacion, setAbrirNotificacion] = useState(false);
   const [abrirPerfil, setAbrirPerfil] = useState(false);
 
   const location = useLocation();
 
   useEffect(() => {
-    setAbrirMensaje(false);
     setAbrirNotificacion(false);
     setAbrirPerfil(false);
   }, [location]);
 
-  const mensajeRef = useRef(null);
   const notificacionRef = useRef(null);
   const perfilRef = useRef(null);
 
@@ -40,10 +37,10 @@ export const HeaderAutenticado = () => {
                   <img src={logo} className="h-auto w-36 p-2" alt="Logo de texto" />
                 </Link>
                 <div className="flex items-center md:order-2 space-x-3 md:space-x-0 rtl:space-x-reverse">
-                  <button type="button" onClick={() => setAbrirMensaje((prev) => !prev)} ref={mensajeRef} className="flex text-lg text-gray-400 md:me-0 pe-4">
+                  <Link to="/bandeja" className="flex text-lg text-gray-400 md:me-0 pe-4">
                     <span className="sr-only">Mensajes</span>
                     <FontAwesomeIcon icon={faComment} />
-                  </button>
+                  </Link>
                   <button type="button" onClick={() => setAbrirNotificacion((prev) => !prev)} ref={notificacionRef} className="flex text-lg md:me-0 text-gray-400 pe-4">
                     <span className="sr-only">Notificaciones</span>
                     <FontAwesomeIcon icon={faBell} />
@@ -95,7 +92,6 @@ export const HeaderAutenticado = () => {
                 </div>
               </div>
             </nav>
-            {abrirMensaje && <DropdownMensaje onClose={() => setAbrirMensaje(false)} />}
             {abrirNotificacion && <DropdownNotificaciones  onClose={() => setAbrirNotificacion(false)} />}
             {abrirPerfil && <DropDownPerfil onClose={() => setAbrirPerfil(false)} />}
           </header>
