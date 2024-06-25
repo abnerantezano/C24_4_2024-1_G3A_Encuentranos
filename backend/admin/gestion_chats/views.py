@@ -26,7 +26,7 @@ class MensajeAPIView(APIView):
 class MensajeDetailAPIView(APIView):
     def get_object(self, id_chat, id_mensaje):
         try:
-            return Mensaje.objects.get(id_chat=id_chat, id=id_mensaje)
+            return Mensaje.objects.get(id_chat=id_chat, id_mensaje=id_mensaje)
         except Mensaje.DoesNotExist:
             raise Http404
 

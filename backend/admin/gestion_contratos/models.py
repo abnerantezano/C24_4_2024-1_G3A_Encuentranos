@@ -4,7 +4,7 @@ from gestion_usuarios.models import Cliente, Proveedor
 
 class Contrato(models.Model):
     id_contrato = models.AutoField(primary_key=True)
-    id_cliente = models.ForeignKey(Cliente, on_delete=models.CASCADE)
+    id_cliente = models.ForeignKey(Cliente, on_delete=models.CASCADE, db_column='id_cliente')
     estado = models.CharField(max_length=45)
     precio_final = models.FloatField()
     fecha_inicio = models.DateField()
@@ -17,9 +17,9 @@ class Contrato(models.Model):
         db_table = 'contrato'
 
 class DetalleContrato(models.Model):
-    id_contrato = models.ForeignKey(Contrato, on_delete=models.CASCADE)
-    id_servicio = models.ForeignKey(Servicio, on_delete=models.CASCADE)
-    id_proveedor = models.ForeignKey(Proveedor, on_delete=models.CASCADE)
+    id_contrato = models.ForeignKey(Contrato, on_delete=models.CASCADE, db_column='id_contrato')
+    id_servicio = models.ForeignKey(Servicio, on_delete=models.CASCADE, db_column='id_servicio')
+    id_proveedor = models.ForeignKey(Proveedor, on_delete=models.CASCADE, db_column='id_proveedor')
     precio_actual = models.FloatField(blank=True, null=True)
 
     class Meta:

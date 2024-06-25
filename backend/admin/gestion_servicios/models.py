@@ -15,8 +15,8 @@ class Servicio(models.Model):
         db_table = 'servicio'
 
 class ServicioProveedor(models.Model):
-    id_servicio = models.ForeignKey(Servicio, on_delete=models.CASCADE)
-    id_proveedor = models.ForeignKey(Proveedor, on_delete=models.CASCADE)
+    id_servicio = models.ForeignKey(Servicio, on_delete=models.CASCADE, db_column='id_servicio')
+    id_proveedor = models.ForeignKey(Proveedor, on_delete=models.CASCADE, db_column='id_proveedor')
     precio = models.FloatField()
     negociable = models.BooleanField()
 

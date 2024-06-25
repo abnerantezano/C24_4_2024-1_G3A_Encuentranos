@@ -12,7 +12,7 @@ class TipoUsuario(models.Model):
 
 class Usuario(models.Model):
     id_usuario = models.AutoField(primary_key=True)
-    id_tipo = models.ForeignKey(TipoUsuario, on_delete=models.CASCADE)
+    id_tipo = models.ForeignKey(TipoUsuario, on_delete=models.CASCADE, db_column='id_tipo')
     correo = models.EmailField(max_length=150, unique=True)
     contrasena = models.CharField(max_length=255)
     imagen_url = models.CharField(max_length=255, blank=True, null=True)
@@ -37,8 +37,8 @@ class Distrito(models.Model):
 
 class Proveedor(models.Model):
     id_proveedor = models.AutoField(primary_key=True)
-    id_usuario = models.OneToOneField(Usuario, on_delete=models.CASCADE)
-    id_distrito = models.OneToOneField(Distrito, on_delete=models.CASCADE)
+    id_usuario = models.OneToOneField(Usuario, on_delete=models.CASCADE, db_column='id_usuario')
+    id_distrito = models.OneToOneField(Distrito, on_delete=models.CASCADE, db_column='id_distrito')
     nombre = models.CharField(max_length=45)
     apellido_paterno = models.CharField(max_length=45)
     apellido_materno = models.CharField(max_length=45)
@@ -59,8 +59,8 @@ class Proveedor(models.Model):
 
 class Cliente(models.Model):
     id_cliente = models.AutoField(primary_key=True)
-    id_usuario = models.OneToOneField(Usuario, on_delete=models.CASCADE)
-    id_distrito = models.OneToOneField(Distrito, on_delete=models.CASCADE)
+    id_usuario = models.OneToOneField(Usuario, on_delete=models.CASCADE, db_column='id_usuario')
+    id_distrito = models.OneToOneField(Distrito, on_delete=models.CASCADE, db_column='id_distrito')
     nombre = models.CharField(max_length=45)
     apellido_paterno = models.CharField(max_length=45)
     apellido_materno = models.CharField(max_length=45)
