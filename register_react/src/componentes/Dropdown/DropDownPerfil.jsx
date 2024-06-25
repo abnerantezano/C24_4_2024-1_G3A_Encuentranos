@@ -6,6 +6,7 @@ import InformacionProveedor from '../Informacion/InformacionProveedor';
 import InformacionCliente from '../Informacion/InformacionCliente';
 
 const DropDownPerfil = ({ onClose }) => {
+
   const dropdownRef = useRef(null);
 
   useEffect(() => {
@@ -21,6 +22,10 @@ const DropDownPerfil = ({ onClose }) => {
     };
   }, [onClose]);
 
+  const cerrar_sesion = () => {
+    window.location.href = 'http://localhost:4000/logout';
+  };
+  
   return (
     <Rol>
       {(rol) => (
@@ -54,7 +59,7 @@ const DropDownPerfil = ({ onClose }) => {
                       </ul>
                       <hr />
                       <div className="py-2">
-                        <Link to="#" className="block px-4 py-2 text-sm text-gray-600 hover:bg-gray-100 dark:hover:bg-gray-600 dark:text-gray-200 dark:hover:text-white">Cerrar sesión</Link>
+                        <button type="button" onClick={cerrar_sesion} className="w-full text-start block px-4 py-2 text-sm text-gray-600 hover:bg-gray-100 dark:hover:bg-gray-600 dark:text-gray-200 dark:hover:text-white">Cerrar sesión</button>
                       </div>
                     </div>
                   </div>
@@ -93,7 +98,7 @@ const DropDownPerfil = ({ onClose }) => {
                       </ul>
                       <hr />
                       <div className="py-2">
-                        <Link to="#" className="block px-4 py-2 text-sm text-gray-600 hover:bg-gray-100 dark:hover:bg-gray-600 dark:text-gray-200 dark:hover:text-white">Cerrar sesión</Link>
+                      <button type="button" onClick={cerrar_sesion} className="w-full text-start block px-4 py-2 text-sm text-gray-600 hover:bg-gray-100 dark:hover:bg-gray-600 dark:text-gray-200 dark:hover:text-white">Cerrar sesión</button>
                       </div>
                     </div>
                   </div>

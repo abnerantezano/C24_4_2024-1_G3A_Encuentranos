@@ -5,10 +5,10 @@ import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faPenToSquare, faPlus } from '@fortawesome/free-solid-svg-icons';
 //PRIME REACT
 import { Password } from 'primereact/password';
-import InformacionDeUsuario from '../../Informacion/InformacionDeUsuario';
 //COMPONENTES
-
-
+import InformacionDeUsuario from '../../Informacion/InformacionDeUsuario';
+//SERVICIOS
+import usuarioServiceInstance from '../../../servicios/Miembro/UsuarioService';
 
 function EditarCuenta() {
 
@@ -18,48 +18,30 @@ function EditarCuenta() {
     //PARAMETROS DE REACT HOOK FORM
     const { handleSubmit, watch, control,reset, formState: { errors } } = useForm();
 
-    //VARIABLES PARA GUARDAR VALORES
-    const [selectedImage, setSelectedImage] = useState("");
-    const [actualContrasena, setActualContrasena] = useState("");
-
-    //VARIABLE PARA EL MENSAJE DE ERROR
-    const [errorMensaje, setErrorMensaje] = useState("");
-
     //FUNCION PARA ABRIR EL MODAL Y RESETEAR CUANDO SE CIERRE
     const Modal = () => {
         if (visible) {
             reset();
-            setSelectedImage("");
-            setActualContrasena("");
-            setErrorMensaje("");
         }
         setVisible(!visible);
     };
     
-    //FUNCION PARA CAMBIAR LA IMAGEN
-    const handleImageChange = (e) => {
-        if (e.target.files && e.target.files[0]) {
-            const file = e.target.files[0];
-            const reader = new FileReader();
-            reader.onload = (event) => {
-                setSelectedImage(event.target.result);
-            };
-            reader.readAsDataURL(file);
-        }
-    };
-    
     const actualizar = (data, info) => {
-
-        if(info.contrasena === actualContrasena) {
-            const datos = {
-                contrasena: data.nueva_contrasena,
-                imagenUrl: selectedImage,
-            }
-            setErrorMensaje("");
-            console.log(datos, info.idUsuario);
-        } else {
-            setErrorMensaje("La contraseña actual no coincide.");
+        const datos = {
+            contrasenaActual: data.actual_contrasena,
+            nuevaContrasena: data.nueva_contrasena
         }
+
+        usuarioServiceInstance.putUsuario(info.idUsuario,datos)
+            .then((response) => {
+                console.log(response);
+                Modal();
+                alert("Cuenta actualizada");
+            })
+            .catch((error) => {
+                console.error(error);
+                alert("Contraseña incorrecta");
+            });
     }
 
     return (
@@ -87,23 +69,6 @@ function EditarCuenta() {
                                         </div>
                                         <form onSubmit={handleSubmit((data) => actualizar(data, info))}>
                                             <div className="p-4 overflow-auto max-h-[70vh] custom-scrollbar md:px-8">
-                                                <div className='flex justify-center mb-10'>
-                                                    <div className="relative">
-                                                        <input type="file" accept="image/*" onChange={handleImageChange} className="hidden" id="imageUpload" />
-                                                        <label htmlFor="imageUpload" className="cursor-pointer">
-                                                            <div className="w-24 h-24 rounded-full border border-gray-300 flex items-center justify-center overflow-hidden relative">
-                                                                {selectedImage ? (
-                                                                    <img src={selectedImage} alt="Foto de Cuenta" className="object-cover w-full h-full" />
-                                                                ) : (
-                                                                    <img src={info.imagenUrl} alt="Foto de Cuenta" className="h-full w-full object-cover" />
-                                                                )}
-                                                            </div>
-                                                        </label>
-                                                        <button type="button" className="absolute w-8 h-8 bottom-0 right-0 bg-[#E8A477] text-white rounded-full flex items-center justify-center" onClick={() => document.getElementById('imageUpload').click()}>
-                                                            <FontAwesomeIcon icon={faPlus} />
-                                                        </button>
-                                                    </div>
-                                                </div>
                                                 <div className='w-3/4 mx-auto'>
                                                     <div className='mb-5 flex flex-col'>
                                                         <label className="block mb-2 text-sm font-semibold text-gray-700">Correo electrónico</label>
@@ -111,8 +76,10 @@ function EditarCuenta() {
                                                     </div>
                                                     <div className='mb-5 flex flex-col'>
                                                         <label className="block mb-2 text-sm font-semibold text-gray-700">Actual contraseña</label>
-                                                        <Password value={actualContrasena} onChange={(e) => setActualContrasena(e.target.value)} feedback={false} toggleMask className="block w-full" inputClassName="bg-gray-50 border border-gray-300 text-[#787171] text-sm rounded-lg focus:ring focus:ring-orange-200 focus:border-dark block w-full p-2.5 "/>
-                                                        {errorMensaje && <span className="text-red-500 text-sm">{errorMensaje}</span>}
+                                                        <Controller name="actual_contrasena" control={control} rules={{ required: 'Ingresar la actual contraseña' }} render={({ field }) => (
+                                                            <Password id="actual_contrasena" {...field} className="block w-full" feedback={false} toggleMask inputClassName="bg-gray-50 border border-gray-300 text-[#787171] text-sm rounded-lg focus:ring focus:ring-orange-200 focus:border-dark block w-full p-2.5 " />
+                                                        )} />
+                                                        {errors.actual_contrasena && <span className="text-red-500 text-sm">{errors.actual_contrasena.message}</span>}
                                                     </div>
                                                     <div className='mb-5 flex flex-col'>
                                                         <label className="block mb-2 text-sm font-semibold text-gray-700">Nueva contraseña</label>
