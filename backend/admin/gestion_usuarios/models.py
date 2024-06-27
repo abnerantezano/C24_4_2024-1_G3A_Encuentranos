@@ -1,44 +1,45 @@
 from django.db import models
 
+
 class TipoUsuario(models.Model):
     id_tipo = models.AutoField(primary_key=True)
     nombre = models.CharField(max_length=45)
 
-    def __str__(self):
-        return self.nombre
-    
     class Meta:
-        db_table = 'tipo_usuario'
+        db_table = "tipo_usuario"
+
 
 class Usuario(models.Model):
     id_usuario = models.AutoField(primary_key=True)
-    id_tipo = models.ForeignKey(TipoUsuario, on_delete=models.CASCADE, db_column='id_tipo')
+    id_tipo = models.ForeignKey(
+        TipoUsuario, on_delete=models.CASCADE, db_column="id_tipo"
+    )
     correo = models.EmailField(max_length=150, unique=True)
     contrasena = models.CharField(max_length=255)
     imagen_url = models.CharField(max_length=255, blank=True, null=True)
     estado = models.CharField(max_length=45)
     fh_creacion = models.DateTimeField(auto_now_add=True)
 
-    def __str__(self):
-        return self.correo
-
     class Meta:
-        db_table = 'usuario'
+        db_table = "usuario"
+
 
 class Distrito(models.Model):
     id_distrito = models.AutoField(primary_key=True)
     nombre = models.CharField(max_length=100)
 
-    def __str__(self):
-        return self.nombre
-    
     class Meta:
-        db_table = 'distrito'
+        db_table = "distrito"
+
 
 class Proveedor(models.Model):
     id_proveedor = models.AutoField(primary_key=True)
-    id_usuario = models.OneToOneField(Usuario, on_delete=models.CASCADE, db_column='id_usuario')
-    id_distrito = models.OneToOneField(Distrito, on_delete=models.CASCADE, db_column='id_distrito')
+    id_usuario = models.OneToOneField(
+        Usuario, on_delete=models.CASCADE, db_column="id_usuario"
+    )
+    id_distrito = models.OneToOneField(
+        Distrito, on_delete=models.CASCADE, db_column="id_distrito"
+    )
     nombre = models.CharField(max_length=45)
     apellido_paterno = models.CharField(max_length=45)
     apellido_materno = models.CharField(max_length=45)
@@ -51,16 +52,18 @@ class Proveedor(models.Model):
     curriculo_url = models.CharField(max_length=255, blank=True, null=True)
     fh_creacion = models.DateTimeField(auto_now_add=True)
 
-    def __str__(self):
-        return f"{self.nombre} {self.apellido_paterno} {self.apellido_materno}"
-    
     class Meta:
-        db_table = 'proveedor'
+        db_table = "proveedor"
+
 
 class Cliente(models.Model):
     id_cliente = models.AutoField(primary_key=True)
-    id_usuario = models.OneToOneField(Usuario, on_delete=models.CASCADE, db_column='id_usuario')
-    id_distrito = models.OneToOneField(Distrito, on_delete=models.CASCADE, db_column='id_distrito')
+    id_usuario = models.OneToOneField(
+        Usuario, on_delete=models.CASCADE, db_column="id_usuario"
+    )
+    id_distrito = models.OneToOneField(
+        Distrito, on_delete=models.CASCADE, db_column="id_distrito"
+    )
     nombre = models.CharField(max_length=45)
     apellido_paterno = models.CharField(max_length=45)
     apellido_materno = models.CharField(max_length=45)
@@ -71,8 +74,5 @@ class Cliente(models.Model):
     descripcion = models.TextField(blank=True, null=True)
     fh_creacion = models.DateTimeField(auto_now_add=True)
 
-    def __str__(self):
-        return f"{self.nombre} {self.apellido_paterno} {self.apellido_materno}"
-    
     class Meta:
-        db_table = 'cliente'
+        db_table = "cliente"

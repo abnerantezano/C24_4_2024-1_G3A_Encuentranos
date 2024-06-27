@@ -3,34 +3,25 @@ from rest_framework.response import Response
 from rest_framework import status
 from gestion_chats.models import Chat, Mensaje
 from gestion_chats.serializers import ChatSerializer, MensajeSerializer
-from django.http import Http404
+from django.shortcuts import get_object_or_404
 
-class ChatListAPIView(APIView):
+
+class ListaChat(APIView):
     def get(self, request):
         chats = Chat.objects.all()
-        serializer = ChatSerializer(chats, many=True)
-        return Response(serializer.data)
+        chat_serializer = ChatSerializer(chats, many=True)
+        return Response(chat_serializer.data)
 
-class MensajeAPIView(APIView):
-    def get_object(self, id_chat):
-        try:
-            return Mensaje.objects.filter(id_chat=id_chat)
-        except Mensaje.DoesNotExist:
-            raise Http404
 
+class ListaMensaje(APIView):
     def get(self, request, id_chat):
-        mensajes = self.get_object(id_chat)
-        serializer = MensajeSerializer(mensajes, many=True)
-        return Response(serializer.data)
+        mensajes = Mensaje.objects.filter(id_chat=id_chat)
+        mensaje_serializer = MensajeSerializer(mensajes, many=True)
+        return Response(mensaje_serializer.data)
 
-class MensajeDetailAPIView(APIView):
-    def get_object(self, id_chat, id_mensaje):
-        try:
-            return Mensaje.objects.get(id_chat=id_chat, id_mensaje=id_mensaje)
-        except Mensaje.DoesNotExist:
-            raise Http404
 
+class DetalleMensaje(APIView):
     def get(self, request, id_chat, id_mensaje):
-        mensaje = self.get_object(id_chat, id_mensaje)
-        serializer = MensajeSerializer(mensaje)
-        return Response(serializer.data)
+        mensaje = get_object_or_404(Mensaje, id_chat=id_chat, pk=id_mensaje)
+        mensaje_serializer = MensajeSerializer(mensaje)
+        return Response(mensaje_serializer.data)
