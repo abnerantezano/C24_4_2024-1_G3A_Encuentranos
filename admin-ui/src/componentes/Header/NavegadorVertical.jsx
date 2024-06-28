@@ -3,7 +3,7 @@ import logo_color from "../../imagenes/logo.png";
 import logo_texto_color from "../../imagenes/logo-texto.png";
 // FONT AWESOME
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
-import { faAngleLeft, faChartLine, faFileContract, faToolbox, faUsers } from '@fortawesome/free-solid-svg-icons';
+import { faAngleLeft, faChartLine, faFileContract, faRightToBracket, faToolbox, faUsers } from '@fortawesome/free-solid-svg-icons';
 // REACT ROUTER DOM
 import { Link, useLocation } from 'react-router-dom';
 
@@ -41,6 +41,12 @@ function NavegadorVertical() {
                     </li>
                 ))}
             </ul>
+            <div className="absolute bottom-8 left-8 right-8 text-white">
+                <Link to="/logout" className="flex rounded-md p-3 items-center gap-x-4 w-full hover:bg-light-white">
+                    <FontAwesomeIcon icon={faRightToBracket} />
+                    <span className={`${!desplegar && "hidden"} origin-left duration-200`}>Cerrar sesión</span>
+                </Link>
+            </div>
         </div>
     );
 }
