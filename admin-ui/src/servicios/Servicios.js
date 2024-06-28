@@ -8,25 +8,25 @@ class Servicio {
 
   getLista() {
     return axios
-      .get(this.baseUrl)
+      .get(this.baseUrl + "/")
       .then((res) => res.data);
   }
 
   postServicio(servicio) {
     return axios
-      .post(this.baseUrl, servicio)
-      .then((res) => res.data);
+      .post(this.baseUrl + "/", servicio)
+        .then((res) => res.data);
   }
 
   deleteServicio(id_servicio) {
     return axios
-      .delete(this.baseUrl + `/${id_servicio}`)
+      .delete(this.baseUrl + `/${id_servicio}/`)
       .then((res) => res.data);
   }
 
-  putServicio(datos, id_servicio) {
+  patchServicio(datos, id_servicio) {
     return axios
-      .put(this.baseUrl + `/${id_servicio}`, datos)
+      .patch(this.baseUrl + `/${id_servicio}/`, datos)
       .then((res) => res.data);
   }
 }
