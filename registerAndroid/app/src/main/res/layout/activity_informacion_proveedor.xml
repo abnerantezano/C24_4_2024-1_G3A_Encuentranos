@@ -32,12 +32,13 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:orientation="horizontal">
+
             <de.hdodenhof.circleimageview.CircleImageView
                 android:id="@+id/imgCliente"
-                android:layout_width="70dp"
+                android:layout_width="74dp"
                 android:layout_height="70dp"
-                android:src="@drawable/ic_launcher_background"
-                android:scaleType="centerCrop"/>
+                android:scaleType="centerCrop"
+                android:src="@drawable/ic_launcher_background" />
             <LinearLayout
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
@@ -45,18 +46,30 @@
                 android:orientation="vertical">
                 <TextView
                     android:id="@+id/tvNombreProveedor"
-                    android:layout_width="wrap_content"
+                    android:layout_width="match_parent"
                     android:layout_height="wrap_content"
+                    android:gravity="center"
                     android:textStyle="bold"
                     android:text="@string/nombre_proveedor"/>
-                <TextView
-                    android:id="@+id/tvCalificacionProveedor"
+                <RatingBar
+                    android:id="@+id/ratingBarProveedor"
+                    style="@style/Widget.AppCompat.RatingBar.Indicator"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:text="@string/calificacion_proveedor"/>
+                    android:layout_gravity="center"
+                    android:layout_marginStart="5dp"
+                    android:isIndicator="true"
+                    android:numStars="5"
+                    android:progressTint="@color/yellow"
+                    android:rating="3.5"
+                    android:scaleX="0.65"
+                    android:scaleY="0.65"
+                    android:stepSize="0.1" />
                 <TextView
-                    android:layout_width="wrap_content"
+                    android:id="@+id/tvCV"
+                    android:layout_width="match_parent"
                     android:layout_height="wrap_content"
+                    android:gravity="center"
                     android:text="@string/descargar_cv"/>
             </LinearLayout>
         </LinearLayout>
@@ -68,32 +81,27 @@
             android:textStyle="bold"
             android:textColor="@color/grayNoSoft"
             android:textSize="16dp"/>
-        <HorizontalScrollView
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:scrollbars="none">
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_marginTop="8dp"
             android:orientation="horizontal">
-
             <TextView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:textColor="@color/grayBlack"
+                android:textStyle="bold"
                 android:textSize="15dp"
                 android:text="@string/correo_electr_nico"/>
-
             <TextView
                 android:id="@+id/tvCorreoProveedor"
-                android:layout_width="wrap_content"
+                android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_marginStart="100dp"
+                android:layout_marginStart="10dp"
+                android:gravity="end"
                 android:text="@string/correo_proveedor"/>
 
         </LinearLayout>
-        </HorizontalScrollView>
         <LinearLayout
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
@@ -103,6 +111,7 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:textColor="@color/grayBlack"
+                android:textStyle="bold"
                 android:textSize="15dp"
                 android:text="@string/celular"/>
             <View
@@ -130,10 +139,11 @@
             android:layout_marginTop="8dp"
             android:text="@string/descripcion_proveedor"/>
         <TextView
+            android:id="@+id/tvServcioNegociable"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginTop="10dp"
-            android:text="@string/servicios_que_ofrece_negociables"
+            android:text="@string/servicios_negociables"
             android:textStyle="bold"
             android:textColor="@color/grayNoSoft"
             android:textSize="16dp"/>
@@ -146,10 +156,11 @@
             app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
             tools:listitem="@layout/item_servicio_negociable" />
         <TextView
+            android:id="@+id/tvServcioNoNegociable"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_marginTop="10dp"
-            android:text="@string/servicios_que_ofrece_no_negociables"
+            android:text="@string/servicios_no_negociables"
             android:textStyle="bold"
             android:textColor="@color/grayNoSoft"
             android:textSize="16dp"/>
@@ -171,13 +182,6 @@
             android:weightSum="2"
             android:orientation="horizontal">
             <Button
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:text="@string/enviar_mensaje"
-                android:background="@drawable/button_background"
-                android:layout_marginEnd="10dp"
-                android:layout_weight="1"/>
-            <Button
                 android:id="@+id/btnContrato"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
@@ -187,6 +191,7 @@
                 android:layout_weight="1"/>
         </LinearLayout>
         <TextView
+            android:id="@+id/tvResenas"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_marginTop="10dp"
@@ -195,15 +200,29 @@
             android:textStyle="bold"
             android:textColor="@color/grayNoSoft"
             android:textSize="16dp"/>
-        <androidx.recyclerview.widget.RecyclerView
-            android:id="@+id/recyclerViewResenas"
-            android:layout_width="match_parent"
+        <LinearLayout
+            android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_marginBottom="15dp"
-            app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
-            app:layout_constraintBottom_toBottomOf="parent"
-            tools:listitem="@layout/item_resenas" />
+            android:layout_marginBottom="10dp"
+            android:orientation="vertical">
+            <androidx.recyclerview.widget.RecyclerView
+                android:id="@+id/recyclerViewResenas"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
+                tools:listitem="@layout/item_resenas" />
+        </LinearLayout>
     </LinearLayout>
-
     </ScrollView>
+
+    <ProgressBar
+        android:id="@+id/progressBar"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:visibility="gone"
+        app:layout_constraintTop_toBottomOf="@id/header"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintEnd_toEndOf="parent" />
+
 </androidx.constraintlayout.widget.ConstraintLayout>

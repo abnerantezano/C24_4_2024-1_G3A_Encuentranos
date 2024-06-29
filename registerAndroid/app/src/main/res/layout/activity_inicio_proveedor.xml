@@ -46,12 +46,11 @@
                 android:textColor="@color/skinBlack"
                 android:textSize="25dp"
                 android:textStyle="bold" />
-            <LinearLayout
-                android:id="@+id/linearForCliente"
-                android:layout_width="match_parent"
-                android:orientation="vertical"
-                android:layout_height="wrap_content">
-
+        <LinearLayout
+            android:id="@+id/linearForCliente"
+            android:layout_width="match_parent"
+            android:orientation="vertical"
+            android:layout_height="wrap_content">
             <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
@@ -79,7 +78,7 @@
                         android:layout_width="match_parent"
                         android:layout_height="match_parent"
                         android:layout_marginTop="15dp"
-                        android:text="@string/explora_y_contrata_nservicios_dom_sticos"
+                        android:text="Gestiona y ofrece tus servicios domésticos"
                         android:textColor="@color/gray"
                         android:textSize="17dp" />
 
@@ -89,7 +88,7 @@
                         android:layout_height="wrap_content"
                         android:layout_marginTop="15dp"
                         android:background="@drawable/button_background"
-                        android:text="@string/buscar_servicios" />
+                        android:text="Añadir servicios" />
                 </LinearLayout>
             </LinearLayout>
 
@@ -105,21 +104,21 @@
                 android:layout_height="wrap_content"
                 android:layout_marginTop="25dp"
                 android:layout_marginStart="5dp"
-                android:text="•   Encuentra y contrata proveedores según el precio."
+                android:text="•   Añade y gestiona hasta 5 servicios."
                 android:textColor="@color/gray" />
 
             <TextView
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_marginStart="5dp"
-                android:text="•   Gestiona tus contratos y contacta a proveedores."
+                android:text="•   Revisa el estado de tus contratos."
                 android:textColor="@color/gray" />
 
             <TextView
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_marginStart="5dp"
-                android:text="•   Escribe reseñas después de finalizar el servicio."
+                android:text="•   Cancela servicios con hasta un día de anticipación."
                 android:textColor="@color/gray" />
 
             <TextView
@@ -154,7 +153,7 @@
                     <TextView
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
-                        android:text="Buscar Servicios"
+                        android:text="Gestión de servicios"
                         android:textColor="@color/skinBlack"
                         android:textSize="16dp" />
 
@@ -184,14 +183,14 @@
                     <TextView
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
-                        android:text="Comunicación directa"
+                        android:text="Recepción de solicitudes"
                         android:textColor="@color/skinBlack"
                         android:textSize="16dp" />
 
                     <TextView
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:text="Comunícate fácilmente con los proveedores para discutir los detalles y llegar a un acuerdo mediante un chat."
+                        android:text="Recibe solicitudes de servicio de los clientes interesados a través de nuestra plataforma."
                         android:layout_marginEnd="10dp"
                         android:textColor="@color/grayBlack" />
                 </LinearLayout>
@@ -228,14 +227,14 @@
                     <TextView
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
-                        android:text="Generación de contrato"
+                        android:text="Negociación y acuerdo"
                         android:textColor="@color/skinBlack"
                         android:textSize="16dp" />
 
                     <TextView
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:text="Genera contratos de forma segura y rápida directamente a través de nuestra plataforma."
+                        android:text="Comunícate con los clientes para discutir los detalles del servicio y llegar a un acuerdo sobre los términos y condiciones."
                         android:textColor="@color/grayBlack" />
                 </LinearLayout>
             </LinearLayout>
@@ -258,14 +257,14 @@
                     <TextView
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
-                        android:text="Calificación y reseñas"
+                        android:text="Confirmación del contrato:"
                         android:textColor="@color/skinBlack"
                         android:textSize="16dp" />
 
                     <TextView
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:text="Evalúa a los proveedores después de completar el servicio para que otros usuarios estén informados."
+                        android:text="Confirma el contrato una vez que hayas acordado los detalles con el cliente, garantizando la formalización del servicio."
                         android:layout_marginEnd="10dp"
                         android:textColor="@color/grayBlack" />
                 </LinearLayout>
@@ -276,311 +275,81 @@
                     android:layout_weight="1"
                     android:src="@drawable/ic_cuatro" />
             </LinearLayout>
-            </LinearLayout>
+
             <LinearLayout
-                android:id="@+id/linearForProveedor"
                 android:layout_width="match_parent"
-                android:orientation="vertical"
-                android:layout_height="wrap_content">
+                android:layout_height="wrap_content"
+                android:layout_marginTop="18dp"
+                android:layout_marginStart="10dp"
+                android:layout_marginEnd="10dp"
+                android:weightSum="2"
+                android:orientation="horizontal">
+
+                <ImageView
+                    android:layout_width="80dp"
+                    android:layout_height="80dp"
+                    android:layout_weight="1"
+                    android:src="@drawable/ic_cinco" />
+
                 <LinearLayout
-                    android:layout_width="match_parent"
+                    android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:layout_marginTop="35dp"
-                    android:background="@color/skinSoft"
-                    android:padding="17dp"
-                    android:orientation="horizontal"
-                    android:weightSum="3">
+                    android:layout_marginStart="10dp"
+                    android:layout_weight="1"
+                    android:orientation="vertical">
 
-                    <ImageView
-                        android:layout_width="wrap_content"
-                        android:layout_height="match_parent"
-                        android:layout_weight="2"
-                        android:src="@drawable/ic_bienvenida" />
-
-                    <LinearLayout
+                    <TextView
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
-                        android:layout_marginStart="10dp"
-                        android:layout_marginEnd="10dp"
-                        android:layout_weight="1"
-                        android:orientation="vertical">
+                        android:text="Ejecución del servicio"
+                        android:textColor="@color/skinBlack"
+                        android:textSize="16dp" />
 
-                        <TextView
-                            android:layout_width="match_parent"
-                            android:layout_height="match_parent"
-                            android:layout_marginTop="15dp"
-                            android:text="Gestiona y ofrece tus servicios domésticos"
-                            android:textColor="@color/gray"
-                            android:textSize="17dp" />
-
-                        <Button
-                            android:id="@+id/btnAnadirServicios"
-                            android:layout_width="match_parent"
-                            android:layout_height="wrap_content"
-                            android:layout_marginTop="15dp"
-                            android:background="@drawable/button_background"
-                            android:text="Añadir servicios" />
-                    </LinearLayout>
-                </LinearLayout>
-
-                <TextView
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:layout_marginTop="35dp"
-                    android:text="@string/funcionalidades"
-                    android:textSize="16sp" />
-
-                <TextView
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:layout_marginTop="25dp"
-                    android:layout_marginStart="5dp"
-                    android:text="•   Añade y gestiona hasta 5 servicios."
-                    android:textColor="@color/gray" />
-
-                <TextView
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:layout_marginStart="5dp"
-                    android:text="•   Revisa el estado de tus contratos."
-                    android:textColor="@color/gray" />
-
-                <TextView
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:layout_marginStart="5dp"
-                    android:text="•   Cancela servicios con hasta un día de anticipación."
-                    android:textColor="@color/gray" />
-
-                <TextView
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:layout_marginTop="25dp"
-                    android:text="@string/como_realizar_un_contrato"
-                    android:textSize="16dp" />
-
-                <LinearLayout
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:layout_marginStart="10dp"
-                    android:layout_marginEnd="10dp"
-                    android:weightSum="2"
-                    android:layout_marginTop="18dp"
-                    android:orientation="horizontal">
-
-                    <ImageView
-                        android:layout_width="60dp"
-                        android:layout_height="60dp"
-                        android:layout_weight="1"
-                        android:src="@drawable/ic_uno" />
-
-                    <LinearLayout
+                    <TextView
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:layout_marginStart="10dp"
-                        android:layout_weight="1"
-                        android:orientation="vertical">
-
-                        <TextView
-                            android:layout_width="match_parent"
-                            android:layout_height="wrap_content"
-                            android:text="Gestión de servicios"
-                            android:textColor="@color/skinBlack"
-                            android:textSize="16dp" />
-
-                        <TextView
-                            android:layout_width="wrap_content"
-                            android:layout_height="wrap_content"
-                            android:text="Explora una amplia gama de servicios domésticos, ajustando tus preferencias por precio y calificación."
-                            android:textColor="@color/grayBlack" />
-                    </LinearLayout>
-                </LinearLayout>
-
-                <LinearLayout
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:layout_marginTop="18dp"
-                    android:layout_marginStart="10dp"
-                    android:layout_marginEnd="10dp"
-                    android:weightSum="2"
-                    android:orientation="horizontal">
-
-                    <LinearLayout
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:layout_weight="1"
-                        android:orientation="vertical">
-
-                        <TextView
-                            android:layout_width="match_parent"
-                            android:layout_height="wrap_content"
-                            android:text="Recepción de solicitudes"
-                            android:textColor="@color/skinBlack"
-                            android:textSize="16dp" />
-
-                        <TextView
-                            android:layout_width="wrap_content"
-                            android:layout_height="wrap_content"
-                            android:text="Recibe solicitudes de servicio de los clientes interesados a través de nuestra plataforma."
-                            android:layout_marginEnd="10dp"
-                            android:textColor="@color/grayBlack" />
-                    </LinearLayout>
-
-                    <ImageView
-                        android:layout_width="60dp"
-                        android:layout_height="60dp"
-                        android:layout_weight="1"
-                        android:src="@drawable/ic_dos" />
-                </LinearLayout>
-
-                <LinearLayout
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:layout_marginTop="18dp"
-                    android:layout_marginStart="10dp"
-                    android:layout_marginEnd="10dp"
-                    android:weightSum="2"
-                    android:orientation="horizontal">
-
-                    <ImageView
-                        android:layout_width="60dp"
-                        android:layout_height="60dp"
-                        android:layout_weight="1"
-                        android:src="@drawable/ic_tres" />
-
-                    <LinearLayout
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:layout_marginStart="10dp"
-                        android:layout_weight="1"
-                        android:orientation="vertical">
-
-                        <TextView
-                            android:layout_width="match_parent"
-                            android:layout_height="wrap_content"
-                            android:text="Negociación y acuerdo"
-                            android:textColor="@color/skinBlack"
-                            android:textSize="16dp" />
-
-                        <TextView
-                            android:layout_width="wrap_content"
-                            android:layout_height="wrap_content"
-                            android:text="Comunícate con los clientes para discutir los detalles del servicio y llegar a un acuerdo sobre los términos y condiciones."
-                            android:textColor="@color/grayBlack" />
-                    </LinearLayout>
-                </LinearLayout>
-
-                <LinearLayout
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:layout_marginTop="18dp"
-                    android:layout_marginStart="10dp"
-                    android:layout_marginEnd="10dp"
-                    android:weightSum="2"
-                    android:orientation="horizontal">
-
-                    <LinearLayout
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:layout_weight="1"
-                        android:orientation="vertical">
-
-                        <TextView
-                            android:layout_width="match_parent"
-                            android:layout_height="wrap_content"
-                            android:text="Confirmación del contrato:"
-                            android:textColor="@color/skinBlack"
-                            android:textSize="16dp" />
-
-                        <TextView
-                            android:layout_width="wrap_content"
-                            android:layout_height="wrap_content"
-                            android:text="Confirma el contrato una vez que hayas acordado los detalles con el cliente, garantizando la formalización del servicio."
-                            android:layout_marginEnd="10dp"
-                            android:textColor="@color/grayBlack" />
-                    </LinearLayout>
-
-                    <ImageView
-                        android:layout_width="60dp"
-                        android:layout_height="60dp"
-                        android:layout_weight="1"
-                        android:src="@drawable/ic_cuatro" />
-                </LinearLayout>
-
-                <LinearLayout
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:layout_marginTop="18dp"
-                    android:layout_marginStart="10dp"
-                    android:layout_marginEnd="10dp"
-                    android:weightSum="2"
-                    android:orientation="horizontal">
-
-                    <ImageView
-                        android:layout_width="80dp"
-                        android:layout_height="80dp"
-                        android:layout_weight="1"
-                        android:src="@drawable/ic_cinco" />
-
-                    <LinearLayout
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:layout_marginStart="10dp"
-                        android:layout_weight="1"
-                        android:orientation="vertical">
-
-                        <TextView
-                            android:layout_width="match_parent"
-                            android:layout_height="wrap_content"
-                            android:text="Ejecución del servicio"
-                            android:textColor="@color/skinBlack"
-                            android:textSize="16dp" />
-
-                        <TextView
-                            android:layout_width="wrap_content"
-                            android:layout_height="wrap_content"
-                            android:text="Realiza el servicio según lo acordado con el cliente, asegurándote de cumplir con los requisitos y expectativas."
-                            android:textColor="@color/grayBlack" />
-                    </LinearLayout>
-                </LinearLayout>
-
-                <LinearLayout
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:layout_marginTop="18dp"
-                    android:layout_marginStart="10dp"
-                    android:layout_marginEnd="10dp"
-                    android:weightSum="2"
-                    android:orientation="horizontal">
-
-                    <LinearLayout
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:layout_weight="1"
-                        android:orientation="vertical">
-
-                        <TextView
-                            android:layout_width="match_parent"
-                            android:layout_height="wrap_content"
-                            android:text="Recopilación de reseñas"
-                            android:textColor="@color/skinBlack"
-                            android:textSize="16dp" />
-
-                        <TextView
-                            android:layout_width="wrap_content"
-                            android:layout_height="wrap_content"
-                            android:text="Después de completar el servicio, espera la calificación y reseña del cliente para ayudar a mejorar tu reputación y atraer a más clientes potenciales."
-                            android:layout_marginEnd="10dp"
-                            android:textColor="@color/grayBlack" />
-                    </LinearLayout>
-
-                    <ImageView
-                        android:layout_width="80dp"
-                        android:layout_height="80dp"
-                        android:layout_weight="1"
-                        android:src="@drawable/ic_seis" />
+                        android:text="Realiza el servicio según lo acordado con el cliente, asegurándote de cumplir con los requisitos y expectativas."
+                        android:textColor="@color/grayBlack" />
                 </LinearLayout>
             </LinearLayout>
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="18dp"
+                android:layout_marginStart="10dp"
+                android:layout_marginEnd="10dp"
+                android:weightSum="2"
+                android:orientation="horizontal">
+
+                <LinearLayout
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"
+                    android:orientation="vertical">
+
+                    <TextView
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:text="Recopilación de reseñas"
+                        android:textColor="@color/skinBlack"
+                        android:textSize="16dp" />
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="Después de completar el servicio, espera la calificación y reseña del cliente para ayudar a mejorar tu reputación y atraer a más clientes potenciales."
+                        android:layout_marginEnd="10dp"
+                        android:textColor="@color/grayBlack" />
+                </LinearLayout>
+
+                <ImageView
+                    android:layout_width="80dp"
+                    android:layout_height="80dp"
+                    android:layout_weight="1"
+                    android:src="@drawable/ic_seis" />
+            </LinearLayout>
+        </LinearLayout>
             <TextView
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"

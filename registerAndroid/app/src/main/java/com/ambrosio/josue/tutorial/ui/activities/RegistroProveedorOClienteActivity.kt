@@ -1,5 +1,6 @@
 package com.ambrosio.josue.tutorial.ui.activities
 
+import android.app.DatePickerDialog
 import android.content.Context
 import android.content.Intent
 import android.content.SharedPreferences
@@ -18,10 +19,10 @@ import com.ambrosio.josue.tutorial.data.models.ProveedorModel
 import com.ambrosio.josue.tutorial.data.models.TipoUsuarioModel
 import com.ambrosio.josue.tutorial.data.models.UsuarioModel
 import com.ambrosio.josue.tutorial.RetrofitClient
-import com.ambrosio.josue.tutorial.ui.activities.opcionesPerfilFragment.AgregarServicioActivity
 import com.ambrosio.josue.tutorial.ui.viewModels.DistritoViewModel
 import com.ambrosio.josue.tutorial.ui.viewModels.RegistroProveedorOClienteViewModel
 import java.text.SimpleDateFormat
+import java.util.Calendar
 import java.util.Date
 import java.util.Locale
 
@@ -34,6 +35,7 @@ class RegistroProveedorOClienteActivity : AppCompatActivity() {
     private var userId: Int = -1
     private var email: String = ""
     private lateinit var sharedPreferences: SharedPreferences
+    val seleccionarCalendario = Calendar.getInstance()
 
     companion object {
         private const val TAG = "RegistroProveedorActivity"
@@ -51,6 +53,9 @@ class RegistroProveedorOClienteActivity : AppCompatActivity() {
         configurarObservadores()
         configurarListeners()
 
+        binding.edtFechaNacimiento.setOnClickListener{
+            crearFechaNacimiento()
+        }
         distritoViewModel.listarDistritos()
     }
 
@@ -101,7 +106,7 @@ class RegistroProveedorOClienteActivity : AppCompatActivity() {
         val nombre = binding.editTextNombreCompleto.text.toString()
         val apellidoPaterno = binding.editTextApellidoPaterno.text.toString()
         val apellidoMaterno = binding.editTextApellidoMaterno.text.toString()
-        val fechaNacimientoStr = binding.editTextFechaNacimiento.text.toString()
+        val fechaNacimientoStr = binding.edtFechaNacimiento.text.toString()
         val sexo = when (binding.radioSexo.checkedRadioButtonId) {
             R.id.radio_masculino -> "M"
             R.id.radio_femenino -> "F"
@@ -112,7 +117,7 @@ class RegistroProveedorOClienteActivity : AppCompatActivity() {
         val idDistrito = binding.distritoSpinner.selectedItemPosition + 1
 
         val fechaNacimiento: Date? = try {
-            SimpleDateFormat("dd-MM-yyyy", Locale.getDefault()).parse(fechaNacimientoStr)
+            SimpleDateFormat("yyyy-MM-dd", Locale.getDefault()).parse(fechaNacimientoStr)
         } catch (e: Exception) {
             null
         }
@@ -164,6 +169,27 @@ class RegistroProveedorOClienteActivity : AppCompatActivity() {
 
         viewModel.registrar(nuevoRegistro)
     }
+
+    private fun crearFechaNacimiento() {
+        val edtCalendario = binding.edtFechaNacimiento
+        val year = seleccionarCalendario.get(Calendar.YEAR)
+        val mes = seleccionarCalendario.get(Calendar.MONTH)
+        val dia = seleccionarCalendario.get(Calendar.DAY_OF_MONTH)
+        val listener = DatePickerDialog.OnDateSetListener { datePicker, y, m, d ->
+            seleccionarCalendario.set(y, m, d)
+            edtCalendario.setText("$y-$m-$d")
+        }
+
+        val datePickerDialog = DatePickerDialog(this, listener, year, mes, dia)
+
+        val calendar = Calendar.getInstance()
+        calendar.add(Calendar.YEAR, -18)
+        datePickerDialog.datePicker.maxDate = calendar.timeInMillis
+
+        datePickerDialog.show()
+    }
+
+
 
     private fun navegarSegunTipoUsuario() {
         val intent = if (tipoId == 1) {

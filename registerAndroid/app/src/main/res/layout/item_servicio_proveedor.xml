@@ -25,6 +25,7 @@
                 android:id="@+id/imgCliente"
                 android:layout_width="65dp"
                 android:layout_height="65dp"
+                android:layout_marginEnd="4dp"
                 android:layout_gravity="center"
                 android:src="@drawable/ic_launcher_background"
                 android:scaleType="centerCrop"/>
@@ -39,31 +40,42 @@
 
                 <TextView
                     android:id="@+id/tvNombreProveedor"
-                    android:layout_width="wrap_content"
+                    android:layout_width="match_parent"
                     android:layout_height="wrap_content"
+                    android:gravity="center"
                     android:text="@string/nombre_del_proveedor"
                     android:textStyle="bold"
                     android:textSize="16sp"/>
 
-                <TextView
-                    android:id="@+id/tvServicio"
+                <RatingBar
+                    android:id="@+id/ratingBarProveedor"
+                    style="@style/Widget.AppCompat.RatingBar.Indicator"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
+                    android:layout_gravity="center"
+                    android:layout_marginStart="5dp"
+                    android:isIndicator="true"
+                    android:numStars="5"
+                    android:progressTint="@color/yellow"
+                    android:rating="3.5"
+                    android:scaleX="0.65"
+                    android:scaleY="0.65"
+                    android:stepSize="0.1" />
+
+                <TextView
+                    android:id="@+id/tvServicio"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
                     android:layout_marginTop="5dp"
+                    android:gravity="center"
                     android:text="@string/servicio"
                     android:textStyle="bold"
                     android:textColor="@color/grayBlack"/>
                 <TextView
-                    android:id="@+id/tvIsNegociable"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_marginTop="5dp"
-                    android:text="@string/negociable"
-                    android:textColor="@color/grayBlack"/>
-                <TextView
                     android:id="@+id/tvPrecioActual"
-                    android:layout_width="wrap_content"
+                    android:layout_width="match_parent"
                     android:layout_height="wrap_content"
+                    android:gravity="center"
                     android:layout_marginTop="5dp"
                     android:textStyle="bold"
                     android:textSize="18dp"
@@ -71,8 +83,10 @@
                     android:text="@string/s_000_00"/>
                 <Button
                     android:id="@+id/btnVerPerfil"
-                    android:layout_width="wrap_content"
+                    android:layout_width="match_parent"
                     android:layout_height="wrap_content"
+                    android:layout_gravity="center"
+                    android:background="@drawable/button_background"
                     android:layout_marginTop="5dp"
                     android:textStyle="bold"
                     android:textColor="@color/white"

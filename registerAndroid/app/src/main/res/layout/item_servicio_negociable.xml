@@ -3,7 +3,6 @@
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
     android:orientation="horizontal"
-    android:padding="10dp"
     android:layout_marginTop="10dp"
     android:background="?attr/selectableItemBackground">
 
@@ -13,7 +12,6 @@
         android:layout_weight="1"
         android:layout_height="wrap_content"
         android:layout_gravity="center"
-        android:textColor="@color/grayBlack"
         android:text="@string/servicio"/>
     <TextView
         android:id="@+id/tvPrecioServicio"
@@ -21,7 +19,7 @@
         android:layout_height="wrap_content"
         android:layout_marginEnd="20dp"
         android:layout_gravity="center"
-        android:textColor="@color/grayBlack"
+        android:textColor="@color/skinBlack"
         android:textStyle="bold"
         android:text="@string/s_000_00"/>
 </LinearLayout>

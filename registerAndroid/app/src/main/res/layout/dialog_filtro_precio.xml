@@ -9,20 +9,29 @@
         android:id="@+id/etMinPrice"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
+        android:paddingVertical="12dp"
+        android:paddingStart="16dp"
+        android:background="@drawable/rectangle_border"
         android:hint="@string/precio_m_nimo"
-        android:inputType="numberDecimal" />
+        android:inputType="numberDecimal"
+        android:layout_marginBottom="16dp"/>
 
     <EditText
         android:id="@+id/etMaxPrice"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
+        android:paddingVertical="12dp"
+        android:paddingStart="16dp"
+        android:background="@drawable/rectangle_border"
         android:hint="@string/precio_m_ximo"
-        android:inputType="numberDecimal" />
+        android:inputType="numberDecimal"
+        android:layout_marginBottom="16dp"/>
 
     <Button
         android:id="@+id/btnApplyFilter"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
+        android:background="@drawable/button_background"
         android:text="@string/aplicar_filtro" />
 
 </LinearLayout>

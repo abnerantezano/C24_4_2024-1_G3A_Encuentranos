@@ -9,12 +9,18 @@
         android:id="@+id/spinnerServicios"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
+        android:paddingVertical="12dp"
+        android:paddingStart="8dp"
+        android:background="@drawable/rectangle_border"
         android:layout_marginBottom="16dp"/>
 
     <EditText
         android:id="@+id/edtPrecioServicio"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
+        android:paddingVertical="12dp"
+        android:paddingStart="16dp"
+        android:background="@drawable/rectangle_border"
         android:hint="@string/precio"
         android:inputType="numberDecimal"
         android:layout_marginBottom="16dp"/>

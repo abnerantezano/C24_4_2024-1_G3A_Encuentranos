@@ -1,5 +1,6 @@
 package com.ambrosio.josue.tutorial
 
+import com.ambrosio.josue.tutorial.data.servicios.ChatApi
 import com.ambrosio.josue.tutorial.data.servicios.ClienteApi
 import com.ambrosio.josue.tutorial.data.servicios.ContratoApi
 import com.ambrosio.josue.tutorial.data.servicios.DetalleCalificacionApi
@@ -39,6 +40,7 @@ object RetrofitClient {
     val servicioApi: ServicioApi by lazy { retrofit.create(ServicioApi::class.java) }
     val servicioProveedorApi: ServicioProveedorApi by lazy { retrofit.create(ServicioProveedorApi::class.java) }
     val detalleContratoAPi: DetalleContratoApi by lazy { retrofit.create(DetalleContratoApi::class.java) }
+    val chatApi: ChatApi by lazy { retrofit.create(ChatApi::class.java) }
     val mensajeApi: MensajeApi by lazy { retrofit.create(MensajeApi::class.java) }
     val detalleCalificacionApi: DetalleCalificacionApi by lazy { retrofit.create(DetalleCalificacionApi::class.java) }
     val contratoApi: ContratoApi by lazy { retrofit.create(ContratoApi::class.java) }

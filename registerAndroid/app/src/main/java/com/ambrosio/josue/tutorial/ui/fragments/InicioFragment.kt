@@ -1,5 +1,6 @@
 package com.ambrosio.josue.tutorial.ui.fragments
 
+import android.content.Intent
 import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
@@ -12,6 +13,8 @@ import androidx.navigation.fragment.findNavController
 import com.ambrosio.josue.tutorial.R
 import com.ambrosio.josue.tutorial.databinding.FragmentInicioBinding
 import com.ambrosio.josue.tutorial.generals.HeaderPrincipal
+import com.ambrosio.josue.tutorial.ui.activities.InformacionProveedorActivity
+import com.ambrosio.josue.tutorial.ui.activities.opcionesPerfilFragment.MiServicioActivity
 import com.ambrosio.josue.tutorial.ui.viewModels.InicioViewModel
 
 class InicioFragment : Fragment() {
@@ -39,10 +42,34 @@ class InicioFragment : Fragment() {
         binding.progressBar.visibility = View.VISIBLE
         binding.content.visibility = View.GONE
 
-        viewModel.nombreUsuario.observe(viewLifecycleOwner, Observer { name ->
-            binding.progressBar.visibility = View.GONE
-            binding.content.visibility = View.VISIBLE
-            binding.tvNombreUsuario.text = name
+        viewModel.verificarAutenticacionUsuario()
+        clienteOproveedor()
+        irServicios()
+        irServiciosProveedor()
+    }
+
+    private fun clienteOproveedor(){
+        viewModel.idTipo.observe(viewLifecycleOwner, Observer { idTipo ->
+            when (idTipo) {
+                1 -> {
+                    viewModel.nombreUsuario.observe(viewLifecycleOwner, Observer { name ->
+                        binding.progressBar.visibility = View.GONE
+                        binding.content.visibility = View.VISIBLE
+                        binding.linearForCliente.visibility = View.VISIBLE
+                        binding.linearForProveedor.visibility = View.GONE
+                        binding.tvNombreUsuario.text = name
+                    })
+                }
+                2->{
+                    viewModel.nombreUsuario.observe(viewLifecycleOwner, Observer { name ->
+                        binding.progressBar.visibility = View.GONE
+                        binding.content.visibility = View.VISIBLE
+                        binding.linearForCliente.visibility = View.GONE
+                        binding.linearForProveedor.visibility = View.VISIBLE
+                        binding.tvNombreUsuario.text = name
+                    })
+                }
+            }
         })
 
         viewModel.mensajeError.observe(viewLifecycleOwner, Observer { message ->
@@ -50,18 +77,21 @@ class InicioFragment : Fragment() {
             binding.content.visibility = View.VISIBLE
             showToast(message)
         })
-
-        viewModel.verificarAutenticacionUsuario()
-        setupNavigation()
     }
-
     private fun showToast(message: String) {
         Toast.makeText(context, message, Toast.LENGTH_SHORT).show()
     }
 
-    private fun setupNavigation() {
+    private fun irServicios() {
         binding.btnBuscarServicios.setOnClickListener {
             findNavController().navigate(R.id.action_inicioFragment_to_serviciosFragment)
+        }
+    }
+
+    private fun irServiciosProveedor() {
+        binding.btnAnadirServicios.setOnClickListener {
+            val intent = Intent(context, MiServicioActivity::class.java)
+            startActivity(intent)
         }
     }
 

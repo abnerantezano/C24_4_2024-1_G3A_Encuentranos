@@ -8,7 +8,10 @@
     <color name="grayItem">#AE838383</color>
     <color name="edtGray">#AEF3F3F3</color>
     <color name="grayBlack">#787171</color>
+    <color name="colorPrimary">#AEFF0000</color>
     <color name="colorAccent">#AEF3F3F3</color>
     <color name="skinSoft">#FFF2E7</color>
     <color name="grayNoSoft">#4E4C4C</color>
+    <color name="yellow">#FFC107</color>
+
 </resources>

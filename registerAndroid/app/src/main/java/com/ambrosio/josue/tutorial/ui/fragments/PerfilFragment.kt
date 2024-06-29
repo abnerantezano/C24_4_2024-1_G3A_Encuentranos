@@ -122,11 +122,6 @@ class PerfilFragment : Fragment() {
             startActivity(intent)
         }
 
-        binding.tvCambiarContrasena.setOnClickListener {
-            val intent = Intent(activity, CambiarContrasenaActivity::class.java)
-            startActivity(intent)
-        }
-
         binding.tvContratos.setOnClickListener {
             val intent = Intent(activity, MiContratoActivity::class.java)
             startActivity(intent)

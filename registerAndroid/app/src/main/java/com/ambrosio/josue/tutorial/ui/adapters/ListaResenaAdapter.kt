@@ -3,6 +3,7 @@ package com.ambrosio.josue.tutorial.ui.adapters
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.RatingBar
 import android.widget.TextView
 import androidx.recyclerview.widget.RecyclerView
 import com.ambrosio.josue.tutorial.R
@@ -34,14 +35,14 @@ class ListaResenaAdapter : RecyclerView.Adapter<ListaResenaAdapter.ListaResenaVi
 
     inner class ListaResenaViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView) {
         private val nombreClienteTextView: TextView = itemView.findViewById(R.id.tvNombreCliente)
-        private val calificacionTextView: TextView = itemView.findViewById(R.id.tvCalificacionProveedor)
+        private val calificacionTextView: RatingBar = itemView.findViewById(R.id.ratingBarProveedor)
         private val ServicioTextView: TextView = itemView.findViewById(R.id.tvServicio)
         private val comentarioClienteTextView: TextView = itemView.findViewById(R.id.tvComentarioCliente)
 
         fun bind(detalleCalificacion: DetalleCalificacionModel) {
             nombreClienteTextView.text = detalleCalificacion.idCalificacion.cliente.nombre
-            calificacionTextView.text = detalleCalificacion.idCalificacion.numero.toString()
-            ServicioTextView.text = detalleCalificacion.idServicio.nombre
+            calificacionTextView.rating = detalleCalificacion.idCalificacion.numero.toFloat()
+            ServicioTextView.text = "Se atendió para: ${detalleCalificacion.idServicio.nombre}"
             comentarioClienteTextView.text = detalleCalificacion.idCalificacion.comentario
         }
     }

@@ -1,17 +1,21 @@
 package com.ambrosio.josue.tutorial.ui.activities.opcionesPerfilFragment
 
+import android.content.DialogInterface
 import android.os.Bundle
 import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.widget.ArrayAdapter
+import android.widget.Button
 import android.widget.EditText
 import android.widget.Spinner
+import android.widget.TextView
 import android.widget.Toast
 import androidx.appcompat.app.AlertDialog
 import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProvider
 import androidx.activity.viewModels
+import androidx.core.content.ContextCompat
 import com.ambrosio.josue.tutorial.R
 import com.ambrosio.josue.tutorial.data.models.ProveedorModel
 import com.ambrosio.josue.tutorial.ui.adapters.MiServicioAdapater
@@ -104,7 +108,7 @@ class MiServicioActivity : HeaderInclude() {
             LayoutInflater.from(this).inflate(R.layout.dialog_agregar_editar_servicio, null)
 
         // Crear el diálogo
-        val dialog = AlertDialog.Builder(this)
+        val dialog = AlertDialog.Builder(this, R.style.AlertDialogCustom)
             .setTitle("Agregar Servicio")
             .setView(dialogView)
             .setPositiveButton("Guardar") { dialog, _ ->
@@ -138,11 +142,13 @@ class MiServicioActivity : HeaderInclude() {
                         // Llamar al método para agregar el servicio proveedor
                         miServicio.agregarServicioProveedor(listOf(servicioProveedor)) { success ->
                             if (success) {
+                                mostrarDialogoInformacionAgregada()
                                 Toast.makeText(
                                     this,
                                     "Servicio agregado correctamente",
                                     Toast.LENGTH_SHORT
-                                ).show()
+                                ).
+                                show()
 
                                 // Actualizar la lista de servicios después de agregar uno nuevo
                                 miServicio.obtenerServicioProveedorPorIdProveedor(idProveedor) // Esto debería actualizar la lista automáticamente
@@ -169,7 +175,14 @@ class MiServicioActivity : HeaderInclude() {
             .setNegativeButton("Cancelar") { dialog, _ ->
                 dialog.dismiss()
             }
+
             .create()
+
+
+        dialog.setOnShowListener {
+            dialog.getButton(DialogInterface.BUTTON_POSITIVE)?.setTextColor(ContextCompat.getColor(this, R.color.skinBlack))
+            dialog.getButton(DialogInterface.BUTTON_NEGATIVE)?.setTextColor(ContextCompat.getColor(this, R.color.skinBlack))
+        }
 
         dialog.show()
 
@@ -195,7 +208,7 @@ class MiServicioActivity : HeaderInclude() {
         val dialogView = LayoutInflater.from(this).inflate(R.layout.dialog_agregar_editar_servicio, null)
 
         // Crear el diálogo
-        val dialog = AlertDialog.Builder(this)
+        val dialog = AlertDialog.Builder(this, R.style.AlertDialogCustom)
             .setTitle("Editar Servicio")
             .setView(dialogView)
             .setPositiveButton("Guardar") { dialog, _ ->
@@ -221,7 +234,7 @@ class MiServicioActivity : HeaderInclude() {
                         miServicio.actualizarServicioProveedor(servicio) { success ->
                             if (success) {
                                 Toast.makeText(this, "Servicio actualizado correctamente", Toast.LENGTH_SHORT).show()
-
+                                mostrarDialogoInformacionActualizada()
                                 // Actualizar la lista de servicios después de actualizar uno existente
                                 miServicio.obtenerServicioProveedorPorIdProveedor(idProveedor)
                             } else {
@@ -246,6 +259,7 @@ class MiServicioActivity : HeaderInclude() {
                         miServicio.eliminarServicioProveedor(servicio.id) { success ->
                             if (success) {
                                 Toast.makeText(this, "Servicio eliminado correctamente", Toast.LENGTH_SHORT).show()
+                                mostrarDialogoInformacionEliminada()
 
                                 // Actualizar la lista de servicios después de eliminar uno existente
                                 miServicio.obtenerServicioProveedorPorIdProveedor(idProveedor)
@@ -280,6 +294,60 @@ class MiServicioActivity : HeaderInclude() {
                 Toast.makeText(this, "Error al obtener la lista de servicios", Toast.LENGTH_SHORT).show()
             }
         })
+
+        dialog.setOnShowListener {
+            dialog.getButton(DialogInterface.BUTTON_POSITIVE)?.setTextColor(ContextCompat.getColor(this, R.color.skinBlack))
+            dialog.getButton(DialogInterface.BUTTON_NEGATIVE)?.setTextColor(ContextCompat.getColor(this, R.color.skinBlack))
+        }
+
+        dialog.show()
+    }
+
+    private fun mostrarDialogoInformacionAgregada() {
+        val dialogView = LayoutInflater.from(applicationContext).inflate(R.layout.dialog_cambios_exito, null)
+        val btnExito = dialogView.findViewById<Button>(R.id.btnExito)
+        val tvCambios = dialogView.findViewById<TextView>(R.id.tvCambios)
+        tvCambios.text = "!El servicio se agrego correctamente¡"
+
+        val dialog = android.app.AlertDialog.Builder(this, R.style.AlertDialogCustom)
+            .setView(dialogView)
+            .create()
+
+        btnExito.setOnClickListener {
+            dialog.dismiss()
+        }
+
+        dialog.show()
+    }
+
+    private fun mostrarDialogoInformacionActualizada() {
+        val dialogView = LayoutInflater.from(applicationContext).inflate(R.layout.dialog_cambios_exito, null)
+        val btnExito = dialogView.findViewById<Button>(R.id.btnExito)
+        val tvCambios = dialogView.findViewById<TextView>(R.id.tvCambios)
+
+        val dialog = android.app.AlertDialog.Builder(this, R.style.AlertDialogCustom)
+            .setView(dialogView)
+            .create()
+
+        btnExito.setOnClickListener {
+            dialog.dismiss()
+        }
+
+        dialog.show()
+    }
+    private fun mostrarDialogoInformacionEliminada() {
+        val dialogView = LayoutInflater.from(applicationContext).inflate(R.layout.dialog_cambios_exito, null)
+        val btnExito = dialogView.findViewById<Button>(R.id.btnExito)
+        val tvCambios = dialogView.findViewById<TextView>(R.id.tvCambios)
+        tvCambios.text = "El servicio se elimino correctamente"
+
+        val dialog = android.app.AlertDialog.Builder(this, R.style.AlertDialogCustom)
+            .setView(dialogView)
+            .create()
+
+        btnExito.setOnClickListener {
+            dialog.dismiss()
+        }
 
         dialog.show()
     }

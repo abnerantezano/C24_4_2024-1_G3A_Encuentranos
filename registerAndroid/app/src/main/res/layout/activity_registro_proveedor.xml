@@ -78,10 +78,13 @@
         </LinearLayout>
 
         <EditText
-            android:id="@+id/edit_text_fecha_nacimiento"
+            android:id="@+id/edtFechaNacimiento"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_marginTop="20dp"
+            android:focusable="false"
+            android:clickable="true"
+            android:maxLines="1"
             android:paddingStart="16dp"
             android:hint="@string/fecha_de_nacimiento"
             android:paddingVertical="12dp"
@@ -107,6 +110,7 @@
                 android:paddingStart="16dp"
                 android:background="@drawable/rectangle_border"
                 android:textStyle="bold"
+                android:maxLength="8"
                 android:inputType="number"/>
             <EditText
                 android:id="@+id/edit_text_celular"
@@ -119,6 +123,7 @@
                 android:paddingVertical="12dp"
                 android:background="@drawable/rectangle_border"
                 android:textStyle="bold"
+                android:maxLength="9"
                 android:inputType="phone"/>
         </LinearLayout>
 

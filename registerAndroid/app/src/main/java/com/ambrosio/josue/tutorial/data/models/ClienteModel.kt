@@ -2,15 +2,15 @@ package com.ambrosio.josue.tutorial.data.models
 
 data class ClienteModel(
     val idCliente: Int,
-    val idUsuario: UsuarioModel = UsuarioModel(1),
-    val idDistrito: DistritoModel = DistritoModel(1),
-    val nombre: String = "",
-    val apellidoPaterno: String = "",
-    val apellidoMaterno: String = "",
-    val sexo: String = "",
-    val dni: String = "",
-    val celular: String = "",
-    val fechaNacimiento: String = "",
-    val descripcion: String = "",
-    val fechaRegistro: String = "",
+    val idUsuario: UsuarioModel? = null,
+    val idDistrito: DistritoModel? = null,
+    val nombre: String? = null,
+    val apellidoPaterno: String? = null,
+    val apellidoMaterno: String? = null,
+    val sexo: String? = null,
+    val dni: String? = null,
+    val celular: String? = null,
+    val fechaNacimiento: String? = null,
+    val descripcion: String? = null,
+    val fechaRegistro: String? = null
 )

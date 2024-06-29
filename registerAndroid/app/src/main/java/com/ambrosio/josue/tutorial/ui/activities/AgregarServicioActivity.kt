@@ -1,4 +1,4 @@
-package com.ambrosio.josue.tutorial.ui.activities.opcionesPerfilFragment
+package com.ambrosio.josue.tutorial.ui.activities
 
 import android.content.Context
 import android.content.Intent
@@ -12,10 +12,10 @@ import androidx.appcompat.app.AppCompatActivity
 import androidx.lifecycle.Observer
 import com.ambrosio.josue.tutorial.MainActivity
 import com.ambrosio.josue.tutorial.ui.adapters.ServicioAdapter
-import com.ambrosio.josue.tutorial.databinding.ActivityAgregarServicioBinding
 import com.ambrosio.josue.tutorial.data.models.ProveedorModel
 import com.ambrosio.josue.tutorial.data.models.ServicioProveedorModel
 import com.ambrosio.josue.tutorial.data.models.ServicioProveedorModeloId
+import com.ambrosio.josue.tutorial.databinding.ActivityAgregarServicioBinding
 import com.ambrosio.josue.tutorial.ui.viewModels.ServicioProveedorViewModel
 import com.ambrosio.josue.tutorial.ui.viewModels.ServiciosListViewModel
 
@@ -36,7 +36,6 @@ class AgregarServicioActivity : AppCompatActivity() {
         // Verificar si se está recuperando correctamente
         Log.d("AgregarServicioActivity", "ID Proveedor recuperado: $idProveedor")
         // Actualizar el TextView u otro elemento en tu UI con el id_proveedor
-        binding.tvAgregar.text = "ID Proveedor: $idProveedor"
 
         serviciosListViewModel = ServiciosListViewModel()
         serviciosListViewModel.obtenerServicios()

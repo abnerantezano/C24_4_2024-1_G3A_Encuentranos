@@ -32,33 +32,66 @@ class MiContratoActivity : HeaderInclude() {
 
         contractsViewModel.obtenerDetalleContratos()
 
-        adapter = DetalleContratoAdapater()
+        adapter = DetalleContratoAdapater(viewModel)
 
-        viewModel.obtenerIdProveedor()
-
+        viewModel.verificarAutenticacionUsuario()
         observeViewModel()
         setupHeader()
         setupSearch()
     }
 
     private fun observeViewModel() {
-        viewModel.idProveedor.observe(this, Observer { idProveedor ->
-            if (idProveedor != null) {
-                contractsViewModel.obtenerDetalleContratoPorProveedorYEstadoAceptado(idProveedor)
-            }
-        })
+        viewModel.idTipo.observe(this, Observer { idTipo ->
+            when (idTipo) {
+                1 -> {
+                    viewModel.obtenerIdCliente()
+                    viewModel.idCliente.observe(this, Observer { idCliente ->
+                        if (idCliente != null) {
+                            contractsViewModel.obtenerDetalleContratoPorClienteYEstadoAceptado(idCliente)
+                        }
+                    })
 
-        contractsViewModel.detalleContratoPorIdProveedor.observe(this, Observer { detalleContrato ->
-            binding.progressBar.visibility = View.GONE
-            if (detalleContrato != null && detalleContrato.isNotEmpty()) {
-                binding.recyclerViewMensajes.visibility = View.VISIBLE
-                binding.textViewError.visibility = View.GONE
-                adapter.submitList(detalleContrato)
-                binding.recyclerViewMensajes.adapter = adapter
-            } else {
-                binding.recyclerViewMensajes.visibility = View.GONE
-                binding.textViewError.visibility = View.VISIBLE
-                binding.textViewError.text = "No se encontraron contratos."
+                    contractsViewModel.detalleContratoPorIdCliente.observe(this, Observer { detalleContrato ->
+                        binding.progressBar.visibility = View.GONE
+                        if (detalleContrato != null && detalleContrato.isNotEmpty()) {
+                            binding.recyclerViewMensajes.visibility = View.VISIBLE
+                            binding.textViewError.visibility = View.GONE
+                            adapter.submitList(detalleContrato)
+                            binding.recyclerViewMensajes.adapter = adapter
+                        } else {
+                            binding.recyclerViewMensajes.visibility = View.GONE
+                            binding.textViewError.visibility = View.VISIBLE
+                            binding.textViewError.text = "No se encontraron contratos."
+                        }
+                    })
+                }
+                2 -> {
+                    viewModel.obtenerIdProveedor()
+                    viewModel.idProveedor.observe(this, Observer { idProveedor ->
+                        if (idProveedor != null) {
+                            contractsViewModel.obtenerDetalleContratoPorProveedorYEstadoAceptado(idProveedor)
+                        }
+                    })
+
+                    contractsViewModel.detalleContratoPorIdProveedor.observe(this, Observer { detalleContrato ->
+                        binding.progressBar.visibility = View.GONE
+                        if (detalleContrato != null && detalleContrato.isNotEmpty()) {
+                            binding.recyclerViewMensajes.visibility = View.VISIBLE
+                            binding.textViewError.visibility = View.GONE
+                            adapter.submitList(detalleContrato)
+                            binding.recyclerViewMensajes.adapter = adapter
+                        } else {
+                            binding.recyclerViewMensajes.visibility = View.GONE
+                            binding.textViewError.visibility = View.VISIBLE
+                            binding.textViewError.text = "No se encontraron contratos."
+                        }
+                    })
+                }
+                else -> {
+                    binding.progressBar.visibility = View.GONE
+                    binding.textViewError.visibility = View.VISIBLE
+                    binding.textViewError.text = "Tipo de usuario desconocido."
+                }
             }
         })
 
@@ -88,11 +121,12 @@ class MiContratoActivity : HeaderInclude() {
     }
 
     private fun filterContracts(query: String) {
-        val filteredList = contractsViewModel.detalleContratoPorIdProveedor.value?.filter {
-            it.idContrato.idCliente.nombre.contains(query, ignoreCase = true)
+        val allContracts = contractsViewModel.detalleContratoPorIdProveedor.value.orEmpty() +
+                contractsViewModel.detalleContratoPorIdCliente.value.orEmpty()
+
+        val filteredList = allContracts.filter {
+            it.idContrato.idCliente.nombre?.contains(query, ignoreCase = true) ?: false
         }
-        if (filteredList != null) {
-            adapter.submitList(filteredList)
-        }
+        adapter.submitList(filteredList)
     }
 }

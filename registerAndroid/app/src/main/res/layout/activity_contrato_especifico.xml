@@ -56,6 +56,7 @@
                         android:paddingEnd="10dp">
 
                         <TextView
+                            android:id="@+id/tvTipoUsuario"
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
                             android:text="@string/cliente"
@@ -63,7 +64,7 @@
                             android:textColor="@android:color/darker_gray"/>
 
                         <TextView
-                            android:id="@+id/tvNombreCliente"
+                            android:id="@+id/tvNombreUsuario"
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
                             android:text="@string/nombre_del_cliente"
@@ -144,6 +145,7 @@
                         android:layout_height="0dp"
                         android:layout_weight="1"/>
                     <TextView
+                        android:id="@+id/tvFechaInicio"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:textSize="15sp"
@@ -167,6 +169,7 @@
                         android:layout_height="0dp"
                         android:layout_weight="1"/>
                     <TextView
+                        android:id="@+id/tvFechaFin"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:textColor="@color/grayNoSoft"

@@ -84,13 +84,14 @@ class ServicioProveedorFragment : Fragment() {
 
     private fun applyFilters() {
         val filteredList = allServicios.filter { servicio ->
-            servicio.idServicio.nombre.contains(currentTextFilter, ignoreCase = true) ||
-                    servicio.idProveedor.nombre.contains(currentTextFilter, ignoreCase = true)
+            servicio.idServicio.nombre?.contains(currentTextFilter, ignoreCase = true) ?: false ||
+                    servicio.idProveedor.nombre?.contains(currentTextFilter, ignoreCase = true) ?: false
         }.filter { servicio ->
             servicio.precio in minPriceFilter..maxPriceFilter
         }
         adapter.submitList(filteredList)
     }
+
 
     private fun showFilterDialog() {
         val dialogView = LayoutInflater.from(context).inflate(R.layout.dialog_filtro_precio, null)

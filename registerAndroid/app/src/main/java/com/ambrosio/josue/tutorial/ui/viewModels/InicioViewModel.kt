@@ -50,8 +50,8 @@ class InicioViewModel : ViewModel() {
     private val _celularUsuario = MutableLiveData<String>()
     val celularUsuario: LiveData<String> get() = _celularUsuario
 
-    private val _distritoUsuario = MutableLiveData<String>()
-    val distritoUsuario: LiveData<String> get() = _distritoUsuario
+    private val _distritoUsuario = MutableLiveData<DistritoModel>()
+    val distritoUsuario: LiveData<DistritoModel> get() = _distritoUsuario
 
     private val _sexoUsuario = MutableLiveData<String>()
     val sexoUsuario: LiveData<String> get() = _sexoUsuario
@@ -69,6 +69,9 @@ class InicioViewModel : ViewModel() {
 
     private val _proveedor = MutableLiveData<ProveedorModel>()
     val proveedor: LiveData<ProveedorModel> get() = _proveedor
+
+    private val _cliente = MutableLiveData<ClienteModel>()
+    val client: LiveData<ClienteModel> get() = _cliente
 
 
     private val auth: FirebaseAuth = FirebaseAuth.getInstance()
@@ -297,8 +300,23 @@ class InicioViewModel : ViewModel() {
         _dniUsuario.postValue(jsonObject.optString("dni", ""))
         _celularUsuario.postValue(jsonObject.optString("celular", ""))
         _descripcionUsuario.postValue(jsonObject.optString("descripcion", ""))
-        _distritoUsuario.postValue(jsonObject.optString("distrito", ""))
         _sexoUsuario.postValue(jsonObject.optString("sexo", ""))
+
+        // Obtener el objeto DistritoModel del JSON
+        val distritoJson = jsonObject.optJSONObject("idDistrito")
+        val distritoModel = if (distritoJson != null) {
+            DistritoModel(
+                idDistrito = distritoJson.optInt("idDistrito"),
+                nombre = distritoJson.optString("nombre")
+            )
+        } else {
+            null
+        }
+
+        // Verificar que distritoModel no sea nulo antes de asignarlo
+        distritoModel?.let {
+            _distritoUsuario.postValue(it)
+        }
     }
 
     // Método para manejar errores de red

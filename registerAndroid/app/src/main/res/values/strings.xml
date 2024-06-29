@@ -105,4 +105,10 @@
     <string name="aceptar_contrato">Aceptar Contrato</string>
     <string name="denegar_contrato">Denegar Contrato</string>
     <string name="buscar_contrato_por_cliente">Buscar contrato por cliente</string>
+    <string name="los_cambios_se_realizaron_n_con_xito">!Los cambios se realizaron \n con éxito!</string>
+    <string name="fecha_de_fin">Fecha de fin</string>
+    <string name="fecha_de_incio">Fecha de incio</string>
+    <string name="servicios_negociables">Servicios negociables</string>
+    <string name="servicios_no_negociables">Servicios no negociables</string>
+    <string name="ingrese_un_monto">Ingrese un monto</string>
 </resources>

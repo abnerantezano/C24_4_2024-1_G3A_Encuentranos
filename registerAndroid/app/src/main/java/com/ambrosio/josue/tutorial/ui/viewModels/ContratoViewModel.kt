@@ -17,6 +17,7 @@ class ContratoViewModel : ViewModel() {
     val listaContratos = MutableLiveData<List<ContratoModel>>()
     val listaDetalleContratos = MutableLiveData<List<DetalleContratoModel>>()
     val detalleContratoPorIdProveedor = MutableLiveData<List<DetalleContratoModel>?>()
+    val detalleContratoPorIdCliente = MutableLiveData<List<DetalleContratoModel>?>()
 
     fun obtenerDetalleContratos() {
         contratoApi.listarContratos().enqueue(object : Callback<List<ContratoModel>> {
@@ -86,6 +87,30 @@ class ContratoViewModel : ViewModel() {
                 override fun onFailure(call: Call<List<DetalleContratoModel>>, t: Throwable) {
                     Log.e("MiServicioActivity", "Error al obtener servicios: ${t.message}")
                     detalleContratoPorIdProveedor.postValue(null)
+                }
+            })
+    }
+
+    fun obtenerDetalleContratoPorClienteYEstadoAceptado(idCliente: Int) {
+        detalleContratoApi.obtenerDetalleContratoPorCliente(idCliente)
+            .enqueue(object : Callback<List<DetalleContratoModel>> {
+                override fun onResponse(
+                    call: Call<List<DetalleContratoModel>>,
+                    response: Response<List<DetalleContratoModel>>
+                ) {
+                    if (response.isSuccessful) {
+                        val detalleContratos = response.body()
+                        Log.d("MiContratoActivity", "Contratos obtenidos: $detalleContratos")
+                        detalleContratoPorIdCliente.postValue(detalleContratos)
+                    } else {
+                        Log.e("MiServicioActivity", "Error en la respuesta: ${response.code()}")
+                        detalleContratoPorIdCliente.postValue(null)
+                    }
+                }
+
+                override fun onFailure(call: Call<List<DetalleContratoModel>>, t: Throwable) {
+                    Log.e("MiServicioActivity", "Error al obtener servicios: ${t.message}")
+                    detalleContratoPorIdCliente.postValue(null)
                 }
             })
     }
