@@ -61,8 +61,7 @@ const AgregarServicio = () => {
         ServicioProveedorService.postAddServicioProveedor(servicioParaAgregar)
             .then(response => {
                 console.log(response);
-                window.location.reload();
-                navigate('/inicio');
+                window.location.href = '/inicio';
             })
             .catch(error => {
                 console.log(error);
@@ -80,14 +79,14 @@ const AgregarServicio = () => {
                              </div>
                             <div className="grid md:grid-cols-2 md:gap-6 mb-5">
                                 <div className="relative z-0 w-full group">
-                                    <label className="block mb-2 text-sm font-medium text-gray-900 dark:text-white mb-2 mt-2">Servicio</label>
+                                    <label className="block mb-2 text-sm font-medium text-gray-900 mt-2">Servicio</label>
                                     <Controller name="idServicio" {...register("idServicio", { required: true })} control={control} render={({ field }) => (
-                                        <Dropdown id={field.name} value={field.value} onChange={(e) => field.onChange(e.value)} options={servicios} optionValue="idServicio" optionLabel="nombre" placeholder="Seleccione un servicio" panelClassName="custom-panel" pt={{input:'text-sm',panel:'text-sm',root:'ring-0',select:'text-red-500'}} className="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:border-dark w-full dark:bg-[#] dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500" />
+                                        <Dropdown id={field.name} value={field.value} onChange={(e) => field.onChange(e.value)} options={servicios} optionValue="idServicio" optionLabel="nombre" placeholder="Seleccione un servicio" panelClassName="custom-panel" pt={{input:'text-sm',panel:'text-sm',root:'ring-0',select:'text-red-500'}} className="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:border-dark w-full" />
                                     )} />
                                     {errors.idServicio && <span className="text-red-500 text-sm">Agregue un servicio</span>}
                                 </div>
                                 <div className="relative z-0 w-full group">
-                                    <label className="block mb-2 text-sm font-medium text-gray-900 dark:text-white mb-2 mt-2">Precio</label>
+                                    <label className="block mb-2 text-sm font-medium text-gray-900 mt-2">Precio</label>
                                     <Controller name="precio" {...register("precio", { required: true })} control={control} render={({ field }) => (
                                         <InputNumber inputId={field.name} value={field.value} onChange={(e) => field.onChange(e.value)} mode="currency" currency="PEN" className="block w-full" inputClassName="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring focus:ring-orange-200 focus:border-dark block w-full p-2.5" />
                                     )} />

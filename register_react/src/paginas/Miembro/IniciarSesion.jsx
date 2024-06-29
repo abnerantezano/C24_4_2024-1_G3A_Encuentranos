@@ -28,7 +28,7 @@ const IniciarSesion = () => {
                             <button type="submit" className="focus:outline-none w-full text-white bg-[#E8A477] hover:bg-[#BC7547] focus:ring-4 focus:ring-[#BC7547] font-medium rounded-lg text-sm px-5 py-2.5 me-2 mb-2">Iniciar sesión</button>
                         </div>
                         <div className="my-4 flex items-center before:mt-0.5 before:flex-1 before:border-t before:border-neutral-300 after:mt-0.5 after:flex-1 after:border-t after:border-neutral-300">
-                            <p className="mx-4 mb-0 text-center font-semibold dark:text-neutral-200">O</p>
+                            <p className="mx-4 mb-0 text-center font-semibold">O</p>
                         </div>
                         <div className="mb-5">
                             <button type="button" onClick={iniciarSesionConGoogle} className="flex justify-center w-full text-gray-800 bg-white border border-gray-400 focus:ring-4 focus:outline-none focus:ring-[#FCE6D8] font-medium rounded-lg text-sm px-5 py-2.5 items-center me-2 mb-2">
@@ -37,7 +37,7 @@ const IniciarSesion = () => {
                             </button>
                         </div>
                         <div className="mb-5 flex justify-center">
-                            <label className="block text-sm font-medium text-gray-900 dark:text-white">¿No tienes una cuenta? <a href="/registro" className="text-gray-500">Regístrate</a></label>
+                            <label className="block text-sm font-medium text-gray-900">¿No tienes una cuenta? <a href="/registro" className="text-gray-500">Regístrate</a></label>
                         </div>
                     </div>
                 </div>

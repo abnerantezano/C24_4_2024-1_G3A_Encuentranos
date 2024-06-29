@@ -1,7 +1,7 @@
 import React from 'react'
 //IMAGENES
-import imagen1 from '../../../../imagenes/inicio/imagen1.png'
-import imagen2 from '../../../../imagenes/inicio/imagen2.png'
+import imagen1 from '../../../../imagenes/Inicio con login/imagen1.png'
+import imagen2 from '../../../../imagenes/Inicio con login//imagen2.png'
 //WAVES
 import waves from '../../../../imagenes/waves/waves.png'
 // FONT AWESOME
