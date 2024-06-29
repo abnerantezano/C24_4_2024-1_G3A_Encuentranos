@@ -1,7 +1,7 @@
 package com.proyecto.encuentranos.controladores;
 
 import com.proyecto.encuentranos.modelos.ChatModelo;
-import com.proyecto.encuentranos.servicios.*;
+import com.proyecto.encuentranos.servicios.ChatServicio;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
@@ -34,5 +34,13 @@ public class ChatControlador {
     @PostMapping("/agregar")
     public ChatModelo agregarChat(@RequestBody ChatModelo chat) {
         return chatServicio.agregarChat(chat);
+    }
+
+    @GetMapping("/{idCliente}/{idProveedor}")
+    public ResponseEntity<ChatModelo> obtenerOcrearChat(
+            @PathVariable int idCliente,
+            @PathVariable int idProveedor) {
+        ChatModelo chat = chatServicio.obtenerOcrearChat(idCliente, idProveedor);
+        return ResponseEntity.ok(chat);
     }
 }

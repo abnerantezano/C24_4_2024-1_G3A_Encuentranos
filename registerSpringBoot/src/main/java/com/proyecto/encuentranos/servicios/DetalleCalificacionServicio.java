@@ -70,7 +70,7 @@ public class DetalleCalificacionServicio {
         
         double sum = 0;
         for (DetalleCalificacionModelo calificacion : calificaciones) {
-            sum += calificacion.getIdCalificacion().getNumero();
+            sum += calificacion.getIdCalificacion().getCalificacion();
         }
         
         return sum / calificaciones.size();

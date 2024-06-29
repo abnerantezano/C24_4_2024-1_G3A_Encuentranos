@@ -38,30 +38,16 @@ public class MensajeControlador {
 
     @PostMapping("/agregar")
     public MensajeModelo createMensaje(@RequestBody MensajeModelo mensaje) {
-        return mensajeServicio.saveMensaje(mensaje);
+        return mensajeServicio.crearMensaje(mensaje);
     }
 
     @GetMapping("/mensajes-por-emisor/{idEmisor}")
     public List<MensajeModelo> getMensajesByEmisorId(@PathVariable Integer idEmisor) {
         return mensajeServicio.getMensajesByEmisorId(idEmisor);
     }
-    
+
     @GetMapping("/mensajes-por-receptor/{idReceptor}")
     public List<MensajeModelo> getMensajesByReceptorId(@PathVariable Integer idReceptor) {
         return mensajeServicio.getMensajesByReceptorId(idReceptor);
-    }
-
-    @GetMapping("/buscar/{idEmisor}/{idReceptor}")
-    public ResponseEntity<MensajeModelo> getMensajeByEmisorIdAndReceptorId(
-            @PathVariable Integer idEmisor,
-            @PathVariable Integer idReceptor) {
-
-        Optional<MensajeModelo> mensaje = mensajeServicio.getMensajeByEmisorIdAndReceptorId(idEmisor, idReceptor);
-
-        if (mensaje.isPresent()) {
-            return ResponseEntity.ok(mensaje.get());
-        } else {
-            return ResponseEntity.notFound().build();
-        }
     }
 }

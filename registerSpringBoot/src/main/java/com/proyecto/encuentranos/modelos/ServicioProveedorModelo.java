@@ -25,5 +25,5 @@ public class ServicioProveedorModelo {
     private double precio;
     
     @Column(name = "negociable")
-    private boolean negociable;
+    private boolean negociable = false;
 }

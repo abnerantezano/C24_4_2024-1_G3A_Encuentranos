@@ -59,8 +59,9 @@ public class UsuarioServicio {
                 usuarioExistente.setImagenUrl(usuarioActualizado.getImagenUrl());
             }
 
-            usuarioExistente.setActivo(usuarioActualizado.isActivo());
-
+            if (usuarioActualizado.getEstado() != null) {
+                usuarioExistente.setEstado(usuarioActualizado.getEstado());
+            }
             usuarioExistente = usuarioRepositorio.save(usuarioExistente);
         }
         return usuarioExistente;

@@ -11,7 +11,7 @@ import java.util.List;
 import java.util.Optional;
 
 @RestController
-@RequestMapping("/api/calificaciones")
+@RequestMapping("/calificacion")
 public class CalificacionControlador {
 
     private final CalificacionServicio calificacionServicio;

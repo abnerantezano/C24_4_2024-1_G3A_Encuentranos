@@ -38,8 +38,8 @@ public class UsuarioModelo {
     @Column(name = "imagen_url")
     private String imagenUrl;
 
-    @Column(name = "activo")
-    private boolean activo;
+    @Column(name = "estado")
+    private String estado;
 
     @Temporal(TemporalType.DATE)
     @Column(name = "fh_creacion")

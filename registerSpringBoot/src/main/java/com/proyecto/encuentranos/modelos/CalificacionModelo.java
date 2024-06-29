@@ -20,8 +20,8 @@ public class CalificacionModelo {
     @JoinColumn(name = "id_cliente", referencedColumnName = "id_cliente")
     private ClienteModelo cliente;
 
-    @Column(name = "numero")
-    private Integer numero;
+    @Column(name = "calificacion")
+    private int calificacion;
 
     @Lob
     @Column(name = "comentario")

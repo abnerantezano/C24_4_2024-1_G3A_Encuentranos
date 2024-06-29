@@ -2,15 +2,17 @@ package com.proyecto.encuentranos.modelos;
 
 import java.util.Date;
 
+import com.fasterxml.jackson.annotation.JsonFormat;
 import jakarta.persistence.*;
 import lombok.Getter;
 import lombok.Setter;
 
-@Setter
 @Getter
+@Setter
 @Entity
 @Table(name = "contrato")
 public class ContratoModelo {
+
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "id_contrato")
@@ -20,29 +22,31 @@ public class ContratoModelo {
     @JoinColumn(name = "id_cliente", referencedColumnName = "id_cliente")
     private ClienteModelo idCliente;
 
+    @Column(name = "fecha_inicio", nullable = false)
     @Temporal(TemporalType.DATE)
-    @Column(name = "fecha_inicio")
     private Date fechaInicio;
 
+    @Column(name = "fecha_fin", nullable = false)
     @Temporal(TemporalType.DATE)
-    @Column(name = "fecha_fin")
     private Date fechaFin;
 
-    @Column(name = "estado")
+    @Column(name = "estado", nullable = false, length = 45)
     private String estado;
 
-    @Column(name = "precio_final")
+    @Column(name = "precio_final", nullable = false)
     private Double precioFinal;
 
-    @Temporal(TemporalType.TIMESTAMP)
-    @Column(name = "hi_servicio")
+    @Column(name = "hi_servicio", nullable = false)
+    @JsonFormat(shape = JsonFormat.Shape.STRING, pattern = "HH:mm:ss")
+    @Temporal(TemporalType.TIME)
     private Date hiServicio;
 
-    @Temporal(TemporalType.TIMESTAMP)
-    @Column(name = "hf_servicio")
+    @Column(name = "hf_servicio", nullable = false)
+    @JsonFormat(shape = JsonFormat.Shape.STRING, pattern = "HH:mm:ss")
+    @Temporal(TemporalType.TIME)
     private Date hfServicio;
 
-    @Temporal(TemporalType.DATE)
-    @Column(name = "fh_creacion")
+    @Column(name = "fh_creacion", nullable = false, columnDefinition = "TIMESTAMP DEFAULT CURRENT_TIMESTAMP")
+    @Temporal(TemporalType.TIMESTAMP)
     private Date fhCreacion;
 }

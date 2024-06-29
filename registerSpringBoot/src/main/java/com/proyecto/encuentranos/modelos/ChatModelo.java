@@ -24,10 +24,20 @@ public class ChatModelo {
     @JoinColumn(name = "id_cliente", referencedColumnName = "id_cliente")
     private ClienteModelo idCliente;
 
-    @Column(nullable = false)
-    private boolean eliminado;
+    @Column(name = "estado", nullable = false)
+    private String estado;
 
     @Temporal(TemporalType.DATE)
     @Column(name = "fh_creacion")
     private Date fhCreacion;
+
+    // Constructor vacío requerido por Hibernate
+    public ChatModelo() {
+    }
+
+    // Constructor con parámetros
+    public ChatModelo(ClienteModelo idCliente, ProveedorModelo idProveedor) {
+        this.idCliente = idCliente;
+        this.idProveedor = idProveedor;
+    }
 }
