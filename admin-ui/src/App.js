@@ -6,7 +6,6 @@ import NavegadorVertical from "./componentes/Header/NavegadorVertical";
 import Servicios from "./paginas/Servicios";
 import Panel from "./paginas/Panel";
 import Usuarios from "./paginas/Usuarios";
-import Chats from "./paginas/Chats";
 import Contratos from "./paginas/Contratos";
 
 const App = () => {
@@ -22,7 +21,6 @@ const App = () => {
             <Route exact path='/servicios' element={<Servicios />} />
             <Route exact path='/usuarios' element={<Usuarios/>} />
             <Route exact path='/contratos' element={<Contratos />} />
-            <Route exact path='/chats' element={<Chats />} />
           </Routes>
         </div>
       </div>
