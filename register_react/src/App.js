@@ -3,11 +3,11 @@ import React, { useState } from 'react';
 import { BrowserRouter as Router, Routes, Route } from 'react-router-dom';
 import './App.css';
 //COMPONENTES
-import Header from './componentes/Header/Header';
-import HeaderAutenticado from './componentes/Header/HeaderAutenticado';
-import Footer from './componentes/Footer/Footer';
-import FooterAutenticado from './componentes/Footer/FooterAutenticado';
-import InformacionDeUsuario from './componentes/Informacion/InformacionDeUsuario';
+import Header from './componentes/Miembro/Header/Header';
+import HeaderAutenticado from './componentes/Miembro/Header/HeaderAutenticado';
+import Footer from './componentes/Miembro/Footer/Footer';
+import FooterAutenticado from './componentes/Miembro/Footer/FooterAutenticado';
+import InformacionDeUsuario from './componentes/Miembro/Datos/InformacionDeUsuario';
 //PAGINAS SIN LOGIN
 import Index from './paginas/Miembro/Index';
 import IniciarSesion from './paginas/Miembro/IniciarSesion';
@@ -19,7 +19,7 @@ import AgregarServicio from './paginas/Miembro/AgregarServicio';
 import Inicio from './paginas/Miembro/Inicio';
 import Servicios from './paginas/Miembro/Servicios';
 import Precios from './paginas/Miembro/Precios';
-import Configuracion from './componentes/Diseños/Configuracion_perfil';
+import Configuracion from './componentes/Miembro/Navegador/Configuracion_perfil';
 import PerfilProveedor from './paginas/Miembro/PerfilProveedor';
 import BandejaDeEntrada from './paginas/Miembro/BandejaDeEntrada';
 

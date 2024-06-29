@@ -1,15 +1,18 @@
 import React, { useState, useEffect } from 'react';
-import InformacionDeUsuario from '../../componentes/Informacion/InformacionDeUsuario';
-import InformacionCliente from '../../componentes/Informacion/InformacionCliente';
-import EditarCuenta from '../../componentes/Diseños/Modal/EditarCuenta';
-import SeccionPerfil from '../../componentes/Diseños/Seccion_Perfil';
-import InformacionProveedor from '../../componentes/Informacion/InformacionProveedor';
-import SeccionInformacionPersonal from '../../componentes/Diseños/Seccion_InformacionPersonal';
-import EditarPerfil from '../../componentes/Diseños/Modal/EditarPerfil';
-import EditarIPersonal from '../../componentes/Diseños/Modal/EditarIPersonal';
+//FONT AWESOME
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faPlus } from '@fortawesome/free-solid-svg-icons';
-import ConfirmarModal from '../../componentes/Diseños/Modal/ConfirmarAccion';
+//COMPONENTES
+import InformacionDeUsuario from '../../componentes//Miembro/Datos/InformacionDeUsuario';
+import InformacionCliente from '../../componentes//Miembro/Datos/InformacionCliente';
+import InformacionProveedor from '../../componentes//Miembro/Datos/InformacionProveedor';
+import SeccionPerfil from '../../componentes/Miembro/Vistas/MiCuenta/Seccion_Perfil';
+import SeccionInformacionPersonal from '../../componentes/Miembro/Vistas/MiCuenta/Seccion_InformacionPersonal';
+import EditarCuenta from '../../componentes/Miembro/Modal/Editar cuenta/EditarCuenta';
+import EditarPerfil from '../../componentes/Miembro/Modal/Editar perfil/EditarPerfil';
+import EditarIPersonal from '../../componentes/Miembro/Modal/Editar informacion personal/EditarIPersonal';
+import ConfirmarModal from '../../componentes/Miembro/Modal/General/ConfirmarAccion';
+//SERVICIOS
 import usuarioServiceInstance from '../../servicios/Miembro/UsuarioService';
 
 function MiCuenta() {

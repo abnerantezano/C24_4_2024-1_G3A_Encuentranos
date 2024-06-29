@@ -10,7 +10,7 @@ import { faPlus } from '@fortawesome/free-solid-svg-icons';
 // SERVICIOS
 import UsuarioService from "../../servicios/Miembro/UsuarioService";
 // COMPONENTES
-import Token from "../../componentes/Token";
+import Token from "../../componentes/Miembro/Datos/Token";
 
 const CrearUsuario = () => {
     const navigate = useNavigate();

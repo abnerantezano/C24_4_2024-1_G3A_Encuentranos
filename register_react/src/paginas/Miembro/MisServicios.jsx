@@ -6,7 +6,7 @@ import servicioProveedorServiceInstance from '../../servicios/Miembro/ServicioPr
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faEdit, faTrashCan } from '@fortawesome/free-solid-svg-icons';
 //COMPONENTES
-import AgregarServicio from '../../componentes/Funciones/AgregarVariosServicios';
+import AgregarServicio from '../../componentes/Miembro/Funciones/Agregar servicios/AgregarVariosServicios';
 
 function MisServicios() {
   //MANEJAR ESTADOS DE LAS VARIABLES

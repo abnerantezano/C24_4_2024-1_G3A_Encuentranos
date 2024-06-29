@@ -1,9 +1,12 @@
 import React, { useEffect, useState } from 'react';
 import { useParams } from 'react-router-dom';
-import ProveedorServiceInstance from '../../servicios/Miembro/ProveedorService';
+//PRIME REACT
 import { Rating } from 'primereact/rating';
-import Rol from '../../componentes/Rol';
+//COMPONENTES
+import Rol from '../../componentes/Miembro/Datos/Rol';
+//SERVICIOS
 import servicioProveedorServiceInstance from '../../servicios/Miembro/ServicioProveedor';
+import ProveedorServiceInstance from '../../servicios/Miembro/ProveedorService';
 
 function PerfilProveedor() {
     const { id } = useParams();

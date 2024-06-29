@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from "react";
-import logo from "../../imagenes/logo-color.png";
+import logo from "../../imagenes/Logo de la empresa/logo-color.png";
 //PRIME REACT
 import { Calendar } from 'primereact/calendar';
 import { InputText } from 'primereact/inputtext';
@@ -104,6 +104,7 @@ const Formulario = () => {
                     .catch((error) => {
                         console.log(error);
                     })
+                window.location.reload();
                 navigate('/agregar-servicio');
             }
             } else {

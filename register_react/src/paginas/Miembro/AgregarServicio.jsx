@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from "react";
-import logo from "../../imagenes/logo-color.png";
+import logo from "../../imagenes/Logo de la empresa/logo-color.png";
 import { useNavigate } from "react-router-dom";
 //PRIME REACT
 import { Dropdown } from 'primereact/dropdown';
@@ -60,8 +60,9 @@ const AgregarServicio = () => {
 
         ServicioProveedorService.postAddServicioProveedor(servicioParaAgregar)
             .then(response => {
-                console.log(response)
-                navigate('/inicio')
+                console.log(response);
+                window.location.reload();
+                navigate('/inicio');
             })
             .catch(error => {
                 console.log(error);

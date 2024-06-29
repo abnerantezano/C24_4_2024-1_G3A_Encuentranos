@@ -1,8 +1,8 @@
 import React from 'react'
-import Rol from '../../componentes/Rol'
-import MisContratosProveedor from '../../componentes/Vistas/VMisContratos/Proveedor'
-import MisContratosCliente from '../../componentes/Vistas/VMisContratos/Cliente'
-
+//COMPONENTES
+import Rol from '../../componentes/Miembro/Datos/Rol'
+import MisContratosProveedor from '../../componentes/Miembro/Vistas/MisContratos/Proveedor'
+import MisContratosCliente from '../../componentes/Miembro/Vistas/MisContratos/Cliente'
 
 function MisContratos() {
 
