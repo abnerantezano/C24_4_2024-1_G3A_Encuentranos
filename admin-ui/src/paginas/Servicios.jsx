@@ -54,7 +54,7 @@ function Servicios() {
 
   const openModal = (servicio = null) => {
     setSelectedServicio(servicio);
-    setIsEdit(!!servicio); // Establece true si hay un servicio (editar), false si no (crear)
+    setIsEdit(!!servicio); 
     setIsModalOpen(true);
   };
 
@@ -66,7 +66,7 @@ function Servicios() {
   const handleSearchChange = (e) => {
     setBusqueda(e.target.value);
     if (e.target.value === "") {
-      setFilteredServicios(servicios); // Si el campo de búsqueda está vacío, muestra todos los servicios
+      setFilteredServicios(servicios); 
     } else {
       setFilteredServicios(
         servicios.filter((servicio) =>
@@ -101,8 +101,8 @@ function Servicios() {
               <th scope="col" className="px-6 py-3 font-bold text-[#BC7547]">
                 ID
               </th>
-              <th scope="col" className="px-6 py-3 font-bold text-[#BC7547]">
-                NOMBRE
+              <th scope="col" className="px-6 py-3 font-bold text-[#BC7547]" colSpan="2">
+                SERVICIO
               </th>
               <th scope="col" className="px-6 py-3 font-bold text-[#BC7547]">
                 DESCRIPCIÓN
@@ -115,7 +115,7 @@ function Servicios() {
               </th>
             </tr>
           </thead>
-          <tbody>
+          <tbody className="items-center">
             {filteredServicios.map((servicio) => (
               <tr
                 key={servicio.id_servicio}
@@ -123,10 +123,11 @@ function Servicios() {
               >
                 <th
                   scope="row"
-                  className="px-6 py-4 font-medium text-gray-900 whitespace-nowrap dark:text-white"
+                  className="px-6 py-4 font-medium text-gray-900 whitespace-nowrap"
                 >
                   {servicio.id_servicio}
                 </th>
+                <td className="px-6 py-4"><img src={servicio.imagen_url} alt="Foto del servici" className="w-full h-24 object-fill" /></td>
                 <td className="px-6 py-4">{servicio.nombre}</td>
                 <td className="px-6 py-4">{servicio.descripcion}</td>
                 <td className="px-6 py-4 text-right">

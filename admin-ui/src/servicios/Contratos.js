@@ -18,9 +18,9 @@ class ContratoService {
         .then((res) => res.data);
     }
 
-    putContrato(datos, id_contrato) {
+    patchContrato(datos, id_contrato) {
         return axios
-        .put(this.baseUrl + `/${id_contrato}`, datos)
+        .patch(this.baseUrl + `/${id_contrato}/`, datos)
         .then((res) => res.data);
     }
     }

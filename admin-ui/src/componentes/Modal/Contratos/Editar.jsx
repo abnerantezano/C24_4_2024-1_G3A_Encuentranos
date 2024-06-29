@@ -30,7 +30,7 @@ const EditarModal = ({ contrato, closeModal, funcion }) => {
 
         console.log("Datos antes de enviar:", datos);
 
-        ContratosService.putContrato(datos, contrato.id_contrato)
+        ContratosService.patchContrato(datos, contrato.id_contrato)
             .then((response) => {
                 console.log(response);
                 console.log("Contrato actualizado");
