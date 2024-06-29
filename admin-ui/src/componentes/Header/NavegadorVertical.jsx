@@ -30,8 +30,8 @@ function NavegadorVertical() {
             </div>
             <ul className="pt-6">
                 {Menus.map((Menu, index) => (
-                    <li key={index} className={`flex rounded-md cursor-pointer text-white text-base items-center gap-x-4
-                    ${Menu.gap ? "mt-9" : "mt-2"} ${location.pathname === Menu.link ? "bg-[#fff2ea] text-[#B4663F]" : "hover:bg-light-white"}`}>
+                    <li key={index}className={`flex rounded-md cursor-pointer text-base items-center gap-x-4 
+                    ${Menu.gap ? "mt-9" : "mt-2"} ${location.pathname === Menu.link ? "bg-[#fff2ea] text-[#B4663F]" : "text-white"}`}>
                         <Link className="flex rounded-md p-3 items-center gap-x-4 w-full" to={Menu.link}>
                             <FontAwesomeIcon icon={Menu.src} />
                             <span className={`${!desplegar && "hidden"} origin-left duration-200`}>
