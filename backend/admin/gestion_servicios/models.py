@@ -7,25 +7,24 @@ class Servicio(models.Model):
     nombre = models.CharField(max_length=45)
     descripcion = models.TextField()
     imagen_url = models.CharField(max_length=255, blank=True, null=True)
-    fh_creacion = models.DateTimeField(auto_now_add=True)
-
-    def __str__(self):
-        return self.nombre
+    fh_creacion = models.DateTimeField(blank=True, null=True)
 
     class Meta:
+        managed = False
         db_table = "servicio"
 
 
 class ServicioProveedor(models.Model):
-    id_servicio = models.ForeignKey(
-        Servicio, on_delete=models.CASCADE, db_column="id_servicio"
+    id_servicio = models.OneToOneField(
+        Servicio, models.DO_NOTHING, db_column="id_servicio", primary_key=True
     )
     id_proveedor = models.ForeignKey(
-        Proveedor, on_delete=models.CASCADE, db_column="id_proveedor"
+        Proveedor, models.DO_NOTHING, db_column="id_proveedor"
     )
     precio = models.FloatField()
-    negociable = models.BooleanField()
+    negociable = models.IntegerField()
 
     class Meta:
-        unique_together = (("id_servicio", "id_proveedor"),)
+        managed = False
         db_table = "servicio_proveedor"
+        unique_together = (("id_servicio", "id_proveedor"),)

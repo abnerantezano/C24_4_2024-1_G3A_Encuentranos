@@ -20,16 +20,16 @@ class ListaCreacionContrato(APIView):
         return Response(contrato_serializer.errors, status=status.HTTP_400_BAD_REQUEST)
 
 
-class DetalleContrato(APIView):
+class DetalleContratoVista(APIView):
     def get(self, request, id_contrato):
         contrato = get_object_or_404(Contrato, pk=id_contrato)
         detalles_contrato = DetalleContrato.objects.filter(id_contrato=id_contrato)
         detalles_serializer = DetalleContratoSerializer(detalles_contrato, many=True)
-
         contrato_serializer = ContratoSerializer(contrato)
+        # ...........
         response_data = contrato_serializer.data
         response_data["detalles"] = detalles_serializer.data
-
+        # ..........
         return Response(response_data)
 
     def put(self, request, id_contrato):

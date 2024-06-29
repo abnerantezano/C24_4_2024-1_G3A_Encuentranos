@@ -153,3 +153,8 @@ class DetalleServicio(APIView):
         servicio_serializer.is_valid(raise_exception=True)
         servicio_serializer.save()
         return Response(servicio_serializer.data)
+
+    def delete(self, request, id_servicio):
+        servicio = get_object_or_404(Servicio, pk=id_servicio)
+        servicio.delete()
+        return Response(status=status.HTTP_204_NO_CONTENT)

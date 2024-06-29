@@ -1,7 +1,7 @@
 from rest_framework.views import APIView
 from rest_framework.response import Response
 from rest_framework import status
-from gestion_usuarios.models import Usuario, TipoUsuario, Proveedor, Cliente
+from gestion_usuarios.models import Usuario, Proveedor, Cliente
 from gestion_usuarios.serializers import (
     UsuarioSerializer,
     ProveedorSerializer,

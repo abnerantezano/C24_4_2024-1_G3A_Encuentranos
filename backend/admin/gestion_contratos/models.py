@@ -6,7 +6,7 @@ from gestion_usuarios.models import Cliente, Proveedor
 class Contrato(models.Model):
     id_contrato = models.AutoField(primary_key=True)
     id_cliente = models.ForeignKey(
-        Cliente, on_delete=models.CASCADE, db_column="id_cliente"
+        Cliente, models.DO_NOTHING, db_column="id_cliente", blank=True, null=True
     )
     estado = models.CharField(max_length=45)
     precio_final = models.FloatField()
@@ -14,24 +14,26 @@ class Contrato(models.Model):
     fecha_fin = models.DateField()
     hi_servicio = models.TimeField()
     hf_servicio = models.TimeField()
-    fh_creacion = models.DateTimeField(auto_now_add=True)
+    fh_creacion = models.DateTimeField(blank=True, null=True)
 
     class Meta:
+        managed = False
         db_table = "contrato"
 
 
 class DetalleContrato(models.Model):
-    id_contrato = models.ForeignKey(
-        Contrato, on_delete=models.CASCADE, db_column="id_contrato"
+    id_contrato = models.OneToOneField(
+        Contrato, models.DO_NOTHING, db_column="id_contrato", primary_key=True
     )
     id_servicio = models.ForeignKey(
-        Servicio, on_delete=models.CASCADE, db_column="id_servicio"
+        Servicio, models.DO_NOTHING, db_column="id_servicio"
     )
     id_proveedor = models.ForeignKey(
-        Proveedor, on_delete=models.CASCADE, db_column="id_proveedor"
+        Proveedor, models.DO_NOTHING, db_column="id_proveedor"
     )
     precio_actual = models.FloatField(blank=True, null=True)
 
     class Meta:
-        unique_together = (("id_contrato", "id_servicio", "id_proveedor"),)
+        managed = False
         db_table = "detalle_contrato"
+        unique_together = (("id_contrato", "id_servicio", "id_proveedor"),)

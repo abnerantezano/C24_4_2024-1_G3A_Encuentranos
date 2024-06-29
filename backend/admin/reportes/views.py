@@ -35,7 +35,7 @@ class ListaProveedores(APIView):
 
     def get(self, request):
         top_proveedores = Proveedor.objects.annotate(
-            count_calificaciones=Count("detallecalificacion")
+            count_calificaciones=Count("detallecalificacion", distinct=True)
         ).order_by("-count_calificaciones", "-calificacion_promedio")
         proveedor_serializer = ProveedorSerializer(top_proveedores, many=True)
         return Response(proveedor_serializer.data)
