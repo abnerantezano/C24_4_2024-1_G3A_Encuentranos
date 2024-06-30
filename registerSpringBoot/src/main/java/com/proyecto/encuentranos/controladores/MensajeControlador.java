@@ -1,5 +1,6 @@
 package com.proyecto.encuentranos.controladores;
 
+import com.proyecto.encuentranos.modelos.ChatModelo;
 import com.proyecto.encuentranos.modelos.MensajeModelo;
 import com.proyecto.encuentranos.servicios.MensajeServicio;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -36,10 +37,14 @@ public class MensajeControlador {
         return mensajeServicio.getMensajesByChatId(idChat);
     }
 
-    @PostMapping("/agregar")
-    public MensajeModelo createMensaje(@RequestBody MensajeModelo mensaje) {
+    @PostMapping("/agregar/{idChat}")
+    public MensajeModelo createMensaje(@RequestBody MensajeModelo mensaje, @PathVariable Integer idChat) {
+        ChatModelo chat = new ChatModelo();
+        chat.setIdChat(idChat);
+        mensaje.setIdChat(chat);
         return mensajeServicio.crearMensaje(mensaje);
     }
+
 
     @GetMapping("/mensajes-por-emisor/{idEmisor}")
     public List<MensajeModelo> getMensajesByEmisorId(@PathVariable Integer idEmisor) {
