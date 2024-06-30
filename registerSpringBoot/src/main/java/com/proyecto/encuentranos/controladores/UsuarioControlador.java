@@ -1,5 +1,6 @@
 package com.proyecto.encuentranos.controladores;
 
+import com.fasterxml.jackson.databind.ObjectMapper;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseAuthException;
 import com.google.firebase.auth.FirebaseToken;
@@ -20,6 +21,7 @@ import org.springframework.security.oauth2.client.authentication.OAuth2Authentic
 import org.springframework.security.oauth2.core.OAuth2AccessToken;
 import org.springframework.security.oauth2.core.user.OAuth2User;
 import org.springframework.web.bind.annotation.*;
+import org.springframework.web.multipart.MultipartFile;
 
 import java.time.Instant;
 import java.util.HashMap;
@@ -38,19 +40,32 @@ public class UsuarioControlador {
     private final ClienteServicio clienteServicio;
     private final ProveedorServicio proveedorServicio;
     private final OAuth2AuthorizedClientService authorizedClientService;
+    private final ObjectMapper objectMapper;
 
     @Autowired
     public UsuarioControlador(UsuarioServicio usuarioServicio, ClienteServicio clienteServicio,
-                              ProveedorServicio proveedorServicio, OAuth2AuthorizedClientService authorizedClientService) {
+                              ProveedorServicio proveedorServicio, OAuth2AuthorizedClientService authorizedClientService, ObjectMapper objectMapper) {
         this.usuarioServicio = usuarioServicio;
         this.clienteServicio = clienteServicio;
         this.proveedorServicio = proveedorServicio;
         this.authorizedClientService = authorizedClientService;
+        this.objectMapper = objectMapper;
     }
 
     @PostMapping("/agregar")
-    public UsuarioModelo guardarUsuario(@RequestBody UsuarioModelo usuario) {
-        return usuarioServicio.guardarUsuario(usuario);
+    public ResponseEntity<UsuarioModelo> guardarUsuario(
+            @RequestPart(value = "archivo", required = false) MultipartFile archivo,
+            @RequestPart("usuario") String usuarioJson) {
+        try {
+            // Convertir el JSON a un objeto UsuarioModelo
+            UsuarioModelo usuario = objectMapper.readValue(usuarioJson, UsuarioModelo.class);
+
+            // Llamar al servicio para guardar el usuario
+            UsuarioModelo usuarioGuardado = usuarioServicio.guardarUsuario(usuario, archivo);
+            return ResponseEntity.ok(usuarioGuardado);
+        } catch (Exception e) {
+            return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).body(null);
+        }
     }
 
     @GetMapping("/listar")
@@ -60,15 +75,26 @@ public class UsuarioControlador {
 
     @PutMapping("/actualizar/{id}")
     public ResponseEntity<UsuarioModelo> actualizarUsuario(
+            @RequestPart(value = "archivo", required = false) MultipartFile archivo,
             @PathVariable("id") Integer id,
-            @RequestBody UsuarioModelo usuarioActualizado) {
-        UsuarioModelo usuarioExistente = usuarioServicio.actualizarUsuario(id, usuarioActualizado);
-        if (usuarioExistente != null) {
-            return new ResponseEntity<>(usuarioExistente, HttpStatus.OK);
-        } else {
-            return new ResponseEntity<>(HttpStatus.NOT_FOUND);
+            @RequestPart("usuario") String usuarioJson) {
+        try {
+            // Convertir el JSON a un objeto UsuarioModelo
+            UsuarioModelo usuarioActualizado = objectMapper.readValue(usuarioJson, UsuarioModelo.class);
+
+            // Llamar al servicio para actualizar el usuario y, opcionalmente, el archivo
+            UsuarioModelo usuarioExistente = usuarioServicio.actualizarUsuario(id, usuarioActualizado, archivo);
+
+            if (usuarioExistente != null) {
+                return ResponseEntity.ok(usuarioExistente);
+            } else {
+                return ResponseEntity.notFound().build();
+            }
+        } catch (Exception e) {
+            return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).body(null);
         }
     }
+
 
     @PutMapping("/actualizar-contrasena/{id}")
     public ResponseEntity<String> actualizarContrasena(@PathVariable Integer id, @RequestParam String contrasenaActual, @RequestParam String nuevaContrasena) {

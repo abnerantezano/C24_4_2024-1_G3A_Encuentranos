@@ -1,16 +1,22 @@
 package com.proyecto.encuentranos.controladores;
 
+import com.amazonaws.AmazonClientException;
 import com.proyecto.encuentranos.enumeracion.TipoArchivo;
 import com.proyecto.encuentranos.servicios.BucketServicio;
 import lombok.SneakyThrows;
 import lombok.val;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.core.io.InputStreamResource;
 import org.springframework.http.HttpHeaders;
+import org.springframework.http.HttpStatus;
+import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
 import org.springframework.util.StringUtils;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.multipart.MultipartFile;
 
+import java.io.ByteArrayInputStream;
+import java.io.ByteArrayOutputStream;
 import java.io.IOException;
 import java.io.InputStream;
 
@@ -18,57 +24,58 @@ import java.io.InputStream;
 @RequestMapping("api/bucket")
 public class BucketControlador {
 
-    private BucketServicio service;
-    private static final String ENCUENTRANOS = "encuentranos";
+    private final BucketServicio servicio;
+    private static final String NOMBRE_BUCKET = "encuentranos";
+    private static final String CARPETA_USUARIOS = "usuarios/";
 
     @Autowired
-    public BucketControlador(BucketServicio service){
-        this.service = service;
+    public BucketControlador(BucketServicio servicio){
+        this.servicio = servicio;
     }
 
-    @GetMapping("/encuentranos")
-    public ResponseEntity<?> listFiles() {
-        val body = service.listFiles(ENCUENTRANOS);
-        return ResponseEntity.ok(body);
-    }
-
-    @PostMapping("/encuentranos/subir")
-    @SneakyThrows(IOException.class)
-    public ResponseEntity<?> uploadFile(
-            @RequestParam("file") MultipartFile file
+    @PostMapping("/usuarios/subir")
+    public ResponseEntity<?> subirArchivo(
+            @RequestParam("file") MultipartFile archivo
     ) {
-        if (file.isEmpty()) {
-            return ResponseEntity.badRequest().body("File is empty");
+        if (archivo.isEmpty()) {
+            return ResponseEntity.badRequest().body("El archivo está vacío");
         }
 
-        String fileName = StringUtils.cleanPath(file.getOriginalFilename());
-        String contentType = file.getContentType();
-        long fileSize = file.getSize();
-        InputStream inputStream = file.getInputStream();
+        String nombreArchivo = StringUtils.cleanPath(archivo.getOriginalFilename());
+        String contentType = archivo.getContentType();
+        long tamañoArchivo = archivo.getSize();
+        InputStream inputStream;
+        try {
+            inputStream = archivo.getInputStream();
+        } catch (IOException e) {
+            return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).body("Error al obtener el archivo");
+        }
 
-        service.uploadFile(ENCUENTRANOS, fileName, fileSize, contentType, inputStream);
+        String rutaArchivo = CARPETA_USUARIOS + nombreArchivo;
 
-        return ResponseEntity.ok().body("File uploaded successfully");
+        try {
+            servicio.subirArchivo(NOMBRE_BUCKET, rutaArchivo, tamañoArchivo, contentType, inputStream);
+            return ResponseEntity.ok().body("Archivo subido exitosamente");
+        } catch (AmazonClientException e) {
+            return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).body("Error al subir el archivo a S3");
+        }
     }
 
-    @SneakyThrows
-    @GetMapping("/encuentranos/download/{fileName}")
-    public ResponseEntity<?> downloadFile(
-            @PathVariable("fileName") String fileName
+    @GetMapping("/usuarios/descargar/{nombreArchivo:.+}")
+    public ResponseEntity<?> descargarArchivo(
+            @PathVariable("nombreArchivo") String nombreArchivo
     ) {
-        val body = service.downloadFile(ENCUENTRANOS, fileName);
+        String rutaArchivo = CARPETA_USUARIOS + nombreArchivo;
 
-        return ResponseEntity.ok()
-                .header(HttpHeaders.CONTENT_DISPOSITION, "attachment; filename=\"" + fileName + "\"")
-                .contentType(TipoArchivo.fromFilename(fileName))
-                .body(body.toByteArray());
-    }
+        try {
+            ByteArrayOutputStream contenido = servicio.descargarArchivo(NOMBRE_BUCKET, rutaArchivo);
 
-    @DeleteMapping("/encuentranos/{fileName}")
-    public ResponseEntity<?> deleteFile(
-            @PathVariable("fileName") String fileName
-    ) {
-        service.deleteFile(ENCUENTRANOS, fileName);
-        return ResponseEntity.ok().build();
+            return ResponseEntity.ok()
+                    .header(HttpHeaders.CONTENT_DISPOSITION, "attachment; filename=\"" + nombreArchivo + "\"")
+                    .contentType(MediaType.APPLICATION_OCTET_STREAM)
+                    .body(new InputStreamResource(new ByteArrayInputStream(contenido.toByteArray())));
+        } catch (IOException | AmazonClientException e) {
+            return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).body("Error al descargar el archivo de S3");
+        }
     }
 }

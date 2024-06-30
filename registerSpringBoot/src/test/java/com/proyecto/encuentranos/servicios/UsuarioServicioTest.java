@@ -28,7 +28,7 @@ class UsuarioServicioTest {
         usuarioRepositorio = mock(IUsuarioRepositorio.class);
         passwordEncoder = mock(PasswordConfig.class);
 
-        usuarioServicio = new UsuarioServicio(passwordEncoder, usuarioRepositorio, null, null);
+        usuarioServicio = new UsuarioServicio(passwordEncoder, usuarioRepositorio, null, null, null);
 
         // Configurar el comportamiento esperado del mock passwordEncoder
         when(passwordEncoder.passwordEncoder()).thenReturn(mock(PasswordEncoder.class));
@@ -45,7 +45,7 @@ class UsuarioServicioTest {
         when(passwordEncoder.passwordEncoder().encode(usuario.getContrasena())).thenReturn("hashedPassword");
         when(usuarioRepositorio.save(usuario)).thenReturn(usuario);
 
-        UsuarioModelo usuarioGuardado = usuarioServicio.guardarUsuario(usuario);
+        UsuarioModelo usuarioGuardado = usuarioServicio.guardarUsuario(usuario, null);
 
         assertNotNull(usuarioGuardado);
 
