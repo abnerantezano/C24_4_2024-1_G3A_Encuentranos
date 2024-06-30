@@ -7,14 +7,20 @@ import com.ambrosio.josue.tutorial.RetrofitClient
 import com.ambrosio.josue.tutorial.data.models.ClienteModel
 import com.ambrosio.josue.tutorial.data.models.DistritoModel
 import com.ambrosio.josue.tutorial.data.models.ProveedorModel
+import com.ambrosio.josue.tutorial.data.models.UsuarioModel
+import okhttp3.MediaType.Companion.toMediaTypeOrNull
+import okhttp3.MultipartBody
+import okhttp3.RequestBody
 import retrofit2.Call
 import retrofit2.Callback
 import retrofit2.Response
+import java.io.File
 
 class PerfilViewModel : ViewModel() {
 
     private val clienteApi = RetrofitClient.clienteApi
     private val proveedorApi = RetrofitClient.proveedorApi
+    private val usuarioApi = RetrofitClient.usuarioApi
 
     private val _descripcionActualizada = MutableLiveData<Boolean>()
     val descripcionActualizada: LiveData<Boolean> get() = _descripcionActualizada
@@ -46,6 +52,43 @@ class PerfilViewModel : ViewModel() {
                 _descripcionActualizada.value = false
             }
         })
+    }
+
+    fun actualizarImagenUsuario(usuario: UsuarioModel, imageFile: File) {
+        val usuarioJson = createRequestBodyFromString(usuario.toJson())
+        val imagePart = createMultipartBodyPart(imageFile, "imagen")
+
+        usuarioApi.actualizarUsuario(usuarioJson, imagePart).enqueue(object : Callback<UsuarioModel> {
+            override fun onResponse(call: Call<UsuarioModel>, response: Response<UsuarioModel>) {
+                _descripcionActualizada.value = response.isSuccessful
+            }
+
+            override fun onFailure(call: Call<UsuarioModel>, t: Throwable) {
+                _descripcionActualizada.value = false
+            }
+        })
+    }
+
+    private fun createMultipartBodyPart(file: File, partName: String): MultipartBody.Part {
+        val requestFile = RequestBody.create("image/*".toMediaTypeOrNull(), file)
+        return MultipartBody.Part.createFormData(partName, file.name, requestFile)
+    }
+
+    private fun createRequestBodyFromString(value: String): RequestBody {
+        return RequestBody.create("application/json".toMediaTypeOrNull(), value)
+    }
+
+    private fun UsuarioModel.toJson(): String {
+        // Implementa la lógica para convertir el modelo UsuarioModel a JSON
+        return """{
+            "idUsuario": ${idUsuario},
+            "idTipo": {"id": ${idTipo.idTipo}, "nombre": "${idTipo.nombre}"},
+            "correo": "${correo}",
+            "contrasena": "${contrasena}",
+            "imageUrl": ${imageUrl?.let { "\"$it\"" }},
+            "estado": "${estado}",
+            "fechaCreacion": "${fechaCreacion}"
+        }"""
     }
 
     fun actualizarInformacionCliente(

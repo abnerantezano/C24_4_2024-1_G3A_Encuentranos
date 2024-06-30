@@ -2,12 +2,16 @@ package com.ambrosio.josue.tutorial.data.servicios
 
 import com.ambrosio.josue.tutorial.data.models.ActualizarContrasenaRequest
 import com.ambrosio.josue.tutorial.data.models.UsuarioModel
+import okhttp3.MultipartBody
+import okhttp3.RequestBody
 import retrofit2.Call
 import retrofit2.http.Body
 import retrofit2.http.GET
 import retrofit2.http.Header
+import retrofit2.http.Multipart
 import retrofit2.http.POST
 import retrofit2.http.PUT
+import retrofit2.http.Part
 import retrofit2.http.Path
 
 interface UsuarioApi {
@@ -30,5 +34,12 @@ interface UsuarioApi {
     fun actualizarContrasena(
         @Path("id") idUsuario: Int,
         @Body contrasenas: ActualizarContrasenaRequest
+    ): Call<UsuarioModel>
+
+    @Multipart
+    @PUT("usuario/actualizar")
+    fun actualizarUsuario(
+        @Part("usuario") usuario: RequestBody,
+        @Part imagen: MultipartBody.Part?
     ): Call<UsuarioModel>
 }

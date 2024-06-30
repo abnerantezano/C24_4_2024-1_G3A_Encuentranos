@@ -1,12 +1,16 @@
 package com.ambrosio.josue.tutorial.ui.activities.opcionesPerfilFragment
 
 import android.app.AlertDialog
+import android.content.Intent
+import android.net.Uri
 import android.os.Bundle
+import android.provider.MediaStore
 import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.widget.Button
 import android.widget.Toast
+import androidx.activity.result.contract.ActivityResultContracts
 import androidx.activity.viewModels
 import androidx.lifecycle.Observer
 import com.ambrosio.josue.tutorial.R
@@ -17,12 +21,16 @@ import com.ambrosio.josue.tutorial.ui.viewModels.PerfilViewModel
 import com.google.android.gms.tasks.OnCompleteListener
 import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.auth.GetTokenResult
+import java.io.File
 
 class PerfilActivity : HeaderInclude() {
 
     private lateinit var binding: ActivityPerfilBinding
     private val perfilViewModel: PerfilViewModel by viewModels()
     private val inicioViewModel: InicioViewModel by viewModels()
+    private var selectedImageFileUri: Uri? = null
+    private val PICK_IMAGE_REQUEST = 1
+
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -48,13 +56,25 @@ class PerfilActivity : HeaderInclude() {
                 } else {
                     Log.e("InformacionPersonal", "Error getting token: ${task.exception}")
                 }
+
             })
 
         setupObservers()
         setupHeader()
 
+        binding.imgFoto.setOnClickListener {
+            abrirGaleriaParaSeleccionarImagen()
+        }
+
+
         binding.btnGuardar.setOnClickListener {
             val descripcion = binding.tvDescripcionUsuario.text.toString()
+            // Guardar la imagen seleccionada en tu sistema de almacenamiento (ejemplo: Firebase Storage)
+            if (selectedImageFileUri != null) {
+                guardarImagen(selectedImageFileUri!!)
+            }
+
+            // Actualizar la descripción en función del tipo de usuario (cliente o proveedor)
             when (inicioViewModel.idTipo.value) {
                 1 -> {
                     inicioViewModel.obtenerIdCliente()
@@ -84,6 +104,18 @@ class PerfilActivity : HeaderInclude() {
             }
         })
 
+    }
+
+    private fun abrirGaleriaParaSeleccionarImagen() {
+        val intent = Intent(Intent.ACTION_PICK, MediaStore.Images.Media.EXTERNAL_CONTENT_URI)
+        startActivityForResult(intent, PICK_IMAGE_REQUEST)
+    }
+
+    private val resultLauncher = registerForActivityResult(ActivityResultContracts.StartActivityForResult()) { result ->
+        if (result.resultCode == RESULT_OK) {
+            selectedImageFileUri = result.data?.data
+            binding.imgFoto.setImageURI(selectedImageFileUri)
+        }
     }
 
     private fun setupObservers() {
@@ -133,4 +165,12 @@ class PerfilActivity : HeaderInclude() {
         dialog.show()
     }
 
+    private fun guardarImagen(imageUri: Uri) {
+        val imageFile = File(imageUri.path ?: return)
+        inicioViewModel.usuario.observe(this, Observer{usuarioModelo ->
+            usuarioModelo?.let {
+                perfilViewModel.actualizarImagenUsuario(usuarioModelo , imageFile)
+            }
+        })
+    }
 }
