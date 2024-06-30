@@ -17,7 +17,7 @@ public class ChatModelo {
     private int idChat;
 
     @ManyToOne
-    @JoinColumn(name = "id_proveedor", referencedColumnName = "id_proveedor", insertable = false, updatable = false)
+    @JoinColumn(name = "id_proveedor", referencedColumnName = "id_proveedor")
     private ProveedorModelo idProveedor;
 
     @ManyToOne
