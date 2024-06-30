@@ -39,21 +39,21 @@ class ServicioProveedorService {
     //TENER LA LISTA DE LOS SERVICIOS SEGUN EL PROVEEDOR
     getServiciosDisponibles(idproveedor) {
         return axios.get(`${this.baseUrl}/buscar/${idproveedor}`, { withCredentials: true })
-        .then(res => res.data)
-        .catch(error => {
-            console.error('Error al obtener servicio según proveedor: ', error);
-            throw error;
-        });
+            .then(res => res.data)
+            .catch(error => {
+                console.error('Error al obtener servicio según proveedor: ', error);
+                throw error;
+            });
     }
 
     //TENER LA LISTA DE LOS SERVICIOS NO REGISTRADOS POR EL PROVEEDOR
     getServicioSinRegistrar(idproveedor) {
         return axios.get(`${this.baseUrl}/servicios-no-registrados/${idproveedor}`, { withCredentials: true })
-        .then(res => res.data)
-        .catch(error => {
-            console.error('Error al obtener servicios sin registrar del proveedor: ', error);
-            throw error;
-        });
+            .then(res => res.data)
+            .catch(error => {
+                console.error('Error al obtener servicios sin registrar del proveedor: ', error);
+                throw error;
+            });
     }
 
     //TENER LA LISTA DE LOS SERVICIOS REGISTRADOS POR EL PROVEEDOR

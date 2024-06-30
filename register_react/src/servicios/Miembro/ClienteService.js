@@ -23,6 +23,15 @@ class ClienteService {
                 throw error;
             });
     }
+
+    putCliente(idCliente, datos) {
+        return axios.put(`${this.baseUrl}/actualizar/${idCliente}`, datos, { withCredentials:true })
+            .then(res => res.data)
+            .catch(error => {
+                console.error('Error al actualizar datos del cliente: ', error);
+                throw error;
+            });
+    }
 }
 
 const clienteServiceInstance = new ClienteService();

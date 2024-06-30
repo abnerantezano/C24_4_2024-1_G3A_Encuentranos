@@ -1,5 +1,5 @@
 import React from "react";
-import logo from "../../imagenes/Logo de la empresa/logo-color.png";
+import logo from "../imagenes/Logo de la empresa/logo-color.png";
 
 const IniciarSesion = () => {
 

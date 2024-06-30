@@ -34,6 +34,8 @@ const AgregarServicio = () => {
             });
     }, []);
 
+    console.log(usuario);
+    console.log(servicios);
     //LLAMAR LA LISTA DE LOS SERVICIOS NO REGISTRADOS POR EL PROVEEDOR
     useEffect(() => {
         if (usuario && usuario.idProveedor) {

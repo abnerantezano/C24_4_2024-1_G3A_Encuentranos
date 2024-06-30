@@ -18,8 +18,8 @@ class UsuarioService {
     }
 
     //CREAR UN USUARIO
-    addUser(nuevoUsuario) { 
-        return axios.post(this.baseUrl + '/agregar', nuevoUsuario, {withCredentials: true})
+    addUser(formData) { 
+        return axios.post(this.baseUrl + '/agregar', formData, {headers: {'Content-Type': 'multipart/form-data'}}, {withCredentials: true})
             .then(res => res.data)
             .catch(error => {
                 console.error('Error al agregar usuario: ', error);
@@ -57,22 +57,15 @@ class UsuarioService {
             });
     }
 
-    putImagen(idUsuario, imagen) {
-        const formData = new FormData();
-        formData.append('imagen', imagen);
-    
-        return axios.put(`${this.baseUrl}/actualizar/${idUsuario}`, formData, {
-          withCredentials: true,
-          headers: {
-            'Content-Type': 'multipart/form-data',
-          },
-        })
-        .then(res => res.data)
-        .catch(error => {
-          console.error('Error al actualizar la imagen: ', error);
-          throw error;
-        });
-      }
+    //ACTUALIZAR IMAGEN DEL USUARIO
+    putImagen(idUsuario, formData) {
+        return axios.put(this.baseUrl + `/actualizar/${idUsuario}`, formData, {headers: {'Content-Type': 'multipart/form-data'}, withCredentials: true})
+            .then(res => res.data)
+            .catch(error => {
+                console.error('Error al actualizar la imagen del usuario: ', error);
+                throw error;
+            });
+    }
 
     //OBTENER LA INFORMACIÓN DE UN USUARIO TIPO PROVEEDOR
     getProveedorInfo() {

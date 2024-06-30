@@ -67,6 +67,7 @@ const Formulario = () => {
     const EnviarDatos = (data) => {
 
         const fechaNac = new Date(data.fechaNacimiento).toISOString().split('T')[0];
+        const fechaActual = new Date().toISOString().split('T')[0];
 
         const datos = {
             idUsuario: {idUsuario:parseInt(usuario.idUsuario)},
@@ -78,7 +79,9 @@ const Formulario = () => {
             fechaNacimiento: fechaNac,
             celular: data.celular,
             idDistrito: {idDistrito:parseInt(data.idDistrito)},
+            fechaRegistro: fechaActual
         };
+        
         console.log(datos);
         //AGREGA SEGUN EL TIPO DE USUARIO 
         if (usuario && usuario.idTipo) {

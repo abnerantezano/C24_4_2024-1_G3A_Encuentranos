@@ -6,8 +6,8 @@ class ContratoService {
         this.baseUrl = 'http://localhost:4000/contrato';
     }
 
-    getProveedores(idcliente) {
-        return axios.get(`${this.baseUrl}/listar/proveedor/${idcliente}`, { withCredentials: true })
+    getProveedores(idProveedor) {
+        return axios.get(`${this.baseUrl}/listar/proveedor/${idProveedor}`, { withCredentials: true })
             .then(res => res.data)
             .catch(error => {
                 console.error('Error al obtener cliente: ', error);
@@ -15,8 +15,8 @@ class ContratoService {
             });
     }
 
-    getClientes(idProveedor) {
-        return axios.get(`${this.baseUrl}/listar/proveedor/${idProveedor}`, { withCredentials: true })
+    getClientes(idCliente) {
+        return axios.get(`${this.baseUrl}/listar/proveedor/${idCliente}`, { withCredentials: true })
             .then(res => res.data)
             .catch(error => {
                 console.error('Error al obtener cliente: ', error);
