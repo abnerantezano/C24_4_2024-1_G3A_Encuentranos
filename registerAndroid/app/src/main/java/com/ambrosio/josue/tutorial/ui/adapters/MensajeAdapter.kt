@@ -6,10 +6,12 @@ import android.view.ViewGroup
 import android.widget.TextView
 import androidx.recyclerview.widget.RecyclerView
 import com.ambrosio.josue.tutorial.R
-import com.ambrosio.josue.tutorial.data.models.MensajeModel
+import com.ambrosio.josue.tutorial.data.models.ChatModel
 
-class MensajeAdapter : RecyclerView.Adapter<MensajeAdapter.MensajeViewHolder>() {
-    private var mensajes: List<MensajeModel> = emptyList()
+class MensajeAdapter(private val onItemClick: (ChatModel) -> Unit) :
+    RecyclerView.Adapter<MensajeAdapter.MensajeViewHolder>() {
+
+    private var mensajes: List<ChatModel> = emptyList()
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): MensajeViewHolder {
         val view = LayoutInflater.from(parent.context).inflate(R.layout.item_mensaje, parent, false)
@@ -19,13 +21,14 @@ class MensajeAdapter : RecyclerView.Adapter<MensajeAdapter.MensajeViewHolder>() 
     override fun onBindViewHolder(holder: MensajeViewHolder, position: Int) {
         val mensaje = mensajes[position]
         holder.bind(mensaje)
+        holder.itemView.setOnClickListener { onItemClick(mensaje) }
     }
 
     override fun getItemCount(): Int {
         return mensajes.size
     }
 
-    fun submitList(list: List<MensajeModel>) {
+    fun submitList(list: List<ChatModel>) {
         mensajes = list
         notifyDataSetChanged()
     }
@@ -34,9 +37,9 @@ class MensajeAdapter : RecyclerView.Adapter<MensajeAdapter.MensajeViewHolder>() 
         private val nombreUsuarioTextView: TextView = itemView.findViewById(R.id.tvNombreUsuario)
         private val mensajeUsuarioTextView: TextView = itemView.findViewById(R.id.tvMensajeUsuario)
 
-        fun bind(mensaje: MensajeModel) {
-            nombreUsuarioTextView.text = mensaje.idEmisor.correo
-            mensajeUsuarioTextView.text = mensaje.mensaje
+        fun bind(mensaje: ChatModel) {
+            nombreUsuarioTextView.text = mensaje.idProveedor.nombre
+            mensajeUsuarioTextView.text = mensaje.idCliente.nombre
         }
     }
 }

@@ -3,6 +3,7 @@ package com.proyecto.encuentranos.controladores;
 import com.proyecto.encuentranos.modelos.ChatModelo;
 import com.proyecto.encuentranos.servicios.ChatServicio;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
@@ -29,6 +30,18 @@ public class ChatControlador {
     public ResponseEntity<ChatModelo> obtenerChatsPorId(@PathVariable Integer id) {
         Optional<ChatModelo> chat = chatServicio.buscarChatPorId(id);
         return chat.map(ResponseEntity::ok).orElseGet(() -> ResponseEntity.notFound().build());
+    }
+
+    @GetMapping("/cliente/{idCliente}")
+    public ResponseEntity<List<ChatModelo>> obtenerChatsPorCliente(@PathVariable Integer idCliente) {
+        List<ChatModelo> chat = chatServicio.obtenerChatsPorCliente(idCliente);
+        return new ResponseEntity<>(chat, HttpStatus.CREATED);
+    }
+
+    @GetMapping("/proveedor/{idProveedor}")
+    public ResponseEntity<List<ChatModelo>> obtenerChatsPorProveedor(@PathVariable Integer idProveedor) {
+        List<ChatModelo> chat = chatServicio.obtenerChatsPorProveedor(idProveedor);
+        return new ResponseEntity<>(chat, HttpStatus.CREATED);
     }
 
     @PostMapping("/agregar")

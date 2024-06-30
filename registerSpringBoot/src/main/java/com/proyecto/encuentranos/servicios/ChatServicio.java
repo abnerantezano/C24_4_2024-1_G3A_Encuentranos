@@ -41,10 +41,12 @@ public class ChatServicio {
         return chatRepositorio.save(chat);
     }
 
+    //BUSCAR CHAT POR EL ID DEL CLIENTE
     public List<ChatModelo> obtenerChatsPorCliente(int idCliente) {
         return chatRepositorio.findByIdClienteIdCliente(idCliente);
     }
 
+    //BUSCAR CHAT POR EL ID DEL PROVEEDOR
     public List<ChatModelo> obtenerChatsPorProveedor(int idProveedor) {
         return chatRepositorio.findByIdProveedorIdProveedor(idProveedor);
     }

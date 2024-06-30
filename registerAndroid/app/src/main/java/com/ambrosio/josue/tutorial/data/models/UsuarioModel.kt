@@ -6,6 +6,6 @@ data class UsuarioModel(
     val correo: String = "",
     val contrasena: String = "",
     val imageUrl: String? = null,
-    val activo: Boolean = true,
+    val estado: String = "",
     val fechaCreacion: String = ""
 )

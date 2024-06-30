@@ -1,5 +1,6 @@
 package com.ambrosio.josue.tutorial.data.servicios
 
+import com.ambrosio.josue.tutorial.data.models.ChatModel
 import com.ambrosio.josue.tutorial.data.models.ChatModelo
 import retrofit2.Call
 import retrofit2.http.Body
@@ -10,17 +11,23 @@ import retrofit2.http.Path
 interface ChatApi {
 
     @GET("/chat/listar")
-    fun listarChats(): Call<List<ChatModelo>>
+    fun listarChats(): Call<List<ChatModel>>
 
     @GET("/chat/buscar/{id}")
-    fun obtenerChatsPorId(@Path("id") id: Int): Call<ChatModelo>
+    fun obtenerChatsPorId(@Path("id") id: Int): Call<ChatModel>
+
+    @GET("/chat/cliente/{idCliente}")
+    fun obtenerChatsPorIdCliente(@Path("idCliente") idCliente: Int): Call<List<ChatModel>>
+
+    @GET("/chat/proveedor/{idProveedor}")
+    fun obtenerChatsPorIdProveedor(@Path("idProveedor") idProveedor: Int): Call<List<ChatModel>>
 
     @POST("/chat/agregar")
-    fun agregarChat(@Body chat: ChatModelo): Call<ChatModelo>
+    fun agregarChat(@Body chat: ChatModelo): Call<ChatModel>
 
     @GET("/chat/{idCliente}/{idProveedor}")
     fun obtenerOcrearChat(
         @Path("idCliente") idCliente: Int,
         @Path("idProveedor") idProveedor: Int
-    ): Call<ChatModelo>
+    ): Call<ChatModel>
 }
