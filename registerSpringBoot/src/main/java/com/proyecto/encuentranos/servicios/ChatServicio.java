@@ -52,8 +52,10 @@ public class ChatServicio {
     }
 
     public ChatModelo obtenerOcrearChat(int idCliente, int idProveedor) {
-        ClienteModelo cliente = clienteRepositorio.findById(idCliente).orElseThrow(() -> new ResourceNotFoundException("Cliente no encontrado"));
-        ProveedorModelo proveedor = proveedorRepositorio.findById(idProveedor).orElseThrow(() -> new ResourceNotFoundException("Proveedor no encontrado"));
+        ClienteModelo cliente = clienteRepositorio.findById(idCliente)
+                .orElseThrow(() -> new ResourceNotFoundException("Cliente no encontrado"));
+        ProveedorModelo proveedor = proveedorRepositorio.findById(idProveedor)
+                .orElseThrow(() -> new ResourceNotFoundException("Proveedor no encontrado"));
 
         return chatRepositorio.findByIdClienteIdClienteAndIdProveedorIdProveedor(idCliente, idProveedor)
                 .orElseGet(() -> {
@@ -61,5 +63,4 @@ public class ChatServicio {
                     return chatRepositorio.save(nuevoChat);
                 });
     }
-
 }

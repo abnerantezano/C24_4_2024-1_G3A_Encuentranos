@@ -49,7 +49,7 @@ public class ChatControlador {
         return chatServicio.agregarChat(chat);
     }
 
-    @GetMapping("/{idCliente}/{idProveedor}")
+    @PostMapping("/{idCliente}/{idProveedor}")
     public ResponseEntity<ChatModelo> obtenerOcrearChat(
             @PathVariable int idCliente,
             @PathVariable int idProveedor) {
