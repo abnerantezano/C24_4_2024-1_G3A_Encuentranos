@@ -3,7 +3,7 @@ import { Link, useLocation } from 'react-router-dom';
 import logo from "../../../imagenes/Logo de la empresa/logo_texto_color.png";
 //FONT AWESOME
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
-import { faBars, faComment, faBell } from '@fortawesome/free-solid-svg-icons';
+import { faBars, faComment } from '@fortawesome/free-solid-svg-icons';
 //COMPONENTES
 import DropDownPerfil from '../Dropdown/DropDownPerfil';
 import DropdownNotificaciones from '../Dropdown/DropdownNotificaciones';
@@ -13,17 +13,14 @@ import Rol from '../Datos/Rol';
 
 export const HeaderAutenticado = () => {
 
-  const [abrirNotificacion, setAbrirNotificacion] = useState(false);
   const [abrirPerfil, setAbrirPerfil] = useState(false);
 
   const location = useLocation();
 
   useEffect(() => {
-    setAbrirNotificacion(false);
     setAbrirPerfil(false);
   }, [location]);
 
-  const notificacionRef = useRef(null);
   const perfilRef = useRef(null);
 
   return (
@@ -41,10 +38,7 @@ export const HeaderAutenticado = () => {
                     <span className="sr-only">Mensajes</span>
                     <FontAwesomeIcon icon={faComment} />
                   </Link>
-                  <button type="button" onClick={() => setAbrirNotificacion((prev) => !prev)} ref={notificacionRef} className="flex text-lg md:me-0 text-gray-400 pe-4">
-                    <span className="sr-only">Notificaciones</span>
-                    <FontAwesomeIcon icon={faBell} />
-                  </button>
+                  <DropdownNotificaciones />
                   {rol.idTipo === 1 ? (
                     <InformacionCliente>
                       {(cliente) => {
@@ -92,7 +86,6 @@ export const HeaderAutenticado = () => {
                 </div>
               </div>
             </nav>
-            {abrirNotificacion && <DropdownNotificaciones  onClose={() => setAbrirNotificacion(false)} />}
             {abrirPerfil && <DropDownPerfil onClose={() => setAbrirPerfil(false)} />}
           </header>
         </div>

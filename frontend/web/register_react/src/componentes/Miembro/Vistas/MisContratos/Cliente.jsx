@@ -74,7 +74,7 @@ function MisContratosCliente() {
         <div key={index} className='my-5'>
             <div className='border rounded-lg w-full py-6 px-8 grid grid-cols-2 lg:grid-cols-3 gap-4'>
                 <div className='flex flex-col px-4'>
-                    <div className='flex flex-wrap justify-start'>
+                    <div className='flex flex-row justify-start'>
                         <img className='w-20 h-20 rounded-full object-cover border-gray-300 border mb-6' src={contrato.idProveedor.idUsuario.imagenUrl} alt='Foto del proveedor'/>
                         <div className='flex flex-col pl-6'>
                             <h1 className='text-[#787171] text-sm'>Proveedor</h1>

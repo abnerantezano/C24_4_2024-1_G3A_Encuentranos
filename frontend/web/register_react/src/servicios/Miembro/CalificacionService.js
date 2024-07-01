@@ -1,19 +1,10 @@
 import axios from 'axios';
 
-class DetalleContratoService {
+class CalificacionService {
     
     constructor() {
-        this.baseUrl = 'http://localhost:4000/detalle-contrato';
+        this.baseUrl = 'http://localhost:4000/calificacion';
     }   
-
-    getDetallesContratos() {
-        return axios.get(this.baseUrl + '/listar', {withCredentials:true})
-            .then(res => res.data)
-            .catch(error => {
-                console.error('Error al obtener detalles de contratos ', error);
-                throw error;
-            });
-    }
 
     getProveedores(idcliente) {
         return axios.get(`${this.baseUrl}/cliente/${idcliente}`, { withCredentials: true })
@@ -43,5 +34,5 @@ class DetalleContratoService {
     }
 }
 
-const DetalleContratoServiceInstance = new DetalleContratoService();
-export default DetalleContratoServiceInstance;
+const CalificacionServiceInstance = new CalificacionService();
+export default CalificacionServiceInstance;

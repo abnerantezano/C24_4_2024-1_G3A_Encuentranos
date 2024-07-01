@@ -1,5 +1,6 @@
 import React from "react";
 import logo from "../imagenes/Logo de la empresa/logo-color.png";
+import logoGoogle from "../imagenes/Logos externos/logoGoogle.png";
 
 const IniciarSesion = () => {
 
@@ -23,7 +24,7 @@ const IniciarSesion = () => {
                         </div>
                         <div className="mb-16">
                         <button type="button" onClick={iniciarSesionConGoogle} className="flex justify-center w-full text-gray-800 bg-white border border-gray-400 focus:ring-4 focus:outline-none focus:ring-[#FCE6D8] font-medium rounded-lg text-sm px-5 py-2.5 items-center me-2 mb-2">
-                                <img src="https://rotulosmatesanz.com/wp-content/uploads/2017/09/2000px-Google_G_Logo.svg_.png" className="w-4 h-4 me-2" alt="Google Logo" />
+                            <img src={logoGoogle} className="w-4 h-4 me-2" alt="Google Logo" />
                                 Registrarse con Google
                             </button>
                             

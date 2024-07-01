@@ -1,11 +1,8 @@
-import React, { useState, useEffect } from 'react';
-import seleccionarChat from '../../../../imagenes/Mensajes/seleccionar_chat.png'
-//SERVICIOS
+import React, { useState, useEffect, useRef } from 'react';
+import seleccionarChat from '../../../../imagenes/Mensajes/seleccionar_chat.png';
 import MensajeServiceInstance from '../../../../servicios/Miembro/MensajeService';
-//FONT AWESOMEE
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faPaperPlane } from '@fortawesome/free-solid-svg-icons';
-//COMPONENTES
 import InformacionDeUsuario from '../../Datos/InformacionDeUsuario';
 import { InputText } from 'primereact/inputtext';
 
@@ -13,90 +10,94 @@ function MensajesCliente({ chat }) {
 
     const [mensajes, setMensajes] = useState([]);
     const [nuevoMensaje, setNuevoMensaje] = useState('');
+    const messagesEndRef = useRef(null); 
 
-    //CARGAR MENSAJES AL INICIO Y EN LOS INTERVALOS DE TIEMPO
+    // CARGAR MENSAJES AL INICIO Y EN LOS INTERVALOS DE TIEMPO
     useEffect(() => {
-        cargarMensajes(); 
-        
+        cargarMensajes();
+
         const interval = setInterval(() => {
             cargarMensajes();
-        }, 1000); 
+        }, 3000);
 
-        return () => clearInterval(interval); 
-    }, [chat]); 
+        return () => clearInterval(interval);
+    }, [chat]);
 
-    //FUNCION PARA CARGAR MENSAJES
+    // FUNCION PARA CARGAR MENSAJES
     const cargarMensajes = () => {
         if (chat) {
             MensajeServiceInstance.getMensajes(chat.idChat)
                 .then((mensajes) => {
                     setMensajes(mensajes);
+                    scrollToBottom();
                 })
                 .catch((error) => {
                     console.error(error);
                 });
         }
     };
-
-    //FUNCIÓN PARA ENVIAR MENSAJES
+      
+    // FUNCIÓN PARA ENVIAR MENSAJES
     const EnviarMensaje = (info) => {
+        const fechaActual = new Date().toISOString();
 
-        const fechaActual = new Date()
-
+        console.log(" fecha: " ,fechaActual);
         const mensaje = {
             idEmisor: { idUsuario: info.idUsuario },
             idReceptor: { idUsuario: chat.idProveedor.idUsuario.idUsuario },
-            fechaCreacion: fechaActual,
             mensaje: nuevoMensaje,
+            fechaCreacion: fechaActual,
         };
 
         MensajeServiceInstance.postMensaje(chat.idChat, mensaje)
             .then((msg) => {
                 setMensajes([...mensajes, msg]);
                 setNuevoMensaje('');
+                scrollToBottom();
             })
             .catch((error) => {
                 console.error(error);
             });
     };
 
-    //ENVIAR AL DAR ENTER
+    // ENVIAR AL DAR ENTER
     const handleKeyDown = (event, info) => {
         if (event.key === 'Enter') {
             EnviarMensaje(info);
         }
     };
 
-    //SI NO HAY UN ID DEL CHAT
-    if (!chat) return (
-        <div>
-            <div className='w-full h-screen flex flex-col items-center justify-center'>
-                <img className="w-1/2 mb-4" src={seleccionarChat} />
-                <p className='text-lg text-[#787171]'>Seleccione un chat para visualizarla</p>
+    // FUNCION PARA LLEVAR EL SCROLL AL FINAL
+    const scrollToBottom = () => {
+        if (messagesEndRef.current) {
+            messagesEndRef.current.scrollIntoView({ behavior: 'smooth' });
+        }
+    };
+
+    // SI NO HAY UN ID DEL CHAT
+    if (!chat) {
+        return (
+            <div>
+                <div className='w-full h-screen flex flex-col items-center justify-center'>
+                    <img className="w-1/2 mb-4" src={seleccionarChat} alt='Seleccione un chat' />
+                    <p className='text-lg text-[#787171]'>Seleccione un chat para visualizarla</p>
+                </div>
             </div>
-        </div>
-    );
-
-    //FORMATEAR FECHA 
-    const formatDate = (fecha) => {
-        const date = new Date(fecha);
-        const day = date.getUTCDate().toString().padStart(2, '0');
-        const month = (date.getUTCMonth() + 1).toString().padStart(2, '0');
-        const year = date.getUTCFullYear().toString();
-        return `${day}/${month}/${year}`;
+        );
     }
 
-    //FORMATEAR HORA
-    const formatDateTime = (time24) => {
-        const [hours24, minutes] = time24.split(':');
-        let hours = parseInt(hours24, 10);
-        const ampm = hours >= 12 ? 'PM' : 'AM';
-        
-        hours = hours % 12;
-        hours = hours ? hours : 12; 
-        
-        return `${hours}:${minutes.padStart(2, '0')} ${ampm}`;
-    }
+    // FORMATEAR FECHA 
+    const formatearFecha = (fechaISO) => {
+        const fecha = new Date(fechaISO);
+        return fecha.toLocaleString('es-ES', {
+          day: '2-digit', 
+          month: '2-digit', 
+          year: 'numeric', 
+          hour: 'numeric', 
+          minute: 'numeric', 
+          hour12: true 
+        });
+    };
 
     return (
         <InformacionDeUsuario>
@@ -111,18 +112,43 @@ function MensajesCliente({ chat }) {
                     </div>
                     <div className='flex-1 overflow-auto py-4 px-8 h-full custom-scrollbar'>
                         <ul>
-                            {mensajes.map((mensaje, index) => (
-                                <li key={mensaje.idMensaje} className={`mb-4 flex ${mensaje.idEmisor.idUsuario === info.idUsuario ? 'justify-end' : 'justify-start'}`}>
-                                    <div className='flex flex-col' style={{ maxWidth: '75%' }}>
-                                        <div className={`py-2 px-4 rounded-lg blocked ${mensaje.idEmisor.idUsuario === info.idUsuario ? 'bg-gradient-to-r from-[#E8A477] to-[#EFAF50] text-white text-right' : 'bg-[#EFEFEF] text-[#797979] text-left'}`} style={{ wordWrap: 'break-word' }}>
-                                            {mensaje.mensaje}
-                                        </div>
-                                        <div className={`text-[#9D9C9C] text-sm blocked mt-1 ${mensaje.idEmisor.idUsuario === info.idUsuario ? 'text-end pr-1' : 'text-start pl-1'}`}>
-                                            {formatDate(mensaje.fechaCreacion)}
+                        {mensajes.map((mensaje) => (
+                                <li
+                                    key={mensaje.idMensaje}
+                                    className={`mb-4 flex ${
+                                        mensaje.idEmisor.idUsuario === info.idUsuario ? 'justify-end' : 'justify-start'
+                                    }`}
+                                >
+                                    <div className='' style={{ maxWidth: '75%' }}>
+                                        <div
+                                            className={`flex flex-col ${
+                                                mensaje.idEmisor.idUsuario === info.idUsuario
+                                                    ? 'items-end'
+                                                    : 'items-start'
+                                            }`}
+                                        >
+                                            <div
+                                                className={`py-2 px-4 rounded-lg ${
+                                                    mensaje.idEmisor.idUsuario === info.idUsuario
+                                                        ? 'bg-gradient-to-r from-[#E8A477] to-[#EFAF50] text-white text-right'
+                                                        : 'bg-[#EFEFEF] text-[#797979] text-left'
+                                                }`}
+                                                style={{ wordWrap: 'break-word', maxWidth: '100%' }}
+                                            >
+                                                {mensaje.mensaje}
+                                            </div>
+                                            <div
+                                                className={`text-[#9D9C9C] text-sm mt-1 ${
+                                                    mensaje.idEmisor.idUsuario === info.idUsuario ? 'text-end' : 'text-start'
+                                                }`}
+                                            >
+                                                {formatearFecha(mensaje.fechaCreacion)}
+                                            </div>
                                         </div>
                                     </div>
                                 </li>
                             ))}
+                            <div ref={messagesEndRef} /> 
                         </ul>
                     </div>
 
@@ -143,7 +169,6 @@ function MensajesCliente({ chat }) {
                             </div>
                         </div>
                     </div>
-
                 </div>
             )}
         </InformacionDeUsuario>

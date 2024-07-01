@@ -59,7 +59,7 @@ function PerfilProveedor() {
 
     const crearChat = () => {
 
-        const fechaActual = new Date().toISOString().split('T')[0];
+        const fechaActual = new Date().toISOString();
 
         const chat = {
             idProveedor : {idProveedor: parseInt(id)},
@@ -124,7 +124,7 @@ function PerfilProveedor() {
                                             <button type="button" onClick={crearChat} className='text-sm text-[#918c8c] bg-[#E0E0E0] py-2 px-4 rounded-lg font-semibold border border-[#d6d6d6] mr-3 focus:ring-4 focus:ring-[#f3e4d7] hover:bg-[#b9b9b9] hover:text-white'>
                                                 Enviar mensaje
                                             </button>
-                                            <ContratarProveedor />
+                                            <ContratarProveedor idProveedor={id} />
                                         </div>
                                     ) : null}
                                 </div>
