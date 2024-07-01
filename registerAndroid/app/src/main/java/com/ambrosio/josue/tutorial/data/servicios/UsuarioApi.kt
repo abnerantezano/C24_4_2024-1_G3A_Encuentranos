@@ -37,10 +37,17 @@ interface UsuarioApi {
     ): Call<UsuarioModel>
 
     @Multipart
+<<<<<<< HEAD
     @PUT("usuario/actualizar/{id}")
     fun actualizarUsuario(
         @Path("id") idUsuario: Int,
         @Part archivo: MultipartBody.Part,
         @Part("usuario") usuario: RequestBody
+=======
+    @PUT("usuario/actualizar")
+    fun actualizarUsuario(
+        @Part("usuario") usuario: RequestBody,
+        @Part imagen: MultipartBody.Part?
+>>>>>>> 48a3a91734a4fbd86bdb91a628c8e16915903b54
     ): Call<UsuarioModel>
 }

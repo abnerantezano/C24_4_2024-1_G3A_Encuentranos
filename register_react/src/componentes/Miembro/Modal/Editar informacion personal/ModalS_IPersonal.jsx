@@ -7,6 +7,8 @@ import { Dropdown } from 'primereact/dropdown';
 import { InputMask } from 'primereact/inputmask';
 import { addLocale } from 'primereact/api';
 import DistritoServiceInstance from '../../../../servicios/Miembro/DistritoService';
+import clienteServiceInstance from '../../../../servicios/Miembro/ClienteService';
+import ProveedorServiceInstance from '../../../../servicios/Miembro/ProveedorService';
 
 const ModalS_IPersonal = ({ usuario, Modal }) => {
 
@@ -24,8 +26,9 @@ const ModalS_IPersonal = ({ usuario, Modal }) => {
         monthNames: ['Enero ', 'Febrero ', 'Marzo ', 'Abril ', 'Mayo ', 'Junio ', 'Julio ', 'Agosto ', 'Septiembre ', 'Octubre ', 'Noviembre ', 'Diciembre '],
         monthNamesShort: ['ene', 'feb', 'mar', 'abr', 'may', 'jun', 'jul', 'ago', 'sep', 'oct', 'nov', 'dic'],
         today: 'Hoy',
-        clear: 'Claro'
+        clear: 'Limpiar'
     });
+
 
     //TRAER LA LISTA DE DISTRITOS
     useEffect(() => {
@@ -38,8 +41,20 @@ const ModalS_IPersonal = ({ usuario, Modal }) => {
             });
     }, []);
 
-    const actualizar = (data, usuario) => {
-       
+    const actualizar = async (data, usuario) => {
+        const updatedData = { ...data };
+    
+        try {
+            if (usuario.idUsuario.idTipo.idTipo === 1) {
+                await clienteServiceInstance.putCliente(usuario.idCliente, updatedData);
+            } else if (usuario.idUsuario.idTipo.idTipo === 2) {
+                await ProveedorServiceInstance.putProveedor(usuario.idProveedor, updatedData);
+            }
+            Modal(); // Cierra el modal después de la actualización
+            console.log('Datos actualizados:', updatedData);
+        } catch (error) {
+            console.error('Error al actualizar datos:', error);
+        }
     };
 
     return (
@@ -63,18 +78,18 @@ const ModalS_IPersonal = ({ usuario, Modal }) => {
                                 <div className='w-3/4 mx-auto'>
                                     <div className="my-5">
                                         <label className="block mb-2 text-sm font-medium text-gray-700">Nombre</label>
-                                        <InputText type="text" id="nombre" {...register("nombre", { required: true })} className="bg-gray-50 border border-gray-300 text-[#787171] text-sm rounded-lg focus:ring focus:ring-orange-200 focus:border-dark block w-full p-2.5" />
+                                        <InputText type="text" name="nombre" defaultValue={usuario.nombre || ""} {...register("nombre", { required: true })} className="bg-gray-50 border border-gray-300 text-[#787171] text-sm rounded-lg focus:ring focus:ring-orange-200 focus:border-dark block w-full p-2.5" />
                                         {errors.nombre && <span className="text-red-500 text-sm">Ingresar su nombre</span>}
                                     </div>
                                     <div className="grid md:grid-cols-2 md:gap-6">
                                         <div className="relative z-0 w-full mb-5 group">
                                             <label className="block mb-2 text-sm font-medium text-gray-700">Apellido paterno</label>
-                                            <InputText type="text" id="apellidoPaterno" {...register("apellidoPaterno", { required: true })} className="bg-gray-50 border border-gray-300 text-[#787171] text-sm rounded-lg focus:ring focus:ring-orange-200 focus:border-dark block w-full p-2.5" />
+                                            <InputText type="text" id="apellidoPaterno" defaultValue={usuario.apellidoPaterno || ""} {...register("apellidoPaterno", { required: true })} className="bg-gray-50 border border-gray-300 text-[#787171] text-sm rounded-lg focus:ring focus:ring-orange-200 focus:border-dark block w-full p-2.5" />
                                             {errors.apellidoPaterno && <span className="text-red-500 text-sm">Ingresar su apellido paterno</span>}
                                         </div>
                                         <div className="relative z-0 w-full mb-5 group mb-5">
                                             <label className="block mb-2 text-sm font-medium text-gray-700">Apellido materno</label>
-                                            <InputText type="text" {...register("apellidoMaterno", { required: true })} className="bg-gray-50 border border-gray-300 text-[#787171] text-sm rounded-lg focus:ring focus:ring-orange-200 focus:border-dark block w-full p-2.5" />
+                                            <InputText type="text"  id="apellidoMaterno"  defaultValue={usuario.apellidoMaterno || ""} {...register("apellidoMaterno", { required: true })} className="bg-gray-50 border border-gray-300 text-[#787171] text-sm rounded-lg focus:ring focus:ring-orange-200 focus:border-dark block w-full p-2.5" />
                                             {errors.apellidoMaterno && <span className="text-red-500 text-sm">Ingresar su apellido materno</span>}
                                         </div>
                                     </div>
@@ -82,7 +97,7 @@ const ModalS_IPersonal = ({ usuario, Modal }) => {
                                         <div className=" w-full group mb-5">
                                             <label className="block mb-2 text-sm font-medium text-gray-700">Fecha de nacimiento</label>
                                             <Controller name="fechaNacimiento" {...register("fechaNacimiento", { required: true })} control={control} render={({ field }) => (
-                                                <Calendar id={field.name} value={field.value} onChange={field.onChange} dateFormat="yy-mm-dd" locale="es" inputClassName="bg-gray-50 border border-gray-300 text-[#787171] text-sm rounded-lg focus:ring focus:ring-orange-200 focus:border-dark w-full p-2.5 dark:bg-[#] dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500" />
+                                                <Calendar id={field.name} value={field.value} showButtonBar onChange={field.onChange} dateFormat="yy-mm-dd" locale="es" inputClassName="bg-gray-50 border border-gray-300 text-[#787171] text-sm rounded-lg focus:ring focus:ring-orange-200 focus:border-dark w-full p-2.5" />
                                             )} />
                                             {errors.fechaNacimiento && <span className="text-red-500 text-sm">Ingresar la fecha</span>}
                                         </div>

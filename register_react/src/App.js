@@ -5,13 +5,11 @@ import './App.css';
 //COMPONENTES
 import Header from './componentes/Miembro/Header/Header';
 import HeaderAutenticado from './componentes/Miembro/Header/HeaderAutenticado';
-import Footer from './componentes/Miembro/Footer/Footer';
-import FooterAutenticado from './componentes/Miembro/Footer/FooterAutenticado';
 import InformacionDeUsuario from './componentes/Miembro/Datos/InformacionDeUsuario';
 //PAGINAS SIN LOGIN
-import Index from './paginas/Miembro/Index';
-import IniciarSesion from './paginas/Miembro/IniciarSesion';
-import Registro from './paginas/Miembro/Registro';
+import Index from './paginas/Index';
+import IniciarSesion from './paginas/IniciarSesion';
+import Registro from './paginas/Registro';
 import CrearUsuario from './paginas/Miembro/CrearUsuario';
 import Formulario from './paginas/Miembro/Formulario';
 //PAGINAS CON LOGIN
@@ -75,11 +73,9 @@ function App() {
             <Route exact path='/precios' element={<Precios/>} />
             <Route path='/configuracion/*' element={<Configuracion />} />
             <Route exact path='/proveedor/perfil/:id' element={<PerfilProveedor />} />
-            <Route path='/bandeja' element={<BandejaDeEntrada />} />
-            <Route path='/bandeja/:id' element={<BandejaDeEntrada />} />
+            <Route path='/bandeja/*' element={<BandejaDeEntrada />} />
           </Routes>
         </div>
-        {isLoggedIn ? <FooterAutenticado /> : <Footer />}
       </Router>
     </div>
   );

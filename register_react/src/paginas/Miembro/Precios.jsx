@@ -105,7 +105,7 @@ function Precios() {
   const listTemplate = (Sproveedor) => (
     <div key={Sproveedor.idProveedor.idProveedor} className='flex items-center bg-white shadow-lg py-1 rounded-lg mb-6'>
       <div className='xl:w-2/12'>
-        <img className='w-auto h-24 rounded-full mx-8 object-cover' src={Sproveedor.idProveedor.idUsuario.imagenUrl} alt="Foto del proveedor" />
+        <img className='w-24 h-24 rounded-full mx-8 object-cover' src={Sproveedor.idProveedor.idUsuario.imagenUrl} alt="Foto del proveedor" />
       </div>
       <div className='p-4 xl:w-8/12'>
         <h4 className='text-[#B4663F] font-bold text-base mb-1'>{Sproveedor.idProveedor.nombre} {Sproveedor.idProveedor.apellidoPaterno} {Sproveedor.idProveedor.apellidoMaterno} </h4>

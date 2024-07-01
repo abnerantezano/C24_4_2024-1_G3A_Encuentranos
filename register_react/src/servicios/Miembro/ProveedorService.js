@@ -15,6 +15,15 @@ class ProveedorService {
             });
     }
 
+    putProveedor(idProveedor, datos) {
+        return axios.put(this.baseUrl + `/actualizar/${idProveedor}`, datos, { withCredentials: true })
+            .then(res => res.data)
+            .catch(error => {
+                console.error('Error al actulizar datos del proveedor: ', error);
+                throw error;
+            });
+    } 
+
     getListaProveedor() {
         return axios.get(this.baseUrl + '/buscar', { withCredentials: true })
             .then(res => res.data)

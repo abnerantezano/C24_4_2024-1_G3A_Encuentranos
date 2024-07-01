@@ -4,6 +4,7 @@ import android.app.AlertDialog
 import android.content.Intent
 import android.net.Uri
 import android.os.Bundle
+import android.provider.MediaStore
 import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
@@ -20,9 +21,14 @@ import com.ambrosio.josue.tutorial.ui.adapters.FileRequestBody
 import com.ambrosio.josue.tutorial.ui.viewModels.InicioViewModel
 import com.ambrosio.josue.tutorial.ui.viewModels.PerfilViewModel
 import com.google.firebase.auth.FirebaseAuth
+<<<<<<< HEAD
 import java.io.File
 import java.io.FileOutputStream
 import java.io.IOException
+=======
+import com.google.firebase.auth.GetTokenResult
+import java.io.File
+>>>>>>> 48a3a91734a4fbd86bdb91a628c8e16915903b54
 
 class PerfilActivity : HeaderInclude() {
 
@@ -32,6 +38,7 @@ class PerfilActivity : HeaderInclude() {
     private var selectedImageFileUri: Uri? = null
     private val PICK_IMAGE_REQUEST = 1
 
+<<<<<<< HEAD
     private val registerForFiles =
         registerForActivityResult(ActivityResultContracts.StartActivityForResult()) { result ->
             if (result.resultCode == RESULT_OK) {
@@ -41,24 +48,64 @@ class PerfilActivity : HeaderInclude() {
                 }
             }
         }
+=======
+>>>>>>> 48a3a91734a4fbd86bdb91a628c8e16915903b54
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         binding = ActivityPerfilBinding.inflate(layoutInflater)
         setContentView(binding.root)
 
+<<<<<<< HEAD
         setupUI()
         inicioViewModel.verificarAutenticacionUsuario()
+=======
+        // Mostrar el ProgressBar y ocultar el contenido al iniciar la actividad
+        binding.progressBar.visibility = View.VISIBLE
+        binding.imgFoto.visibility = View.GONE
+        binding.linearDescripcion.visibility = View.GONE
+        binding.linearCurriculum.visibility = View.GONE
+        binding.btnGuardar.visibility = View.GONE
+
+        val user = FirebaseAuth.getInstance().currentUser
+        user?.getIdToken(true)
+            ?.addOnCompleteListener(OnCompleteListener<GetTokenResult> { task ->
+                if (task.isSuccessful) {
+                    val idToken = task.result?.token
+                    val email = user.email
+                    if (email != null && idToken != null) {
+                        inicioViewModel.obtenerNombreUsuario(email, idToken)
+                    }
+                } else {
+                    Log.e("InformacionPersonal", "Error getting token: ${task.exception}")
+                }
+
+            })
+
+>>>>>>> 48a3a91734a4fbd86bdb91a628c8e16915903b54
         setupObservers()
         setupHeader()
 
         binding.imgFoto.setOnClickListener {
+<<<<<<< HEAD
             openFileChooser()
         }
 
         binding.btnGuardar.setOnClickListener {
             val descripcion = binding.tvDescripcionUsuario.text.toString()
             // Guardar la imagen seleccionada en tu sistema de almacenamiento (ejemplo: Firebase Storage)
+=======
+            abrirGaleriaParaSeleccionarImagen()
+        }
+
+
+        binding.btnGuardar.setOnClickListener {
+            val descripcion = binding.tvDescripcionUsuario.text.toString()
+            // Guardar la imagen seleccionada en tu sistema de almacenamiento (ejemplo: Firebase Storage)
+            if (selectedImageFileUri != null) {
+                guardarImagen(selectedImageFileUri!!)
+            }
+>>>>>>> 48a3a91734a4fbd86bdb91a628c8e16915903b54
 
             // Actualizar la descripción en función del tipo de usuario (cliente o proveedor)
             when (inicioViewModel.idTipo.value) {
@@ -150,6 +197,18 @@ class PerfilActivity : HeaderInclude() {
         return realPath
     }
 
+    private fun abrirGaleriaParaSeleccionarImagen() {
+        val intent = Intent(Intent.ACTION_PICK, MediaStore.Images.Media.EXTERNAL_CONTENT_URI)
+        startActivityForResult(intent, PICK_IMAGE_REQUEST)
+    }
+
+    private val resultLauncher = registerForActivityResult(ActivityResultContracts.StartActivityForResult()) { result ->
+        if (result.resultCode == RESULT_OK) {
+            selectedImageFileUri = result.data?.data
+            binding.imgFoto.setImageURI(selectedImageFileUri)
+        }
+    }
+
     private fun setupObservers() {
         inicioViewModel.descripcionUsuario.observe(this, Observer { descripcion ->
             descripcion?.let {
@@ -198,6 +257,7 @@ class PerfilActivity : HeaderInclude() {
         dialog.show()
     }
 
+<<<<<<< HEAD
     private fun uploadFileToS3AndServer(idUsuario: Int, usuario: UsuarioModel, file: File) {
         val requestBody = FileRequestBody(contentResolver, Uri.fromFile(file)) { bytesWritten, contentLength ->
             val progress = (100 * bytesWritten / contentLength).toInt()
@@ -210,3 +270,14 @@ class PerfilActivity : HeaderInclude() {
         perfilViewModel.uploadFileToServer(idUsuario, usuario, file.name, requestBody)
     }
 }
+=======
+    private fun guardarImagen(imageUri: Uri) {
+        val imageFile = File(imageUri.path ?: return)
+        inicioViewModel.usuario.observe(this, Observer{usuarioModelo ->
+            usuarioModelo?.let {
+                perfilViewModel.actualizarImagenUsuario(usuarioModelo , imageFile)
+            }
+        })
+    }
+}
+>>>>>>> 48a3a91734a4fbd86bdb91a628c8e16915903b54

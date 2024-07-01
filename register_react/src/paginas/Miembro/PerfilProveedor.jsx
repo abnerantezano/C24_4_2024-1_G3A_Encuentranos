@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from 'react';
-import { useParams } from 'react-router-dom';
+import { useNavigate, useParams } from 'react-router-dom';
 //PRIME REACT
 import { Rating } from 'primereact/rating';
 //COMPONENTES
@@ -7,12 +7,29 @@ import Rol from '../../componentes/Miembro/Datos/Rol';
 //SERVICIOS
 import servicioProveedorServiceInstance from '../../servicios/Miembro/ServicioProveedor';
 import ProveedorServiceInstance from '../../servicios/Miembro/ProveedorService';
+import ContratarProveedor from '../../componentes/Miembro/Modal/Contratar/ContratarProveedor';
+import usuarioServiceInstance from '../../servicios/Miembro/UsuarioService';
+import ChatServiceInstance from '../../servicios/Miembro/ChatService';
 
 function PerfilProveedor() {
+
     const { id } = useParams();
     const [proveedor, setProveedor] = useState([]);
+    const [cliente, setCliente] = useState([]);
     const [serviciosNegociables, setServiciosNegociables] = useState([]);
     const [serviciosNoNegociables, setServiciosNoNegociables] = useState([]);
+
+    const navigate = useNavigate();
+
+    useEffect(() => {
+        usuarioServiceInstance.getClienteInfo()
+            .then((cliente) => {
+                setCliente(cliente);
+            })
+            .catch((error) => {
+                console.error(error);
+            })
+    }, []);
 
     useEffect(() => {
         ProveedorServiceInstance.getProveedorDetalle(id)
@@ -40,6 +57,28 @@ function PerfilProveedor() {
             });
     }, [id]);
 
+    const crearChat = () => {
+
+        const fechaActual = new Date().toISOString().split('T')[0];
+
+        const chat = {
+            idProveedor : {idProveedor: parseInt(id)},
+            idCliente: {idCliente: parseInt(cliente.idCliente)},
+            estado: "Activo",
+            fhCreacion: fechaActual
+        }
+        console.log(chat);
+        ChatServiceInstance.postChat(chat)
+            .then((chatData) => {
+                console.log(chatData);
+                navigate(`/bandeja/${chatData.idChat}`)
+            })
+            .catch((error) => {
+                console.error(error);
+            });
+
+    }
+
     return (
         <Rol>
             {(rol) => {
@@ -54,7 +93,7 @@ function PerfilProveedor() {
                                     <div className='flex flex-wrap mb-6'>
                                         {proveedor.idUsuario && proveedor.idUsuario.imagenUrl && (
                                             <img
-                                                className='w-28 h-28 rounded-full object-cover border-gray-300 border p-4'
+                                                className='w-28 h-28 rounded-full object-cover border-gray-300 border'
                                                 src={proveedor.idUsuario.imagenUrl}
                                                 alt='Foto del proveedor'
                                             />
@@ -82,16 +121,14 @@ function PerfilProveedor() {
                                             <button className='text-sm text-[#918c8c] bg-[#E0E0E0] py-2 px-4 rounded-lg font-semibold border border-[#d6d6d6] mr-3 focus:ring-4 focus:ring-[#f3e4d7] hover:bg-[#b9b9b9] hover:text-white'>
                                                 Ver CV
                                             </button>
-                                            <button className='text-sm text-[#918c8c] bg-[#E0E0E0] py-2 px-4 rounded-lg font-semibold border border-[#d6d6d6] mr-3 focus:ring-4 focus:ring-[#f3e4d7] hover:bg-[#b9b9b9] hover:text-white'>
+                                            <button type="button" onClick={crearChat} className='text-sm text-[#918c8c] bg-[#E0E0E0] py-2 px-4 rounded-lg font-semibold border border-[#d6d6d6] mr-3 focus:ring-4 focus:ring-[#f3e4d7] hover:bg-[#b9b9b9] hover:text-white'>
                                                 Enviar mensaje
                                             </button>
-                                            <button className='text-sm text-white bg-[#E8A477] py-2 px-4 rounded-lg font-semibold hover:bg-[#BC7547] focus:ring-4 focus:ring-[#fcdac4]'>
-                                                Contratar
-                                            </button>
+                                            <ContratarProveedor />
                                         </div>
                                     ) : null}
                                 </div>
-                                <div className='w-1/2 mb-5'>
+                                <div className='w-full mb-5'>
                                     <h1 className='text-[#635F5F] font-semibold mb-2'>Contacto</h1>
                                     <div className='flex flex-col mb-1'>
                                         <div className='flex flex-wrap items-center justify-between mb-2'>
@@ -112,57 +149,59 @@ function PerfilProveedor() {
                                         </div>
                                     </div>
                                 </div>
-                                <div className='w-1/2 mb-5'>
+                                <div className='w-full mb-5'>
                                     <h1 className='text-[#635F5F] font-semibold mb-2'>Acerca de mi</h1>
                                     <p className='text-sm text-[#635F5F]'>
                                         {proveedor.descripcion ? proveedor.descripcion : 'Sin descripción'}
                                     </p>
                                 </div>
-                                <div className='w-1/2 mb-5'>
-                                    <h1 className='text-[#635F5F] font-semibold mb-2 text-base'>
-                                        Servicios negociables
-                                    </h1>
-                                    {serviciosNegociables.length > 0 ? (
-                                        serviciosNegociables.map((servicio) => {
-                                            return (
-                                                <div className='flex flex-wrap items-center justify-between mb-2'>
-                                                    <p className='text-sm text-[#A9A9A9] font-semibold'>
-                                                        {servicio.idServicio.nombre}
-                                                    </p>
-                                                    <p className='text-[#635F5F] text-sm '>
-                                                        S/ {servicio.precio}
-                                                    </p>
-                                                </div>
-                                            );
-                                        })
-                                    ) : (
-                                        <p className='text-[#635F5F] text-sm '>
-                                            No hay servicios registrados en esta categoría.
-                                        </p>
-                                    )}
-                                </div>
-                                <div className='w-1/2 mb-10'>
-                                    <h1 className='text-[#635F5F] font-semibold mb-2'>
-                                        Servicios no negociables
-                                    </h1>
-                                    {serviciosNoNegociables.length > 0 ? (
-                                        serviciosNoNegociables.map((servicio) => {
-                                            return (
-                                                <div className='flex flex-wrap items-center justify-between mb-2'>
-                                                    <p className='text-sm text-[#A9A9A9] font-semibold'>
-                                                        {servicio.idServicio.nombre}
-                                                    </p>
-                                                    <p className='text-[#635F5F] text-sm '>
-                                                        S/ {servicio.precio}
-                                                    </p>
-                                                </div>
-                                            );
-                                        })
-                                    ) : (
-                                        <p className='text-[#635F5F] text-sm '>
-                                            No hay servicios registrados en esta categoría.
-                                        </p>
-                                    )}
+                                <div className='grid grid-cols-2 gap-4'>
+                                    <div className='w-full mb-5 pr-8'>
+                                        <h1 className='text-[#635F5F] font-semibold mb-2 text-base'>
+                                            Servicios negociables
+                                        </h1>
+                                        {serviciosNegociables.length > 0 ? (
+                                            serviciosNegociables.map((servicio) => {
+                                                return (
+                                                    <div className='flex flex-wrap items-center justify-between mb-2'>
+                                                        <p className='text-sm text-[#A9A9A9] font-semibold'>
+                                                            {servicio.idServicio.nombre}
+                                                        </p>
+                                                        <p className='text-[#635F5F] text-sm '>
+                                                            S/ {servicio.precio}
+                                                        </p>
+                                                    </div>
+                                                );
+                                            })
+                                        ) : (
+                                            <p className='text-[#635F5F] text-sm '>
+                                                No hay servicios registrados en esta categoría.
+                                            </p>
+                                        )}
+                                    </div>
+                                    <div className='w-full mb-10 pl-8'>
+                                        <h1 className='text-[#635F5F] font-semibold mb-2'>
+                                            Servicios no negociables
+                                        </h1>
+                                        {serviciosNoNegociables.length > 0 ? (
+                                            serviciosNoNegociables.map((servicio) => {
+                                                return (
+                                                    <div className='flex flex-wrap items-center justify-between mb-2'>
+                                                        <p className='text-sm text-[#A9A9A9] font-semibold'>
+                                                            {servicio.idServicio.nombre}
+                                                        </p>
+                                                        <p className='text-[#635F5F] text-sm '>
+                                                            S/ {servicio.precio}
+                                                        </p>
+                                                    </div>
+                                                );
+                                            })
+                                        ) : (
+                                            <p className='text-[#635F5F] text-sm '>
+                                                No hay servicios registrados en esta categoría.
+                                            </p>
+                                        )}
+                                    </div>
                                 </div>
                                 <div>
                                     <h1 className='text-[#635F5F] font-semibold mb-2 text-base'>Reseñas</h1>
