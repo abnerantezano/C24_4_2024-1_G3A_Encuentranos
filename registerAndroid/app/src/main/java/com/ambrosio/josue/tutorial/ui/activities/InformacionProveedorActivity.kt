@@ -2,31 +2,33 @@ package com.ambrosio.josue.tutorial.ui.activities
 
 import android.content.Intent
 import android.os.Bundle
+import android.util.Log
 import android.view.View
 import androidx.activity.viewModels
 import androidx.appcompat.app.AppCompatActivity
 import androidx.lifecycle.Observer
+import com.ambrosio.josue.tutorial.data.models.UsuarioModel
 import com.ambrosio.josue.tutorial.databinding.ActivityInformacionProveedorBinding
-import com.ambrosio.josue.tutorial.generals.HeaderInclude
 import com.ambrosio.josue.tutorial.ui.adapters.InformacionProveedorAdapter
 import com.ambrosio.josue.tutorial.ui.adapters.ListaResenaAdapter
-import com.ambrosio.josue.tutorial.ui.adapters.MiServicioAdapater
-import com.ambrosio.josue.tutorial.ui.adapters.ServicioProveedorAdapter
-import com.ambrosio.josue.tutorial.ui.fragments.ServiciosFragment
+import com.ambrosio.josue.tutorial.ui.viewModels.ChatViewModel
 import com.ambrosio.josue.tutorial.ui.viewModels.DetalleCalificacionViewModel
 import com.ambrosio.josue.tutorial.ui.viewModels.InformacionProveedorViewModel
 import com.ambrosio.josue.tutorial.ui.viewModels.InicioViewModel
 import com.ambrosio.josue.tutorial.ui.viewModels.ServicioProveedorViewModel
 
-class InformacionProveedorActivity : HeaderInclude() {
+class InformacionProveedorActivity : AppCompatActivity() {
     private lateinit var binding: ActivityInformacionProveedorBinding
     private val informacionProveedorViewModel: InformacionProveedorViewModel by viewModels()
     private val servicioProveedorViewModel: ServicioProveedorViewModel by viewModels()
     private val detalleCalificacionViewModel: DetalleCalificacionViewModel by viewModels()
     private val viewModel: InicioViewModel by viewModels()
+    private val chatViewModel: ChatViewModel by viewModels()
     private lateinit var adapterNegociables: InformacionProveedorAdapter
     private lateinit var adapterNoNegociables: InformacionProveedorAdapter
     private lateinit var listaResenaAdapter: ListaResenaAdapter
+    private var chatId: Int = -1
+    private var proveedorId: Int = -1
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -44,11 +46,9 @@ class InformacionProveedorActivity : HeaderInclude() {
         binding.recyclerViewServiciosNoNegociables.adapter = adapterNoNegociables
         binding.recyclerViewResenas.adapter = listaResenaAdapter
 
-        val proveedorId = intent.getIntExtra("PROVEEDOR_ID", -1)
+        proveedorId = intent.getIntExtra("PROVEEDOR_ID", -1)
 
-        setupHeader()
         setupObservers()
-        goCrearContrato(proveedorId)
 
         informacionProveedorViewModel.obtenerDatosProveedorPorId(proveedorId)
         servicioProveedorViewModel.obtenerServicioProveedorNegociables(proveedorId)
@@ -71,7 +71,33 @@ class InformacionProveedorActivity : HeaderInclude() {
         })
 
         viewModel.verificarAutenticacionUsuario()
+        viewModel.obtenerIdCliente()
+        viewModel.idUsuario.observe(this, Observer {idUsuario ->
+            binding.verElIdClienteConectado.text = idUsuario.toString()
+        })
 
+        binding.btnEnviarMensaje.setOnClickListener {
+            // Crear el chat si no se ha creado todavía
+            if (chatId == -1) {
+                chatViewModel.crearChat(viewModel.idCliente.value ?: -1, proveedorId)
+                val intent = Intent(this, MensajeDeUsuariosActivity::class.java)
+                intent.putExtra("chat_id", chatId)
+                intent.putExtra("proveedor_id", proveedorId)
+                startActivity(intent)
+            } else {
+                // Si el chat ya está creado, continuar con el envío de mensajes
+                val intent = Intent(this, MensajeDeUsuariosActivity::class.java)
+                intent.putExtra("chat_id", chatId)
+                intent.putExtra("proveedor_id", proveedorId)
+                startActivity(intent)
+            }
+        }
+
+        binding.btnContrato.setOnClickListener {
+            val intent = Intent(this, CrearContratoActivity::class.java)
+            intent.putExtra("PROVEEDOR_ID", proveedorId)
+            startActivity(intent)
+        }
     }
 
     private fun setupObservers() {
@@ -99,7 +125,6 @@ class InformacionProveedorActivity : HeaderInclude() {
             }
         })
 
-
         servicioProveedorViewModel.listaServiciosProveedoresNegociables.observe(this, Observer { servicios ->
             if (servicios.isNullOrEmpty()) {
                 binding.tvServcioNegociable.visibility = View.GONE
@@ -120,22 +145,23 @@ class InformacionProveedorActivity : HeaderInclude() {
             }
         })
 
-
-
         detalleCalificacionViewModel.listarDetalleCalificacionPorIdProveedorYIdServicio.observe(this, Observer { detalleCalificacion ->
-            detalleCalificacion?.let{
+            detalleCalificacion?.let {
                 listaResenaAdapter.submitList(detalleCalificacion)
             } ?: run {
                 listaResenaAdapter.submitList(emptyList())
             }
         })
-    }
 
-    private fun goCrearContrato(proveedorId: Int){
-        binding.btnContrato.setOnClickListener{
-            val intent = Intent(this, CrearContratoActivity::class.java)
-            intent.putExtra("PROVEEDOR_ID", proveedorId)
-            startActivity(intent)
-        }
+        // Observar el ID del chat creado
+        chatViewModel.idChat.observe(this, Observer { idChat ->
+            if (idChat != null && idChat > 0) {
+                chatId = idChat
+                binding.btnEnviarMensaje.visibility = View.VISIBLE
+            } else {
+                Log.e("InformacionProveedorActivity", "No se ha creado el chat correctamente")
+                // Puedes manejar la situación si no se ha creado el chat
+            }
+        })
     }
 }

@@ -6,19 +6,16 @@ import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import android.widget.Toast
-import androidx.activity.viewModels
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
 import androidx.lifecycle.Observer
 import androidx.recyclerview.widget.LinearLayoutManager
+import com.ambrosio.josue.tutorial.ui.activities.MensajeDeUsuariosActivity
 import com.ambrosio.josue.tutorial.ui.adapters.MensajeAdapter
 import com.ambrosio.josue.tutorial.databinding.FragmentMensajeBinding
 import com.ambrosio.josue.tutorial.generals.HeaderPrincipal
-import com.ambrosio.josue.tutorial.ui.activities.MensajeDeUsuariosActivity
 import com.ambrosio.josue.tutorial.ui.viewModels.ChatViewModel
 import com.ambrosio.josue.tutorial.ui.viewModels.InicioViewModel
-import com.ambrosio.josue.tutorial.ui.viewModels.MensajeViewModel
 
 class MensajeFragment : Fragment() {
     private var _binding: FragmentMensajeBinding? = null
@@ -47,12 +44,12 @@ class MensajeFragment : Fragment() {
         adapter = MensajeAdapter { chat ->
             val intent = Intent(requireContext(), MensajeDeUsuariosActivity::class.java).apply {
                 putExtra("chat_id", chat.idChat)
+                putExtra("proveedor_id", chat.idProveedor.idProveedor)
             }
             startActivity(intent)
         }
 
         viewModel.verificarAutenticacionUsuario()
-
 
         // Mostrar el ProgressBar al iniciar la vista
         binding.progressBar.visibility = View.VISIBLE
@@ -68,7 +65,7 @@ class MensajeFragment : Fragment() {
     }
 
     private fun observeViewModel() {
-        viewModel.idTipo.observe(this, Observer { idTipo ->
+        viewModel.idTipo.observe(viewLifecycleOwner, Observer { idTipo ->
             when (idTipo) {
                 1 -> {
                     viewModel.obtenerIdCliente()
@@ -103,8 +100,6 @@ class MensajeFragment : Fragment() {
                             }
                         })
                     })
-
-
                 }
                 else -> {
                     binding.progressBar.visibility = View.GONE
@@ -112,7 +107,6 @@ class MensajeFragment : Fragment() {
             }
         })
     }
-
 
     override fun onDestroyView() {
         super.onDestroyView()

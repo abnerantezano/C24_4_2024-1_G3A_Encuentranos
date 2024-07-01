@@ -66,7 +66,7 @@
                     android:scaleY="0.65"
                     android:stepSize="0.1" />
                 <TextView
-                    android:id="@+id/tvCV"
+                    android:id="@+id/verElIdClienteConectado"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:gravity="center"
@@ -184,7 +184,7 @@
             <Button
                 android:id="@+id/btnEnviarMensaje"
                 android:layout_width="match_parent"
-                android:layout_height="wrap_content"
+                android:layout_height="match_parent"
                 android:text="@string/enviar_mensaje"
                 android:background="@drawable/button_background"
                 android:layout_marginStart="10dp"
@@ -192,7 +192,7 @@
             <Button
                 android:id="@+id/btnContrato"
                 android:layout_width="match_parent"
-                android:layout_height="wrap_content"
+                android:layout_height="match_parent"
                 android:text="@string/contratar"
                 android:background="@drawable/button_background"
                 android:layout_marginStart="10dp"

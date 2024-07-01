@@ -15,6 +15,6 @@ interface MensajeApi {
     @GET("/mensaje/chat/{idChat}")
     fun obtenerMensajesPorIdChat(@Path("idChat") idChat: Int): Call<List<MensajeModel>>
 
-    @POST("mensaje/agregar")
-    fun crearMensaje(@Body mensaje: MensajeModel): Call<MensajeModel>
+    @POST("mensaje/agregar/{idChat}")
+    fun crearMensaje(@Path("idChat") idChat: Int, @Body mensaje: MensajeModel): Call<MensajeModel>
 }

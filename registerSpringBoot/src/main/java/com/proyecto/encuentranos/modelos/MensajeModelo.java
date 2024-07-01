@@ -1,9 +1,12 @@
 package com.proyecto.encuentranos.modelos;
 
+import com.google.type.DateTime;
 import jakarta.persistence.*;
 import lombok.Getter;
 import lombok.Setter;
+import org.springframework.data.annotation.CreatedDate;
 
+import java.time.LocalDateTime;
 import java.util.Date;
 
 @Setter
@@ -31,7 +34,7 @@ public class MensajeModelo {
     @Column(nullable = false)
     private String mensaje;
 
-    @Temporal(TemporalType.DATE)
     @Column(name = "fh_creacion")
-    private Date fechaCreacion;
+    @CreatedDate
+    private LocalDateTime fechaCreacion;
 }

@@ -4,18 +4,18 @@ import android.util.Log
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
-import com.ambrosio.josue.tutorial.RetrofitClient
 import com.ambrosio.josue.tutorial.data.models.ClienteModel
 import com.ambrosio.josue.tutorial.data.models.DistritoModel
 import com.ambrosio.josue.tutorial.data.models.ProveedorModel
 import com.ambrosio.josue.tutorial.data.models.UsuarioModel
 import com.google.firebase.auth.FirebaseAuth
-import okhttp3.*
-import org.json.JSONException
+import okhttp3.Call
+import okhttp3.Callback
+import okhttp3.OkHttpClient
+import okhttp3.Request
+import okhttp3.Response
 import org.json.JSONObject
 import java.io.IOException
-import java.text.SimpleDateFormat
-import java.util.Locale
 
 class InicioViewModel : ViewModel() {
 
@@ -73,6 +73,8 @@ class InicioViewModel : ViewModel() {
     private val _cliente = MutableLiveData<ClienteModel>()
     val client: LiveData<ClienteModel> get() = _cliente
 
+    private val _usuario = MutableLiveData<UsuarioModel>()
+    val usuario: LiveData<UsuarioModel> get() = _usuario
 
     private val auth: FirebaseAuth = FirebaseAuth.getInstance()
     private val cliente = OkHttpClient()
@@ -155,6 +157,7 @@ class InicioViewModel : ViewModel() {
                     obtenerIdProveedorPorIdUsuario(idUsuario, token)
                 } else {
                     _mensajeError.postValue("Error: Usuario no encontrado")
+                    _idUsuario.postValue(idUsuario)
                 }
             }
         })
@@ -195,6 +198,7 @@ class InicioViewModel : ViewModel() {
                 val idUsuario = jsonObject.optInt("idUsuario", -1)
                 if (idUsuario != -1) {
                     obtenerIdClientePorIdUsuario(idUsuario, token)
+                    _idUsuario.postValue(idUsuario)
                 } else {
                     _mensajeError.postValue("Error: Usuario no encontrado")
                 }

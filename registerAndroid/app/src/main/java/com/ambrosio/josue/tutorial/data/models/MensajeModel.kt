@@ -9,6 +9,5 @@ data class MensajeModel(
     val idReceptor: UsuarioModel,
     val idChat: ChatModel,
     val mensaje: String,
-    val fechaEnvio: String,
-    val horaEnvio: String
+    val fechaCreacion: String
 )

@@ -10,6 +10,7 @@ import com.proyecto.encuentranos.repositorios.IProveedorRepositorio;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import java.util.Date;
 import java.util.List;
 import java.util.Optional;
 
@@ -52,15 +53,26 @@ public class ChatServicio {
     }
 
     public ChatModelo obtenerOcrearChat(int idCliente, int idProveedor) {
+        // Obtener los modelos de cliente y proveedor desde los repositorios
         ClienteModelo cliente = clienteRepositorio.findById(idCliente)
                 .orElseThrow(() -> new ResourceNotFoundException("Cliente no encontrado"));
         ProveedorModelo proveedor = proveedorRepositorio.findById(idProveedor)
                 .orElseThrow(() -> new ResourceNotFoundException("Proveedor no encontrado"));
 
-        return chatRepositorio.findByIdClienteIdClienteAndIdProveedorIdProveedor(idCliente, idProveedor)
-                .orElseGet(() -> {
-                    ChatModelo nuevoChat = new ChatModelo(cliente, proveedor);
-                    return chatRepositorio.save(nuevoChat);
-                });
+        // Intentar encontrar un chat existente entre el cliente y el proveedor
+        Optional<ChatModelo> chatExistente = chatRepositorio.findByIdClienteIdClienteAndIdProveedorIdProveedor(idCliente, idProveedor);
+
+        if (chatExistente.isPresent()) {
+            // Si el chat existe, devolverlo
+            return chatExistente.get();
+        } else {
+            // Si el chat no existe, crear uno nuevo y guardarlo
+            ChatModelo nuevoChat = new ChatModelo(cliente, proveedor);
+            nuevoChat.setEstado("activo"); // Ajustar el estado según tus necesidades
+            nuevoChat.setFhCreacion(new Date()); // Establecer la fecha de creación actual o según necesites
+            return chatRepositorio.save(nuevoChat);
+        }
     }
+
+
 }

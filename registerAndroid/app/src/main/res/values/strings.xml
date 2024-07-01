@@ -111,4 +111,5 @@
     <string name="servicios_negociables">Servicios negociables</string>
     <string name="servicios_no_negociables">Servicios no negociables</string>
     <string name="ingrese_un_monto">Ingrese un monto</string>
+    <string name="escribe_un_mensaje">Escribe un mensaje</string>
 </resources>

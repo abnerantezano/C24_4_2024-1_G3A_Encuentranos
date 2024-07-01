@@ -7,6 +7,12 @@ import com.ambrosio.josue.tutorial.RetrofitClient
 import com.ambrosio.josue.tutorial.data.models.ClienteModel
 import com.ambrosio.josue.tutorial.data.models.DistritoModel
 import com.ambrosio.josue.tutorial.data.models.ProveedorModel
+import com.ambrosio.josue.tutorial.data.models.UsuarioModel
+import com.ambrosio.josue.tutorial.ui.adapters.FileRequestBody
+import com.ambrosio.josue.tutorial.ui.adapters.toMultipart
+import com.google.gson.Gson
+import okhttp3.MediaType.Companion.toMediaTypeOrNull
+import okhttp3.RequestBody.Companion.toRequestBody
 import retrofit2.Call
 import retrofit2.Callback
 import retrofit2.Response
@@ -15,12 +21,17 @@ class PerfilViewModel : ViewModel() {
 
     private val clienteApi = RetrofitClient.clienteApi
     private val proveedorApi = RetrofitClient.proveedorApi
+    private val usuarioApi = RetrofitClient.usuarioApi
 
     private val _descripcionActualizada = MutableLiveData<Boolean>()
     val descripcionActualizada: LiveData<Boolean> get() = _descripcionActualizada
 
     private val _informacionActualizada = MutableLiveData<Boolean>()
     val informacionActualizada: LiveData<Boolean> get() = _informacionActualizada
+
+    private val _imagenActualizada = MutableLiveData<Boolean>()
+    val imagenActualizada: LiveData<Boolean> get() = _imagenActualizada
+
 
     fun actualizarDescripcionCliente(idCliente: Int, descripcion: String) {
         val cliente = ClienteModel(idCliente = idCliente, descripcion = descripcion)
@@ -46,6 +57,22 @@ class PerfilViewModel : ViewModel() {
                 _descripcionActualizada.value = false
             }
         })
+    }
+
+    fun uploadFileToServer(idUsuario: Int, usuario: UsuarioModel, fileName: String, requestBody: FileRequestBody) {
+        val usuarioJson = Gson().toJson(usuario)
+        val usuarioBody = usuarioJson.toRequestBody("application/json".toMediaTypeOrNull())
+
+        usuarioApi.actualizarUsuario(idUsuario, requestBody.toMultipart(fileName), usuarioBody)
+            .enqueue(object : Callback<UsuarioModel> {
+                override fun onResponse(call: Call<UsuarioModel>, response: Response<UsuarioModel>) {
+                    _descripcionActualizada.postValue(response.isSuccessful)
+                }
+
+                override fun onFailure(call: Call<UsuarioModel>, t: Throwable) {
+                    _descripcionActualizada.postValue(false)
+                }
+            })
     }
 
     fun actualizarInformacionCliente(

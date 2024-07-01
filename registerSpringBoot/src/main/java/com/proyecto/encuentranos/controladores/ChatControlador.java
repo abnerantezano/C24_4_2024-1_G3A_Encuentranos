@@ -1,5 +1,6 @@
 package com.proyecto.encuentranos.controladores;
 
+import com.amazonaws.services.migrationhubstrategyrecommendations.model.ResourceNotFoundException;
 import com.proyecto.encuentranos.modelos.ChatModelo;
 import com.proyecto.encuentranos.servicios.ChatServicio;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -50,10 +51,19 @@ public class ChatControlador {
     }
 
     @PostMapping("/{idCliente}/{idProveedor}")
-    public ResponseEntity<ChatModelo> obtenerOcrearChat(
+    public ResponseEntity<?> obtenerOcrearChat(
             @PathVariable int idCliente,
             @PathVariable int idProveedor) {
-        ChatModelo chat = chatServicio.obtenerOcrearChat(idCliente, idProveedor);
-        return ResponseEntity.ok(chat);
+        try {
+            ChatModelo chat = chatServicio.obtenerOcrearChat(idCliente, idProveedor);
+            HttpStatus status = chat.getIdChat() > 0 ? HttpStatus.OK : HttpStatus.CREATED;
+            return ResponseEntity.status(status).body(chat);
+        } catch (ResourceNotFoundException ex) {
+            return ResponseEntity.notFound().build();
+        } catch (Exception ex) {
+            ex.printStackTrace(); // Imprimir la traza de la excepción en la consola para debug
+            return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).build();
+        }
     }
+
 }

@@ -36,7 +36,7 @@ public class NotificacionModelo {
     private String mensaje;
 
     @Column(name = "estado", length = 50)
-    private String estado;
+    private String estado = "no visto";
 
     @Column(name = "fh_creacion", columnDefinition = "DATETIME DEFAULT CURRENT_TIMESTAMP")
     @Temporal(TemporalType.TIMESTAMP)

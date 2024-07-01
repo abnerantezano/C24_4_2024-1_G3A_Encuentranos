@@ -25,7 +25,7 @@ interface ChatApi {
     @POST("/chat/agregar")
     fun agregarChat(@Body chat: ChatModelo): Call<ChatModel>
 
-    @GET("/chat/{idCliente}/{idProveedor}")
+    @POST("/chat/{idCliente}/{idProveedor}")
     fun obtenerOcrearChat(
         @Path("idCliente") idCliente: Int,
         @Path("idProveedor") idProveedor: Int

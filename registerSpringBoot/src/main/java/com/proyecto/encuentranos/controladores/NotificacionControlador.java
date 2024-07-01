@@ -57,8 +57,8 @@ public class NotificacionControlador {
     }
 
     @PutMapping("/actualizar-estado/{id}")
-    public ResponseEntity<Void> actualizarEstado(@PathVariable int id, @RequestParam String estado) {
-        notificacionServicio.actualizarEstado(id, estado);
+    public ResponseEntity<Void> actualizarEstado(@PathVariable int id) {
+        notificacionServicio.actualizarEstado(id, "visto");
         return ResponseEntity.noContent().build();
     }
 

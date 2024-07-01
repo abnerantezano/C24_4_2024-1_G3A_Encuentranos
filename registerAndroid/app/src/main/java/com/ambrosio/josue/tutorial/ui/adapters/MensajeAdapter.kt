@@ -36,10 +36,12 @@ class MensajeAdapter(private val onItemClick: (ChatModel) -> Unit) :
     inner class MensajeViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView) {
         private val nombreUsuarioTextView: TextView = itemView.findViewById(R.id.tvNombreUsuario)
         private val mensajeUsuarioTextView: TextView = itemView.findViewById(R.id.tvMensajeUsuario)
+        private val fechaTextView: TextView = itemView.findViewById(R.id.tvFechaEnvio)
 
         fun bind(mensaje: ChatModel) {
             nombreUsuarioTextView.text = mensaje.idProveedor.nombre
             mensajeUsuarioTextView.text = mensaje.idCliente.nombre
+            fechaTextView.text = mensaje.fhCreacion
         }
     }
 }
