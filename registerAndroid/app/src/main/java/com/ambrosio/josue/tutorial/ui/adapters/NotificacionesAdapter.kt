@@ -8,11 +8,12 @@ import android.widget.TextView
 import androidx.recyclerview.widget.RecyclerView
 import com.ambrosio.josue.tutorial.R
 import com.ambrosio.josue.tutorial.data.models.DetalleContratoModel
+import com.ambrosio.josue.tutorial.data.models.NotificacionModel
 import com.ambrosio.josue.tutorial.ui.activities.AceptarOCancelarContratoActivity
-import com.ambrosio.josue.tutorial.ui.activities.opcionesPerfilFragment.ContratoEspecificoActivity
 
 class NotificacionesAdapter : RecyclerView.Adapter<NotificacionesAdapter.NotificacionViewHolder>() {
 
+    private var notificaciones: List<NotificacionModel> = emptyList()
     private var detallesContrato: List<DetalleContratoModel> = emptyList()
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): NotificacionViewHolder {
@@ -21,43 +22,48 @@ class NotificacionesAdapter : RecyclerView.Adapter<NotificacionesAdapter.Notific
     }
 
     override fun onBindViewHolder(holder: NotificacionViewHolder, position: Int) {
-        val detalleContrato = detallesContrato[position]
-        holder.bind(detalleContrato)
+        val notificacion = notificaciones[position]
+        holder.bind(notificacion)
     }
 
     override fun getItemCount(): Int {
-        return detallesContrato.size
+        return notificaciones.size
     }
 
-    fun submitList(list: List<DetalleContratoModel>) {
-        detallesContrato = list
+    fun submitList(notificacionesList: List<NotificacionModel>, detallesContratoList: List<DetalleContratoModel>) {
+        notificaciones = notificacionesList
+        detallesContrato = detallesContratoList
         notifyDataSetChanged()
     }
 
     inner class NotificacionViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView) {
-        private val nombreClienteTextView: TextView = itemView.findViewById(R.id.tvNombreCliente)
-        private val mensajeTextView: TextView = itemView.findViewById(R.id.tvMensaje)
+        private val nombreCliente: TextView = itemView.findViewById(R.id.tvNombreCliente)
+        private val nuevoContrato: TextView = itemView.findViewById(R.id.tvNuevoContrato)
 
         init {
             itemView.setOnClickListener {
                 val position = adapterPosition
                 if (position != RecyclerView.NO_POSITION) {
-                    val detalleContrato = detallesContrato[position]
-                    val intent = Intent(itemView.context, AceptarOCancelarContratoActivity::class.java).apply {
-                        putExtra("ID_CONTRATO", detalleContrato.idContrato.idContrato)
-                        putExtra("NOMBRE_CLIENTE", "${detalleContrato.idContrato.idCliente.nombre} ${detalleContrato.idContrato.idCliente.apellidoPaterno}")
-                        putExtra("NOMBRE_SERVICIO", "${detalleContrato.idServicio.nombre}")
-                        putExtra("PRECIO_ACTUAL", "S/ ${detalleContrato.precioActual}")
-                        putExtra("ESTADO_SERVICIO", "${detalleContrato.idContrato.estado}")
+                    val notificacion = notificaciones[position]
+                    val detalleContrato = detallesContrato.find { it.idContrato.idContrato == notificacion.idContrato.idContrato }
+
+                    detalleContrato?.let {
+                        val intent = Intent(itemView.context, AceptarOCancelarContratoActivity::class.java).apply {
+                            putExtra("ID_CONTRATO", notificacion.idContrato.idContrato)
+                            putExtra("NOMBRE_CLIENTE", "${notificacion.idCliente.nombre} ${notificacion.idCliente.apellidoPaterno}")
+                            putExtra("NOMBRE_SERVICIO", it.idServicio.nombre)
+                            putExtra("PRECIO_ACTUAL", "S/ ${it.precioActual}")
+                            putExtra("ESTADO_SERVICIO", notificacion.idContrato.estado)
+                        }
+                        itemView.context.startActivity(intent)
                     }
-                    itemView.context.startActivity(intent)
                 }
             }
         }
 
-        fun bind(detalleContrato: DetalleContratoModel) {
-            nombreClienteTextView.text = detalleContrato.idContrato.idCliente.nombre
-            mensajeTextView.text = "Esperando tu Respuesta"
+        fun bind(notificacion: NotificacionModel) {
+            nombreCliente.text = notificacion.idCliente.nombre
+            nuevoContrato.text = notificacion.titulo
         }
     }
 }

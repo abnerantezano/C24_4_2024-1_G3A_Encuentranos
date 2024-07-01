@@ -1,5 +1,6 @@
 package com.proyecto.encuentranos.modelos;
 
+import java.time.LocalDateTime;
 import java.util.Date;
 
 import jakarta.persistence.Column;
@@ -41,8 +42,8 @@ public class UsuarioModelo {
     @Column(name = "estado")
     private String estado;
 
-    @Temporal(TemporalType.DATE)
-    @Column(name = "fh_creacion")
-    private Date fechaRegistro;
+    @Column(name = "fh_creacion", columnDefinition = "DATETIME DEFAULT CURRENT_TIMESTAMP", insertable = false)
+    @Temporal(TemporalType.TIMESTAMP)
+    private LocalDateTime fhCreacion;
 
 }

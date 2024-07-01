@@ -10,7 +10,7 @@ import java.util.List;
 import java.util.Optional;
 
 @RestController
-@RequestMapping("/notificaciones")
+@RequestMapping("/notificacion")
 public class NotificacionControlador {
 
     private final NotificacionServicio notificacionServicio;
@@ -46,11 +46,6 @@ public class NotificacionControlador {
         return notificacionServicio.getNotificacionesByEstado(estado);
     }
 
-    @GetMapping("/tipo/{tipo}")
-    public List<NotificacionModelo> getNotificacionesByTipo(@PathVariable String tipo) {
-        return notificacionServicio.getNotificacionesByTipo(tipo);
-    }
-
     @PostMapping("/agregar")
     public NotificacionModelo crearNotificacion(@RequestBody NotificacionModelo notificacion) {
         return notificacionServicio.crearNotificacion(notificacion);
@@ -66,5 +61,17 @@ public class NotificacionControlador {
     public ResponseEntity<Void> eliminarNotificacion(@PathVariable int id) {
         notificacionServicio.eliminarNotificacion(id);
         return ResponseEntity.noContent().build();
+    }
+
+    // Endpoint para agregar una notificación
+    @PostMapping("/agregar/{idCliente}/{idProveedor}/{idContrato}")
+    public ResponseEntity<NotificacionModelo> agregarNotificacion(
+            @PathVariable int idCliente,
+            @PathVariable int idProveedor,
+            @PathVariable int idContrato,
+            @RequestBody NotificacionModelo notificacion) {
+
+        NotificacionModelo nuevaNotificacion = notificacionServicio.crearNotificacion(idCliente, idProveedor, idContrato, notificacion.getTitulo(), notificacion.getMensaje());
+        return ResponseEntity.ok(nuevaNotificacion);
     }
 }

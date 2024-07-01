@@ -31,7 +31,7 @@ public class MensajeModelo {
     @JoinColumn(name = "id_chat", nullable = false)
     private ChatModelo idChat;
 
-    @Column(nullable = false)
+    @Column( name = "mensaje", nullable = false)
     private String mensaje;
 
     @Column(name = "fh_creacion")

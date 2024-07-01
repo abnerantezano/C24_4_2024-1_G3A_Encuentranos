@@ -11,5 +11,4 @@ public interface INotificacionRepositorio extends JpaRepository<NotificacionMode
     List<NotificacionModelo> findByIdClienteIdCliente(int idCliente);
     List<NotificacionModelo> findByIdProveedorIdProveedor(int idProveedor);
     List<NotificacionModelo> findByEstado(String estado);
-    List<NotificacionModelo> findByTipo(String tipo);
 }

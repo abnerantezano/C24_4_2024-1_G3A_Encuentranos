@@ -5,7 +5,7 @@ data class UsuarioModel(
     val idTipo: TipoUsuarioModel = TipoUsuarioModel(1, ""),
     val correo: String = "",
     val contrasena: String = "",
-    var imageUrl: String? = null,
+    var imagenUrl: String? = null,
     val estado: String = "",
     val fechaCreacion: String = ""
 )

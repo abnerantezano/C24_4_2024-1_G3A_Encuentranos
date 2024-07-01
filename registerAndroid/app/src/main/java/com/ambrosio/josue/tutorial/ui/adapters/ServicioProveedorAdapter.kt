@@ -5,12 +5,14 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.Button
+import android.widget.ImageView
 import android.widget.RatingBar
 import android.widget.TextView
 import androidx.recyclerview.widget.RecyclerView
 import com.ambrosio.josue.tutorial.R
 import com.ambrosio.josue.tutorial.ui.activities.InformacionProveedorActivity
 import com.ambrosio.josue.tutorial.data.models.ServicioProveedorModel
+import com.squareup.picasso.Picasso
 
 class ServicioProveedorAdapter : RecyclerView.Adapter<ServicioProveedorAdapter.ViewHolder>() {
 
@@ -41,12 +43,14 @@ class ServicioProveedorAdapter : RecyclerView.Adapter<ServicioProveedorAdapter.V
         private val descripcionTextView: TextView = itemView.findViewById(R.id.tvServicio)
         private val precioTextView: TextView = itemView.findViewById(R.id.tvPrecioActual)
         private val btnVerPerfil: Button = itemView.findViewById(R.id.btnVerPerfil)
+        private val imgCliente: ImageView = itemView.findViewById(R.id.imgServicioProveedor)
 
         fun bind(servicio: ServicioProveedorModel) {
             nombreTextView.text = "${servicio.idProveedor.nombre} ${servicio.idProveedor.apellidoPaterno}"
             ratingBar.rating = servicio.idProveedor.calificacionPromedio.toFloat()
             descripcionTextView.text = servicio.idServicio.nombre
             precioTextView.text = servicio.precio.toString()
+            Picasso.get().load(servicio.idProveedor.idUsuario?.imagenUrl).into(imgCliente)
             btnVerPerfil.setOnClickListener {
                 val context = itemView.context
                 val intent = Intent(context, InformacionProveedorActivity::class.java).apply {

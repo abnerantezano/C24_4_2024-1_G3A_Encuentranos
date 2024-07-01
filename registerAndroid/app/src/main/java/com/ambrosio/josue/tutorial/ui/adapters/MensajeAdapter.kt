@@ -3,10 +3,12 @@ package com.ambrosio.josue.tutorial.ui.adapters
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.ImageView
 import android.widget.TextView
 import androidx.recyclerview.widget.RecyclerView
 import com.ambrosio.josue.tutorial.R
 import com.ambrosio.josue.tutorial.data.models.ChatModel
+import com.squareup.picasso.Picasso
 
 class MensajeAdapter(private val onItemClick: (ChatModel) -> Unit) :
     RecyclerView.Adapter<MensajeAdapter.MensajeViewHolder>() {
@@ -37,11 +39,13 @@ class MensajeAdapter(private val onItemClick: (ChatModel) -> Unit) :
         private val nombreUsuarioTextView: TextView = itemView.findViewById(R.id.tvNombreUsuario)
         private val mensajeUsuarioTextView: TextView = itemView.findViewById(R.id.tvMensajeUsuario)
         private val fechaTextView: TextView = itemView.findViewById(R.id.tvFechaEnvio)
+        private val imgCliente: ImageView = itemView.findViewById(R.id.imgCliente)
 
         fun bind(mensaje: ChatModel) {
             nombreUsuarioTextView.text = mensaje.idProveedor.nombre
             mensajeUsuarioTextView.text = mensaje.idCliente.nombre
             fechaTextView.text = mensaje.fhCreacion
+            Picasso.get().load(mensaje.idProveedor.idUsuario?.imagenUrl).into(imgCliente)
         }
     }
 }

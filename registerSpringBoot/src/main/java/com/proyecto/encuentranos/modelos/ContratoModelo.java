@@ -1,5 +1,6 @@
 package com.proyecto.encuentranos.modelos;
 
+import java.time.LocalDateTime;
 import java.util.Date;
 
 import com.fasterxml.jackson.annotation.JsonFormat;
@@ -46,7 +47,7 @@ public class ContratoModelo {
     @Temporal(TemporalType.TIME)
     private Date hfServicio;
 
-    @Column(name = "fh_creacion", nullable = false, columnDefinition = "TIMESTAMP DEFAULT CURRENT_TIMESTAMP")
+    @Column(name = "fh_creacion", columnDefinition = "DATETIME DEFAULT CURRENT_TIMESTAMP", insertable = false)
     @Temporal(TemporalType.TIMESTAMP)
-    private Date fhCreacion;
+    private LocalDateTime fhCreacion;
 }

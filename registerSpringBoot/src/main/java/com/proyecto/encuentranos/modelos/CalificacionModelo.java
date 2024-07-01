@@ -4,6 +4,7 @@ import jakarta.persistence.*;
 import lombok.Getter;
 import lombok.Setter;
 
+import java.time.LocalDateTime;
 import java.util.Date;
 
 @Setter
@@ -27,7 +28,7 @@ public class CalificacionModelo {
     @Column(name = "comentario")
     private String comentario;
 
-    @Column(name = "fh_creacion")
-    @Temporal(TemporalType.DATE)
-    private Date fhCreacion;
+    @Column(name = "fh_creacion", columnDefinition = "DATETIME DEFAULT CURRENT_TIMESTAMP", insertable = false)
+    @Temporal(TemporalType.TIMESTAMP)
+    private LocalDateTime fhCreacion;
 }

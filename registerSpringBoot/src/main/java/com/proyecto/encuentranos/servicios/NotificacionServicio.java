@@ -1,10 +1,18 @@
 package com.proyecto.encuentranos.servicios;
 
+import com.proyecto.encuentranos.modelos.ClienteModelo;
+import com.proyecto.encuentranos.modelos.ContratoModelo;
 import com.proyecto.encuentranos.modelos.NotificacionModelo;
+import com.proyecto.encuentranos.modelos.ProveedorModelo;
+import com.proyecto.encuentranos.repositorios.IClienteRepositorio;
+import com.proyecto.encuentranos.repositorios.IContratoRepositorio;
 import com.proyecto.encuentranos.repositorios.INotificacionRepositorio;
+import com.proyecto.encuentranos.repositorios.IProveedorRepositorio;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import java.time.LocalDateTime;
+import java.util.Date;
 import java.util.List;
 import java.util.Optional;
 
@@ -12,11 +20,42 @@ import java.util.Optional;
 public class NotificacionServicio {
 
     private final INotificacionRepositorio notificacionRepositorio;
+    @Autowired
+    private IClienteRepositorio clienteRepositorio;
+
+    @Autowired
+    private IProveedorRepositorio proveedorRepositorio;
+
+    @Autowired
+    private IContratoRepositorio contratoRepositorio;
 
     @Autowired
     public NotificacionServicio(INotificacionRepositorio notificacionRepositorio) {
         this.notificacionRepositorio = notificacionRepositorio;
     }
+
+    public NotificacionModelo crearNotificacion(int idCliente, int idProveedor, int idContrato, String tipo, String mensaje) {
+        NotificacionModelo notificacion = new NotificacionModelo();
+
+        // Obtener ClienteModelo
+        ClienteModelo cliente = clienteRepositorio.findById(idCliente).orElseThrow(() -> new IllegalArgumentException("Cliente no encontrado"));
+        notificacion.setIdCliente(cliente);
+
+        // Obtener ProveedorModelo
+        ProveedorModelo proveedor = proveedorRepositorio.findById(idProveedor).orElseThrow(() -> new IllegalArgumentException("Proveedor no encontrado"));
+        notificacion.setIdProveedor(proveedor);
+
+        // Obtener ContratoModelo
+        ContratoModelo contrato = contratoRepositorio.findById(idContrato).orElseThrow(() -> new IllegalArgumentException("Contrato no encontrado"));
+        notificacion.setIdContrato(contrato);
+
+        notificacion.setTitulo("Tienes una nueva notificación");
+        notificacion.setMensaje(mensaje);
+        notificacion.setEstado("no visto");
+
+        return notificacionRepositorio.save(notificacion);
+    }
+
 
     public List<NotificacionModelo> getAllNotificaciones() {
         return notificacionRepositorio.findAll();
@@ -38,8 +77,26 @@ public class NotificacionServicio {
         return notificacionRepositorio.findByEstado(estado);
     }
 
-    public List<NotificacionModelo> getNotificacionesByTipo(String tipo) {
-        return notificacionRepositorio.findByTipo(tipo);
+    public NotificacionModelo crearNotificacionConIdContratYIdCliente(int idContrato, int idCliente, String mensaje) {
+        NotificacionModelo notificacion = new NotificacionModelo();
+
+        // Obtener ClienteModelo
+        ClienteModelo cliente = clienteRepositorio.findById(idCliente)
+                .orElseThrow(() -> new IllegalArgumentException("Cliente no encontrado"));
+        notificacion.setIdCliente(cliente);
+
+        // Obtener ContratoModelo
+        ContratoModelo contrato = contratoRepositorio.findById(idContrato)
+                .orElseThrow(() -> new IllegalArgumentException("Contrato no encontrado"));
+        notificacion.setIdContrato(contrato);
+
+        notificacion.setTitulo("Tienes una nueva notificación");
+        notificacion.setMensaje(mensaje);
+        notificacion.setEstado("no visto");
+
+        notificacion.setFhCreacion(LocalDateTime.now());
+
+        return notificacionRepositorio.save(notificacion);
     }
 
     public NotificacionModelo crearNotificacion(NotificacionModelo notificacion) {

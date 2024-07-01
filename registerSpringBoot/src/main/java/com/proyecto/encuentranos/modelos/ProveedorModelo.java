@@ -1,5 +1,6 @@
 package com.proyecto.encuentranos.modelos;
 
+import java.time.LocalDateTime;
 import java.util.Date;
 
 import jakarta.persistence.*;
@@ -53,11 +54,8 @@ public class ProveedorModelo {
 	@Column( name = "calificacion_promedio")
     private double calificacionPromedio;
 
-	@Column( name = "curriculo_url")
-    private String curriculumUrl;
-
-	@Column(name = "fh_creacion")
-	@Temporal(TemporalType.DATE)
-	private Date fechaRegistro;
+    @Column(name = "fh_creacion", columnDefinition = "DATETIME DEFAULT CURRENT_TIMESTAMP", insertable = false)
+    @Temporal(TemporalType.TIMESTAMP)
+    private LocalDateTime fhCreacion;
 
 }

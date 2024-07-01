@@ -4,12 +4,14 @@ import android.content.Intent
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.ImageView
 import android.widget.TextView
 import androidx.recyclerview.widget.RecyclerView
 import com.ambrosio.josue.tutorial.R
 import com.ambrosio.josue.tutorial.data.models.DetalleContratoModel
 import com.ambrosio.josue.tutorial.ui.activities.opcionesPerfilFragment.ContratoEspecificoActivity
 import com.ambrosio.josue.tutorial.ui.viewModels.InicioViewModel
+import com.squareup.picasso.Picasso
 import java.text.SimpleDateFormat
 import java.util.Locale
 
@@ -45,6 +47,7 @@ class DetalleContratoAdapater(
         private val estadoContratoTextView: TextView = itemView.findViewById(R.id.tvEstado)
         private val fechaInicioTextView: TextView = itemView.findViewById(R.id.tvFechaInicio)
         private val horaInicioTextView: TextView = itemView.findViewById(R.id.tvHoraInicio)
+        private val imgCliente: ImageView = itemView.findViewById(R.id.imgCliente)
 
         init {
             itemView.setOnClickListener {
@@ -61,6 +64,7 @@ class DetalleContratoAdapater(
                         putExtra("FECHA_FIN", detalleContrato.idContrato.fechaFin)
                         putExtra("HORA_INICIO", detalleContrato.idContrato.hiServicio)
                         putExtra("HORA_FIN", detalleContrato.idContrato.hfServicio)
+                        putExtra("IMAGEN_URL", obtenerImagenUsuario(detalleContrato))
                     }
                     itemView.context.startActivity(intent)
                 }
@@ -80,6 +84,8 @@ class DetalleContratoAdapater(
             estadoContratoTextView.text = detalleContrato.idContrato.estado
             fechaInicioTextView.text = fechaInicioFormateada
             horaInicioTextView.text = detalleContrato.idContrato.hiServicio
+
+            cargarImagenUsuario(detalleContrato)
         }
 
         private fun obtenerNombreUsuario(detalleContrato: DetalleContratoModel): String {
@@ -96,6 +102,24 @@ class DetalleContratoAdapater(
                 "Proveedor"
             } else {
                 "Cliente"
+            }
+        }
+
+        private fun obtenerImagenUsuario(detalleContrato: DetalleContratoModel): String? {
+            val tipoUsuario = viewModel.idTipo.value
+            return if (tipoUsuario == 1) {
+                detalleContrato.idProveedor.idUsuario?.imagenUrl
+            } else {
+                detalleContrato.idContrato.idCliente.idUsuario?.imagenUrl
+            }
+        }
+
+        private fun cargarImagenUsuario(detalleContrato: DetalleContratoModel) {
+            val imageUrl = obtenerImagenUsuario(detalleContrato)
+            imageUrl?.let {
+                Picasso.get()
+                    .load(it)
+                    .into(imgCliente)
             }
         }
     }

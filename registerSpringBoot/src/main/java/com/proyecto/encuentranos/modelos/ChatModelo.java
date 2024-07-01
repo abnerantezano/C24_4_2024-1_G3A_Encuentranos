@@ -4,6 +4,7 @@ import jakarta.persistence.*;
 import lombok.Getter;
 import lombok.Setter;
 
+import java.time.LocalDateTime;
 import java.util.Date;
 
 @Setter
@@ -27,9 +28,9 @@ public class ChatModelo {
     @Column(name = "estado", nullable = false)
     private String estado;
 
-    @Temporal(TemporalType.DATE)
-    @Column(name = "fh_creacion")
-    private Date fhCreacion;
+    @Column(name = "fh_creacion", columnDefinition = "DATETIME DEFAULT CURRENT_TIMESTAMP", insertable = false)
+    @Temporal(TemporalType.TIMESTAMP)
+    private LocalDateTime fhCreacion;
 
     // Constructor vacío requerido por Hibernate
     public ChatModelo() {

@@ -1,10 +1,10 @@
 package com.ambrosio.josue.tutorial.ui.activities.opcionesPerfilFragment
 
-import android.app.AlertDialog
+import android.content.ContentResolver
 import android.content.Intent
 import android.net.Uri
 import android.os.Bundle
-import android.provider.MediaStore
+import android.provider.OpenableColumns
 import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
@@ -12,23 +12,17 @@ import android.widget.Button
 import android.widget.Toast
 import androidx.activity.result.contract.ActivityResultContracts
 import androidx.activity.viewModels
+import androidx.appcompat.app.AlertDialog
 import androidx.lifecycle.Observer
 import com.ambrosio.josue.tutorial.R
-import com.ambrosio.josue.tutorial.data.models.UsuarioModel
 import com.ambrosio.josue.tutorial.databinding.ActivityPerfilBinding
 import com.ambrosio.josue.tutorial.generals.HeaderInclude
-import com.ambrosio.josue.tutorial.ui.adapters.FileRequestBody
 import com.ambrosio.josue.tutorial.ui.viewModels.InicioViewModel
 import com.ambrosio.josue.tutorial.ui.viewModels.PerfilViewModel
+import com.google.android.gms.tasks.OnCompleteListener
 import com.google.firebase.auth.FirebaseAuth
-<<<<<<< HEAD
-import java.io.File
-import java.io.FileOutputStream
-import java.io.IOException
-=======
 import com.google.firebase.auth.GetTokenResult
-import java.io.File
->>>>>>> 48a3a91734a4fbd86bdb91a628c8e16915903b54
+import com.squareup.picasso.Picasso
 
 class PerfilActivity : HeaderInclude() {
 
@@ -36,33 +30,15 @@ class PerfilActivity : HeaderInclude() {
     private val perfilViewModel: PerfilViewModel by viewModels()
     private val inicioViewModel: InicioViewModel by viewModels()
     private var selectedImageFileUri: Uri? = null
-    private val PICK_IMAGE_REQUEST = 1
-
-<<<<<<< HEAD
-    private val registerForFiles =
-        registerForActivityResult(ActivityResultContracts.StartActivityForResult()) { result ->
-            if (result.resultCode == RESULT_OK) {
-                result.data?.data?.let { uri ->
-                    selectedImageFileUri = uri
-                    binding.imgFoto.setImageURI(selectedImageFileUri)
-                }
-            }
-        }
-=======
->>>>>>> 48a3a91734a4fbd86bdb91a628c8e16915903b54
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         binding = ActivityPerfilBinding.inflate(layoutInflater)
         setContentView(binding.root)
 
-<<<<<<< HEAD
-        setupUI()
-        inicioViewModel.verificarAutenticacionUsuario()
-=======
         // Mostrar el ProgressBar y ocultar el contenido al iniciar la actividad
         binding.progressBar.visibility = View.VISIBLE
-        binding.imgFoto.visibility = View.GONE
+        binding.imgUsuario.visibility = View.GONE
         binding.linearDescripcion.visibility = View.GONE
         binding.linearCurriculum.visibility = View.GONE
         binding.btnGuardar.visibility = View.GONE
@@ -79,63 +55,24 @@ class PerfilActivity : HeaderInclude() {
                 } else {
                     Log.e("InformacionPersonal", "Error getting token: ${task.exception}")
                 }
-
             })
 
->>>>>>> 48a3a91734a4fbd86bdb91a628c8e16915903b54
         setupObservers()
         setupHeader()
 
-        binding.imgFoto.setOnClickListener {
-<<<<<<< HEAD
-            openFileChooser()
-        }
-
-        binding.btnGuardar.setOnClickListener {
-            val descripcion = binding.tvDescripcionUsuario.text.toString()
-            // Guardar la imagen seleccionada en tu sistema de almacenamiento (ejemplo: Firebase Storage)
-=======
+        binding.imgUsuario.setOnClickListener {
             abrirGaleriaParaSeleccionarImagen()
         }
 
-
         binding.btnGuardar.setOnClickListener {
             val descripcion = binding.tvDescripcionUsuario.text.toString()
-            // Guardar la imagen seleccionada en tu sistema de almacenamiento (ejemplo: Firebase Storage)
             if (selectedImageFileUri != null) {
                 guardarImagen(selectedImageFileUri!!)
             }
->>>>>>> 48a3a91734a4fbd86bdb91a628c8e16915903b54
 
-            // Actualizar la descripción en función del tipo de usuario (cliente o proveedor)
             when (inicioViewModel.idTipo.value) {
-                1 -> {
-                    inicioViewModel.obtenerIdCliente()
-                }
-                2 -> {
-                    inicioViewModel.obtenerIdProveedor()
-                }
-            }
-
-            selectedImageFileUri?.let { uri ->
-                val realPath = getRealPathFromURI(uri)
-                if (realPath != null) {
-                    val imageFile = File(realPath)
-                    if (imageFile.exists()) {
-                        inicioViewModel.usuario.observe(this, Observer { usuarioModelo ->
-                            usuarioModelo?.let {
-                                Log.e("PerfilActivity", "El archivo que se está enviando es${imageFile}")
-                                uploadFileToS3AndServer(it.idUsuario, it, imageFile)
-                            }
-                        })
-                    } else {
-                        Log.e("PerfilActivity", "El archivo de imagen no existe")
-                    }
-                } else {
-                    Log.e("PerfilActivity", "No se pudo obtener la ruta real de la imagen")
-                }
-            } ?: run {
-                Log.e("PerfilActivity", "selectedImageFileUri es nulo")
+                1 -> inicioViewModel.obtenerIdCliente()
+                2 -> inicioViewModel.obtenerIdProveedor()
             }
         }
 
@@ -159,55 +96,20 @@ class PerfilActivity : HeaderInclude() {
         })
     }
 
-    private fun setupUI() {
-        binding.progressBar.visibility = View.VISIBLE
-        binding.imgFoto.visibility = View.GONE
-        binding.linearDescripcion.visibility = View.GONE
-        binding.linearCurriculum.visibility = View.GONE
-        binding.btnGuardar.visibility = View.GONE
-    }
-
-    private fun openFileChooser() {
-        val intent = Intent(Intent.ACTION_PICK)
-        intent.type = "image/*"
-        startActivityForResult(intent, PICK_IMAGE_REQUEST)
-    }
-
-    override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?) {
-        super.onActivityResult(requestCode, resultCode, data)
-        if (requestCode == PICK_IMAGE_REQUEST && resultCode == RESULT_OK && data != null && data.data != null) {
-            selectedImageFileUri = data.data
-            binding.imgFoto.setImageURI(selectedImageFileUri)
-        }
-    }
-
-    private fun getRealPathFromURI(contentUri: Uri): String? {
-        var realPath: String? = null
-        try {
-            contentResolver.openInputStream(contentUri)?.use { inputStream ->
-                val tempFile = createTempFile(suffix = ".jpg")
-                FileOutputStream(tempFile).use { outputStream ->
-                    inputStream.copyTo(outputStream)
-                }
-                realPath = tempFile.absolutePath
-            }
-        } catch (e: IOException) {
-            e.printStackTrace()
-        }
-        return realPath
-    }
-
     private fun abrirGaleriaParaSeleccionarImagen() {
-        val intent = Intent(Intent.ACTION_PICK, MediaStore.Images.Media.EXTERNAL_CONTENT_URI)
-        startActivityForResult(intent, PICK_IMAGE_REQUEST)
-    }
-
-    private val resultLauncher = registerForActivityResult(ActivityResultContracts.StartActivityForResult()) { result ->
-        if (result.resultCode == RESULT_OK) {
-            selectedImageFileUri = result.data?.data
-            binding.imgFoto.setImageURI(selectedImageFileUri)
+        val intent = Intent(Intent.ACTION_GET_CONTENT).apply {
+            type = "/"
+            registerForFiles.launch(this)
         }
     }
+
+    private val registerForFiles =
+        registerForActivityResult(ActivityResultContracts.StartActivityForResult()) { result ->
+            if (result.resultCode == RESULT_OK) {
+                selectedImageFileUri = result.data?.data
+                binding.imgUsuario.setImageURI(selectedImageFileUri)
+            }
+        }
 
     private fun setupObservers() {
         inicioViewModel.descripcionUsuario.observe(this, Observer { descripcion ->
@@ -221,19 +123,23 @@ class PerfilActivity : HeaderInclude() {
                 binding.tvDescripcionUsuario.setHint(R.string.escribe_tu_descripci_n)
             }
         })
+        inicioViewModel.imagenUrl.observe(this, Observer { imagenUrl ->
+            val imgUsuario = binding.imgUsuario
+            Picasso.get().load(imagenUrl).into(imgUsuario)
+        })
 
         inicioViewModel.idTipo.observe(this, Observer { idTipo ->
             when (idTipo) {
                 1 -> {
                     binding.progressBar.visibility = View.GONE
-                    binding.imgFoto.visibility = View.VISIBLE
+                    binding.imgUsuario.visibility = View.VISIBLE
                     binding.linearDescripcion.visibility = View.VISIBLE
                     binding.linearCurriculum.visibility = View.GONE
                     binding.btnGuardar.visibility = View.VISIBLE
                 }
                 else -> {
                     binding.progressBar.visibility = View.GONE
-                    binding.imgFoto.visibility = View.VISIBLE
+                    binding.imgUsuario.visibility = View.VISIBLE
                     binding.linearDescripcion.visibility = View.VISIBLE
                     binding.linearCurriculum.visibility = View.VISIBLE
                     binding.btnGuardar.visibility = View.VISIBLE
@@ -257,27 +163,25 @@ class PerfilActivity : HeaderInclude() {
         dialog.show()
     }
 
-<<<<<<< HEAD
-    private fun uploadFileToS3AndServer(idUsuario: Int, usuario: UsuarioModel, file: File) {
-        val requestBody = FileRequestBody(contentResolver, Uri.fromFile(file)) { bytesWritten, contentLength ->
-            val progress = (100 * bytesWritten / contentLength).toInt()
-            runOnUiThread {
-                // Update progress UI
-                binding.progressBar.progress = progress
+    private fun guardarImagen(imageUri: Uri) {
+        val contentResolver = applicationContext.contentResolver
+        val inputStream = contentResolver.openInputStream(imageUri)
+        val fileSize = getFileSize(contentResolver, imageUri)
+        val mimeType = contentResolver.getType(imageUri)
+
+        if (inputStream != null && fileSize != null && mimeType != null) {
+            val usuario = inicioViewModel.usuario.value
+            if (usuario != null) {
+                perfilViewModel.actualizarImagenUsuario(usuario, imageUri, fileSize, mimeType, inputStream)
             }
         }
+    }
 
-        perfilViewModel.uploadFileToServer(idUsuario, usuario, file.name, requestBody)
+    private fun getFileSize(contentResolver: ContentResolver, uri: Uri): Long? {
+        return contentResolver.query(uri, null, null, null, null)?.use { cursor ->
+            val sizeIndex = cursor.getColumnIndex(OpenableColumns.SIZE)
+            cursor.moveToFirst()
+            cursor.getLong(sizeIndex)
+        }
     }
 }
-=======
-    private fun guardarImagen(imageUri: Uri) {
-        val imageFile = File(imageUri.path ?: return)
-        inicioViewModel.usuario.observe(this, Observer{usuarioModelo ->
-            usuarioModelo?.let {
-                perfilViewModel.actualizarImagenUsuario(usuarioModelo , imageFile)
-            }
-        })
-    }
-}
->>>>>>> 48a3a91734a4fbd86bdb91a628c8e16915903b54

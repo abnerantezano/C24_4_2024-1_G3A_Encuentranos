@@ -23,6 +23,7 @@ import com.google.android.gms.auth.api.signin.GoogleSignInOptions
 import com.google.android.gms.tasks.OnCompleteListener
 import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.auth.FirebaseUser
+import com.squareup.picasso.Picasso
 
 class PerfilFragment : Fragment() {
 
@@ -99,6 +100,10 @@ class PerfilFragment : Fragment() {
                 binding.opciones.visibility = View.VISIBLE
                 binding.cerrarSesion.visibility = View.VISIBLE
                 binding.tvInformacionPersonal.text = "$nombre $apellido"
+            })
+            viewModel.imagenUrl.observe(viewLifecycleOwner, Observer { imagenUrl ->
+                val imgUsuario = binding.imgUsuario
+                Picasso.get().load(imagenUrl).into(imgUsuario)
             })
         })
         viewModel.verificarAutenticacionUsuario()

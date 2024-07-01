@@ -1,6 +1,6 @@
 package com.proyecto.encuentranos.modelos;
 
-import java.util.Date;
+import java.time.LocalDateTime;
 
 import jakarta.persistence.*;
 import lombok.*;
@@ -18,19 +18,19 @@ public class NotificacionModelo {
     private int idNotificacion;
 
     @ManyToOne
-    @JoinColumn(name = "id_cliente", referencedColumnName = "id_cliente", insertable = false, updatable = false)
+    @JoinColumn(name = "id_cliente", referencedColumnName = "id_cliente")
     private ClienteModelo idCliente;
 
     @ManyToOne
-    @JoinColumn(name = "id_proveedor", referencedColumnName = "id_proveedor", insertable = false, updatable = false)
+    @JoinColumn(name = "id_proveedor", referencedColumnName = "id_proveedor")
     private ProveedorModelo idProveedor;
 
     @ManyToOne
-    @JoinColumn(name = "id_contrato", referencedColumnName = "id_contrato", insertable = false, updatable = false)
+    @JoinColumn(name = "id_contrato", referencedColumnName = "id_contrato")
     private ContratoModelo idContrato;
 
-    @Column(name = "tipo", length = 50)
-    private String tipo;
+    @Column(name = "titulo", length = 50)
+    private String titulo = "Tienes una nueva notificación";
 
     @Column(name = "mensaje", columnDefinition = "TEXT")
     private String mensaje;
@@ -38,7 +38,7 @@ public class NotificacionModelo {
     @Column(name = "estado", length = 50)
     private String estado = "no visto";
 
-    @Column(name = "fh_creacion", columnDefinition = "DATETIME DEFAULT CURRENT_TIMESTAMP")
+    @Column(name = "fh_creacion", columnDefinition = "DATETIME DEFAULT CURRENT_TIMESTAMP", insertable = false)
     @Temporal(TemporalType.TIMESTAMP)
-    private Date fhCreacion;
+    private LocalDateTime fhCreacion;
 }

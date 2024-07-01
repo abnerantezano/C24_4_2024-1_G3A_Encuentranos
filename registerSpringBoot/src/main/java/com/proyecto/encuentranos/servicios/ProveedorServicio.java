@@ -60,9 +60,6 @@ public class ProveedorServicio {
 			if (proveedorActualizado.getDescripcion() != null) {
 				proveedorExistente.setDescripcion(proveedorActualizado.getDescripcion());
 			}
-			if (proveedorActualizado.getCurriculumUrl() != null) {
-				proveedorExistente.setCurriculumUrl(proveedorActualizado.getCurriculumUrl());
-			}
 			if (proveedorActualizado.getIdDistrito() != null) {
 				proveedorExistente.setIdDistrito(proveedorActualizado.getIdDistrito());
 			}

@@ -56,6 +56,9 @@ class InicioViewModel : ViewModel() {
     private val _sexoUsuario = MutableLiveData<String>()
     val sexoUsuario: LiveData<String> get() = _sexoUsuario
 
+    private val _imagenUrl = MutableLiveData<String>()
+    val imagenUrl: LiveData<String> get() = _imagenUrl
+
     private val _descripcionUsuario = MutableLiveData<String>()
     val descripcionUsuario: LiveData<String> get() = _descripcionUsuario
 
@@ -240,8 +243,11 @@ class InicioViewModel : ViewModel() {
             if (respuesta != null) {
                 val jsonObject = JSONObject(respuesta)
                 val idUsuario = jsonObject.optInt("idUsuario", -1)
+                val imagenUrl = jsonObject.optString("imagenUrl", "")
+
                 if (idUsuario != -1) {
                     obtenerTipoUsuario(idUsuario, token)
+                    _imagenUrl.postValue(imagenUrl)
                 } else {
                     _mensajeError.postValue("Error: Usuario no encontrado")
                 }

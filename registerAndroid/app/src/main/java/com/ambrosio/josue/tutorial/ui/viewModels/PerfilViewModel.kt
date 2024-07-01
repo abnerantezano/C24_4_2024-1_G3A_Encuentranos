@@ -1,5 +1,6 @@
 package com.ambrosio.josue.tutorial.ui.viewModels
 
+import android.net.Uri
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
@@ -8,21 +9,14 @@ import com.ambrosio.josue.tutorial.data.models.ClienteModel
 import com.ambrosio.josue.tutorial.data.models.DistritoModel
 import com.ambrosio.josue.tutorial.data.models.ProveedorModel
 import com.ambrosio.josue.tutorial.data.models.UsuarioModel
-<<<<<<< HEAD
-import com.ambrosio.josue.tutorial.ui.adapters.FileRequestBody
-import com.ambrosio.josue.tutorial.ui.adapters.toMultipart
-import com.google.gson.Gson
-import okhttp3.MediaType.Companion.toMediaTypeOrNull
-import okhttp3.RequestBody.Companion.toRequestBody
-=======
 import okhttp3.MediaType.Companion.toMediaTypeOrNull
 import okhttp3.MultipartBody
 import okhttp3.RequestBody
->>>>>>> 48a3a91734a4fbd86bdb91a628c8e16915903b54
+import okio.source
 import retrofit2.Call
 import retrofit2.Callback
 import retrofit2.Response
-import java.io.File
+import java.io.InputStream
 
 class PerfilViewModel : ViewModel() {
 
@@ -35,10 +29,6 @@ class PerfilViewModel : ViewModel() {
 
     private val _informacionActualizada = MutableLiveData<Boolean>()
     val informacionActualizada: LiveData<Boolean> get() = _informacionActualizada
-
-    private val _imagenActualizada = MutableLiveData<Boolean>()
-    val imagenActualizada: LiveData<Boolean> get() = _imagenActualizada
-
 
     fun actualizarDescripcionCliente(idCliente: Int, descripcion: String) {
         val cliente = ClienteModel(idCliente = idCliente, descripcion = descripcion)
@@ -66,27 +56,17 @@ class PerfilViewModel : ViewModel() {
         })
     }
 
-<<<<<<< HEAD
-    fun uploadFileToServer(idUsuario: Int, usuario: UsuarioModel, fileName: String, requestBody: FileRequestBody) {
-        val usuarioJson = Gson().toJson(usuario)
-        val usuarioBody = usuarioJson.toRequestBody("application/json".toMediaTypeOrNull())
-
-        usuarioApi.actualizarUsuario(idUsuario, requestBody.toMultipart(fileName), usuarioBody)
-            .enqueue(object : Callback<UsuarioModel> {
-                override fun onResponse(call: Call<UsuarioModel>, response: Response<UsuarioModel>) {
-                    _descripcionActualizada.postValue(response.isSuccessful)
-                }
-
-                override fun onFailure(call: Call<UsuarioModel>, t: Throwable) {
-                    _descripcionActualizada.postValue(false)
-                }
-            })
-=======
-    fun actualizarImagenUsuario(usuario: UsuarioModel, imageFile: File) {
+    fun actualizarImagenUsuario(
+        usuario: UsuarioModel,
+        imageUri: Uri,
+        fileSize: Long,
+        mimeType: String,
+        inputStream: InputStream
+    ) {
         val usuarioJson = createRequestBodyFromString(usuario.toJson())
-        val imagePart = createMultipartBodyPart(imageFile, "imagen")
+        val imagePart = createMultipartBodyPart(inputStream, mimeType, "imagen", fileSize)
 
-        usuarioApi.actualizarUsuario(usuarioJson, imagePart).enqueue(object : Callback<UsuarioModel> {
+        usuarioApi.actualizarUsuario(usuario.idUsuario, usuarioJson, imagePart).enqueue(object : Callback<UsuarioModel> {
             override fun onResponse(call: Call<UsuarioModel>, response: Response<UsuarioModel>) {
                 _descripcionActualizada.value = response.isSuccessful
             }
@@ -97,9 +77,20 @@ class PerfilViewModel : ViewModel() {
         })
     }
 
-    private fun createMultipartBodyPart(file: File, partName: String): MultipartBody.Part {
-        val requestFile = RequestBody.create("image/*".toMediaTypeOrNull(), file)
-        return MultipartBody.Part.createFormData(partName, file.name, requestFile)
+    private fun createMultipartBodyPart(
+        inputStream: InputStream,
+        mimeType: String,
+        partName: String,
+        fileSize: Long
+    ): MultipartBody.Part {
+        val requestBody = object : RequestBody() {
+            override fun contentType() = mimeType.toMediaTypeOrNull()
+            override fun contentLength() = fileSize
+            override fun writeTo(sink: okio.BufferedSink) {
+                inputStream.use { sink.writeAll(it.source()) }
+            }
+        }
+        return MultipartBody.Part.createFormData(partName, "image.jpg", requestBody)
     }
 
     private fun createRequestBodyFromString(value: String): RequestBody {
@@ -109,16 +100,16 @@ class PerfilViewModel : ViewModel() {
     private fun UsuarioModel.toJson(): String {
         // Implementa la lógica para convertir el modelo UsuarioModel a JSON
         return """{
-            "idUsuario": ${idUsuario},
-            "idTipo": {"id": ${idTipo.idTipo}, "nombre": "${idTipo.nombre}"},
-            "correo": "${correo}",
-            "contrasena": "${contrasena}",
-            "imageUrl": ${imageUrl?.let { "\"$it\"" }},
-            "estado": "${estado}",
-            "fechaCreacion": "${fechaCreacion}"
-        }"""
->>>>>>> 48a3a91734a4fbd86bdb91a628c8e16915903b54
+        "idUsuario": $idUsuario,
+        "idTipo": {"id": ${idTipo.idTipo}, "nombre": "${idTipo.nombre}"},
+        "correo": "$correo",
+        "contrasena": "$contrasena",
+        "imagenUrl": ${imagenUrl?.let { "\"$it\"" }},
+        "estado": "$estado",
+        "fechaCreacion": "$fechaCreacion"
+    }"""
     }
+
 
     fun actualizarInformacionCliente(
         idCliente: Int,
@@ -151,7 +142,6 @@ class PerfilViewModel : ViewModel() {
             }
         })
     }
-
 
     fun actualizarInformacionProveedor(
         idProveedor: Int,

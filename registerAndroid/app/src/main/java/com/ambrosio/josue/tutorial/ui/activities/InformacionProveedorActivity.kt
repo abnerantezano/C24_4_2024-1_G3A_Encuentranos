@@ -16,6 +16,7 @@ import com.ambrosio.josue.tutorial.ui.viewModels.DetalleCalificacionViewModel
 import com.ambrosio.josue.tutorial.ui.viewModels.InformacionProveedorViewModel
 import com.ambrosio.josue.tutorial.ui.viewModels.InicioViewModel
 import com.ambrosio.josue.tutorial.ui.viewModels.ServicioProveedorViewModel
+import com.squareup.picasso.Picasso
 
 class InformacionProveedorActivity : AppCompatActivity() {
     private lateinit var binding: ActivityInformacionProveedorBinding
@@ -72,9 +73,6 @@ class InformacionProveedorActivity : AppCompatActivity() {
 
         viewModel.verificarAutenticacionUsuario()
         viewModel.obtenerIdCliente()
-        viewModel.idUsuario.observe(this, Observer {idUsuario ->
-            binding.verElIdClienteConectado.text = idUsuario.toString()
-        })
 
         binding.btnEnviarMensaje.setOnClickListener {
             // Crear el chat si no se ha creado todavía
@@ -112,6 +110,9 @@ class InformacionProveedorActivity : AppCompatActivity() {
 
                     proveedor.idUsuario?.let { usuario ->
                         tvCorreoProveedor.text = usuario.correo
+                        val imgUsuario = binding.imgCliente
+                        Picasso.get().load(usuario.imagenUrl).into(imgUsuario)
+
                     } ?: run {
                         tvCorreoProveedor.text = "Correo no disponible"
                     }

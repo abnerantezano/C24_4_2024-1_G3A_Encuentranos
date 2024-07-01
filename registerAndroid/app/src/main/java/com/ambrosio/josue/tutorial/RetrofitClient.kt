@@ -7,6 +7,7 @@ import com.ambrosio.josue.tutorial.data.servicios.DetalleCalificacionApi
 import com.ambrosio.josue.tutorial.data.servicios.DetalleContratoApi
 import com.ambrosio.josue.tutorial.data.servicios.DistritoApi
 import com.ambrosio.josue.tutorial.data.servicios.MensajeApi
+import com.ambrosio.josue.tutorial.data.servicios.NotificacionApi
 import com.ambrosio.josue.tutorial.data.servicios.ProveedorApi
 import com.ambrosio.josue.tutorial.data.servicios.ServicioApi
 import com.ambrosio.josue.tutorial.data.servicios.ServicioProveedorApi
@@ -43,5 +44,5 @@ object RetrofitClient {
     val mensajeApi: MensajeApi by lazy { retrofit.create(MensajeApi::class.java) }
     val detalleCalificacionApi: DetalleCalificacionApi by lazy { retrofit.create(DetalleCalificacionApi::class.java) }
     val contratoApi: ContratoApi by lazy { retrofit.create(ContratoApi::class.java) }
-
+    val notificacionApi: NotificacionApi by lazy { retrofit.create(NotificacionApi::class.java) }
 }

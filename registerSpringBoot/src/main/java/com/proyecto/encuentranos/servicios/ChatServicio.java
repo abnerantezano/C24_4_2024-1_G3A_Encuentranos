@@ -69,7 +69,6 @@ public class ChatServicio {
             // Si el chat no existe, crear uno nuevo y guardarlo
             ChatModelo nuevoChat = new ChatModelo(cliente, proveedor);
             nuevoChat.setEstado("activo"); // Ajustar el estado según tus necesidades
-            nuevoChat.setFhCreacion(new Date()); // Establecer la fecha de creación actual o según necesites
             return chatRepositorio.save(nuevoChat);
         }
     }

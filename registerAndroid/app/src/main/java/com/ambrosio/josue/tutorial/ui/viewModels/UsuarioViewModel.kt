@@ -27,7 +27,7 @@ class UsuarioViewModel(
             idTipo = tipoUsuario,
             correo = email,
             contrasena = contrasena,
-            imageUrl = null,
+            imagenUrl = null,
             estado = "Activo",
             fechaCreacion = "2024-06-03"
         )

@@ -5,6 +5,10 @@ import androidx.activity.viewModels
 import androidx.appcompat.app.AlertDialog
 import androidx.appcompat.app.AppCompatActivity
 import androidx.core.content.ContextCompat.startActivity
+import com.ambrosio.josue.tutorial.data.models.ClienteModel
+import com.ambrosio.josue.tutorial.data.models.ContratoModel
+import com.ambrosio.josue.tutorial.data.models.NotificacionModel
+import com.ambrosio.josue.tutorial.data.models.ProveedorModel
 import com.ambrosio.josue.tutorial.databinding.ActivityAceptarOcancelarContratoBinding
 import com.ambrosio.josue.tutorial.generals.HeaderInclude
 import com.ambrosio.josue.tutorial.ui.activities.opcionesPerfilFragment.MiContratoActivity

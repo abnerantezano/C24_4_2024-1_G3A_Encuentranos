@@ -20,6 +20,7 @@ import com.ambrosio.josue.tutorial.data.models.ClienteModel
 import com.ambrosio.josue.tutorial.data.models.ContratoModel
 import com.ambrosio.josue.tutorial.data.models.DetalleContratoModel
 import com.ambrosio.josue.tutorial.data.models.DetalleContratoModeloId
+import com.ambrosio.josue.tutorial.data.models.NotificacionModel
 import com.ambrosio.josue.tutorial.data.models.ProveedorModel
 import com.ambrosio.josue.tutorial.data.models.ServicioModel
 import com.ambrosio.josue.tutorial.data.models.ServicioProveedorModel
@@ -28,6 +29,7 @@ import com.ambrosio.josue.tutorial.ui.activities.opcionesPerfilFragment.MiContra
 import com.ambrosio.josue.tutorial.ui.adapters.ServicioSpinnerAdapter
 import com.ambrosio.josue.tutorial.ui.viewModels.CrearContratoViewModel
 import com.ambrosio.josue.tutorial.ui.viewModels.InicioViewModel
+import com.ambrosio.josue.tutorial.ui.viewModels.NotificacionViewModel
 import com.ambrosio.josue.tutorial.ui.viewModels.ServicioProveedorViewModel
 import java.text.SimpleDateFormat
 import java.util.*
@@ -41,6 +43,7 @@ class CrearContratoActivity : AppCompatActivity() {
     private lateinit var spinnerAdapter: ServicioSpinnerAdapter
     private var serviciosList: MutableList<ServicioProveedorModel> = mutableListOf()
     private var proveedorId: Int = -1
+    private val notificacionViewModel: NotificacionViewModel by viewModels()
     val seleccionarCalendario = Calendar.getInstance()
 
 
@@ -97,10 +100,6 @@ class CrearContratoActivity : AppCompatActivity() {
         val hiServicio = convertirHoraUTC(binding.edtHoraInicio.text.toString())
         val hfServicio = convertirHoraUTC(binding.edtHoraFin.text.toString())
 
-        val fhCreacion = SimpleDateFormat("yyyy-MM-dd'T'HH:mm:ss.SSS'Z'", Locale.getDefault()).apply {
-            timeZone = TimeZone.getTimeZone("UTC")
-        }.format(Date())
-
         var idCliente: Int? = null
 
         inicioViewModel.idCliente.observe(this, Observer { id ->
@@ -116,7 +115,7 @@ class CrearContratoActivity : AppCompatActivity() {
                     precioFinal = precioFinal,
                     hiServicio = hiServicio,
                     hfServicio = hfServicio,
-                    fhCreacion = fhCreacion
+                    fhCreacion = SimpleDateFormat("yyyy-MM-dd'T'HH:mm:ss.SSS'Z'", Locale.getDefault()).format(Date())
                 )
 
                 crearContratoViewModel.crearContrato(contrato) { newContrato ->
@@ -132,6 +131,18 @@ class CrearContratoActivity : AppCompatActivity() {
 
                         crearContratoViewModel.crearDetalleContrato(detalleContrato) { newDetalleContrato ->
                             if (newDetalleContrato != null) {
+                                val notificacion = NotificacionModel(
+                                    idNotificacion = 0,
+                                    idCliente = ClienteModel(idCliente!!),
+                                    idProveedor = ProveedorModel(proveedorId),
+                                    idContrato = ContratoModel(newContrato.idContrato),
+                                    titulo = "Tienes una nueva notificación",
+                                    mensaje = "Se ha generado un nuevo contrato. Por favor, revíselo y confirme.",
+                                    estado = "pendiente"
+                                 )
+                                // Crear notificación
+                                notificacionViewModel.agregarNotificacion(idCliente!!, proveedorId, newContrato.idContrato, notificacion)
+
                                 mostrarDialogoInformacionAgregada(newContrato.idContrato)
                             } else {
                                 Toast.makeText(this, "Error al crear el detalle del contrato", Toast.LENGTH_SHORT).show()
@@ -144,7 +155,6 @@ class CrearContratoActivity : AppCompatActivity() {
             }
         })
     }
-
     private fun validarCampos(): Boolean {
         return binding.edtFechaInicio.text.isNotEmpty() &&
                 binding.edtFechaFin.text.isNotEmpty() &&

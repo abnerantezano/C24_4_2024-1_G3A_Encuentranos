@@ -3,6 +3,7 @@ package com.ambrosio.josue.tutorial.ui.activities.opcionesPerfilFragment
 import android.os.Bundle
 import com.ambrosio.josue.tutorial.databinding.ActivityContratoEspecificoBinding
 import com.ambrosio.josue.tutorial.generals.HeaderInclude
+import com.squareup.picasso.Picasso
 import java.text.SimpleDateFormat
 import java.util.*
 
@@ -24,6 +25,7 @@ class ContratoEspecificoActivity : HeaderInclude() {
         val fechaFin = intent.getStringExtra("FECHA_FIN")
         val horaInicio = intent.getStringExtra("HORA_INICIO")
         val horaFin = intent.getStringExtra("HORA_FIN")
+        val imagenUrl = intent.getStringExtra("IMAGEN_URL")
 
 
         val sdfInput = SimpleDateFormat("yyyy-MM-dd", Locale.getDefault())
@@ -39,6 +41,8 @@ class ContratoEspecificoActivity : HeaderInclude() {
         binding.tvEstadoDetalleContrato.text = estadoServicio
         binding.tvFechaInicio.text = "$fechaInicioFormateada - $horaInicio"
         binding.tvFechaFin.text = "$fechaFinFormateada - $horaFin"
+        Picasso.get().load(imagenUrl).into(binding.imgCliente)
+
 
         setupHeader()
     }
