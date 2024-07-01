@@ -31,7 +31,7 @@
         android:layout_margin="30dp"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintBottom_toTopOf="@id/linearCurriculum"
+        app:layout_constraintBottom_toTopOf="@id/btnGuardar"
         app:layout_constraintTop_toBottomOf="@id/imgUsuario">
 
         <TextView
@@ -52,34 +52,6 @@
             android:hint="@string/escribe_tu_descripci_n" />
     </LinearLayout>
 
-    <LinearLayout
-        android:id="@+id/linearCurriculum"
-        android:layout_width="0dp"
-        android:layout_height="wrap_content"
-        android:orientation="vertical"
-        app:layout_constraintEnd_toEndOf="@id/linearDescripcion"
-        app:layout_constraintStart_toStartOf="@id/linearDescripcion"
-        app:layout_constraintBottom_toTopOf="@id/btnGuardar"
-        app:layout_constraintTop_toBottomOf="@id/linearDescripcion">
-
-        <TextView
-            android:id="@+id/tvCurriuclum"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_marginBottom="10dp"
-            android:textStyle="bold"
-            android:text="@string/curriculum_vitae" />
-
-        <EditText
-            android:id="@+id/edtCurriculum"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:gravity="center"
-            android:padding="15dp"
-            android:background="@drawable/rectangle_border"
-            android:hint="@string/elija_un_documento"/>
-    </LinearLayout>
-
     <Button
         android:id="@+id/btnGuardar"
         android:layout_width="0dp"
@@ -89,7 +61,7 @@
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="@+id/linearDescripcion"
         app:layout_constraintStart_toStartOf="@+id/linearDescripcion"
-        app:layout_constraintTop_toBottomOf="@id/linearCurriculum" />
+        app:layout_constraintTop_toBottomOf="@id/linearDescripcion" />
 
     <ProgressBar
         android:id="@+id/progressBar"

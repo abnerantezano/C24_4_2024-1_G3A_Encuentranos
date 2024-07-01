@@ -13,11 +13,13 @@ import com.ambrosio.josue.tutorial.databinding.ActivityAceptarOcancelarContratoB
 import com.ambrosio.josue.tutorial.generals.HeaderInclude
 import com.ambrosio.josue.tutorial.ui.activities.opcionesPerfilFragment.MiContratoActivity
 import com.ambrosio.josue.tutorial.ui.viewModels.ContratoViewModel
+import com.ambrosio.josue.tutorial.ui.viewModels.NotificacionViewModel
 
 class AceptarOCancelarContratoActivity : AppCompatActivity() {
 
     private lateinit var binding: ActivityAceptarOcancelarContratoBinding
     private val contratoViewModel: ContratoViewModel by viewModels()
+    private val notificacionViewModel: NotificacionViewModel by viewModels()
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -25,6 +27,7 @@ class AceptarOCancelarContratoActivity : AppCompatActivity() {
         setContentView(binding.root)
 
         // Obtener los datos del intent
+
         val nombreCliente = intent.getStringExtra("NOMBRE_CLIENTE")
         val nombreServicio = intent.getStringExtra("NOMBRE_SERVICIO")
         val precioActual = intent.getStringExtra("PRECIO_ACTUAL")
@@ -59,10 +62,37 @@ class AceptarOCancelarContratoActivity : AppCompatActivity() {
         builder.setMessage(message)
         builder.setPositiveButton("Aceptar") { dialog, which ->
             val idContrato = intent.getIntExtra("ID_CONTRATO", 0)
+            val idProveedor = intent.getIntExtra("ID_PROVEEDOR", -1)
+            val idCliente = intent.getIntExtra("ID_CLIENTE", -1)
+
             if (aceptar) {
                 contratoViewModel.aceptarContratoProveedor(idContrato)
+                val notificacion = NotificacionModel(
+                    idNotificacion = 0,
+                    idCliente = ClienteModel(idCliente!!),
+                    idProveedor = ProveedorModel(idProveedor),
+                    idContrato = ContratoModel(idContrato),
+                    titulo = "Respuesta contrato",
+                    mensaje = "El proveedor acepto tu contrato",
+                    estado = "visto"
+                )
+                // Crear notificación
+                notificacionViewModel.agregarNotificacion(idCliente!!, idProveedor, idContrato, notificacion)
+
             } else {
                 contratoViewModel.denegarContratoProveedor(idContrato)
+                val notificacion = NotificacionModel(
+                    idNotificacion = 0,
+                    idCliente = ClienteModel(idCliente!!),
+                    idProveedor = ProveedorModel(idProveedor),
+                    idContrato = ContratoModel(idContrato),
+                    titulo = "Respuesta contrato",
+                    mensaje = "El proveedor cancelo tu contrato",
+                    estado = "visto"
+                )
+                // Crear notificación
+                notificacionViewModel.agregarNotificacion(idCliente!!, idProveedor, idContrato, notificacion)
+
             }
             navigateToMiContratoActivity()
         }

@@ -1,5 +1,6 @@
 package com.ambrosio.josue.tutorial.ui.viewModels
 
+import android.util.Log
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
@@ -110,18 +111,41 @@ class NotificacionViewModel() : ViewModel() {
         })
     }
 
+    fun obtenerDetalleContratoNotificacionesCliente(idCliente: Int) {
+        detalleContratoApi.obtenerDetalleContratoPorCliente(idCliente)
+            .enqueue(object : Callback<List<DetalleContratoModel>> {
+                override fun onResponse(
+                    call: Call<List<DetalleContratoModel>>,
+                    response: Response<List<DetalleContratoModel>>
+                ) {
+                    if (response.isSuccessful) {
+                        _detallesContrato.postValue(response.body())
+                    } else {
+                        _detallesContrato.postValue(emptyList())
+                    }
+                }
+
+                override fun onFailure(call: Call<List<DetalleContratoModel>>, t: Throwable) {
+                    _detallesContrato.postValue(emptyList())
+                }
+            })
+    }
+
     fun listarNotificacionesPorIdCliente(idCliente: Int) {
         notificacionApi.listarNotificacionesPorIdCliente(idCliente).enqueue(object : Callback<List<NotificacionModel>> {
             override fun onResponse(call: Call<List<NotificacionModel>>, response: Response<List<NotificacionModel>>) {
                 if (response.isSuccessful) {
                     _notificaciones.postValue(response.body())
+                    Log.d("NotificacionViewModel", "Notificaciones obtenidas: ${response.body()}")
                 } else {
                     _mensajeError.postValue("Error al obtener las notificaciones por ID de cliente: ${response.code()}")
+                    Log.e("NotificacionViewModel", "Error al obtener las notificaciones por ID de cliente: ${response.code()}")
                 }
             }
 
             override fun onFailure(call: Call<List<NotificacionModel>>, t: Throwable) {
                 _mensajeError.postValue("Error de red: ${t.message}")
+                Log.e("NotificacionViewModel", "Error de red: ${t.message}")
             }
         })
     }

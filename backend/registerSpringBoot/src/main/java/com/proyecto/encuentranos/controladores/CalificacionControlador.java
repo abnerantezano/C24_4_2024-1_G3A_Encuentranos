@@ -1,6 +1,7 @@
 package com.proyecto.encuentranos.controladores;
 
 import com.proyecto.encuentranos.modelos.CalificacionModelo;
+import com.proyecto.encuentranos.modelos.ClienteModelo;
 import com.proyecto.encuentranos.servicios.CalificacionServicio;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
@@ -25,6 +26,12 @@ public class CalificacionControlador {
     public ResponseEntity<List<CalificacionModelo>> obtenerTodasCalificaciones() {
         List<CalificacionModelo> calificaciones = calificacionServicio.obtenerCalificaciones();
         return new ResponseEntity<>(calificaciones, HttpStatus.OK);
+    }
+
+    @PostMapping("/agregar")
+    public ResponseEntity<CalificacionModelo> agregarCalificacion(@RequestBody CalificacionModelo calificacionModelo){
+        CalificacionModelo nuevaCalificacion = calificacionServicio.agregarCalificacion(calificacionModelo);
+        return new ResponseEntity<>(nuevaCalificacion, HttpStatus.CREATED);
     }
 
     @GetMapping("/{id}")

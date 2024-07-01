@@ -28,17 +28,13 @@ public class DetalleCalificacionControlador {
     @PostMapping("/agregar")
     public ResponseEntity<DetalleCalificacionModelo> guardarCalificacionProveedor(@RequestBody DetalleCalificacionModelo calificacionProveedor) {
         try {
-            calificacionProveedor.setId(new DetalleCalificacionModeloId(
-                calificacionProveedor.getIdProveedor().getIdProveedor(),
-                calificacionProveedor.getIdServicio().getIdServicio(),
-                calificacionProveedor.getIdCalificacion().getIdCalificacion()
-            ));
+            DetalleCalificacionModeloId id = new DetalleCalificacionModeloId(
+                    calificacionProveedor.getIdProveedor().getIdProveedor(),
+                    calificacionProveedor.getIdServicio().getIdServicio(),
+                    calificacionProveedor.getIdCalificacion().getIdCalificacion()
+            );
+            calificacionProveedor.setEmbeddedId(id);
             calificacionProveedor = calificacionProveedorServicio.guardarCalificacionProveedor(calificacionProveedor);
-
-            // RECALCULAR LA CALFICACION PROMEDIO DEL PROVEEDOR
-            Integer idProveedor = calificacionProveedor.getIdProveedor().getIdProveedor();
-            Double calificacionPromedio = calificacionProveedorServicio.calcularCalificacionPromedioProveedor(idProveedor);
-            calificacionProveedorServicio.actualizarCalificacionPromedioProveedor(idProveedor, calificacionPromedio);
 
             return new ResponseEntity<>(calificacionProveedor, HttpStatus.CREATED);
         } catch (Exception e) {

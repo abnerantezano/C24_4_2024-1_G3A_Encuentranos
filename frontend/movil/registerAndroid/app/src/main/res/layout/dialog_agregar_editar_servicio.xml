@@ -25,4 +25,30 @@
         android:inputType="numberDecimal"
         android:layout_marginBottom="16dp"/>
 
+    <TextView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:paddingStart="16dp"
+        android:textStyle="bold"
+        android:textSize="16dp"
+        android:text="Este servicio, ¿Es negociable?"/>
+
+    <RadioGroup
+        android:id="@+id/radioIsNegociable"
+        android:layout_width="match_parent"
+        android:orientation="horizontal"
+        android:paddingStart="16dp"
+        android:layout_height="wrap_content">
+        <RadioButton
+            android:id="@+id/radioSiNegociable"
+            android:layout_width="wrap_content"
+            android:layout_marginEnd="30dp"
+            android:layout_height="wrap_content"
+            android:text="Si"/>
+        <RadioButton
+            android:id="@+id/radioNoNegociable"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="No"/>
+    </RadioGroup>
 </LinearLayout>

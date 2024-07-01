@@ -3,6 +3,7 @@ package com.proyecto.encuentranos.modelos;
 import jakarta.persistence.*;
 import lombok.Getter;
 import lombok.Setter;
+import org.springframework.data.annotation.CreatedDate;
 
 import java.util.Date;
 
@@ -31,7 +32,8 @@ public class DetalleContratoModelo {
     private double precioActual;
 
     @Temporal(TemporalType.DATE)
-    @Column( name = "fecha_aprobacion")
+    @Column( name = "fecha_aprovacion")
+    @CreatedDate
     private Date fechaAprobacion;
 
 }

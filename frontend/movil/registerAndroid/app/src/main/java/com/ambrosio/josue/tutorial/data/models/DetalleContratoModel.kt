@@ -5,5 +5,6 @@ data class DetalleContratoModel(
     val idProveedor: ProveedorModel,
     val idServicio: ServicioModel,
     val idContrato: ContratoModel,
-    val precioActual: Double
+    val precioActual: Double,
+    val fechaAprobacion: String,
 )

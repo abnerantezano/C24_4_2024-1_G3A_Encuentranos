@@ -20,10 +20,10 @@ interface NotificacionApi {
     @GET("notificacion/buscar/{id}")
     fun buscarNotificacionPorId(@Path("id") id: Int): Call<NotificacionModel>
 
-    @GET("notificacion/cliente/{idCliente}")
+    @GET("notificacion/cliente-respuesta-contrato/{idCliente}")
     fun listarNotificacionesPorIdCliente(@Path("idCliente") idCliente: Int): Call<List<NotificacionModel>>
 
-    @GET("notificacion/proveedor/{idProveedor}")
+    @GET("notificacion/proveedor-nuevo-contrato/{idProveedor}")
     fun listarNotificacionesPorIdProveedor(@Path("idProveedor") idProveedor: Int): Call<List<NotificacionModel>>
 
     @GET("notificacion/estado/{estado}")

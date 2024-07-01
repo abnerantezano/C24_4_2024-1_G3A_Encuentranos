@@ -30,7 +30,7 @@ public class NotificacionModelo {
     private ContratoModelo idContrato;
 
     @Column(name = "titulo", length = 50)
-    private String titulo = "Tienes una nueva notificación";
+    private String titulo;
 
     @Column(name = "mensaje", columnDefinition = "TEXT")
     private String mensaje;

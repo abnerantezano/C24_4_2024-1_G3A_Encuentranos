@@ -115,7 +115,6 @@ class CrearContratoActivity : AppCompatActivity() {
                     precioFinal = precioFinal,
                     hiServicio = hiServicio,
                     hfServicio = hfServicio,
-                    fhCreacion = SimpleDateFormat("yyyy-MM-dd'T'HH:mm:ss.SSS'Z'", Locale.getDefault()).format(Date())
                 )
 
                 crearContratoViewModel.crearContrato(contrato) { newContrato ->
@@ -126,7 +125,8 @@ class CrearContratoActivity : AppCompatActivity() {
                             idProveedor = ProveedorModel(proveedorId),
                             idServicio = ServicioModel(servicioId),
                             idContrato = newContrato,
-                            precioActual = precioFinal
+                            precioActual = precioFinal,
+                            fechaAprobacion = "0000-00-00"
                         )
 
                         crearContratoViewModel.crearDetalleContrato(detalleContrato) { newDetalleContrato ->
@@ -136,9 +136,9 @@ class CrearContratoActivity : AppCompatActivity() {
                                     idCliente = ClienteModel(idCliente!!),
                                     idProveedor = ProveedorModel(proveedorId),
                                     idContrato = ContratoModel(newContrato.idContrato),
-                                    titulo = "Tienes una nueva notificación",
+                                    titulo = "Nuevo contrato",
                                     mensaje = "Se ha generado un nuevo contrato. Por favor, revíselo y confirme.",
-                                    estado = "pendiente"
+                                    estado = "no visto"
                                  )
                                 // Crear notificación
                                 notificacionViewModel.agregarNotificacion(idCliente!!, proveedorId, newContrato.idContrato, notificacion)

@@ -23,6 +23,9 @@ public class CalificacionServicio {
         return calificacionRepositorio.findAll();
     }
 
+    public CalificacionModelo agregarCalificacion(CalificacionModelo calificacionModelo){
+        return calificacionRepositorio.save(calificacionModelo);
+    }
 
     public Optional<CalificacionModelo> obtenerCalificacionPorId(Integer id) {
         return calificacionRepositorio.findById(id);

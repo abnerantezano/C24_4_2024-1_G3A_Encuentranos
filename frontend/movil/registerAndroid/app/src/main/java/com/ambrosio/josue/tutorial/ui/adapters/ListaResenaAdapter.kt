@@ -44,7 +44,7 @@ class ListaResenaAdapter : RecyclerView.Adapter<ListaResenaAdapter.ListaResenaVi
 
         fun bind(detalleCalificacion: DetalleCalificacionModel) {
             nombreClienteTextView.text = detalleCalificacion.idCalificacion.cliente.nombre
-            calificacionTextView.rating = detalleCalificacion.idCalificacion.numero.toFloat()
+            calificacionTextView.rating = detalleCalificacion.idCalificacion.calificacion.toFloat()
             ServicioTextView.text = "Se atendió para: ${detalleCalificacion.idServicio.nombre}"
             comentarioClienteTextView.text = detalleCalificacion.idCalificacion.comentario
             Picasso.get().load(detalleCalificacion.idCalificacion.cliente.idUsuario?.imagenUrl).into(imgCliente)

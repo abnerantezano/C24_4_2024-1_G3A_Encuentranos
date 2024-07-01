@@ -8,5 +8,5 @@ data class ServicioProveedorModel(
     ),
     var idServicio: ServicioModel,
     var precio: Double = 0.0,
-    val negociable: Boolean = false
+    var negociable: Boolean = false
 )

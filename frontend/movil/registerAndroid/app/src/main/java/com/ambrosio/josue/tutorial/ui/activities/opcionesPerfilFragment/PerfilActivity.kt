@@ -40,7 +40,6 @@ class PerfilActivity : HeaderInclude() {
         binding.progressBar.visibility = View.VISIBLE
         binding.imgUsuario.visibility = View.GONE
         binding.linearDescripcion.visibility = View.GONE
-        binding.linearCurriculum.visibility = View.GONE
         binding.btnGuardar.visibility = View.GONE
 
         val user = FirebaseAuth.getInstance().currentUser
@@ -134,14 +133,12 @@ class PerfilActivity : HeaderInclude() {
                     binding.progressBar.visibility = View.GONE
                     binding.imgUsuario.visibility = View.VISIBLE
                     binding.linearDescripcion.visibility = View.VISIBLE
-                    binding.linearCurriculum.visibility = View.GONE
                     binding.btnGuardar.visibility = View.VISIBLE
                 }
                 else -> {
                     binding.progressBar.visibility = View.GONE
                     binding.imgUsuario.visibility = View.VISIBLE
                     binding.linearDescripcion.visibility = View.VISIBLE
-                    binding.linearCurriculum.visibility = View.VISIBLE
                     binding.btnGuardar.visibility = View.VISIBLE
                 }
             }

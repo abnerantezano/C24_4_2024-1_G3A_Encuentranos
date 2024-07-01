@@ -33,6 +33,7 @@ class NotificacionesActivity : AppCompatActivity() {
                     inicioViewModel.idCliente.observe(this, Observer { idCliente ->
                         if (idCliente != null) {
                             notificacionViewModel.listarNotificacionesPorIdCliente(idCliente)
+                            notificacionViewModel.obtenerDetalleContratoNotificacionesCliente(idCliente)
                         }
                     })
                 }

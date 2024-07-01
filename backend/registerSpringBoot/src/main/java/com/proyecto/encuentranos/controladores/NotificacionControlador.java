@@ -36,9 +36,21 @@ public class NotificacionControlador {
         return notificacionServicio.getNotificacionesByIdCliente(idCliente);
     }
 
+    //ESTE ENDPOINT LISTA LAS NOTIFICACIONES SOLO QUE TENGAN COMO TITULO Respuesta contrato
+    @GetMapping("/cliente-respuesta-contrato/{idCliente}")
+    public List<NotificacionModelo> buscarNotificacionesClienteContrato(@PathVariable int idCliente) {
+        return notificacionServicio.buscarNotificacionesClienteContrato(idCliente);
+    }
+
     @GetMapping("/proveedor/{idProveedor}")
     public List<NotificacionModelo> getNotificacionesByIdProveedor(@PathVariable int idProveedor) {
         return notificacionServicio.getNotificacionesByIdProveedor(idProveedor);
+    }
+
+    //ESTE ENDPOINT LISTA LAS NOTIFICACIONES SOLO QUE TENGAN COMO TITULO Nuevo contrato
+    @GetMapping("/proveedor-nuevo-contrato/{idProveedor}")
+    public List<NotificacionModelo> buscarNotificacionesProveedorContrato(@PathVariable int idProveedor) {
+        return notificacionServicio.buscarNotificacionesProveedorContrato(idProveedor);
     }
 
     @GetMapping("/estado/{estado}")
@@ -71,7 +83,7 @@ public class NotificacionControlador {
             @PathVariable int idContrato,
             @RequestBody NotificacionModelo notificacion) {
 
-        NotificacionModelo nuevaNotificacion = notificacionServicio.crearNotificacion(idCliente, idProveedor, idContrato, notificacion.getTitulo(), notificacion.getMensaje());
+        NotificacionModelo nuevaNotificacion = notificacionServicio.crearNotificacion(idCliente, idProveedor, idContrato, notificacion.getTitulo(), notificacion.getMensaje(), notificacion.getEstado());
         return ResponseEntity.ok(nuevaNotificacion);
     }
 }

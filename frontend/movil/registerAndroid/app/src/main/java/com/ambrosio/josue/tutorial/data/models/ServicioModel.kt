@@ -6,6 +6,5 @@ data class ServicioModel(
     val idServicio: Int,
     val nombre: String = "",
     val descripcion: String = "",
-    val imagenUrl: String = "",
-    val fhCreacion: Date? = null
+    val imagenUrl: String = ""
 )

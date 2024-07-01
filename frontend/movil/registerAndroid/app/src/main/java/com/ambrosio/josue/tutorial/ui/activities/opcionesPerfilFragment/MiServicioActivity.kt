@@ -8,14 +8,16 @@ import android.view.View
 import android.widget.ArrayAdapter
 import android.widget.Button
 import android.widget.EditText
+import android.widget.RadioButton
+import android.widget.RadioGroup
 import android.widget.Spinner
 import android.widget.TextView
 import android.widget.Toast
 import androidx.appcompat.app.AlertDialog
+import androidx.core.content.ContextCompat
 import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProvider
 import androidx.activity.viewModels
-import androidx.core.content.ContextCompat
 import com.ambrosio.josue.tutorial.R
 import com.ambrosio.josue.tutorial.data.models.ProveedorModel
 import com.ambrosio.josue.tutorial.ui.adapters.MiServicioAdapater
@@ -114,6 +116,7 @@ class MiServicioActivity : HeaderInclude() {
             .setPositiveButton("Guardar") { dialog, _ ->
                 val spinnerServicios = dialogView.findViewById<Spinner>(R.id.spinnerServicios)
                 val edtPrecioServicio = dialogView.findViewById<EditText>(R.id.edtPrecioServicio)
+                val radioIsNegociable = dialogView.findViewById<RadioGroup>(R.id.radioIsNegociable)
 
                 // Obtener el servicio seleccionado
                 val servicioSeleccionado =
@@ -122,6 +125,9 @@ class MiServicioActivity : HeaderInclude() {
                 val precio = edtPrecioServicio.text.toString().toDoubleOrNull()
 
                 if (precio != null) {
+                    // Obtener el estado del radio button negociable
+                    val isNegociable = obtenerEstadoRadioNegociable(dialogView)
+
                     // Encontrar el objeto ServicioModel correspondiente al nombre seleccionado
                     val servicioModelSeleccionado =
                         serviciosListViewModel.listaServicios.value?.find { it.nombre == servicioSeleccionado }
@@ -136,7 +142,7 @@ class MiServicioActivity : HeaderInclude() {
                             idServicio = servicioModelSeleccionado,
                             idProveedor = ProveedorModel(idProveedor = idProveedor),
                             precio = precio,
-                            negociable = true
+                            negociable = isNegociable
                         )
 
                         // Llamar al método para agregar el servicio proveedor
@@ -203,7 +209,7 @@ class MiServicioActivity : HeaderInclude() {
         })
     }
 
-    fun mostrarDialogoEditarServicio(servicio: ServicioProveedorModel) {
+    private fun mostrarDialogoEditarServicio(servicio: ServicioProveedorModel) {
         // Inflar el layout del diálogo
         val dialogView = LayoutInflater.from(this).inflate(R.layout.dialog_agregar_editar_servicio, null)
 
@@ -214,6 +220,7 @@ class MiServicioActivity : HeaderInclude() {
             .setPositiveButton("Guardar") { dialog, _ ->
                 val spinnerServicios = dialogView.findViewById<Spinner>(R.id.spinnerServicios)
                 val edtPrecioServicio = dialogView.findViewById<EditText>(R.id.edtPrecioServicio)
+                val radioIsNegociable = dialogView.findViewById<RadioGroup>(R.id.radioIsNegociable)
 
                 // Obtener el servicio seleccionado
                 val servicioSeleccionado = spinnerServicios.selectedItem as String  // Obtener el nombre del servicio
@@ -221,6 +228,9 @@ class MiServicioActivity : HeaderInclude() {
                 val precio = edtPrecioServicio.text.toString().toDoubleOrNull()
 
                 if (precio != null) {
+                    // Obtener el estado del radio button negociable
+                    val isNegociable = obtenerEstadoRadioNegociable(dialogView)
+
                     // Encontrar el objeto ServicioModel correspondiente al nombre seleccionado
                     val servicioModelSeleccionado = serviciosListViewModel.listaServicios.value?.find { it.nombre == servicioSeleccionado }
 
@@ -229,6 +239,7 @@ class MiServicioActivity : HeaderInclude() {
                         servicio.id.idServicio = servicioModelSeleccionado.idServicio
                         servicio.idServicio = servicioModelSeleccionado
                         servicio.precio = precio
+                        servicio.negociable = isNegociable
 
                         // Llamar al método para actualizar el servicio proveedor
                         miServicio.actualizarServicioProveedor(servicio) { success ->
@@ -295,12 +306,32 @@ class MiServicioActivity : HeaderInclude() {
             }
         })
 
+        // Establecer el estado del radio button negociable
+        establecerEstadoRadioNegociable(radioIsNegociable, servicio.negociable)
+
         dialog.setOnShowListener {
             dialog.getButton(DialogInterface.BUTTON_POSITIVE)?.setTextColor(ContextCompat.getColor(this, R.color.skinBlack))
             dialog.getButton(DialogInterface.BUTTON_NEGATIVE)?.setTextColor(ContextCompat.getColor(this, R.color.skinBlack))
         }
 
         dialog.show()
+    }
+
+    private fun obtenerEstadoRadioNegociable(dialogView: View): Boolean {
+        val radioIsNegociable = dialogView.findViewById<RadioGroup>(R.id.radioIsNegociable)
+        val selectedRadioButtonId = radioIsNegociable.checkedRadioButtonId
+
+        // Determinar si el servicio es negociable
+        return when (selectedRadioButtonId) {
+            R.id.radioSiNegociable -> true
+            R.id.radioNoNegociable -> false
+            else -> false  // Por defecto, en caso de que no haya ninguna opción seleccionada
+        }
+    }
+
+    private fun establecerEstadoRadioNegociable(radioIsNegociable: RadioGroup, isNegociable: Boolean) {
+        val radioButtonId = if (isNegociable) R.id.radioSiNegociable else R.id.radioNoNegociable
+        radioIsNegociable.check(radioButtonId)
     }
 
     private fun mostrarDialogoInformacionAgregada() {
@@ -335,6 +366,7 @@ class MiServicioActivity : HeaderInclude() {
 
         dialog.show()
     }
+
     private fun mostrarDialogoInformacionEliminada() {
         val dialogView = LayoutInflater.from(applicationContext).inflate(R.layout.dialog_cambios_exito, null)
         val btnExito = dialogView.findViewById<Button>(R.id.btnExito)
