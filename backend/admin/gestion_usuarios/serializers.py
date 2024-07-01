@@ -1,5 +1,8 @@
 from rest_framework import serializers
 from .models import TipoUsuario, Usuario, Distrito, Cliente, Proveedor
+from django.contrib.auth import authenticate
+from rest_framework_simplejwt.serializers import TokenObtainPairSerializer
+from rest_framework_simplejwt.tokens import RefreshToken
 
 
 class TipoUsuarioSerializer(serializers.ModelSerializer):
@@ -13,7 +16,7 @@ class UsuarioSerializer(serializers.ModelSerializer):
 
     class Meta:
         model = Usuario
-        fields = "__all__"
+        exclude = ("last_login", "is_active", "is_admin", "password")
 
 
 class DistritoSerializer(serializers.ModelSerializer):

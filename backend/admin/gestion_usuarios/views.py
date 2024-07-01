@@ -7,6 +7,7 @@ from gestion_usuarios.serializers import (
     ProveedorSerializer,
     ClienteSerializer,
 )
+from rest_framework_simplejwt.views import TokenObtainPairView
 
 
 class ListaCreacionUsuarios(APIView):
