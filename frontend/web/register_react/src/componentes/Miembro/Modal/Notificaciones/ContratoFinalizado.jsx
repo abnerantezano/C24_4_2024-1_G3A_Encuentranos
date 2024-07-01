@@ -1,18 +1,18 @@
 import React, { useEffect, useState } from 'react';
 import { useForm } from 'react-hook-form';
-//SERVICIOS
+// SERVICIOS
 import DetalleContratoServiceInstance from '../../../../servicios/Miembro/DetalleContrato';
 import NotificacionServiceInstance from '../../../../servicios/Miembro/NotificacionService';
-//PRIME REACT
+// PRIME REACT
 import { Rating } from 'primereact/rating';
 import { InputTextarea } from 'primereact/inputtextarea';
+import CalificacionServiceInstance from '../../../../servicios/Miembro/CalificacionService';
+import DetalleCalificacionServiceInstance from '../../../../servicios/Miembro/DetalleCalificacionService';
 
 function ContratoFinalizado({ idContrato, onClose }) {
-
     const [contrato, setContrato] = useState(null); 
     const [puntaje, setPuntaje] = useState(null);
-
-    const { handleSubmit,register, formState: { errors } } = useForm();
+    const { handleSubmit, register, formState: { errors }, setError } = useForm();
 
     useEffect(() => {
         if (idContrato) {
@@ -28,26 +28,54 @@ function ContratoFinalizado({ idContrato, onClose }) {
     }, [idContrato]);
 
     const calificar = (data) => {
+
         const fechaActual = new Date().toISOString();
 
         const calificacion = {
-            idCliente: { idCliente: parseInt(idContrato.idCliente.idCliente)},
+            cliente: { idCliente: parseInt(idContrato.idCliente.idCliente) },
             calificacion: puntaje,
             comentario: data.comentario
         };
 
         const notificacion = {
-            idContrato: { idContrato: parseInt(idContrato.idContrato)},
-            idProveedor: { idProveedor: parseInt(contrato.idProveedor.idProveedor)},
-            idCliente: { idCliente: parseInt(idContrato.idCliente.idCliente) },
+            idContrato: { idContrato: parseInt(idContrato.idContrato) },
+            idProveedor: { idProveedor: parseInt(contrato.idProveedor.idProveedor) },
+            cliente: { idCliente: parseInt(idContrato.idCliente.idCliente) },
             titulo: "Tienes una nueva reseña",
             mensaje: "Mira los detalles de la reseña",
             estado: "No visto",
             fhCreacion: fechaActual,
         };
 
-        NotificacionServiceInstance.postNotificacion(notificacion);
-        onClose();
+        CalificacionServiceInstance.postCalificacion(calificacion)
+            .then((calificacion) => {
+                console.log(calificacion);
+                const idCalificacion = calificacion.idCalificacion;
+                const detalleCalificacion = {
+                    id: {
+                        idCalificacion: parseInt(idCalificacion),
+                        idProveedor: parseInt(contrato.idProveedor.idProveedor),
+                        idServicio: parseInt(contrato.idServicio.idServicio)
+                    },
+                };
+                DetalleCalificacionServiceInstance.postDetalleCalificacion(detalleCalificacion)
+                    .then(() => {
+                        NotificacionServiceInstance.postNotificacion(notificacion)
+                            .then(() => {
+                                onClose();
+                            })
+                            .catch(error => {
+                                console.error('Error al enviar notificación:', error);
+                            });
+                            onClose();
+                    })
+                    .catch(error => {
+                        console.error('Error al enviar detalle de calificación:', error);
+                    });
+            })
+            .catch(error => {
+                console.error('Error al enviar calificación:', error);
+            });
     };
 
     return (
@@ -82,24 +110,24 @@ function ContratoFinalizado({ idContrato, onClose }) {
                                 <span className="sr-only">Cerrar</span>
                             </button>
                         </div>
-                        <form onSubmit={handleSubmit(calificar(data))}>
+                        <form onSubmit={handleSubmit(calificar)}>
                             <div className="p-4 overflow-auto max-h-[70vh] custom-scrollbar md:px-10">
-                                <div className=" mx-auto">
+                                <div className="mx-auto">
                                     {idContrato && (
                                         <div>
-                                            <div className='flex flex-col items-center justify-center mt-5 mb-10'>
+                                            <div className='flex flex-col items-center justify-center mt-5 mb-5'>
                                                 <img className="w-24 h-24 object-cover rounded-full border mb-4" src={idContrato.idCliente.idUsuario?.imagenUrl} />
                                                 <div className='pl-4'>
                                                     <h1 className='text-base font-semibold'>{idContrato.idCliente.nombre} {idContrato.idCliente.apellidoPaterno} {idContrato.idCliente.apellidoMaterno}</h1>
                                                 </div>
                                             </div>
-                                            <div className='mb-5 flex justify-center'>
+                                            <div className='mb-2 flex justify-center'>
                                                 <Rating value={puntaje} onChange={(e) => setPuntaje(e.value)} cancel={false} pt={{ root: 'focus:ring-0', onIcon: 'text-[#EBC351] focus:ring-0', offIcon: 'text-[#B7B7B7] focus:ring-0' }}/>
                                             </div>
+                                            {errors.puntaje && <span className="text-red-500 text-sm text-start">{errors.puntaje.message}</span>}
                                             <div>
                                                 <div className='my-5 flex flex-col'>
-                                                    <label className="block mb-2 text-sm font-semibold text-gray-700">Descripción</label>
-                                                    <InputTextarea type="text" id="comentario" {...register("comentario", { required: true })}  className="bg-gray-50 border border-gray-300 text-[#787171] text-sm rounded-lg focus:ring focus:ring-orange-200 focus:border-dark block w-full p-2.5" placeholder="Ingrese un comentario" rows={5} cols={50} />
+                                                    <InputTextarea type="text" id="comentario" {...register("comentario", { required: true })} className="bg-gray-50 border border-gray-300 text-[#787171] text-sm rounded-lg focus:ring focus:ring-orange-200 focus:border-dark block w-full p-2.5" placeholder="Escribe tu experiencia" rows={5} cols={50} />
                                                     {errors.comentario && <span className="text-red-500 text-sm">Ingrese un comentario</span>}
                                                 </div>
                                             </div>

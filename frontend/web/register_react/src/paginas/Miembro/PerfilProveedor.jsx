@@ -10,6 +10,7 @@ import ProveedorServiceInstance from '../../servicios/Miembro/ProveedorService';
 import ContratarProveedor from '../../componentes/Miembro/Modal/Contratar/ContratarProveedor';
 import usuarioServiceInstance from '../../servicios/Miembro/UsuarioService';
 import ChatServiceInstance from '../../servicios/Miembro/ChatService';
+import DetalleCalificacionServiceInstance from '../../servicios/Miembro/DetalleCalificacionService';
 
 function PerfilProveedor() {
 
@@ -18,6 +19,7 @@ function PerfilProveedor() {
     const [cliente, setCliente] = useState([]);
     const [serviciosNegociables, setServiciosNegociables] = useState([]);
     const [serviciosNoNegociables, setServiciosNoNegociables] = useState([]);
+    const [reseñas, setReseñas] = useState([]);
 
     const navigate = useNavigate();
 
@@ -36,25 +38,21 @@ function PerfilProveedor() {
             .then((proveedor) => {
                 setProveedor(proveedor);
             })
-            .catch((error) => {
-                console.error(error);
-            });
 
         servicioProveedorServiceInstance.getServiciosNegociables(id)
             .then((serviciosNegociables) => {
                 setServiciosNegociables(serviciosNegociables);
             })
-            .catch((error) => {
-                console.error(error);
-            });
 
         servicioProveedorServiceInstance.getServiciosNoNegociables(id)
             .then((serviciosNoNegociables) => {
                 setServiciosNoNegociables(serviciosNoNegociables);
             })
-            .catch((error) => {
-                console.error(error);
-            });
+
+        DetalleCalificacionServiceInstance.getCalificaciones(id)
+            .then((calificaciones) => {
+                setReseñas(calificaciones);
+            })
     }, [id]);
 
     const crearChat = () => {
@@ -78,6 +76,8 @@ function PerfilProveedor() {
             });
 
     }
+
+    console.log(reseñas);
 
     return (
         <Rol>
@@ -204,7 +204,34 @@ function PerfilProveedor() {
                                     </div>
                                 </div>
                                 <div>
-                                    <h1 className='text-[#635F5F] font-semibold mb-2 text-base'>Reseñas</h1>
+                                    <h1 className='text-[#635F5F] font-semibold mb-5 text-base'>Reseñas</h1>
+                                    {reseñas.length > 0 ? (
+                                            reseñas.map((reseña) => {
+                                                return (
+                                                    <div className='flex flex-wrap items-center mb-2' key={reseña.id}>
+                                                       <div className='border w-full p-4 rounded-xl'>
+                                                            <div className='flex flex-row items-center justify-start mb-5'>
+                                                                <img  className="w-16 h-16 border rounded-full object-cover" src={reseña.idCalificacion.cliente.idUsuario.imagenUrl} />
+                                                                <div  className='pl-4'>
+                                                                    <h1 className='font-semibold'>{reseña.idCalificacion.cliente.nombre} {reseña.idCalificacion.cliente.apellidoPaterno} {reseña.idCalificacion.cliente.apellidoMaterno}</h1>
+                                                                    <p className='text-[#787171] text-sm'>{reseña.idServicio.nombre}</p>
+                                                                </div>
+                                                            </div>
+                                                            <div className='mb-5'>
+                                                                <p className='text-sm mb-1'><Rating value={reseña.idCalificacion.calificacion} readOnly cancel={false} pt={{ root: 'focus:ring-0', onIcon: 'text-[#EBC351] focus:ring-0', offIcon: 'text-[#B7B7B7] focus:ring-0' }} /></p>
+                                                            </div>
+                                                            <div className=''>
+                                                                <p className='mb-1'>{reseña.idCalificacion.comentario}</p>
+                                                            </div>
+                                                       </div>
+                                                    </div>
+                                                );
+                                            })
+                                        ) : (
+                                            <p className='text-[#635F5F] text-sm '>
+                                                No hay reseñas.
+                                            </p>
+                                        )}
                                 </div>
                             </div>
                         </div>
