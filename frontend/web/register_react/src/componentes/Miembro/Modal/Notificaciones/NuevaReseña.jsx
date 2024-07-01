@@ -6,26 +6,27 @@ import NotificacionServiceInstance from '../../../../servicios/Miembro/Notificac
 // PRIME REACT
 import { Rating } from 'primereact/rating';
 import { InputTextarea } from 'primereact/inputtextarea';
-import CalificacionServiceInstance from '../../../../servicios/Miembro/CalificacionService';
 import DetalleCalificacionServiceInstance from '../../../../servicios/Miembro/DetalleCalificacionService';
 
 function NuevaReseña({ idContrato, onClose }) {
-    const [contrato, setContrato] = useState(null); 
+    const [calificacion, setCalificacion] = useState(null); 
     const [puntaje, setPuntaje] = useState(null);
-    const { handleSubmit, register, formState: { errors }, setError } = useForm();
 
     useEffect(() => {
         if (idContrato) {
-            DetalleContratoServiceInstance.getDetallesContratos()
-                .then(detallesContratos => {
-                    const contratoEncontrado = detallesContratos.find(contrato => contrato.id.idContrato === idContrato.idContrato);
-                    setContrato(contratoEncontrado);
+            DetalleCalificacionServiceInstance.getCalificaciones(idContrato.idCliente)
+                .then(calificaciones => {
+                    console.log(calificaciones);
+                    const reseñaEncontrado = calificaciones.find(reseña => reseña.idCliente === idContrato.idCliente);
+                    setCalificacion(reseñaEncontrado);
                 })
                 .catch(error => {
                     console.error('Error al obtener detalles del contrato:', error);
                 });
         }
     }, [idContrato]);
+
+    console.log(calificacion);
 
     return (
         <div>
@@ -59,7 +60,7 @@ function NuevaReseña({ idContrato, onClose }) {
                                 <span className="sr-only">Cerrar</span>
                             </button>
                         </div>
-                        <form onSubmit={handleSubmit(calificar)}>
+                        <form >
                             <div className="p-4 overflow-auto max-h-[70vh] custom-scrollbar md:px-10">
                                 <div className="mx-auto">
                                     {idContrato && (
@@ -73,11 +74,11 @@ function NuevaReseña({ idContrato, onClose }) {
                                             <div className='mb-2 flex justify-center'>
                                                 <Rating value={puntaje} onChange={(e) => setPuntaje(e.value)} cancel={false} pt={{ root: 'focus:ring-0', onIcon: 'text-[#EBC351] focus:ring-0', offIcon: 'text-[#B7B7B7] focus:ring-0' }}/>
                                             </div>
-                                            {errors.puntaje && <span className="text-red-500 text-sm text-start">{errors.puntaje.message}</span>}
+                                            
                                             <div>
                                                 <div className='my-5 flex flex-col'>
-                                                    <InputTextarea type="text" id="comentario" {...register("comentario", { required: true })} className="bg-gray-50 border border-gray-300 text-[#787171] text-sm rounded-lg focus:ring focus:ring-orange-200 focus:border-dark block w-full p-2.5" placeholder="Escribe tu experiencia" rows={5} cols={50} />
-                                                    {errors.comentario && <span className="text-red-500 text-sm">Ingrese un comentario</span>}
+                                                    
+                                                    
                                                 </div>
                                             </div>
                                         </div>

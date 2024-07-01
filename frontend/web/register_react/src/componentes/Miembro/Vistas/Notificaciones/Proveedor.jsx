@@ -5,6 +5,7 @@ import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faBell, faDeleteLeft } from '@fortawesome/free-solid-svg-icons';
 import NotificacionServiceInstance from '../../../../servicios/Miembro/NotificacionService';
 import NuevoContrato from '../../Modal/Notificaciones/NuevoContrato';
+import NuevaReseña from '../../Modal/Notificaciones/NuevaReseña';
 
 const NotificacionesProveedor = ({ usuario }) => {
     const [visibleRight, setVisibleRight] = useState(false);
@@ -68,7 +69,7 @@ const NotificacionesProveedor = ({ usuario }) => {
                                     if (notif.titulo === '¡Nuevo contrato!') {
                                         handleNuevoContrato(notif.idContrato);
                                     } else if (notif.titulo === 'Tienes una nueva reseña') {
-                                        handleNuevaReseña(notif.idCalificacion);
+                                        handleNuevaReseña(notif.idContrato);
                                     }
                                 }}>
                                     <div className='flex flex-row justify-between items-start'>
@@ -102,7 +103,7 @@ const NotificacionesProveedor = ({ usuario }) => {
             )}
 
             {showNuevaReseñaModal && (
-                <NuevoContrato
+                <NuevaReseña
                     idContrato={idContrato}
                     onClose={() => {
                         setShowNuevaReseñaModal(false);
